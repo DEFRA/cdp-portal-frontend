@@ -1,15 +1,9 @@
 import { editTeam } from '../../helpers/fetch/fetchers.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { setStepComplete } from '../../helpers/form/index.js'
-import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 
 const editTeamController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpTeam]
+    // pre: [provideCdpTeam]
   },
   handler: async (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
@@ -24,7 +18,7 @@ const editTeamController = {
         alertEnvironments: cdpTeam.alertEnvironments
       })
 
-      await setStepComplete(request, h, 'allSteps')
+      // await setStepComplete(request, h, 'allSteps')
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Team updated',

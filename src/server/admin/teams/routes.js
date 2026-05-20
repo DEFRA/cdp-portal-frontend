@@ -1,60 +1,91 @@
 import { scopes } from '@defra/cdp-validation-kit'
-
 import { authScope } from '../../common/helpers/auth/auth-scope.js'
+
 import { provideSubNavigation } from '../helpers/provide-sub-navigation.js'
-import { provideTeamSteps } from './helpers/form/index.js'
-import { provideFormContextValues } from '../../common/helpers/form/provide-form-context-values.js'
-import { sessionNames } from '../../common/constants/session-names.js'
-import {
-  startCreateTeamController,
-  createTeamController,
-  findGithubTeamController,
-  findGithubTeamFormController,
-  teamDetailsController,
-  teamDetailsFormController,
-  startEditTeamController,
-  teamsListController,
-  teamController,
-  addMemberFormController,
-  addMemberController,
-  confirmRemoveMemberController,
-  removeMemberController,
-  teamSummaryController,
-  editTeamController,
-  deleteTeamController,
-  confirmDeleteTeamController
-} from './controllers/index.js'
+import { teamController } from './controllers/team.js'
+import { teamsListController } from './controllers/teams-list.js'
+import { removeMemberController } from './controllers/remove/remove-member.js'
+import { confirmRemoveMemberController } from './controllers/remove/confirm-remove-member.js'
+import { addMemberController } from './controllers/add/add-member.js'
+import { addMemberFormController } from './controllers/add/add-member-form.js'
+import { editTeamController } from './controllers/save/edit-team.js'
+import { startCreateTeamController } from './controllers/save/start-create-team.js'
+import { createTeamController } from './controllers/save/create-team.js'
+import { findGithubTeamController } from './controllers/save/find-github-team.js'
+import { findGithubTeamFormController } from './controllers/save/find-github-team-form.js'
+import { teamDetailsController } from './controllers/save/team-details.js'
+import { teamDetailsFormController } from './controllers/save/team-details-form.js'
+import { teamSummaryController } from './controllers/save/team-summary.js'
+import { startEditTeamController } from './controllers/save/start-edit-team.js'
+import { deleteTeamController } from './controllers/delete/delete-team.js'
+import { confirmDeleteTeamController } from './controllers/delete/confirm-delete-team.js'
+
+import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
+import { formSteps, urlTemplates } from './helpers/form/steps.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
+
+const serverExtensions = [
+  {
+    type: 'onPostHandler',
+    method: provideSubNavigation,
+    options: {
+      sandbox: 'plugin'
+    }
+  }
+]
 
 const adminTeams = {
   plugin: {
     name: 'adminTeams',
-    register: (server) => {
-      server.ext([
-        {
-          type: 'onPostHandler',
-          method: provideSubNavigation,
-          options: {
-            sandbox: 'plugin'
-          }
-        },
-        {
-          type: 'onPostHandler',
-          method: provideFormContextValues(sessionNames.cdpTeam),
-          options: {
-            before: ['yar'],
-            sandbox: 'plugin'
-          }
-        },
-        {
-          type: 'onPostHandler',
-          method: provideTeamSteps,
-          options: {
-            sandbox: 'plugin'
-          }
+    register: async (server) => {
+      await server.ext(serverExtensions)
+
+      await server.register({
+        plugin: multistepForm,
+        options: {
+          urlTemplates,
+          formSteps,
+          ext: serverExtensions,
+          routes: [
+            {
+              method: 'GET',
+              path: '/admin/teams/create/{multiStepFormId?}',
+              ...startCreateTeamController
+            },
+            {
+              method: 'POST',
+              path: '/admin/teams/create/{multiStepFormId?}',
+              ...createTeamController
+            },
+            {
+              method: 'GET',
+              path: '/admin/teams/find-github-team/{multiStepFormId}',
+              ...findGithubTeamFormController
+            },
+            {
+              method: 'POST',
+              path: '/admin/teams/find-github-team/{multiStepFormId}',
+              ...findGithubTeamController
+            },
+            {
+              method: 'GET',
+              path: '/admin/teams/team-details/{multiStepFormId}',
+              ...teamDetailsFormController
+            },
+            {
+              method: 'POST',
+              path: '/admin/teams/team-details/{multiStepFormId}',
+              ...teamDetailsController
+            },
+            {
+              method: 'GET',
+              path: '/admin/teams/summary/{multiStepFormId}',
+              ...teamSummaryController
+            }
+          ]
         }
-      ])
+      })
 
       server.route(
         [
@@ -62,41 +93,6 @@ const adminTeams = {
             method: 'GET',
             path: '/admin/teams',
             ...teamsListController
-          },
-          {
-            method: 'GET',
-            path: '/admin/teams/create',
-            ...startCreateTeamController
-          },
-          {
-            method: 'POST',
-            path: '/admin/teams/create',
-            ...createTeamController
-          },
-          {
-            method: 'GET',
-            path: '/admin/teams/find-github-team',
-            ...findGithubTeamFormController
-          },
-          {
-            method: 'POST',
-            path: '/admin/teams/find-github-team',
-            ...findGithubTeamController
-          },
-          {
-            method: 'GET',
-            path: '/admin/teams/team-details',
-            ...teamDetailsFormController
-          },
-          {
-            method: 'POST',
-            path: '/admin/teams/team-details',
-            ...teamDetailsController
-          },
-          {
-            method: 'GET',
-            path: '/admin/teams/summary',
-            ...teamSummaryController
           },
           {
             method: 'POST',

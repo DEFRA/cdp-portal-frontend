@@ -1,15 +1,10 @@
-import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
 import { environments } from '../../../../../config/environments.js'
 import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
 
 const teamDetailsFormController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpTeam]
+    // pre: [provideCdpTeam]
   },
   handler: (request, h) => {
     const query = request?.query

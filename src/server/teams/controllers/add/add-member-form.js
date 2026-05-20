@@ -5,8 +5,8 @@ import filter from 'lodash/filter.js'
 import { teamIdValidation, scopes } from '@defra/cdp-validation-kit'
 
 import { buildOptions } from '../../../common/helpers/options/build-options.js'
-import { presentUsersToAdd } from '../../../admin/teams/helpers/pre/present-users-to-add.js'
-import { provideCdpTeam } from '../../../admin/teams/helpers/pre/provide-cdp-team.js'
+import { presentUsersToAdd } from '../../helpers/pre/present-users-to-add.js'
+import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
 import {
   fetchCdpTeam,
   searchCdpUsers

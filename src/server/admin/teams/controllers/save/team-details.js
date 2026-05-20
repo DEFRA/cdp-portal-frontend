@@ -1,7 +1,6 @@
 import qs from 'qs'
 
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { saveToCdpTeam, setStepComplete } from '../../helpers/form/index.js'
 import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
 import { teamValidation } from '../../helpers/schema/team-validation.js'
 import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
@@ -58,12 +57,12 @@ const teamDetailsController = {
     }
 
     if (!validationResult.error) {
-      const cdpTeam = await saveToCdpTeam(request, h, {
-        ...sanitisedPayload
-      })
+      // const cdpTeam = await saveToCdpTeam(request, h, {
+      //   ...sanitisedPayload
+      // })
 
-      await setStepComplete(request, h, 'stepOne')
-
+      // await setStepComplete(request, h, 'stepOne')
+      const cdpTeam = {}
       const queryString = qs.stringify(
         {
           ...(cdpTeam?.github && { githubSearch: cdpTeam?.github ?? '' })

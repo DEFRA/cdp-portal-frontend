@@ -1,16 +1,10 @@
 import { config } from '../../../../../config/config.js'
 import { removeNil } from '../../../../common/helpers/remove-nil.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { setStepComplete } from '../../helpers/form/index.js'
-import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 
 const createTeamController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpTeam]
+    // pre: [provideCdpTeam]
   },
   handler: async (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
@@ -28,7 +22,7 @@ const createTeamController = {
         })
       })
 
-      await setStepComplete(request, h, 'allSteps')
+      // await setStepComplete(request, h, 'allSteps')
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Team created',

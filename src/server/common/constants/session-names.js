@@ -1,5 +1,4 @@
 const sessionNames = {
-  cdpTeam: 'cdp-team',
   create: 'create',
   deployment: 'deployment',
   globalValidationFailures: 'globalValidationFailures',

@@ -1,13 +1,8 @@
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
-import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
 import { transformSummaryTeamRows } from '../../transformers/transform-summary-team-rows.js'
 
 const teamSummaryController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpTeam]
+    // pre: [provideCdpTeam]
   },
   handler: (request, h) => {
     const cdpTeam = request.pre?.cdpTeam
