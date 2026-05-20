@@ -1,5 +1,5 @@
-import { homeRoute } from './routes/home.js'
-import { blogAssetsRoute, blogRoute } from './routes/blog.js'
+import { homeRoute } from './controllers/home.js'
+import { blogAssetsRoute, blogRoute } from './controllers/blog.js'
 
 const home = {
   plugin: {

@@ -1,4 +1,4 @@
-import { config } from '../../../config/config.js'
+import { config } from '#config/config.js'
 import { buildBlogNav } from '../helpers/markdown/build-blog-nav.js'
 import { fetchMarkdown } from '../../documentation/helpers/s3-file-handler.js'
 import {

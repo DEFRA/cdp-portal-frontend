@@ -2,7 +2,7 @@ import inert from '@hapi/inert'
 
 import { admin } from './admin/routes.js'
 import { applyChangelog } from './apply-changelog/routes.js'
-import { auth } from './auth/index.js'
+import { authCallback } from './auth-callback/routes.js'
 import { create } from './create/routes.js'
 import { deployService } from './deploy-service/routes.js'
 import { deployments } from './deployments/routes.js'
@@ -23,7 +23,7 @@ import { userProfile } from './user-profile/routes.js'
 import { styleGuide } from './style-guide/routes.js'
 import { config } from '#config/config.js'
 
-const router = {
+export const router = {
   plugin: {
     name: 'router',
     register: async (server) => {
@@ -31,7 +31,7 @@ const router = {
       await server.register([
         admin,
         applyChangelog,
-        auth,
+        authCallback,
         create,
         deployService,
         deployments,
@@ -90,5 +90,3 @@ const router = {
     }
   }
 }
-
-export { router }
