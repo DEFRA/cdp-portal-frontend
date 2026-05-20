@@ -1,0 +1,47 @@
+{% extends layout %}
+
+{% block formContent %}
+
+  <form method="post" data-js="app-form-errors">
+    <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+
+    {% call govukFieldset() %}
+
+      {% for name, def in fields %}
+
+        {{ govukInput({
+          label: {
+            text: def.flags.label,
+            classes: "app-label"
+          },
+          id: name,
+          name: name,
+          classes: "app-input app-input--wide",
+          formGroup: {
+            classes: "app-form-group app-form-group-js"
+          },
+          hint: {
+            text: def.flags.description,
+            classes: "app-hint"
+          },
+          attributes: {
+            "data-1p-ignore": ""
+          },
+          value: formValues[name],
+          errorMessage: errorMessageHelper(formErrors[name].message)
+        }) }}
+
+      {% endfor %}
+
+    {% endcall %}
+
+    <div class="govuk-button-group">
+      {{ govukButton({
+        classes: "app-button",
+        text: "Next"
+      }) }}
+    </div>
+
+  </form>
+
+{% endblock %}

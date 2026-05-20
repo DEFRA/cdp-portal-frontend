@@ -1,0 +1,24 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appStepNavigation(stepNavigation) }}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appPageHeading({
+        caption: "Team",
+        text: pageHeading.text
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+          {% block formContent %}{% endblock %}
+
+        </div>
+      </div>
+    </div>
+  {% endcall %}
+{% endblock %}
