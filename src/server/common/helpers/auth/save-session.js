@@ -43,7 +43,7 @@ export async function saveUserSession(
     displayName: claims.name,
     email: claims.email ?? claims.preferred_username,
     loginHint: claims.login_hint,
-    isAuthenticated: request.auth.isAuthenticated,
+    isAuthenticated: true,
     token: accessToken,
     accessToken,
     refreshToken,
