@@ -1,4 +1,4 @@
-import { loginController } from './controller.js'
+import { loginController } from './login-controller.js'
 
 const login = {
   plugin: {

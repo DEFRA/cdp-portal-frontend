@@ -28,16 +28,16 @@ const oidcCookieConfig = config.get('session.cookie')
 export const authOidcPlugin = {
   plugin: hapiAuthOidcPlugin,
   options: {
-    strategyName: 'azure-oidc',
     oidc: {
       ...oidcConfig,
       scope,
       authProvider
     },
     cookieOptions: {
+      isSecure: true,
       // re-used from session cookie
-      isSecure: oidcCookieConfig.secure,
-      password: oidcCookieConfig.password
+      password: oidcCookieConfig.password,
+      isSameSite: 'None'
     }
   }
 }
