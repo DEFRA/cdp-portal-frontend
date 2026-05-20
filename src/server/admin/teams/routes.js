@@ -50,12 +50,17 @@ const adminTeams = {
           routes: [
             {
               method: 'GET',
-              path: '/admin/teams/create/{multiStepFormId?}',
-              ...startCreateTeamController
+              path: '/admin/teams/team-details/{multiStepFormId?}',
+              ...teamDetailsFormController
             },
             {
               method: 'POST',
-              path: '/admin/teams/create/{multiStepFormId?}',
+              path: '/admin/teams/team-details/{multiStepFormId?}',
+              ...teamDetailsController
+            },
+            {
+              method: 'POST',
+              path: '/admin/teams/create/{multiStepFormId}',
               ...createTeamController
             },
             {
@@ -67,16 +72,6 @@ const adminTeams = {
               method: 'POST',
               path: '/admin/teams/find-github-team/{multiStepFormId}',
               ...findGithubTeamController
-            },
-            {
-              method: 'GET',
-              path: '/admin/teams/team-details/{multiStepFormId}',
-              ...teamDetailsFormController
-            },
-            {
-              method: 'POST',
-              path: '/admin/teams/team-details/{multiStepFormId}',
-              ...teamDetailsController
             },
             {
               method: 'GET',
@@ -98,6 +93,11 @@ const adminTeams = {
             method: 'POST',
             path: '/admin/teams/edit',
             ...editTeamController
+          },
+          {
+            method: 'GET',
+            path: '/admin/teams/create/{multiStepFormId}',
+            ...startCreateTeamController
           },
           {
             method: 'GET',
