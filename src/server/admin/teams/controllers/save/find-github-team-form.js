@@ -3,11 +3,15 @@ import Boom from '@hapi/boom'
 
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { searchGithubTeams } from '../../helpers/fetch/fetchers.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const findGithubTeamFormController = {
   options: {
-    // pre: [provideCdpTeam],
+    pre: [provideStepData],
     validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().optional()
+      }),
       query: Joi.object({
         githubSearch: Joi.string().allow(''),
         github: Joi.string().allow(''),
@@ -17,7 +21,8 @@ const findGithubTeamFormController = {
     }
   },
   handler: async (request, h) => {
-    const cdpTeam = request.pre?.cdpTeam
+    const cdpTeam = request.pre?.stepData
+    const multiStepFormId = request.app.multiStepFormId
 
     const query = request?.query
     const githubSearch = query?.githubSearch ?? cdpTeam?.github
@@ -36,6 +41,7 @@ const findGithubTeamFormController = {
     return h.view('admin/teams/views/save/github-team-form', {
       pageTitle: heading,
       formButtonText: redirectLocation ? 'Save' : 'Next',
+      multiStepFormId,
       redirectLocation,
       formValues: { githubSearch, github },
       githubTeams: buildOptions(

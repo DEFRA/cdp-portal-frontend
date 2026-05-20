@@ -3,10 +3,19 @@ import qs from 'qs'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
 import { githubTeamNameValidation } from '../../helpers/schema/github-team-name-validation.js'
+import Joi from 'joi'
 
 const findGithubTeamController = {
+  options: {
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().optional()
+      })
+    }
+  },
   handler: async (request, h) => {
     const payload = request?.payload
+    const multiStepFormId = request.app.multiStepFormId
     const button = payload?.button
     const redirectLocation = payload?.redirectLocation
 
@@ -43,17 +52,21 @@ const findGithubTeamController = {
         }
       )
 
-      return h.redirect(`/admin/teams/find-github-team${queryString}`)
+      return h.redirect(
+        `/admin/teams/find-github-team/${multiStepFormId}${queryString}`
+      )
     }
 
     if (!validationResult.error) {
-      // const updatedTeam = await saveToCdpTeam(request, h, {
-      //   github: button === 'skip' ? null : github
-      // })
+      await request.app.saveStepData(
+        multiStepFormId,
+        {
+          github: button === 'skip' ? null : github
+        },
+        h
+      )
 
-      //await setStepComplete(request, h, 'stepTwo', updatedTeam)
-
-      return h.redirect('/admin/teams/summary')
+      return h.redirect(`/admin/teams/summary/${multiStepFormId}`)
     }
   }
 }
