@@ -57,13 +57,13 @@ describe('#provideTabs', () => {
         },
         {
           isActive: false,
-          label: 'Ext-test',
-          url: '/deployments/ext-test?page=1&size=50'
+          label: 'Perf-test',
+          url: '/deployments/perf-test?page=1&size=50'
         },
         {
           isActive: false,
-          label: 'Perf-test',
-          url: '/deployments/perf-test?page=1&size=50'
+          label: 'Ext-test',
+          url: '/deployments/ext-test?page=1&size=50'
         },
         {
           isActive: false,

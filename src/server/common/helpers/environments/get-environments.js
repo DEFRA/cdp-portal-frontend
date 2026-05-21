@@ -4,6 +4,7 @@ import {
   prototypeEnvironments
 } from '../../../../config/environments.js'
 import { entitySubTypes } from '@defra/cdp-validation-kit'
+import { sortByEnv } from '#server/common/helpers/sort/sort-by-env.js'
 
 function getEnvironmentValuesForEntitySubType(subType) {
   if (subType === entitySubTypes.prototype) {
@@ -27,6 +28,7 @@ function getEnvironments(userScopes, entitySubType) {
       }
     })
     .map(({ kebabName }) => kebabName)
+    .sort(sortByEnv)
 }
 
 function getEnvironmentsThatNeed(userScopes) {

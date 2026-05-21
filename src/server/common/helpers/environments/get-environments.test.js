@@ -10,8 +10,8 @@ describe('#getEnvironments', () => {
         'management',
         'dev',
         'test',
-        'ext-test',
         'perf-test',
+        'ext-test',
         'prod'
       ])
     })
@@ -28,8 +28,8 @@ describe('#getEnvironments', () => {
       expect(getEnvironments([scopes.externalTest])).toEqual([
         'dev',
         'test',
-        'ext-test',
         'perf-test',
+        'ext-test',
         'prod'
       ])
     })
