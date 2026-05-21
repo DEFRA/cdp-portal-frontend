@@ -1,3 +1,7 @@
+import { sessionNames } from '#server/common/constants/session-names.js'
+import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
+import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
+
 const typeToField = {
   string: 'inputField',
   array: 'arrayField'
@@ -8,9 +12,23 @@ export default {
   version: '0.0.1',
   description: 'Joi schema based forms',
   register: async function (server, options) {
-    const { route, layout, layoutHandler = () => {}, schema, ext } = options
+    const {
+      sessionKey,
+      route,
+      layout,
+      layoutHandler = () => {},
+      schema,
+      ext
+    } = options
 
-    await server.ext(ext)
+    await server.ext([
+      ...ext,
+      {
+        type: 'onPostHandler',
+        method: provideFormContextValues(sessionKey),
+        options: { before: ['yar'], sandbox: 'plugin' }
+      }
+    ])
 
     await server.route({
       ...route,
@@ -28,6 +46,32 @@ export default {
           resolveLabel,
           resolveItems
         })
+      }
+    })
+
+    await server.route({
+      ...route,
+      method: 'POST',
+      async handler(request, h) {
+        const formSchema = await schema(request, h)
+        const { csrfToken, actionButton, ...formValues } = request.payload
+
+        const validationResult = formSchema.validate(formValues, {
+          abortEarly: false
+        })
+
+        if (validationResult?.error) {
+          const errorDetails = buildErrorDetails(validationResult.error.details)
+
+          request.yar.flash(sessionNames.validationFailure, {
+            formValues,
+            formErrors: errorDetails
+          })
+
+          return h.redirect(request.url)
+        }
+
+        return h.redirect(request.url)
       }
     })
   }
@@ -59,6 +103,5 @@ function resolveComponent(def) {
 }
 
 function resolveItems(def) {
-  console.log(def)
   return def.items?.map((item) => ({ value: '', text: item.flags?.label }))
 }

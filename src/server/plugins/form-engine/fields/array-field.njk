@@ -13,7 +13,7 @@
       }
     },
     items: params.resolveItems(params.def),
-    value: params.value,
-    errorMessage: errorMessageHelper(params.error.message)
+    value: formValues[name],
+    errorMessage: errorMessageHelper(formErrors[name].message)
   }) }}
 {% endmacro %}

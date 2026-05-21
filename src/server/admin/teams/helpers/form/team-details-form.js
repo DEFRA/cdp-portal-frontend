@@ -3,6 +3,7 @@ import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-mes
 import formEngine from '#server/plugins/form-engine/form-engine.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 export default function teamDetailsForm(serverExtensions) {
   return {
@@ -10,7 +11,15 @@ export default function teamDetailsForm(serverExtensions) {
     options: {
       ext: serverExtensions,
       route: {
-        path: '/admin/teams/{teamId}/edit'
+        path: '/admin/teams/{teamId}/edit',
+        options: {
+          auth: {
+            mode: 'required',
+            access: {
+              scope: scopes.admin
+            }
+          }
+        }
       },
       layout: 'admin/teams/layouts/team-details.njk',
       // TODO: Use ext?

@@ -3,7 +3,9 @@
 {% block content %}
   {% call appSplitPane({ isWide: true }) %}
 
-    {{ appStepNavigation(stepNavigation) }}
+    {% if stepNavigation %}
+      {{ appStepNavigation(stepNavigation) }}
+    {% endif %}
 
     <div class="govuk-main-wrapper app-main-wrapper">
 
