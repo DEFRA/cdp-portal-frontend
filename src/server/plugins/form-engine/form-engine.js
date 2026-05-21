@@ -25,7 +25,7 @@ export default {
       ...ext,
       {
         type: 'onPostHandler',
-        method: provideFormContextValues(sessionKey),
+        method: provideFormContextValues(),
         options: { before: ['yar'], sandbox: 'plugin' }
       }
     ])
@@ -70,6 +70,12 @@ export default {
 
           return h.redirect(request.url)
         }
+
+        request.yar.clear(sessionNames.validationFailure)
+        request.yar.flash(sessionNames.notifications, {
+          text: 'Update complete',
+          type: 'success'
+        })
 
         return h.redirect(request.url)
       }
