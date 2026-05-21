@@ -1,3 +1,7 @@
+const typeToField = {
+  string: 'inputField'
+}
+
 export default {
   name: 'formEngine',
   version: '0.0.1',
@@ -35,29 +39,19 @@ function defaultComponent(def) {
   const type =
     def.type === 'array' && def.items.length > 1 ? def.items[0].type : def.type
 
-  if (type === 'array') {
-    return {
-      component: 'govukCheckboxes',
-      props: {}
-    }
-  }
-
-  return {
-    component: 'govukInput',
-    props: {}
-  }
+  return typeToField[type] ?? 'inputField'
 }
 
 function resolveComponent(def) {
   console.dir(def, { depth: 10 })
-  let { component, props } = defaultComponent(def)
 
-  // schema overrides
-  component = def.metas?.find((meta) => meta.component)?.component ?? component
-  props = {
-    ...props,
-    ...(def.metas?.find((meta) => meta.props)?.props ?? {})
-  }
+  const component =
+    def.metas?.find((meta) => meta.component)?.component ??
+    defaultComponent(def)
+  // props = {
+  //   ...props,
+  //   ...(def.metas?.find((meta) => meta.props)?.props ?? {})
+  // }
 
-  return this.ctx[component]
+  return this.ctx[component] ?? this.ctx.string
 }

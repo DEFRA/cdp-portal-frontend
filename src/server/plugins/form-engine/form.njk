@@ -1,4 +1,6 @@
 {% extends layout %}
+{% from "./fields/input-field.njk" import inputField %}
+{% from "./fields/textarea-field.njk" import textareaField %}
 
 {% block formContent %}
 
@@ -10,25 +12,9 @@
       {% for name, def in fields %}
 
         {{ resolveComponent(def)({
-          label: {
-            text: resolveLabel(def, name),
-            classes: "app-label"
-          },
-          id: name,
           name: name,
-          classes: "app-input app-input--wide",
-          formGroup: {
-            classes: "app-form-group app-form-group-js"
-          },
-          hint: {
-            text: def.flags.description,
-            classes: "app-hint"
-          },
-          attributes: {
-            "data-1p-ignore": ""
-          },
-          value: formValues[name],
-          errorMessage: errorMessageHelper(formErrors[name].message)
+          def: def,
+          resolveLabel: resolveLabel
         }) }}
 
       {% endfor %}

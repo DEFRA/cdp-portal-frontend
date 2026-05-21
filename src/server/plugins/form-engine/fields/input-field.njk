@@ -1,0 +1,25 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% macro inputField(params) %}
+  {{ govukInput({
+    label: {
+      text: params.resolveLabel(params.def, params.name),
+      classes: "app-label"
+    },
+    id: params.name,
+    name: params.name,
+    classes: "app-input app-input--wide",
+    formGroup: {
+      classes: "app-form-group app-form-group-js"
+    },
+    hint: {
+      text: params.def.flags.description,
+      classes: "app-hint"
+    },
+    attributes: {
+      "data-1p-ignore": ""
+    },
+    value: params.value,
+    errorMessage: errorMessageHelper(params.error.message)
+  }) }}
+{% endmacro %}

@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
-import formEngine from '#server/plugins/form-engine/formEngine.js'
+import formEngine from '#server/plugins/form-engine/form-engine.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 
@@ -43,7 +43,7 @@ export default function teamDetailsForm(serverExtensions) {
             }),
           serviceCode: Joi.string()
             .label('Description')
-            .meta({ component: 'govukTextarea' })
+            .meta({ component: 'textareaField' })
             .optional()
             .min(3)
             .max(3)
