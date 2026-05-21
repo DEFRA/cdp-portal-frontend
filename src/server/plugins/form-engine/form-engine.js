@@ -25,7 +25,7 @@ export default {
       ...ext,
       {
         type: 'onPostHandler',
-        method: provideFormContextValues(),
+        method: provideFormContextValues(sessionKey),
         options: { before: ['yar'], sandbox: 'plugin' }
       }
     ])

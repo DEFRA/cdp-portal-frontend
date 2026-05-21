@@ -50,10 +50,22 @@ export default function teamDetailsForm(serverExtensions) {
               'string.pattern.base':
                 'Letters and numbers with hyphen separators'
             }),
-          serviceCode: Joi.string()
+
+          description: Joi.string()
             .label('Description')
             .meta({ component: 'textareaField' })
             .optional()
+            .empty('')
+            .max(256)
+            .messages({
+              'string.max': validation.maxCharacters(256)
+            }),
+
+          serviceCode: Joi.string()
+            .label('Service Code')
+            .description('A service code consists of 3 uppercase letters')
+            .optional()
+            .empty('')
             .min(3)
             .max(3)
             .regex(/^[A-Z]+$/)
@@ -62,19 +74,15 @@ export default function teamDetailsForm(serverExtensions) {
               'string.max': validation.exactLetters(3),
               'string.pattern.base': 'Provide 3 uppercase letters'
             }),
-          description: Joi.string()
-            .label('Service Code')
-            .description('A service code consists of 3 uppercase letters')
-            .optional()
-            .max(256)
-            .messages({
-              'string.max': validation.maxCharacters(256)
-            }),
-          alertEmailAddresses: Joi.array()
+
+          alertEmailAddresses: csvArray
+            .array()
             .label('Alert Emails')
             .description('Comma separated list of email addresses')
             .items(Joi.string().email())
-            .optional(),
+            .optional()
+            .empty(''),
+
           alertEnvironments: Joi.array()
             .label('Alert Environments')
             .items(
@@ -88,3 +96,16 @@ export default function teamDetailsForm(serverExtensions) {
     }
   }
 }
+
+const csvArray = Joi.extend({
+  type: 'array',
+  base: Joi.array(),
+  coerce: {
+    from: 'string',
+    method(schema, value) {
+      return typeof value !== 'string'
+        ? { value: value.split(/\s*,\s*/) }
+        : undefined
+    }
+  }
+})
