@@ -94,16 +94,16 @@ describe('#provideSubNavForentityType', () => {
         {
           isActive: false,
           label: {
-            text: 'Ext-test'
+            text: 'Perf-test'
           },
-          url: '/services/cdp-portal-frontend/buckets/ext-test'
+          url: '/services/cdp-portal-frontend/buckets/perf-test'
         },
         {
           isActive: false,
           label: {
-            text: 'Perf-test'
+            text: 'Ext-test'
           },
-          url: '/services/cdp-portal-frontend/buckets/perf-test'
+          url: '/services/cdp-portal-frontend/buckets/ext-test'
         },
         {
           isActive: false,
@@ -280,16 +280,16 @@ describe('#provideSubNavForentityType', () => {
         {
           isActive: false,
           label: {
-            text: 'Ext-test'
+            text: 'Perf-test'
           },
-          url: '/services/mock-tenant-service/proxy/ext-test'
+          url: '/services/mock-tenant-service/proxy/perf-test'
         },
         {
           isActive: false,
           label: {
-            text: 'Perf-test'
+            text: 'Ext-test'
           },
-          url: '/services/mock-tenant-service/proxy/perf-test'
+          url: '/services/mock-tenant-service/proxy/ext-test'
         },
         {
           isActive: false,

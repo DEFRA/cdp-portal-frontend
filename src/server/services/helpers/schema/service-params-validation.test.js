@@ -73,7 +73,7 @@ describe('#serviceParamsValidation', () => {
       const params = { serviceId: 'service123', environment: 'management' }
 
       expect(() => serviceParamsValidation(params, options)).toThrow(
-        '"environment" must be one of [dev, test, ext-test, perf-test, prod]'
+        '"environment" must be one of [dev, test, perf-test, ext-test, prod]'
       )
     })
   })
