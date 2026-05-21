@@ -2,6 +2,7 @@ import Joi from 'joi'
 import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
 import formEngine from '#server/plugins/form-engine/formEngine.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export default function teamDetailsForm(serverExtensions) {
   return {
@@ -62,12 +63,16 @@ export default function teamDetailsForm(serverExtensions) {
             }),
           alertEmailAddresses: Joi.array()
             .label('Alert Emails')
-            .description('Comma seperated list of email addresses')
+            .description('Comma separated list of email addresses')
             .items(Joi.string().email())
             .optional(),
           alertEnvironments: Joi.array()
             .label('Alert Environments')
-            .items(Joi.string().valid(...environments))
+            .items(
+              ...environments.map((env) =>
+                Joi.string().valid(env).label(formatText(env))
+              )
+            )
             .optional()
         })
       }

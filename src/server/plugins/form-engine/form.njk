@@ -11,7 +11,7 @@
 
         {{ resolveComponent(def)({
           label: {
-            text: def.flags.label or name,
+            text: resolveLabel(def, name),
             classes: "app-label"
           },
           id: name,
