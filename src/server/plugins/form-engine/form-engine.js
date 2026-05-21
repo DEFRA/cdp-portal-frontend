@@ -1,5 +1,6 @@
 const typeToField = {
-  string: 'inputField'
+  string: 'inputField',
+  array: 'arrayField'
 }
 
 export default {
@@ -24,7 +25,8 @@ export default {
           fields: formDefinition.keys,
           layout,
           resolveComponent,
-          resolveLabel
+          resolveLabel,
+          resolveItems
         })
       }
     })
@@ -37,14 +39,14 @@ function resolveLabel(def, name) {
 
 function defaultComponent(def) {
   const type =
-    def.type === 'array' && def.items.length > 1 ? def.items[0].type : def.type
+    def.type === 'array' && def.items.length === 1
+      ? def.items[0].type
+      : def.type
 
   return typeToField[type] ?? 'inputField'
 }
 
 function resolveComponent(def) {
-  console.dir(def, { depth: 10 })
-
   const component =
     def.metas?.find((meta) => meta.component)?.component ??
     defaultComponent(def)
@@ -54,4 +56,9 @@ function resolveComponent(def) {
   // }
 
   return this.ctx[component] ?? this.ctx.string
+}
+
+function resolveItems(def) {
+  console.log(def)
+  return def.items?.map((item) => ({ value: '', text: item.flags?.label }))
 }
