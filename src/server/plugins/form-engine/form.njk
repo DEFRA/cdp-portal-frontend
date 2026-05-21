@@ -9,9 +9,9 @@
 
       {% for name, def in fields %}
 
-        {{ govukInput({
+        {{ resolveComponent(def)({
           label: {
-            text: def.flags.label,
+            text: def.flags.label or name,
             classes: "app-label"
           },
           id: name,
@@ -38,7 +38,15 @@
     <div class="govuk-button-group">
       {{ govukButton({
         classes: "app-button",
-        text: "Next"
+        text: "Save",
+        name: 'actionButton',
+        value: 'submit'
+      }) }}
+      {{ govukButton({
+        classes: "app-button  app-button--tertiary",
+        text: "Cancel",
+        name: 'actionButton',
+        value: 'cancel'
       }) }}
     </div>
 

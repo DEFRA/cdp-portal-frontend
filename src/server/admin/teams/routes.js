@@ -22,10 +22,7 @@ import { confirmDeleteTeamController } from './controllers/delete/confirm-delete
 
 import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
 import { formSteps, urlTemplates } from './helpers/form/steps.js'
-import formEngine from '#server/plugins/form-engine/formEngine.js'
-import { options } from 'marked'
-import Joi from 'joi'
-import { describe } from 'vitest'
+import teamDetailsForm from './helpers/form/team-details-form.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -82,32 +79,11 @@ const adminTeams = {
               path: '/admin/teams/summary/{multiStepFormId}',
               ...teamSummaryController
             }
-          ]
+          ].map(adminScope)
         }
       })
 
-      await server.register({
-        plugin: formEngine,
-        options: {
-          path: '/admin/teams/{teamId}/edit',
-          layout: 'admin/teams/layouts/team-details.njk',
-          layoutHandler() {
-            return {
-              pageTitle: 'Edit team',
-              pageHeading: {
-                text: 'Edit'
-              }
-            }
-          },
-          schema: Joi.object({
-            name: Joi.string().label('Team name').required(),
-            describe: Joi.string().label('Description'),
-            serviceCode: Joi.string()
-              .label('Service Code')
-              .description('A service code consists of 3 uppercase letters')
-          })
-        }
-      })
+      await server.register(teamDetailsForm(serverExtensions))
 
       server.route(
         [
