@@ -5,8 +5,8 @@ const order = [
   environments.management.kebabName,
   environments.dev.kebabName,
   environments.test.kebabName,
-  environments.extTest.kebabName,
   environments.perfTest.kebabName,
+  environments.extTest.kebabName,
   environments.prod.kebabName
 ]
 

@@ -4,6 +4,7 @@ describe('#sortByEnv', () => {
   const unOrderedEnvs = [
     'management',
     'prod',
+    'ext-test',
     'dev',
     'perf-test',
     'infra-dev',
@@ -17,6 +18,7 @@ describe('#sortByEnv', () => {
       'dev',
       'test',
       'perf-test',
+      'ext-test',
       'prod'
     ])
   })
