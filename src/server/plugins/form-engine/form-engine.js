@@ -18,6 +18,7 @@ export default {
       layout,
       layoutHandler = () => {},
       schema,
+      init = () => undefined,
       ext,
       actions
     } = options
@@ -39,10 +40,13 @@ export default {
         const formDefinition = formSchema.describe()
         const layoutContext = await layoutHandler(request, h) // TODO: Replace with ext ?
 
+        const formValues = await init(request, h)
+
         return h.view('plugins/form-engine/form', {
           ...layoutContext,
           fields: formDefinition.keys,
           layout,
+          formValues,
           actions,
           resolveComponent,
           resolveLabel,

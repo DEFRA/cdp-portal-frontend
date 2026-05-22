@@ -5,7 +5,7 @@ import { getEnvironments } from '#server/common/helpers/environments/get-environ
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { sessionNames } from '#server/common/constants/session-names.js'
-import { editTeam } from '../fetch/fetchers.js'
+import { editTeam, fetchCdpTeam } from '../fetch/fetchers.js'
 
 export default function teamDetailsForm(serverExtensions) {
   return {
@@ -108,6 +108,16 @@ export default function teamDetailsForm(serverExtensions) {
             .optional()
         })
       },
+      async init(request, h) {
+        const team = await fetchCdpTeam(request.params.teamId)
+        console.log(team)
+        return {
+          name: team.name,
+          description: team.description,
+          serviceCodes: team.serviceCodes?.at(0),
+          alertEmailAddresses: team.alertEmailAddresses.join(',')
+        }
+      },
       actions: {
         submit: {
           text: 'Update',
@@ -137,7 +147,7 @@ export default function teamDetailsForm(serverExtensions) {
                 error.message
               )
 
-              return h.redirect('/admin/teams/summary')
+              return h.redirect(request.url)
             }
           }
         },
