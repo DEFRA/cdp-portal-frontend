@@ -18,7 +18,8 @@ export default {
       layout,
       layoutHandler = () => {},
       schema,
-      ext
+      ext,
+      actions
     } = options
 
     await server.ext([
@@ -42,6 +43,7 @@ export default {
           ...layoutContext,
           fields: formDefinition.keys,
           layout,
+          actions,
           resolveComponent,
           resolveLabel,
           resolveItems
@@ -56,11 +58,15 @@ export default {
         const formSchema = await schema(request, h)
         const { csrfToken, actionButton, ...formValues } = request.payload
 
+        if (actionButton === 'cancel') {
+          return actions.cancel.method(request, h)
+        }
+
         const validationResult = formSchema.validate(formValues, {
           abortEarly: false
         })
 
-        if (validationResult?.error) {
+        if (validationResult.error) {
           const errorDetails = buildErrorDetails(validationResult.error.details)
 
           request.yar.flash(sessionNames.validationFailure, {
@@ -72,12 +78,8 @@ export default {
         }
 
         request.yar.clear(sessionNames.validationFailure)
-        request.yar.flash(sessionNames.notifications, {
-          text: 'Update complete',
-          type: 'success'
-        })
 
-        return h.redirect(request.url)
+        return await actions.submit.method(request, h, validationResult.value)
       }
     })
   }
@@ -100,10 +102,6 @@ function resolveComponent(def) {
   const component =
     def.metas?.find((meta) => meta.component)?.component ??
     defaultComponent(def)
-  // props = {
-  //   ...props,
-  //   ...(def.metas?.find((meta) => meta.props)?.props ?? {})
-  // }
 
   return this.ctx[component] ?? this.ctx.string
 }

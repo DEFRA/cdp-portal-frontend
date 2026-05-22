@@ -26,18 +26,23 @@
     {% endcall %}
 
     <div class="govuk-button-group">
-      {{ govukButton({
-        classes: "app-button",
-        text: "Save",
-        name: 'actionButton',
-        value: 'submit'
-      }) }}
-      {{ govukButton({
-        classes: "app-button  app-button--tertiary",
-        text: "Cancel",
-        name: 'actionButton',
-        value: 'cancel'
-      }) }}
+      {% if actions.submit %}
+        {{ govukButton({
+          classes: "app-button",
+          text: actions.submit.text,
+          name: 'actionButton',
+          value: 'submit'
+        }) }}
+      {% endif %}
+
+      {% if actions.cancel %}
+        {{ govukButton({
+          classes: "app-button  app-button--tertiary",
+          text: actions.cancel.text,
+          name: 'actionButton',
+          value: 'cancel'
+        }) }}
+      {% endif %}
     </div>
 
   </form>

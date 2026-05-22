@@ -4,6 +4,8 @@ import formEngine from '#server/plugins/form-engine/form-engine.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { scopes } from '@defra/cdp-validation-kit'
+import { sessionNames } from '#server/common/constants/session-names.js'
+import { editTeam } from '../fetch/fetchers.js'
 
 export default function teamDetailsForm(serverExtensions) {
   return {
@@ -28,7 +30,20 @@ export default function teamDetailsForm(serverExtensions) {
           pageTitle: 'Edit team',
           pageHeading: {
             text: 'Edit'
-          }
+          },
+          splitPaneBreadcrumbs: [
+            {
+              text: 'Admin',
+              href: '/admin'
+            },
+            {
+              text: 'Teams',
+              href: '/admin/teams'
+            },
+            {
+              text: 'Edit'
+            }
+          ]
         }
       },
       async schema(request) {
@@ -92,6 +107,46 @@ export default function teamDetailsForm(serverExtensions) {
             )
             .optional()
         })
+      },
+      actions: {
+        submit: {
+          text: 'Update',
+          async method(request, h, sanitisedFormValues) {
+            const teamId = request.params.teamId
+
+            try {
+              await editTeam(request, teamId, {
+                name: sanitisedFormValues.name,
+                description: sanitisedFormValues.description,
+                serviceCodes: sanitisedFormValues.serviceCode
+                  ? [sanitisedFormValues.serviceCode]
+                  : [],
+                alertEmailAddresses: sanitisedFormValues.alertEmailAddresses,
+                alertEnvironments: sanitisedFormValues.alertEnvironments
+              })
+
+              request.yar.flash(sessionNames.notifications, {
+                text: 'Team updated',
+                type: 'success'
+              })
+
+              return h.redirect(`/admin/teams/${teamId}`)
+            } catch (error) {
+              request.yar.flash(
+                sessionNames.globalValidationFailures,
+                error.message
+              )
+
+              return h.redirect('/admin/teams/summary')
+            }
+          }
+        },
+        cancel: {
+          text: 'Cancel',
+          method(request, h) {
+            return h.redirect(`/admin/teams/${request.params.teamId}`)
+          }
+        }
       }
     }
   }
@@ -102,8 +157,8 @@ const csvArray = Joi.extend({
   base: Joi.array(),
   coerce: {
     from: 'string',
-    method(schema, value) {
-      return typeof value !== 'string'
+    method(value) {
+      return typeof value === 'string'
         ? { value: value.split(/\s*,\s*/) }
         : undefined
     }
