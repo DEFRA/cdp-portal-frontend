@@ -1,12 +1,14 @@
 import { editTeam } from '../../helpers/fetch/fetchers.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const editTeamController = {
   options: {
-    // pre: [provideCdpTeam]
+    pre: [provideStepData]
   },
   handler: async (request, h) => {
-    const cdpTeam = request.pre?.cdpTeam
+    const cdpTeam = request.pre?.stepData
+    const multiStepFormId = request.app.multiStepFormId
 
     try {
       await editTeam(request, cdpTeam.teamId, {
@@ -18,8 +20,6 @@ const editTeamController = {
         alertEnvironments: cdpTeam.alertEnvironments
       })
 
-      // await setStepComplete(request, h, 'allSteps')
-
       request.yar.flash(sessionNames.notifications, {
         text: 'Team updated',
         type: 'success'
@@ -29,7 +29,7 @@ const editTeamController = {
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect('/admin/teams/summary')
+      return h.redirect(`/admin/teams/summary/${multiStepFormId}`)
     }
   }
 }

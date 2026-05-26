@@ -16,14 +16,14 @@ import { findGithubTeamFormController } from './controllers/save/find-github-tea
 import { teamDetailsController } from './controllers/save/team-details.js'
 import { teamDetailsFormController } from './controllers/save/team-details-form.js'
 import { teamSummaryController } from './controllers/save/team-summary.js'
-import { startEditTeamController } from './controllers/save/start-edit-team.js'
 import { deleteTeamController } from './controllers/delete/delete-team.js'
 import { confirmDeleteTeamController } from './controllers/delete/confirm-delete-team.js'
 
 import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
 import { formSteps, urlTemplates } from './helpers/form/steps.js'
-import teamDetailsForm from './helpers/form/team-details-form.js'
+// import teamDetailsForm from './helpers/form/team-details-form.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
+import { startEditTeamController } from './controllers/save/start-edit-team.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -80,12 +80,17 @@ const adminTeams = {
               method: 'GET',
               path: '/admin/teams/summary/{multiStepFormId}',
               ...teamSummaryController
+            },
+            {
+              method: 'POST',
+              path: '/admin/teams/edit/{multiStepFormId}',
+              ...editTeamController
             }
           ].map(adminScope)
         }
       })
 
-      await server.register(teamDetailsForm(serverExtensions))
+      // await server.register(teamDetailsForm(serverExtensions))
 
       server.route(
         [
@@ -95,20 +100,15 @@ const adminTeams = {
             ...teamsListController
           },
           {
-            method: 'POST',
-            path: '/admin/teams/edit',
-            ...editTeamController
-          },
-          {
             method: 'GET',
             path: '/admin/teams/create/{multiStepFormId}',
             ...startCreateTeamController
           },
-          // {
-          //   method: 'GET',
-          //   path: '/admin/teams/{teamId}/edit',
-          //   ...startEditTeamController
-          // },
+          {
+            method: 'GET',
+            path: '/admin/teams/{teamId}/edit',
+            ...startEditTeamController
+          },
           {
             method: 'GET',
             path: '/admin/teams/{teamId}/confirm-delete',
