@@ -110,7 +110,6 @@ export default function teamDetailsForm(serverExtensions) {
       },
       async init(request, h) {
         const team = await fetchCdpTeam(request.params.teamId)
-        console.log(team)
         return {
           name: team.name,
           description: team.description,
