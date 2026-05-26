@@ -25,9 +25,7 @@ const startEditTeamController = {
       // user-service-backend supports multiple service codes - we want to just allow one service code for now
       ...(team.serviceCodes?.at(0) && { serviceCode: team.serviceCodes.at(0) }),
       isEdit: true,
-      ...{
-        isComplete: {}
-      }
+      isComplete: {}
     })
 
     request.yar.clear(sessionNames.validationFailure)

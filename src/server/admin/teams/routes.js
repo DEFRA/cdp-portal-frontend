@@ -21,7 +21,6 @@ import { confirmDeleteTeamController } from './controllers/delete/confirm-delete
 
 import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
 import { formSteps, urlTemplates } from './helpers/form/steps.js'
-// import teamDetailsForm from './helpers/form/team-details-form.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { startEditTeamController } from './controllers/save/start-edit-team.js'
 
@@ -89,8 +88,6 @@ const adminTeams = {
           ].map(adminScope)
         }
       })
-
-      // await server.register(teamDetailsForm(serverExtensions))
 
       server.route(
         [
