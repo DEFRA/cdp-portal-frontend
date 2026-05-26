@@ -1,22 +1,26 @@
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
-import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
+import Joi from 'joi'
 import { transformSummaryTeamRows } from '../../transformers/transform-summary-team-rows.js'
 
 const teamSummaryController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpTeam]
+    pre: [provideStepData],
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().optional()
+      })
+    }
   },
   handler: (request, h) => {
-    const cdpTeam = request.pre?.cdpTeam
+    const cdpTeam = request.pre?.stepData
+    const multiStepFormId = request.app.multiStepFormId
     const isEdit = cdpTeam.isEdit ?? false
     const updateOrCreate = isEdit ? 'Edit' : 'Create'
 
     return h.view('admin/teams/views/save/summary', {
       pageTitle: `${updateOrCreate} Team Summary`,
-      teamRows: transformSummaryTeamRows(cdpTeam),
+      multiStepFormId,
+      teamRows: transformSummaryTeamRows(cdpTeam, multiStepFormId),
       formButtonText: isEdit ? 'Save' : 'Create',
       pageHeading: {
         text: cdpTeam.name,

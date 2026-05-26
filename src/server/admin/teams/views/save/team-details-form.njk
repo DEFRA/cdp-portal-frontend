@@ -1,129 +1,114 @@
-{% extends "layouts/page.njk" %}
+{% extends "admin/teams/layouts/team-details.njk" %}
 
-{% block content %}
-  {% call appSplitPane({ isWide: true }) %}
+{% block formContent %}
 
-    {{ appStepNavigation(stepNavigation) }}
+  <form action="/admin/teams/team-details/{{ multiStepFormId }}" method="post" data-js="app-form-errors">
+    <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+    <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
-    <div class="govuk-main-wrapper app-main-wrapper">
+    {% call govukFieldset() %}
 
-      {{ appPageHeading({
-        caption: "Team",
-        text: pageHeading.text
+      {{ govukInput({
+        label: {
+          text: "Team name",
+          classes: "app-label"
+        },
+        id: "name",
+        name: "name",
+        classes: "app-input app-input--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.name,
+        errorMessage: errorMessageHelper(formErrors.name.message)
       }) }}
 
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          <form action="/admin/teams/team-details" method="post" data-js="app-form-errors">
-            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-            <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+      {{ govukTextarea({
+        label: {
+          text: "Description (optional)",
+          classes: "app-label"
+        },
+        id: "description",
+        name: "description",
+        classes: "app-textarea app-textarea--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.description,
+        errorMessage: errorMessageHelper(formErrors.description.message)
+      }) }}
 
-            {% call govukFieldset() %}
+      {{ govukInput({
+        label: {
+          text: "Service Code (optional)",
+          classes: "app-label"
+        },
+        id: "serviceCode",
+        name: "serviceCode",
+        hint: {
+          text: "A service code consists of 3 uppercase letters",
+          classes: "app-hint"
+        },
+        classes: "app-input app-input--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.serviceCode,
+        errorMessage: errorMessageHelper(formErrors.serviceCode.message)
+      }) }}
 
-              {{ govukInput({
-                label: {
-                  text: "Team name",
-                  classes: "app-label"
-                },
-                id: "name",
-                name: "name",
-                classes: "app-input app-input--wide",
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                attributes: {
-                  "data-1p-ignore": ""
-                },
-                value: formValues.name,
-                errorMessage: errorMessageHelper(formErrors.name.message)
-              }) }}
+      {{ govukInput({
+        label: {
+          text: "Alert Emails (optional)",
+          classes: "app-label"
+        },
+        id: "alertEmailAddresses",
+        name: "alertEmailAddresses",
+        hint: {
+          text: "Comma seperated list of email addresses",
+          classes: "app-hint"
+        },
+        classes: "app-input app-input--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.alertEmailAddresses,
+        errorMessage: errorMessageHelper(formErrors.alertEmailAddresses.message)
+      }) }}
 
-              {{ govukTextarea({
-                label: {
-                  text: "Description (optional)",
-                  classes: "app-label"
-                },
-                id: "description",
-                name: "description",
-                classes: "app-textarea app-textarea--wide",
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                attributes: {
-                  "data-1p-ignore": ""
-                },
-                value: formValues.description,
-                errorMessage: errorMessageHelper(formErrors.description.message)
-              }) }}
+      {{ govukCheckboxes({
+        name: "alertEnvironments",
+        classes: "govuk-checkboxes--small",
+        fieldset: {
+          legend: {
+            text: "Alert Environments (optional)",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: alertEnvironmentsCheckboxes
+      }) }}
 
-              {{ govukInput({
-                label: {
-                  text: "Service Code (optional)",
-                  classes: "app-label"
-                },
-                id: "serviceCode",
-                name: "serviceCode",
-                hint: {
-                  text: "A service code consists of 3 uppercase letters",
-                  classes: "app-hint"
-                },
-                classes: "app-input app-input--wide",
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                attributes: {
-                  "data-1p-ignore": ""
-                },
-                value: formValues.serviceCode,
-                errorMessage: errorMessageHelper(formErrors.serviceCode.message)
-              }) }}
+    {% endcall %}
 
-              {{ govukInput({
-                label: {
-                  text: "Alert Emails (optional)",
-                  classes: "app-label"
-                },
-                id: "alertEmailAddresses",
-                name: "alertEmailAddresses",
-                hint: {
-                  text: "Comma seperated list of email addresses",
-                  classes: "app-hint"
-                },
-                classes: "app-input app-input--wide",
-                formGroup: {
-                  classes: "app-form-group app-form-group-js"
-                },
-                attributes: {
-                  "data-1p-ignore": ""
-                },
-                value: formValues.alertEmailAddresses,
-                errorMessage: errorMessageHelper(formErrors.alertEmailAddresses.message)
-              }) }}
-
-              {{ govukCheckboxes({
-                name: "alertEnvironments",
-                classes: "govuk-checkboxes--small",
-                fieldset: {
-                  legend: {
-                    text: "Alert Environments (optional)",
-                    isPageHeading: true,
-                    classes: "govuk-fieldset__legend--m"
-                  }
-                },
-                items: alertEnvironmentsCheckboxes
-              }) }}
-
-            {% endcall %}
-
-            <div class="govuk-button-group">
-              {{ govukButton({
-                classes: "app-button",
-                text: formButtonText
-              }) }}
-            </div>
-          </form>
-        </div>
-      </div>
+    <div class="govuk-button-group">
+      {{ govukButton({
+        classes: "app-button",
+        text: formButtonText
+      }) }}
     </div>
-  {% endcall %}
+  </form>
+
 {% endblock %}

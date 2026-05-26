@@ -1,19 +1,21 @@
 import { config } from '../../../../../config/config.js'
 import { removeNil } from '../../../../common/helpers/remove-nil.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import { setStepComplete } from '../../helpers/form/index.js'
-import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
+import Joi from 'joi'
 
 const createTeamController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpTeam]
+    pre: [provideStepData],
+    validate: {
+      params: Joi.object({
+        multiStepFormId: Joi.string().uuid().optional()
+      })
+    }
   },
   handler: async (request, h) => {
-    const cdpTeam = request.pre?.cdpTeam
+    const cdpTeam = request.pre?.stepData
+    const multiStepFormId = request.app.multiStepFormId
     const endpoint = config.get('userServiceBackendUrl') + '/teams'
 
     try {
@@ -28,8 +30,6 @@ const createTeamController = {
         })
       })
 
-      await setStepComplete(request, h, 'allSteps')
-
       request.yar.flash(sessionNames.notifications, {
         text: 'Team created',
         type: 'success'
@@ -39,7 +39,7 @@ const createTeamController = {
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect('/admin/teams/summary')
+      return h.redirect(`/admin/teams/summary/${multiStepFormId}`)
     }
   }
 }

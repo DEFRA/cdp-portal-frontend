@@ -3,14 +3,14 @@ import { transformSummaryTeamRows } from './transform-summary-team-rows.js'
 
 describe('#transformSummaryTeamRows', () => {
   test('Should provide expected team row transformation', () => {
-    expect(transformSummaryTeamRows(cdpTeamSessionFixture)).toEqual([
+    expect(transformSummaryTeamRows(cdpTeamSessionFixture, 'uuid')).toEqual([
       {
         actions: {
           classes: 'app-summary__action',
           items: [
             {
               classes: 'app-link',
-              href: '/admin/teams/team-details?redirectLocation=summary',
+              href: '/admin/teams/team-details/uuid?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Name'
             }
@@ -30,7 +30,7 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/teams/team-details?redirectLocation=summary',
+              href: '/admin/teams/team-details/uuid?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Description'
             }
@@ -50,7 +50,7 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/teams/find-github-team?redirectLocation=summary&githubSearch=forestry-management',
+              href: '/admin/teams/find-github-team/uuid?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'GitHub team'
             }
@@ -70,7 +70,7 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/teams/team-details?redirectLocation=summary',
+              href: '/admin/teams/team-details/uuid?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Service Code'
             }
@@ -90,7 +90,7 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/teams/team-details?redirectLocation=summary',
+              href: '/admin/teams/team-details/uuid?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Alert Emails'
             }
@@ -110,7 +110,7 @@ describe('#transformSummaryTeamRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/teams/team-details?redirectLocation=summary',
+              href: '/admin/teams/team-details/uuid?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'Alert Environments'
             }

@@ -1,21 +1,18 @@
-import { provideCdpTeam } from '../../helpers/pre/provide-cdp-team.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
-import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
-import { environments } from '../../../../../config/environments.js'
-import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { environments } from '#config/environments.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
+import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const teamDetailsFormController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCdpTeam]
+    pre: [provideStepData]
   },
   handler: (request, h) => {
     const query = request?.query
     const redirectLocation = query?.redirectLocation
 
-    const cdpTeam = request.pre?.cdpTeam
+    const cdpTeam = request.pre?.stepData ?? {}
+    const multiStepFormId = request.app.multiStepFormId
     const isEdit = cdpTeam?.isEdit
 
     const updateOrCreate = isEdit ? 'Edit' : 'Create'
@@ -36,6 +33,7 @@ const teamDetailsFormController = {
       pageTitle: `${updateOrCreate} Team`,
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
+      multiStepFormId,
       pageHeading: {
         text: isEdit ? 'Edit' : 'Create New'
       },

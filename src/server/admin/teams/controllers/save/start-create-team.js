@@ -6,7 +6,6 @@ const startCreateTeamController = {
   },
   handler: async (request, h) => {
     request.yar.clear(sessionNames.validationFailure)
-    request.yar.set(sessionNames.cdpTeam, {})
 
     return h.redirect('/admin/teams/team-details')
   }
