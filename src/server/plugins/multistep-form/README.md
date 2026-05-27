@@ -44,7 +44,6 @@ and the completion of the steps. Everything else is taken care for you.
 
 Optional `sessionName` removed the need for `multiStepFormId`.
 
-
 ```javascript
 /** @type {Record<string, string>} */
 const urlTemplates = {
