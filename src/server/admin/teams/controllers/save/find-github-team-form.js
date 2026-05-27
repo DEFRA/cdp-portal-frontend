@@ -16,7 +16,7 @@ const findGithubTeamFormController = {
     }
   },
   handler: async (request, h) => {
-    const cdpTeam = request.pre?.stepData
+    const cdpTeam = request.app.getStepData()
 
     const query = request?.query
     const githubSearch = query?.githubSearch ?? cdpTeam?.github

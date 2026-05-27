@@ -7,7 +7,7 @@ const teamDetailsFormController = {
     const query = request?.query
     const redirectLocation = query?.redirectLocation
 
-    const cdpTeam = request.pre?.stepData ?? {}
+    const cdpTeam = request.app.getStepData()
     const isEdit = cdpTeam?.isEdit
 
     const updateOrCreate = isEdit ? 'Edit' : 'Create'

@@ -84,6 +84,16 @@ const adminTeams = {
               method: 'POST',
               path: '/admin/teams/edit',
               ...editTeamController
+            },
+            {
+              method: 'GET',
+              path: '/admin/teams/create',
+              ...startCreateTeamController
+            },
+            {
+              method: 'GET',
+              path: '/admin/teams/{teamId}/edit',
+              ...startEditTeamController
             }
           ].map(adminScope)
         }
@@ -95,16 +105,6 @@ const adminTeams = {
             method: 'GET',
             path: '/admin/teams',
             ...teamsListController
-          },
-          {
-            method: 'GET',
-            path: '/admin/teams/create/{multiStepFormId}',
-            ...startCreateTeamController
-          },
-          {
-            method: 'GET',
-            path: '/admin/teams/{teamId}/edit',
-            ...startEditTeamController
           },
           {
             method: 'GET',

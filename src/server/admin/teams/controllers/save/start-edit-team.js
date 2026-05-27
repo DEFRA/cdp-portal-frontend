@@ -32,7 +32,7 @@ const startEditTeamController = {
 
     await request.yar.commit(h)
 
-    return h.redirect(`/admin/teams/team-details/${id}`)
+    return h.redirect(`/admin/teams/team-details`)
   }
 }
 

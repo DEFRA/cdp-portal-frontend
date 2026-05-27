@@ -5,7 +5,7 @@ import Joi from 'joi'
 
 const createTeamController = {
   handler: async (request, h) => {
-    const cdpTeam = request.pre?.stepData
+    const cdpTeam = request.app.getStepData()
     const endpoint = config.get('userServiceBackendUrl') + '/teams'
 
     try {
@@ -16,7 +16,8 @@ const createTeamController = {
           description: cdpTeam.description,
           github: cdpTeam.github,
           serviceCodes: cdpTeam.serviceCode ? [cdpTeam.serviceCode] : [],
-          alertEmailAddresses: cdpTeam.alertEmailAddresses
+          alertEmailAddresses: cdpTeam.alertEmailAddresses,
+          alertEnvironments: cdpTeam.alertEnvironments
         })
       })
 

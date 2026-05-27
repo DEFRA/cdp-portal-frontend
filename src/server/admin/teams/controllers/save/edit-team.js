@@ -2,7 +2,7 @@ import { editTeam } from '../../helpers/fetch/fetchers.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 const editTeamController = {
   handler: async (request, h) => {
-    const cdpTeam = request.pre?.stepData
+    const cdpTeam = request.app.getStepData()
 
     try {
       await editTeam(request, cdpTeam.teamId, {

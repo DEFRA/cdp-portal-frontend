@@ -2,7 +2,7 @@ import { transformSummaryTeamRows } from '../../transformers/transform-summary-t
 
 const teamSummaryController = {
   handler: (request, h) => {
-    const cdpTeam = request.pre?.stepData
+    const cdpTeam = request.app.getStepData()
     const isEdit = cdpTeam.isEdit ?? false
     const updateOrCreate = isEdit ? 'Edit' : 'Create'
 
