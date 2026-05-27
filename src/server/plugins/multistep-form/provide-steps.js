@@ -22,11 +22,11 @@ function isMultistepFormComplete(urlTemplates) {
  * @param {string} classes - component classes
  * @returns {function(*, *): *}
  */
-function provideSteps({ formSteps, urlTemplates, classes }) {
+function provideSteps({ formSteps, urlTemplates, classes, sessionName }) {
   return (request, h) => {
     const multiStepFormId = request.app.multiStepFormId
     const response = request.response
-    const stepData = request.yar.get(multiStepFormId) ?? {}
+    const stepData = request.yar.get(sessionName ?? multiStepFormId) ?? {}
     const isMultistepComplete = isMultistepFormComplete(urlTemplates)
 
     if (response.variety === 'view') {

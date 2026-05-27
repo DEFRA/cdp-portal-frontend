@@ -11,17 +11,17 @@ const multistepForm = {
     const multistepFormExtensions = [
       {
         type: 'onPreAuth',
-        method: requestHelpers(options.urlTemplates),
+        method: requestHelpers(options.urlTemplates, options.sessionName),
         options: { sandbox: 'plugin' }
       },
       {
         type: 'onPreAuth',
-        method: checkSessionIsValid(options.urlTemplates),
+        method: checkSessionIsValid(options.urlTemplates, options.sessionName),
         options: { sandbox: 'plugin' }
       },
       {
         type: 'onPostHandler',
-        method: provideFormContextValues,
+        method: provideFormContextValues(options.sessionName),
         options: { before: ['yar'], sandbox: 'plugin' }
       },
       {

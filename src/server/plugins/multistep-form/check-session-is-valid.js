@@ -8,10 +8,10 @@ import { populatePathParams } from './populate-path-params.js'
  * @param {Record<string, string>} urlTemplates - flow url templates
  * @returns {(function(*, *): (*))|*}
  */
-function checkSessionIsValid(urlTemplates) {
+function checkSessionIsValid(urlTemplates, sessionName) {
   return (request, h) => {
     const multiStepFormId = request.app.multiStepFormId
-    const stepData = request.yar.get(multiStepFormId)
+    const stepData = request.yar.get(sessionName ?? multiStepFormId)
     const multiStepFormStartUrl = populatePathParams(
       request.params,
       urlTemplates.stepOne

@@ -1,4 +1,5 @@
 const sessionNames = {
+  cdpUser: 'cdp-user',
   cdpTeam: 'cdp-team',
   create: 'create',
   deployment: 'deployment',

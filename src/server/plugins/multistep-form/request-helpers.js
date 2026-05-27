@@ -3,17 +3,22 @@ import { randomUUID } from 'node:crypto'
 import { populatePathParams } from './populate-path-params.js'
 import { saveStepDataRequestHelper } from './save-step-data.js'
 
-function requestHelpers(urlTemplates) {
+function requestHelpers(urlTemplates, sessionName) {
   return (request, h) => {
-    request.app.multiStepFormId =
-      request.params?.multiStepFormId || randomUUID()
+    if (!sessionName) {
+      request.app.multiStepFormId =
+        request.params?.multiStepFormId || randomUUID()
+    }
 
     request.app.saveStepData = saveStepDataRequestHelper(
       request,
-      getStepNameByPath(urlTemplates)
+      getStepNameByPath(urlTemplates),
+      sessionName
     )
 
-    request.logger.debug(`Multistep Form Id: ${request.app.multiStepFormId}`)
+    request.logger.debug(
+      `Multistep Form Id: ${sessionName ?? request.app.multiStepFormId}`
+    )
 
     return h.continue
   }
