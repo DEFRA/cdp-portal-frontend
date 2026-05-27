@@ -40,14 +40,14 @@ export const sessionCookie = {
 
           let refreshedSession
           try {
-            const { refreshedToken, refreshed } =
+            const { token, refreshed } =
               await request.ensureValidToken(currentUserSession)
             if (refreshed) {
               request.logger.info(`Refreshing session: ${sessionId}`)
               refreshedSession = await saveUserSession(
                 request,
                 sessionId,
-                refreshedToken
+                token
               )
             }
           } catch (error) {
