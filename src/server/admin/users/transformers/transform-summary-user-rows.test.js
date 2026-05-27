@@ -3,14 +3,14 @@ import { cdpUserSessionFixture } from '../../../../__fixtures__/admin/cdp-user-s
 
 describe('#transformSummaryUserRows', () => {
   test('Should provide expected user row transformation', () => {
-    expect(transformSummaryUserRows(cdpUserSessionFixture, 'uuid')).toEqual([
+    expect(transformSummaryUserRows(cdpUserSessionFixture)).toEqual([
       {
         actions: {
           classes: 'app-summary__action',
           items: [
             {
               classes: 'app-link',
-              href: '/admin/users/find-aad-user/uuid?redirectLocation=summary',
+              href: '/admin/users/find-aad-user?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'AAD user email'
             }
@@ -43,7 +43,7 @@ describe('#transformSummaryUserRows', () => {
           items: [
             {
               classes: 'app-link',
-              href: '/admin/users/find-github-user/uuid?redirectLocation=summary',
+              href: '/admin/users/find-github-user?redirectLocation=summary',
               text: 'Change',
               visuallyHiddenText: 'GitHub user'
             }

@@ -24,7 +24,7 @@ describe('#provideFormContextValues', () => {
   describe('When variety is not "view"', () => {
     test('Source context should not be set', () => {
       const mockRequest = buildMockRequest({ variety: 'plain' })
-      provideFormContextValues(mockRequest, mockResponseToolkit)
+      provideFormContextValues()(mockRequest, mockResponseToolkit)
 
       expect(mockRequest.response?.source?.context).toBeUndefined()
     })
@@ -33,7 +33,7 @@ describe('#provideFormContextValues', () => {
   describe('When variety is "view"', () => {
     test('Source context should be set', () => {
       const mockRequest = buildMockRequest()
-      provideFormContextValues(mockRequest, mockResponseToolkit)
+      provideFormContextValues()(mockRequest, mockResponseToolkit)
 
       expect(mockRequest.response?.source?.context).toEqual({
         formValues: {}
@@ -60,7 +60,7 @@ describe('#provideFormContextValues', () => {
           }
         })
 
-        provideFormContextValues(mockRequest, mockResponseToolkit)
+        provideFormContextValues()(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
           formValues: {
@@ -82,7 +82,7 @@ describe('#provideFormContextValues', () => {
           }
         })
 
-        provideFormContextValues(mockRequest, mockResponseToolkit)
+        provideFormContextValues()(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
           formValues: {
@@ -102,7 +102,7 @@ describe('#provideFormContextValues', () => {
           }
         })
 
-        provideFormContextValues(mockRequest, mockResponseToolkit)
+        provideFormContextValues()(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
           formValues: {
@@ -124,7 +124,7 @@ describe('#provideFormContextValues', () => {
           ]
         })
 
-        provideFormContextValues(mockRequest, mockResponseToolkit)
+        provideFormContextValues()(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual(
           expect.objectContaining({
@@ -153,7 +153,7 @@ describe('#provideFormContextValues', () => {
           }
         })
 
-        provideFormContextValues(mockRequest, mockResponseToolkit)
+        provideFormContextValues()(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
           formValues: {
@@ -174,7 +174,7 @@ describe('#provideFormContextValues', () => {
           }
         })
 
-        provideFormContextValues(mockRequest, mockResponseToolkit)
+        provideFormContextValues()(mockRequest, mockResponseToolkit)
 
         expect(mockRequest.response?.source?.context).toEqual({
           formValues: {
@@ -186,7 +186,7 @@ describe('#provideFormContextValues', () => {
 
     test('Source return expected mock response tool kit continue value', () => {
       expect(
-        provideFormContextValues(buildMockRequest(), mockResponseToolkit)
+        provideFormContextValues()(buildMockRequest(), mockResponseToolkit)
       ).toBe('mockContinue')
     })
   })
