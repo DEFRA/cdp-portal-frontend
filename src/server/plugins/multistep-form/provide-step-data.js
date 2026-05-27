@@ -1,3 +1,6 @@
+/**
+ * @deprecated Use request.app.getStepData()
+ */
 const provideStepData = {
   method: (request) => {
     const stepData = request.yar.get(request.app?.multiStepFormId)

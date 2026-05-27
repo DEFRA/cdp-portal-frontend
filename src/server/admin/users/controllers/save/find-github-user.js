@@ -3,21 +3,12 @@ import qs from 'qs'
 import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
 import { githubUserNameValidation } from '../../helpers/schema/github-user-name-validation.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
-import Joi from 'joi'
 
 const findGithubUserController = {
-  options: {
-    validate: {
-      params: Joi.object({
-        multiStepFormId: Joi.string().uuid().optional()
-      })
-    }
-  },
   handler: async (request, h) => {
     const payload = request?.payload
     const button = payload?.button
     const redirectLocation = payload?.redirectLocation
-    const multiStepFormId = request.app.multiStepFormId
 
     const githubSearch = payload?.githubSearch || null
     const github = payload?.github || null
@@ -52,14 +43,11 @@ const findGithubUserController = {
         }
       )
 
-      return h.redirect(
-        `/admin/users/find-github-user/${multiStepFormId}${queryString}`
-      )
+      return h.redirect(`/admin/users/find-github-user${queryString}`)
     }
 
     if (!validationResult.error) {
       await request.app.saveStepData(
-        multiStepFormId,
         {
           github: button === 'skip' ? null : github
         },
@@ -67,8 +55,8 @@ const findGithubUserController = {
       )
 
       const redirectTo = redirectLocation
-        ? `/admin/users/${redirectLocation}/${multiStepFormId}`
-        : `/admin/users/summary/${multiStepFormId}`
+        ? `/admin/users/${redirectLocation}`
+        : `/admin/users/summary`
 
       return h.redirect(redirectTo)
     }

@@ -3,15 +3,10 @@ import Boom from '@hapi/boom'
 
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/fetchers.js'
-import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const findAadUserFormController = {
   options: {
-    pre: [provideStepData],
     validate: {
-      params: Joi.object({
-        multiStepFormId: Joi.string().uuid().optional()
-      }),
       query: Joi.object({
         aadQuery: Joi.string().allow(''),
         email: Joi.string().allow(''),
@@ -21,8 +16,7 @@ const findAadUserFormController = {
     }
   },
   handler: async (request, h) => {
-    const multiStepFormId = request.app.multiStepFormId
-    const cdpUser = request.pre.stepData
+    const cdpUser = request.app.getStepData()
 
     const query = request?.query
     const email = query?.email || null
@@ -37,7 +31,6 @@ const findAadUserFormController = {
     return h.view('admin/users/views/save/aad-user-form', {
       pageTitle: 'Find DEFRA user',
       formButtonText: redirectLocation ? 'Save' : 'Next',
-      multiStepFormId,
       redirectLocation,
       formValues: { aadQuery, email },
       aadUsers: aadUsers?.length

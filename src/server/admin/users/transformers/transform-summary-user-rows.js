@@ -3,8 +3,8 @@ import isNull from 'lodash/isNull.js'
 import { noValue } from '../../../common/constants/no-value.js'
 import { buildLink } from '../../../common/helpers/view/build-link.js'
 
-function buildRow(name, value, stepPath, multiStepFormId) {
-  const href = `/admin/users/${stepPath}/${multiStepFormId}?redirectLocation=summary`
+function buildRow(name, value, stepPath) {
+  const href = `/admin/users/${stepPath}?redirectLocation=summary`
   const withTestIdWrapper = (text) => {
     if (text) {
       return `<span data-testid="${name.toLowerCase().replace(/\s+/g, '-')}">${text}</span>`
@@ -34,7 +34,7 @@ function buildRow(name, value, stepPath, multiStepFormId) {
   }
 }
 
-function transformSummaryUserRows(cdpUser, multiStepFormId) {
+function transformSummaryUserRows(cdpUser) {
   const userDetails = Object.entries(cdpUser).reduce((obj, [key, value]) => {
     return {
       ...obj,
@@ -49,19 +49,9 @@ function transformSummaryUserRows(cdpUser, multiStepFormId) {
     : noValue
 
   return [
-    buildRow(
-      'AAD user email',
-      userDetails.email,
-      'find-aad-user',
-      multiStepFormId
-    ),
+    buildRow('AAD user email', userDetails.email, 'find-aad-user'),
     buildRow('AAD user name', userDetails.name),
-    buildRow(
-      'GitHub user',
-      githubUserUiValue,
-      'find-github-user',
-      multiStepFormId
-    )
+    buildRow('GitHub user', githubUserUiValue, 'find-github-user')
   ]
 }
 

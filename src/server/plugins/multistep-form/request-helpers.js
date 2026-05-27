@@ -16,6 +16,9 @@ function requestHelpers(urlTemplates, sessionName) {
       sessionName
     )
 
+    request.app.getStepData = () =>
+      request.yar.get(sessionName ?? request.app?.multiStepFormId) ?? {}
+
     request.logger.debug(
       `Multistep Form Id: ${sessionName ?? request.app.multiStepFormId}`
     )
@@ -29,6 +32,7 @@ function getStepNameByPath(urlTemplates) {
     const step = Object.entries(urlTemplates).find(([, urlTemplate]) =>
       path.startsWith(populatePathParams(params, urlTemplate))
     )
+    console.log(path, urlTemplates, params, step)
     return step?.at(0)
   }
 }

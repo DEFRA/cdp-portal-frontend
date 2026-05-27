@@ -4,21 +4,10 @@ import { buildErrorDetails } from '../../../../common/helpers/build-error-detail
 import { aadIdValidation } from '../../helpers/schema/aad-id-validation.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/fetchers.js'
-import Joi from 'joi'
-import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const findAadUserController = {
-  options: {
-    pre: [provideStepData],
-    validate: {
-      params: Joi.object({
-        multiStepFormId: Joi.string().uuid().optional()
-      })
-    }
-  },
   handler: async (request, h) => {
-    const cdpUser = request.pre?.stepData
-    const multiStepFormId = request.app.multiStepFormId
+    const cdpUser = request.app.getStepData()
 
     const payload = request?.payload
     const button = payload?.button
@@ -52,9 +41,7 @@ const findAadUserController = {
         { addQueryPrefix: true }
       )
 
-      return h.redirect(
-        `/admin/users/find-aad-user/${multiStepFormId}${queryString}`
-      )
+      return h.redirect(`/admin/users/find-aad-user${queryString}`)
     }
 
     if (!validationResult.error) {
@@ -67,7 +54,6 @@ const findAadUserController = {
       const isSameAsSession = aadUser?.mail && isSameEmail
 
       const updatedCdpUser = await request.app.saveStepData(
-        multiStepFormId,
         {
           ...sanitisedPayload,
           userId: aadUser?.userId ?? null,
@@ -83,8 +69,8 @@ const findAadUserController = {
         : ''
 
       const redirectTo = redirectLocation
-        ? `/admin/users/${redirectLocation}/${multiStepFormId}`
-        : `/admin/users/find-github-user/${multiStepFormId}${queryString}`
+        ? `/admin/users/${redirectLocation}`
+        : `/admin/users/find-github-user${queryString}`
 
       return h.redirect(redirectTo)
     }
