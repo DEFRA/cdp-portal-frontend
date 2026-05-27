@@ -2,12 +2,18 @@ import { randomUUID } from 'node:crypto'
 
 import { populatePathParams } from './populate-path-params.js'
 import { saveStepDataRequestHelper } from './save-step-data.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 function requestHelpers(urlTemplates, sessionName) {
   return (request, h) => {
     if (!sessionName) {
       request.app.multiStepFormId =
         request.params?.multiStepFormId || randomUUID()
+    }
+
+    request.app.initStepData = () => {
+      request.yar.clear(sessionName)
+      request.yar.clear(sessionNames.validationFailure)
     }
 
     request.app.saveStepData = saveStepDataRequestHelper(
@@ -32,7 +38,7 @@ function getStepNameByPath(urlTemplates) {
     const step = Object.entries(urlTemplates).find(([, urlTemplate]) =>
       path.startsWith(populatePathParams(params, urlTemplate))
     )
-    console.log(path, urlTemplates, params, step)
+
     return step?.at(0)
   }
 }
