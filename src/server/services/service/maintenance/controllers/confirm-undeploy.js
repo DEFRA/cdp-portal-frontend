@@ -2,8 +2,8 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { entityToSummary } from '../helpers/transformers/entity-to-summary.js'
-import { fetchRunningServices } from '../../../../common/helpers/fetch/fetch-running-services.js'
-import { provideDeploymentStatusClassname } from '../../../../deployments/helpers/provide-deployment-status-classname.js'
+import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
+import { provideDeploymentStatusClassname } from '#server/deployments/helpers/provide-deployment-status-classname.js'
 import { isFrontendEntity } from '../../../helpers/entity-type.js'
 
 const confirmUndeployController = {

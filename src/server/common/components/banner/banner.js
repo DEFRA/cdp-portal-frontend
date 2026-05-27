@@ -1,4 +1,4 @@
-import { notificationTimeout } from '../../../../client/common/constants/timing.js'
+import { notificationTimeout } from '#client/common/constants/timing.js'
 
 /**
  * @param {HTMLElement | undefined | null} $module - HTML element to use for banner

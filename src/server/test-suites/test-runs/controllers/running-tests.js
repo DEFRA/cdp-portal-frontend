@@ -2,7 +2,7 @@ import { fetchTestRuns } from '../../helpers/fetch/fetch-test-runs.js'
 import { sortByEnv } from '../../../common/helpers/sort/sort-by-env.js'
 import { formatISO, format, differenceInMinutes, subMinutes } from 'date-fns'
 import { testSuiteRunResults } from '../../transformers/test-suite-run-results.js'
-import { environments } from '../../../../config/environments.js'
+import { environments } from '#config/environments.js'
 import { buildOptions } from '../../../common/helpers/options/build-options.js'
 import Joi from 'joi'
 

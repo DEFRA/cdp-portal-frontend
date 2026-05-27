@@ -1,5 +1,5 @@
 import { noValue } from '../../../common/constants/no-value.js'
-import { formatText } from '../../../../config/nunjucks/filters/filters.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export function transformTagToRow(tag) {
   return {

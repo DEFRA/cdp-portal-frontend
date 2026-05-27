@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { buildOptions } from '../../../common/helpers/options/build-options.js'
 import { availableInstances } from '../../constants/available-instances.js'
 import { provideFormValues } from '../../helpers/pre/provide-form-values.js'

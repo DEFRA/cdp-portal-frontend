@@ -1,10 +1,10 @@
 import qs from 'qs'
 
-import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { addUserValidation } from '../../helpers/schema/add-user-validation.js'
 import { addMemberToTeam } from '../../helpers/fetch/fetchers.js'
-import { pluralise } from '../../../../common/helpers/pluralise.js'
+import { pluralise } from '#server/common/helpers/pluralise.js'
 
 const addMemberController = {
   handler: async (request, h) => {

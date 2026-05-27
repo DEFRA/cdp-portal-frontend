@@ -1,9 +1,9 @@
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
 import { AutocompleteAdvanced } from './autocomplete-advanced.js'
-import { publish } from '../../../../client/common/helpers/event-emitter.js'
+import { publish } from '#client/common/helpers/event-emitter.js'
 import { defaultOption } from '../../helpers/options/default-option.js'
-import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
-import { injectAndRunScript } from '../../../../../test-helpers/inject-and-run-script.js'
+import { enterValue, pressEnter } from '#test-helpers/keyboard.js'
+import { injectAndRunScript } from '#test-helpers/inject-and-run-script.js'
 
 describe('#autocomplete-advanced', () => {
   let autocompleteInput

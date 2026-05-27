@@ -1,5 +1,5 @@
 import { editTeam } from '../../helpers/fetch/fetchers.js'
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const editTeamController = {

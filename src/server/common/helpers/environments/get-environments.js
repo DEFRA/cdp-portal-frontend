@@ -2,7 +2,7 @@ import {
   environments,
   performanceEnvironments,
   prototypeEnvironments
-} from '../../../../config/environments.js'
+} from '#config/environments.js'
 import { entitySubTypes } from '@defra/cdp-validation-kit'
 import { sortByEnv } from '#server/common/helpers/sort/sort-by-env.js'
 

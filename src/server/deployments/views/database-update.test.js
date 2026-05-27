@@ -1,7 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl
-} from '../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { fetchMigrationRun } from '../helpers/fetchers.js'
 import { migrationRunFixture } from '../../../__fixtures__/migrations/migration-run.js'

@@ -1,5 +1,5 @@
 import { fetchJson } from '../../../common/helpers/fetch/fetch-json.js'
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 
 const portalBackendUrl = config.get('portalBackendUrl')
 

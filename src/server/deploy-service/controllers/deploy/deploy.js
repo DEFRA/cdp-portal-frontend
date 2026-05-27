@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideStepData } from '../../../plugins/multistep-form/provide-step-data.js'
 

@@ -1,15 +1,15 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { getEnvironments } from '../../../../../common/helpers/environments/get-environments.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { excludedEnvironments } from '../../helpers/constants/excluded-environments.js'
-import { buildOptions } from '../../../../../common/helpers/options/build-options.js'
-import { formatText } from '../../../../../../config/nunjucks/filters/filters.js'
-import { provideNotFoundIfPrototype } from '../../../../../common/helpers/ext/provide-not-found-if-prototype.js'
-import { provideNotFoundIfNull } from '../../../../../common/helpers/ext/provide-not-found-if-null.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
+import { provideNotFoundIfPrototype } from '#server/common/helpers/ext/provide-not-found-if-prototype.js'
+import { provideNotFoundIfNull } from '#server/common/helpers/ext/provide-not-found-if-null.js'
 import { getAutoTestRunDetails } from '../../helpers/fetchers.js'
 import { renderTestSuiteTagHtml } from '../../helpers/render-test-suite-tag-html.js'
-import { fetchEntity } from '../../../../../common/helpers/fetch/fetch-entities.js'
+import { fetchEntity } from '#server/common/helpers/fetch/fetch-entities.js'
 import { profileValidation } from '@defra/cdp-validation-kit'
 
 const updateTestRunFormController = {

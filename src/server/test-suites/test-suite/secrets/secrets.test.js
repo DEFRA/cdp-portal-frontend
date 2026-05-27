@@ -2,7 +2,7 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockCommonTestSuiteCalls
-} from '../../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { fetchAllSecrets } from '../../../services/helpers/fetch/fetch-all-secrets.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { fetchSecrets } from '../../../common/helpers/fetch/fetch-secrets.js'

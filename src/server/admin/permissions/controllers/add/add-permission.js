@@ -2,10 +2,10 @@ import qs from 'qs'
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 
-import { pluralise } from '../../../../common/helpers/pluralise.js'
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { pluralise } from '#server/common/helpers/pluralise.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { addScopeToTeam, addScopeToUser } from '../../helpers/fetchers.js'
-import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { addPermissionValidation } from '../../helpers/schema/add-permission-validation.js'
 import { extractIds } from '../../helpers/extract-ids.js'
 

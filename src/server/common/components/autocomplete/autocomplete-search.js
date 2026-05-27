@@ -1,4 +1,4 @@
-import { history } from '../../../../client/common/helpers/history.js'
+import { history } from '#client/common/helpers/history.js'
 import { Autocomplete } from './autocomplete.js'
 
 /**

@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '../../../config/config.js'
+import { config } from '#config/config.js'
 import { searchIndex } from '../helpers/search-index.js'
 
 const searchRoute = {

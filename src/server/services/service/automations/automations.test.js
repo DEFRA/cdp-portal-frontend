@@ -3,7 +3,7 @@ import {
   mockAuthAndRenderUrl,
   mockServiceEntityCall,
   mockTeam
-} from '../../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import {
   getAutoDeployDetails,
   getAutoTestRunDetails

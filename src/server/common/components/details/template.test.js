@@ -1,4 +1,4 @@
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
 
 describe('Details Component', () => {
   const detailsId = 'details-id'

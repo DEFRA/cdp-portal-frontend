@@ -116,7 +116,7 @@ export const refresh = {
 async function buildNotificationsRow(testSuiteName, environments) {
   const notifications = await fetchNotificationRules(testSuiteName)
 
-  const rows = notifications.map((notification) => ({
+  return notifications.map((notification) => ({
     id: notification.ruleId,
     eventType: notification.eventType,
     channel: notification.slackChannel,
@@ -126,6 +126,4 @@ async function buildNotificationsRow(testSuiteName, environments) {
       selected: notification.environments.includes(env)
     }))
   }))
-
-  return rows
 }

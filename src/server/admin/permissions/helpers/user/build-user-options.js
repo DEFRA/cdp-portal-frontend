@@ -3,7 +3,7 @@ import uniqBy from 'lodash/uniqBy.js'
 import { escapeRegex } from '@hapi/hoek'
 
 import { searchCdpUsers } from '../fetchers.js'
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 
 async function buildUsersOptions(searchQuery, scope, selectedUser) {
   const kind = scope.kind

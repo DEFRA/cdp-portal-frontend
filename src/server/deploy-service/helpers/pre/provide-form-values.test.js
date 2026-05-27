@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { deployServiceOptionsFixture } from '../../../../__fixtures__/deploy-service/deploy-service-options.js'
 import { provideFormValues } from './provide-form-values.js'
 import { existingServiceInfoFixture } from '../../../../__fixtures__/deploy-service/existing-service-info.js'

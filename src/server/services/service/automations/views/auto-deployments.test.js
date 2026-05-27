@@ -1,7 +1,7 @@
-import { renderPage } from '../../../../../../test-helpers/component-helpers.js'
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { renderPage } from '#test-helpers/component-helpers.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { entityServicesFixture } from '../../../../../__fixtures__/services/entities.js'
-import { mockServiceTabs } from '../../../../../../test-helpers/mock-tabs.js'
+import { mockServiceTabs } from '#test-helpers/mock-tabs.js'
 
 function buildServiceAutomationContext({
   entity,

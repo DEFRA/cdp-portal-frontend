@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '../../../../../config/nunjucks/filters/filters.js'
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { getAutoDeployDetails } from '../helpers/fetchers.js'
-import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
-import { provideNotFoundIfNull } from '../../../../common/helpers/ext/provide-not-found-if-null.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { provideNotFoundIfNull } from '#server/common/helpers/ext/provide-not-found-if-null.js'
 import { environments } from '@defra/cdp-validation-kit'
 
 const autoDeploymentsController = {

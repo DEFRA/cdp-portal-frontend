@@ -1,12 +1,9 @@
 import nock from 'nock'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { librariesFixture } from '../../../../__fixtures__/libraries.js'
 import { fetchJson } from './fetch-json.js'
-import {
-  getError,
-  NoErrorThrownError
-} from '../../../../../test-helpers/get-error.js'
+import { getError, NoErrorThrownError } from '#test-helpers/get-error.js'
 
 describe('#fetcher', () => {
   const librariesEndpoint = config.get('portalBackendUrl') + '/libraries'

@@ -4,7 +4,7 @@ import {
   mockServiceEntityCall,
   mockServiceEntityCallWithPostgres,
   mockServicesAdditionalCalls
-} from '../../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { scopes, statusCodes } from '@defra/cdp-validation-kit'
 import { availableMigrationsFixture } from '../../../../__fixtures__/migrations/available-migrations.js'
 

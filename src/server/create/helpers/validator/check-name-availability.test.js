@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { checkNameAvailability } from './check-name-availability.js'
 import { repositoryFixture } from '../../../../__fixtures__/repository.js'
 import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'

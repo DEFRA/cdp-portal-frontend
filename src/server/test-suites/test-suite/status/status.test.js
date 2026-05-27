@@ -2,7 +2,7 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockCommonTestSuiteCalls
-} from '../../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../../common/helpers/fetch/fetch-repository.js')

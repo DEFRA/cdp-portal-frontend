@@ -1,5 +1,5 @@
 import { protectForm } from './protect-form.js'
-import { dispatchDomContentLoaded } from '../../../../../test-helpers/dispatch-dom-content-loaded.js'
+import { dispatchDomContentLoaded } from '#test-helpers/dispatch-dom-content-loaded.js'
 
 describe('#protectForm', () => {
   let form

@@ -1,12 +1,9 @@
 import nock from 'nock'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { availableVersionsFixture } from '../../../../__fixtures__/available-versions.js'
 import { fetchAvailableVersions } from './fetch-available-versions.js'
-import {
-  getError,
-  NoErrorThrownError
-} from '../../../../../test-helpers/get-error.js'
+import { getError, NoErrorThrownError } from '#test-helpers/get-error.js'
 
 describe('#fetchAvailableVersions', () => {
   const serviceName = 'cdp-portal-frontend'

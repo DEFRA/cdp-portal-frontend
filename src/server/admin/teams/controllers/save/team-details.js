@@ -1,9 +1,9 @@
 import qs from 'qs'
 
-import { sessionNames } from '../../../../common/constants/session-names.js'
-import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
+import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { teamValidation } from '../../helpers/schema/team-validation.js'
-import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import Joi from 'joi'
 
 const teamDetailsController = {

@@ -1,11 +1,8 @@
 import Boom from '@hapi/boom'
 import startCase from 'lodash/startCase.js'
 
-import {
-  formatText,
-  pluralise
-} from '../../../../../../../config/nunjucks/filters/filters.js'
-import { serviceParamsValidation } from '../../../../../../services/helpers/schema/service-params-validation.js'
+import { formatText, pluralise } from '#config/nunjucks/filters/filters.js'
+import { serviceParamsValidation } from '#server/services/helpers/schema/service-params-validation.js'
 import { transformProxyRules } from '../transformers/transform-proxy-rules.js'
 
 export function environmentProxyController(entityKind) {

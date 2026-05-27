@@ -1,6 +1,6 @@
 // Response from portalBackendApi/entities/example-mock-service-frontend
 
-import { defaultSquidDomains } from '../../config/default-squid-domains.js'
+import { defaultSquidDomains } from '#config/default-squid-domains.js'
 
 const entitiesResourcesFixture = {
   name: 'example-mock-service-frontend',

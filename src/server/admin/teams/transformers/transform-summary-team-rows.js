@@ -1,6 +1,6 @@
 import isNull from 'lodash/isNull.js'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { noValue } from '../../../common/constants/no-value.js'
 import { buildLink } from '../../../common/helpers/view/build-link.js'
 

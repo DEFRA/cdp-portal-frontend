@@ -1,7 +1,7 @@
 import { scopes } from '@defra/cdp-validation-kit'
 
-import { environments } from '../../../../../config/environments.js'
-import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
+import { environments } from '#config/environments.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 
 function allowedBreakGlassEnvironments({ userScopes, teams }) {
   const envs = getEnvironments(userScopes)

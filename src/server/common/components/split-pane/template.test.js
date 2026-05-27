@@ -1,4 +1,4 @@
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
 
 describe('Split Pane Component', () => {
   let $splitPane, $splitPaneNav, $splitPaneContent

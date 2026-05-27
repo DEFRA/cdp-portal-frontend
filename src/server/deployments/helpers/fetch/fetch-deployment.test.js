@@ -1,12 +1,9 @@
 import nock from 'nock'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { deploymentsFixture } from '../../../../__fixtures__/deployments/deployments.js'
 import { fetchDeployment } from './fetch-deployment.js'
-import {
-  getError,
-  NoErrorThrownError
-} from '../../../../../test-helpers/get-error.js'
+import { getError, NoErrorThrownError } from '#test-helpers/get-error.js'
 
 describe('#fetchDeployment', () => {
   const deploymentId = '553E4E6B-05D7-4A2E-BF80-02ED34DEF864'

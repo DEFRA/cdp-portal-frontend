@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { randomUUID } from 'node:crypto'
 
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { fetchCdpTeam } from '../../helpers/fetch/fetchers.js'
 import { teamIdValidation } from '@defra/cdp-validation-kit'
 

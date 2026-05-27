@@ -1,4 +1,4 @@
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { fetchJson } from './fetch-json.js'
 
 async function fetchRunningServices(serviceId) {

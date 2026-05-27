@@ -73,7 +73,7 @@ export default {
 async function buildScheduledTestRunsViewDetails(testSuiteName) {
   const schedules = await getSchedules(testSuiteName)
 
-  const rows = schedules.map((schedule) => ({
+  return schedules.map((schedule) => ({
     id: schedule.id,
     description: schedule.description,
     enabled: schedule.enabled,
@@ -85,6 +85,4 @@ async function buildScheduledTestRunsViewDetails(testSuiteName) {
     endDate: schedule.config.endDate,
     nextRunDate: schedule.nextRunAt
   }))
-
-  return rows
 }

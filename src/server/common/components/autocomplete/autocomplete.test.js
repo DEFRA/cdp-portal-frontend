@@ -1,12 +1,12 @@
-import { subscribe } from '../../../../client/common/helpers/event-emitter.js'
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { subscribe } from '#client/common/helpers/event-emitter.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
 import { Autocomplete } from './autocomplete.js'
 import { defaultOption } from '../../helpers/options/default-option.js'
-import { dispatchDomContentLoaded } from '../../../../../test-helpers/dispatch-dom-content-loaded.js'
-import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
-import { flushAsync } from '../../../../../test-helpers/flush-async.js'
+import { dispatchDomContentLoaded } from '#test-helpers/dispatch-dom-content-loaded.js'
+import { enterValue, pressEnter } from '#test-helpers/keyboard.js'
+import { flushAsync } from '#test-helpers/flush-async.js'
 import { buildOptions } from '../../helpers/options/build-options.js'
-import { injectAndRunScript } from '../../../../../test-helpers/inject-and-run-script.js'
+import { injectAndRunScript } from '#test-helpers/inject-and-run-script.js'
 
 const basicSuggestions = [
   defaultOption,

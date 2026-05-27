@@ -1,4 +1,4 @@
-import { config } from '../../../../../../../config/config.js'
+import { config } from '#config/config.js'
 import { sortByName } from '../../../../../helpers/sort/sort-by-name.js'
 
 /**

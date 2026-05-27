@@ -1,7 +1,7 @@
 import { tabs } from './tabs.js'
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
-import { dispatchDomContentLoaded } from '../../../../../test-helpers/dispatch-dom-content-loaded.js'
-import { history } from '../../../../client/common/helpers/history.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
+import { dispatchDomContentLoaded } from '#test-helpers/dispatch-dom-content-loaded.js'
+import { history } from '#client/common/helpers/history.js'
 
 function setupTabsComponent(options = {}) {
   Object.defineProperty(window, 'location', {

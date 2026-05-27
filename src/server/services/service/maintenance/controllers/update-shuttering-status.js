@@ -2,9 +2,9 @@ import Boom from '@hapi/boom'
 import Joi from 'joi'
 
 import { scopes } from '@defra/cdp-validation-kit'
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { requestShutterUpdate } from '../helpers/fetchers.js'
-import { shutteringUrlType } from '../../../../common/constants/shuttering.js'
+import { shutteringUrlType } from '#server/common/constants/shuttering.js'
 
 const updateShutteringStatusController = {
   options: {

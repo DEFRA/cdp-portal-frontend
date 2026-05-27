@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { history } from '../../../../client/common/helpers/history.js'
+import { history } from '#client/common/helpers/history.js'
 import { pagination } from '../../constants/pagination.js'
 
 function prependQueryParams($elem, params) {

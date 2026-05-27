@@ -1,9 +1,9 @@
-import { stripHtml } from '../../../../test-helpers/strip-html.js'
+import { stripHtml } from '#test-helpers/strip-html.js'
 
 import { getAnnouncements } from './announcements.js'
 import { config } from '../../config.js'
 import { userSessionFixture } from '../../../__fixtures__/user-session.js'
-import { fetchActiveBreakGlass } from '../../../server/admin/permissions/helpers/fetchers.js'
+import { fetchActiveBreakGlass } from '#server/admin/permissions/helpers/fetchers.js'
 import {
   activeBreakGlassFixture,
   activeTeamBreakGlassFixture,

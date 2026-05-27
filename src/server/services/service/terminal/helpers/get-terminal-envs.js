@@ -1,4 +1,4 @@
-import { sortByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
+import { sortByEnv } from '#server/common/helpers/sort/sort-by-env.js'
 import { allowedBreakGlassEnvironments } from './allowed-break-glass-environments.js'
 
 async function getTerminalEnvs({ serviceName, userScopes = [], entity }) {

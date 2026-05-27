@@ -2,13 +2,10 @@ import qs from 'qs'
 import isNull from 'lodash/isNull.js'
 import escapeRegExp from 'lodash/escapeRegExp.js'
 
-import {
-  publish,
-  subscribe
-} from '../../../../client/common/helpers/event-emitter.js'
+import { publish, subscribe } from '#client/common/helpers/event-emitter.js'
 import { buildSuggestions } from './helpers/build-suggestions.js'
-import { clientNotification } from '../../../../client/common/helpers/client-notification.js'
-import { tickSvgIcon } from '../../../../client/common/icons/icons.js'
+import { clientNotification } from '#client/common/helpers/client-notification.js'
+import { tickSvgIcon } from '#client/common/icons/icons.js'
 
 const selectMessage = ' - - select - - '
 const $tickIcon = tickSvgIcon('app-icon app-icon--tiny')

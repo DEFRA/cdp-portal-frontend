@@ -1,9 +1,6 @@
 import { availableVersionsFixture } from '../../../../../__fixtures__/available-versions.js'
 import { fetchVersions } from './fetch-versions.js'
-import {
-  getError,
-  NoErrorThrownError
-} from '../../../../../../test-helpers/get-error.js'
+import { getError, NoErrorThrownError } from '#test-helpers/get-error.js'
 
 describe('#fetchVersions', () => {
   test('Should provide expected available versions response', async () => {

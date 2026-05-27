@@ -1,11 +1,11 @@
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
-import { dispatchDomContentLoaded } from '../../../../../test-helpers/dispatch-dom-content-loaded.js'
-import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
-import { flushAsync } from '../../../../../test-helpers/flush-async.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
+import { dispatchDomContentLoaded } from '#test-helpers/dispatch-dom-content-loaded.js'
+import { enterValue, pressEnter } from '#test-helpers/keyboard.js'
+import { flushAsync } from '#test-helpers/flush-async.js'
 import { buildOptions } from '../../helpers/options/build-options.js'
 import { AutocompleteSearch } from './autocomplete-search.js'
 import { waitFor } from '@testing-library/dom'
-import { injectAndRunScript } from '../../../../../test-helpers/inject-and-run-script.js'
+import { injectAndRunScript } from '#test-helpers/inject-and-run-script.js'
 
 const emptySuggestions = buildOptions([])
 const searchSuggestions = buildOptions([

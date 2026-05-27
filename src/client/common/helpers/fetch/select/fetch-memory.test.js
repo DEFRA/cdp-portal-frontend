@@ -1,9 +1,6 @@
 import { fetchMemory } from './fetch-memory.js'
 import { ecsCpuToMemoryOptionsMapFixture } from '../../../../../__fixtures__/deploy-service/ecs-cpu-to-memory-options-map.js'
-import {
-  getError,
-  NoErrorThrownError
-} from '../../../../../../test-helpers/get-error.js'
+import { getError, NoErrorThrownError } from '#test-helpers/get-error.js'
 
 describe('#fetchMemory', () => {
   test('Should provide expected available memory response', async () => {

@@ -5,7 +5,7 @@ import { entityServicesFixture } from '../../../__fixtures__/services/entities.j
 import {
   initialiseServer,
   mockAuthAndRenderUrl
-} from '../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import {
   fetchFeatureToggles,
   isFeatureToggleActiveForPath

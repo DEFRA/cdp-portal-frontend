@@ -1,4 +1,4 @@
-import { formatText } from '../../../config/nunjucks/filters/filters.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sanitiseUser } from '../../common/helpers/sanitisation/sanitise-user.js'
 import { provideStatusClassname } from '../helpers/provide-status-classname.js'
 

@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { buildServicesFavouritesTableData } from './build-services-favourites-table-data.js'
 import { entitiesFiltersFixture } from '../../../../__fixtures__/services/entities-filters.js'
 import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'

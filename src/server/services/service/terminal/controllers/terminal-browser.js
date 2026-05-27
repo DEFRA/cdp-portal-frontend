@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom'
 
-import { config } from '../../../../../config/config.js'
+import { config } from '#config/config.js'
 import { terminalBrowserParamsValidation } from '../helpers/schema/terminal-params-validation.js'
 
 const terminalBrowserController = {

@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { addHistoryListener } from '../../../../client/common/helpers/xhr.js'
+import { addHistoryListener } from '#client/common/helpers/xhr.js'
 
 /**
  * Search module functionality. A simple search module that handles

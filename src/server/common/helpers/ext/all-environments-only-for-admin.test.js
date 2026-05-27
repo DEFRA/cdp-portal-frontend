@@ -1,8 +1,5 @@
 import { allEnvironmentsOnlyForAdmin } from './all-environments-only-for-admin.js'
-import {
-  getError,
-  NoErrorThrownError
-} from '../../../../../test-helpers/get-error.js'
+import { getError, NoErrorThrownError } from '#test-helpers/get-error.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 
 describe('#allEnvironmentsOnlyForAdmin', () => {
