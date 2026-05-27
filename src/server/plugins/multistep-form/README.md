@@ -18,6 +18,7 @@ In a route file register the multistep plugin with the following options:
 server.register({
   plugin: multistepForm,
   options: {
+    sessionName,
     urlTemplates,
     formSteps,
     routes: [
@@ -40,6 +41,8 @@ server.register({
 
 Provide the following custom options `formSteps` and `urlTemplates` for you flow. These control the steps in your flow
 and the completion of the steps. Everything else is taken care for you.
+
+Optional `sessionName` removed the need for `multiStepFormId`.
 
 ```javascript
 /** @type {Record<string, string>} */
@@ -91,10 +94,18 @@ function formSteps({
 }
 ```
 
+### Getting data in your flow
+
+In your flows controllers, use `request.app.getStepData()` to save the get data.
+
 ### Saving data in your flow
 
 In your flows `POST` controllers, use `await request.app.saveStepData(multiStepFormId, payload, h)` to save the step
 data.
+
+### Init new data in your flow
+
+In your flows controllers, call `request.app.initStepData()` to re-init step data.
 
 ### Providing form values and inline errors in your flow
 

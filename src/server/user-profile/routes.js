@@ -1,6 +1,6 @@
 import { userProfileController } from './controllers/profile.js'
 import { generateApiKeyController } from './controllers/generate-api-key.js'
-import { provideFormContextValues } from '#server/plugins/multistep-form/provide-form-context-values.js'
+import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
 
 const userProfile = {
   plugin: {
@@ -9,7 +9,7 @@ const userProfile = {
       server.ext([
         {
           type: 'onPostHandler',
-          method: provideFormContextValues,
+          method: provideFormContextValues(),
           options: { before: ['yar'], sandbox: 'plugin' }
         }
       ])

@@ -3,15 +3,10 @@ import Boom from '@hapi/boom'
 
 import { buildOptions } from '../../../../common/helpers/options/build-options.js'
 import { searchGithubUsers } from '../../helpers/fetch/fetchers.js'
-import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const findGithubUserFormController = {
   options: {
-    pre: [provideStepData],
     validate: {
-      params: Joi.object({
-        multiStepFormId: Joi.string().uuid().optional()
-      }),
       query: Joi.object({
         githubSearch: Joi.string().allow(''),
         github: Joi.string().allow(''),
@@ -21,8 +16,7 @@ const findGithubUserFormController = {
     }
   },
   handler: async (request, h) => {
-    const cdpUser = request.pre?.stepData
-    const multiStepFormId = request.app.multiStepFormId
+    const cdpUser = request.app.getStepData()
 
     const query = request?.query
     const githubSearch = query?.githubSearch ?? cdpUser?.github
@@ -36,7 +30,6 @@ const findGithubUserFormController = {
 
     return h.view('admin/users/views/save/github-user-form', {
       pageTitle: 'Find Defra GitHub User',
-      multiStepFormId,
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       formValues: { githubSearch, github },

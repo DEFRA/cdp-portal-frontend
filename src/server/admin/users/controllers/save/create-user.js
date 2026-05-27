@@ -1,21 +1,10 @@
 import { config } from '../../../../../config/config.js'
 import { sessionNames } from '../../../../common/constants/session-names.js'
 import { removeNil } from '../../../../common/helpers/remove-nil.js'
-import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
-import Joi from 'joi'
 
 const createUserController = {
-  options: {
-    pre: [provideStepData],
-    validate: {
-      params: Joi.object({
-        multiStepFormId: Joi.string().uuid().optional()
-      })
-    }
-  },
   handler: async (request, h) => {
-    const cdpUser = request.pre?.stepData
-    const multiStepFormId = request.app.multiStepFormId
+    const cdpUser = request.app.getStepData()
     const createUserEndpointUrl = `${config.get('userServiceBackendUrl')}/users`
 
     try {
@@ -38,7 +27,7 @@ const createUserController = {
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect(`/admin/users/summary/${multiStepFormId}`)
+      return h.redirect(`/admin/users/summary`)
     }
   }
 }

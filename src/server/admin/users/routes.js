@@ -16,6 +16,7 @@ import { startEditUserController } from './controllers/edit/edit-user-form.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
 import { formSteps, urlTemplates } from './helpers/form/steps.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -38,33 +39,34 @@ const adminUsers = {
       await server.register({
         plugin: multistepForm,
         options: {
+          sessionName: sessionNames.cdpUser,
           urlTemplates,
           formSteps,
           ext: serverExtensions,
           routes: [
             {
               method: 'GET',
-              path: '/admin/users/find-aad-user/{multiStepFormId?}',
+              path: '/admin/users/find-aad-user',
               ...findAadUserFormController
             },
             {
               method: 'POST',
-              path: '/admin/users/find-aad-user/{multiStepFormId?}',
+              path: '/admin/users/find-aad-user',
               ...findAadUserController
             },
             {
               method: 'GET',
-              path: '/admin/users/find-github-user/{multiStepFormId}',
+              path: '/admin/users/find-github-user',
               ...findGithubUserFormController
             },
             {
               method: 'POST',
-              path: '/admin/users/find-github-user/{multiStepFormId}',
+              path: '/admin/users/find-github-user',
               ...findGithubUserController
             },
             {
               method: 'GET',
-              path: '/admin/users/summary/{multiStepFormId}',
+              path: '/admin/users/summary',
               ...userSummaryController
             },
             {
@@ -74,7 +76,7 @@ const adminUsers = {
             },
             {
               method: 'POST',
-              path: '/admin/users/create/{multiStepFormId}',
+              path: '/admin/users/create',
               ...createUserController
             }
           ].map(adminScope)

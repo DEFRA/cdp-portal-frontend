@@ -12,7 +12,7 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half-from-desktop-wide">
 
-          <form action="/admin/users/create/{{ multiStepFormId }}" method="post">
+          <form action="/admin/users/create" method="post">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
             {% call appPanel({

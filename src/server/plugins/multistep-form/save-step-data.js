@@ -39,15 +39,33 @@ async function saveStepData({ id, data, h, yar, logger, step }) {
  * @param {Function} getStepByPath
  * @returns {function(*, *, *): Promise<void>}
  */
-function saveStepDataRequestHelper(request, getStepByPath) {
+function saveStepDataRequestHelper(request, getStepByPath, sessionName) {
+  if (sessionName) {
+    /**
+     * Save step data request helper
+     * @param {object} data
+     * @param {import('@hapi/hapi').ResponseToolkit} h
+     */
+    return (data, h) => {
+      return saveStepData({
+        id: sessionName,
+        data,
+        h,
+        yar: request.yar,
+        logger: request.logger,
+        step: getStepByPath(request)
+      })
+    }
+  }
+
   /**
    * Save step data request helper
    * @param {string} id
    * @param {object} data
    * @param {import('@hapi/hapi').ResponseToolkit} h
    */
-  return (id, data, h) =>
-    saveStepData({
+  return (id, data, h) => {
+    return saveStepData({
       id,
       data,
       h,
@@ -55,6 +73,7 @@ function saveStepDataRequestHelper(request, getStepByPath) {
       logger: request.logger,
       step: getStepByPath(request)
     })
+  }
 }
 
 export { saveStepDataRequestHelper }
