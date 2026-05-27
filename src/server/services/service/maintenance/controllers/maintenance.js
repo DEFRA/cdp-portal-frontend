@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sortKeyByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
-import { fetchRunningServices } from '../../../../common/helpers/fetch/fetch-running-services.js'
+import { sortKeyByEnv } from '#server/common/helpers/sort/sort-by-env.js'
+import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
 import { fetchShutteringUrls } from '../../../helpers/fetch/fetch-shuttering-urls.js'
-import { provideDeploymentStatusClassname } from '../../../../deployments/helpers/provide-deployment-status-classname.js'
-import { deploymentStatus } from '../../../../common/constants/deployment.js'
+import { provideDeploymentStatusClassname } from '#server/deployments/helpers/provide-deployment-status-classname.js'
+import { deploymentStatus } from '#server/common/constants/deployment.js'
 import { isFrontendEntity } from '../../../helpers/entity-type.js'
 
 const maintenanceController = {

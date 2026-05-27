@@ -4,9 +4,9 @@ import uniqBy from 'lodash/uniqBy.js'
 import filter from 'lodash/filter.js'
 import { escapeRegex } from '@hapi/hoek'
 
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { provideSelectedEntities } from '../../helpers/pre/provide-selected-entities.js'
-import { renderTag } from '../../../../common/helpers/view/render-tag.js'
+import { renderTag } from '#server/common/helpers/view/render-tag.js'
 import {
   searchCdpUsers,
   searchCdpTeams,

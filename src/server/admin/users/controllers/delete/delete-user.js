@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '../../../../../config/config.js'
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { config } from '#config/config.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { userIdValidation } from '@defra/cdp-validation-kit'
 
 const deleteUserController = {

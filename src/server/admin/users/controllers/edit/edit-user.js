@@ -1,6 +1,6 @@
 import Joi from 'joi'
-import { config } from '../../../../../config/config.js'
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { config } from '#config/config.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { userIdValidation } from '@defra/cdp-validation-kit'
 import Boom from '@hapi/boom'
 

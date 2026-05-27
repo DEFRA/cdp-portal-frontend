@@ -1,4 +1,4 @@
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildLink } from '../../../common/helpers/view/build-link.js'
 import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'

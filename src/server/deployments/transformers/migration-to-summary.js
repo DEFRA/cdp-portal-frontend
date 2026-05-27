@@ -2,10 +2,7 @@ import { buildLink } from '../../common/helpers/view/build-link.js'
 import { noValue } from '../../common/constants/no-value.js'
 import { provideStatusClassname } from '../helpers/provide-status-classname.js'
 import { buildDatabaseLogsLink } from '../helpers/build-database-logs-link.js'
-import {
-  formatText,
-  sanitiseUser
-} from '../../../config/nunjucks/filters/filters.js'
+import { formatText, sanitiseUser } from '#config/nunjucks/filters/filters.js'
 import {
   renderComponent,
   renderIcon

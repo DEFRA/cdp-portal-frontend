@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { config } from '../../../config/config.js'
+import { config } from '#config/config.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { s3FileHandler } from '../helpers/s3-file-handler.js'
 import { markdownHandler } from '../helpers/markdown-handler.js'

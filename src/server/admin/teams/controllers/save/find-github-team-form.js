@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { searchGithubTeams } from '../../helpers/fetch/fetchers.js'
 import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 

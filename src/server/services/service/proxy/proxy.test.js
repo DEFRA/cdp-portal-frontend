@@ -2,7 +2,7 @@ import {
   initialiseServer,
   mockAuthAndRenderUrl,
   mockServiceEntityCall
-} from '../../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { entitySubTypes, statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')

@@ -1,5 +1,5 @@
 import { buildAutoTestRunsViewDetails } from './build-auto-test-runs-view-details.js'
-import { fetchTestSuites } from '../../../../common/helpers/fetch/fetch-entities.js'
+import { fetchTestSuites } from '#server/common/helpers/fetch/fetch-entities.js'
 import { getAutoTestRunDetails } from './fetchers.js'
 
 vi.mock('../../../../common/helpers/fetch/fetch-entities.js')

@@ -2,7 +2,7 @@ import Boom from '@hapi/boom'
 import Joi from 'joi'
 
 import { scopes } from '@defra/cdp-validation-kit'
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { requestUndeploy } from '../helpers/fetchers.js'
 
 const undeployController = {

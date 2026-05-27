@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { fetchJson } from './fetch-json.js'
 import { entityTypes } from '@defra/cdp-validation-kit'
 import { entityStatuses } from '@defra/cdp-validation-kit/src/constants/entities.js'

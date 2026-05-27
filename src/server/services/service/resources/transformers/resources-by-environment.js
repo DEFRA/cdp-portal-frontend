@@ -1,8 +1,8 @@
-import { sortBy } from '../../../../common/helpers/sort/sort-by.js'
-import { buildList } from '../../../../common/helpers/view/build-list.js'
-import { sortByName } from '../../../../common/helpers/sort/sort-by-name.js'
-import { renderComponent } from '../../../../common/helpers/nunjucks/render-component.js'
-import { noValue } from '../../../../common/constants/no-value.js'
+import { sortBy } from '#server/common/helpers/sort/sort-by.js'
+import { buildList } from '#server/common/helpers/view/build-list.js'
+import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
+import { renderComponent } from '#server/common/helpers/nunjucks/render-component.js'
+import { noValue } from '#server/common/constants/no-value.js'
 
 const keyClass = 'app-summary-list__key'
 

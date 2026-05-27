@@ -1,7 +1,7 @@
 import qs from 'qs'
 
-import { sessionNames } from '../../../../common/constants/session-names.js'
-import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
+import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { githubTeamNameValidation } from '../../helpers/schema/github-team-name-validation.js'
 import Joi from 'joi'
 

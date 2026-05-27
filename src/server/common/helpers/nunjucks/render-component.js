@@ -1,7 +1,7 @@
 import camelCase from 'lodash/camelCase.js'
 import upperFirst from 'lodash/upperFirst.js'
 
-import { nunjucksEnvironment } from '../../../../config/nunjucks/index.js'
+import { nunjucksEnvironment } from '#config/nunjucks/index.js'
 
 const macroNameCache = new Map()
 

@@ -1,9 +1,9 @@
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
-import { enterValue, pressEnter } from '../../../../../test-helpers/keyboard.js'
-import { flushAsync } from '../../../../../test-helpers/flush-async.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
+import { enterValue, pressEnter } from '#test-helpers/keyboard.js'
+import { flushAsync } from '#test-helpers/flush-async.js'
 import { buildOptions } from '../../helpers/options/build-options.js'
 import { AutocompleteDocSearch } from './autocomplete-doc-search.js'
-import { injectAndRunScript } from '../../../../../test-helpers/inject-and-run-script.js'
+import { injectAndRunScript } from '#test-helpers/inject-and-run-script.js'
 
 const mockFormSubmit = vi.fn().mockReturnValue(false)
 

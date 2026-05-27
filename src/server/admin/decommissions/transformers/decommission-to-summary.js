@@ -1,6 +1,6 @@
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { noValue } from '../../../common/constants/no-value.js'
-import { formatText } from '../../../../config/nunjucks/filters/filters.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { buildLink } from '../../../common/helpers/view/build-link.js'
 import { buildList } from '../../../common/helpers/view/build-list.js'
 import { renderTag } from '../../../common/helpers/view/render-tag.js'

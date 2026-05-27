@@ -1,5 +1,5 @@
-import { config } from '../../../../../config/config.js'
-import { removeNil } from '../../../../common/helpers/remove-nil.js'
+import { config } from '#config/config.js'
+import { removeNil } from '#server/common/helpers/remove-nil.js'
 
 const selfServiceOpsUrl = config.get('selfServiceOpsUrl')
 

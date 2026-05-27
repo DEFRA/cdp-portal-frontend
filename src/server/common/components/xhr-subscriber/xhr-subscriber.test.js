@@ -1,9 +1,9 @@
-import { xhrRequest } from '../../../../client/common/helpers/xhr.js'
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { xhrRequest } from '#client/common/helpers/xhr.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
 import { xhrSubscriber } from './xhr-subscriber.js'
-import { publish } from '../../../../client/common/helpers/event-emitter.js'
-import { clientNotification } from '../../../../client/common/helpers/client-notification.js'
-import { flushAsync } from '../../../../../test-helpers/flush-async.js'
+import { publish } from '#client/common/helpers/event-emitter.js'
+import { clientNotification } from '#client/common/helpers/client-notification.js'
+import { flushAsync } from '#test-helpers/flush-async.js'
 
 vi.mock('../../../../client/common/helpers/client-notification.js')
 vi.mock('../../../../client/common/helpers/xhr.js')

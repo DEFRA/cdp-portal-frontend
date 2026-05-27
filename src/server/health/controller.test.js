@@ -1,6 +1,6 @@
 import { statusCodes } from '@defra/cdp-validation-kit'
 
-import { createTestServer } from '../../../test-helpers/create-test-server.js'
+import { createTestServer } from '#test-helpers/create-test-server.js'
 import { healthController } from './controller.js'
 
 describe('#healthController', () => {

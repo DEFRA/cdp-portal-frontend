@@ -3,7 +3,7 @@ import {
   mockAuthAndRenderUrl,
   mockEntityCall,
   mockRepositoryCall
-} from '../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { REPOSITORY } from '../common/patterns/entities/tabs/constants.js'
 import { fetchRepository } from '../common/helpers/fetch/fetch-repository.js'

@@ -1,8 +1,8 @@
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 
-import { sessionNames } from '../../../../common/constants/session-names.js'
-import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
+import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { autoDeployValidation } from '../helpers/schema/auto-deploy-validation.js'
 import { saveAutoDeployDetails } from '../helpers/fetchers.js'
 

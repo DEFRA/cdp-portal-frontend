@@ -1,7 +1,7 @@
 import {
   initialiseServer,
   mockAuthAndRenderUrl
-} from '../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { deploymentFixture } from '../../../__fixtures__/deployments/deployment.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { fetchDeployment } from '../helpers/fetch/fetch-deployment.js'

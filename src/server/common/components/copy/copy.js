@@ -1,6 +1,6 @@
-import { clientNotification } from '../../../../client/common/helpers/client-notification.js'
-import { tickSvgIcon } from '../../../../client/common/icons/icons.js'
-import { copyFeedbackDuration } from '../../../../client/common/constants/timing.js'
+import { clientNotification } from '#client/common/helpers/client-notification.js'
+import { tickSvgIcon } from '#client/common/icons/icons.js'
+import { copyFeedbackDuration } from '#client/common/constants/timing.js'
 
 function copy($module) {
   if (!$module) {

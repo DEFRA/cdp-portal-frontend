@@ -1,4 +1,4 @@
-import { renderTag } from '../../../../common/helpers/view/render-tag.js'
+import { renderTag } from '#server/common/helpers/view/render-tag.js'
 import { entitySubTypes } from '@defra/cdp-validation-kit'
 
 function renderTestSuiteTagHtml(testSuite) {

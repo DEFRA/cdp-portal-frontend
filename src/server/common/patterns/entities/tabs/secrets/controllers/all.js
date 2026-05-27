@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 import startCase from 'lodash/startCase.js'
 
-import { fetchAllSecrets } from '../../../../../../services/helpers/fetch/fetch-all-secrets.js'
+import { fetchAllSecrets } from '#server/services/helpers/fetch/fetch-all-secrets.js'
 import { allEnvironmentSecrets } from '../transformers/all-environment-secrets.js'
 import { getEnvironments } from '../../../../../helpers/environments/get-environments.js'
 import { pluralise } from '../../../../../helpers/pluralise.js'

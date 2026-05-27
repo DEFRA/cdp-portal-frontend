@@ -1,6 +1,6 @@
 import { config } from '../../config.js'
-import { renderComponent } from '../../../server/common/helpers/nunjucks/render-component.js'
-import { fetchActiveBreakGlass } from '../../../server/admin/permissions/helpers/fetchers.js'
+import { renderComponent } from '#server/common/helpers/nunjucks/render-component.js'
+import { fetchActiveBreakGlass } from '#server/admin/permissions/helpers/fetchers.js'
 
 /**
  * Retrieves the support channel URL from the configuration.

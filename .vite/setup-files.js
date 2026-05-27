@@ -5,7 +5,7 @@ import { TextEncoder, TextDecoder } from 'node:util'
 import { ReadableStream, TransformStream } from 'node:stream/web'
 import { clearImmediate, setImmediate } from 'node:timers'
 
-import { fetchWellknown } from '../src/server/common/helpers/fetch/fetch-well-known.js'
+import { fetchWellknown } from '#server/common/helpers/fetch/fetch-well-known.js'
 import { toMatchFileWithOptions } from '../test-helpers/to-match-file.js'
 
 const fetchMock = createFetchMock(vi)

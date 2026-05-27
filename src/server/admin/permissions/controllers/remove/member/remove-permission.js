@@ -2,7 +2,7 @@ import Boom from '@hapi/boom'
 import { teamIdValidation, userIdValidation } from '@defra/cdp-validation-kit'
 
 import Joi from 'joi'
-import { sessionNames } from '../../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { removeScopeFromMember } from '../../../helpers/fetchers.js'
 
 const removePermissionFromMemberController = {

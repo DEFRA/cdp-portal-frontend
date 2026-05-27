@@ -1,6 +1,6 @@
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
 import { filters } from './filters.js'
-import { clearFilters } from '../../../../client/common/helpers/fetch/filters/clear-filters.js'
+import { clearFilters } from '#client/common/helpers/fetch/filters/clear-filters.js'
 
 const mockHistoryPush = vi.fn()
 const mockHistoryReplace = vi.fn()

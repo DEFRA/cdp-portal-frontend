@@ -2,7 +2,7 @@ import Boom from '@hapi/boom'
 import { parseISO, subHours } from 'date-fns'
 import startCase from 'lodash/startCase.js'
 
-import { transformServiceToSummary } from '../../../../services/service/about/transformers/service-to-summary.js'
+import { transformServiceToSummary } from '#server/services/service/about/transformers/service-to-summary.js'
 import { fetchRepository } from '../../../helpers/fetch/fetch-repository.js'
 import { nullify404 } from '../../../helpers/nullify-404.js'
 import { pluralise } from '../../../helpers/pluralise.js'
@@ -12,7 +12,7 @@ import {
   entityTypes
 } from '@defra/cdp-validation-kit/src/constants/entities.js'
 import { statusTagClassMap } from '../../../helpers/status-tag-class-map.js'
-import { nonAdminEnvironments } from '../../../../../config/environments.js'
+import { nonAdminEnvironments } from '#config/environments.js'
 
 const stepsByEntityType = {
   [entityTypes.microservice]: [

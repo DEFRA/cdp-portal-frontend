@@ -1,7 +1,7 @@
 import { buildRedisClient } from '../redis/redis-client.js'
 import { Engine as CatboxRedis } from '@hapi/catbox-redis'
 import { Engine as CatboxMemory } from '@hapi/catbox-memory'
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { createLogger } from '../logging/logger.js'
 import { CatboxDynamoDB } from '@defra/catbox-dynamodb'
 import { NodeHttpHandler } from '@smithy/node-http-handler'

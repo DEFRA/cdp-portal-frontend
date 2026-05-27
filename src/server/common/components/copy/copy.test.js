@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/dom'
 
 import { copy } from './copy.js'
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
-import { clientNotification } from '../../../../client/common/helpers/client-notification.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
+import { clientNotification } from '#client/common/helpers/client-notification.js'
 
 vi.mock('../../../../client/common/helpers/client-notification.js')
 

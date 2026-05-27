@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '../../../config/nunjucks/filters/filters.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { buildRunningServicesTableData } from '../helpers/build-running-services-table-data.js'
 
 const runningServicesListController = {

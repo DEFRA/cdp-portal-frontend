@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
 import { validation } from '@defra/cdp-validation-kit/src/helpers/validation-messages.js'
-import { getEnvironments } from '../../../../../common/helpers/environments/get-environments.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { excludedEnvironments } from '../constants/excluded-environments.js'
 import {
   envVarValueValidation,

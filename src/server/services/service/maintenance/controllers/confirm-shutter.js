@@ -3,7 +3,7 @@ import Boom from '@hapi/boom'
 
 import { fetchShutteringUrl } from '../../../helpers/fetch/fetch-shuttering-url.js'
 import { shutteringDetailToSummary } from '../helpers/transformers/shuttering-detail-to-summary.js'
-import { shutteringStatus } from '../../../../common/constants/shuttering.js'
+import { shutteringStatus } from '#server/common/constants/shuttering.js'
 import { isFrontendEntity } from '../../../helpers/entity-type.js'
 
 const confirmShutterController = {

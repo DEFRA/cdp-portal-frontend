@@ -7,7 +7,7 @@ import {
   mockFetchCdpUserCall,
   mockFetchCdpTeamCall,
   mockFetchCdpTeamsCall
-} from '../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { cdpUserFixture } from '../../__fixtures__/admin/cdp-user.js'
 
 vi.mock('./helpers/fetch/fetch-cdp-teams.js')

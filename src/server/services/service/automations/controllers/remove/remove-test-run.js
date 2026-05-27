@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { sessionNames } from '../../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { removeAutoTestRun } from '../../helpers/fetchers.js'
-import { provideNotFoundIfPrototype } from '../../../../../common/helpers/ext/provide-not-found-if-prototype.js'
-import { provideNotFoundIfNull } from '../../../../../common/helpers/ext/provide-not-found-if-null.js'
+import { provideNotFoundIfPrototype } from '#server/common/helpers/ext/provide-not-found-if-prototype.js'
+import { provideNotFoundIfNull } from '#server/common/helpers/ext/provide-not-found-if-null.js'
 import {
   profileValidation,
   repositoryNameValidation

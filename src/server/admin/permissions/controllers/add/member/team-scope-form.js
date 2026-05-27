@@ -4,7 +4,7 @@ import { userIdValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
 import { fetchPermission } from '../../../helpers/fetchers.js'
 import { fetchCdpUser } from '../../../../users/helpers/fetch/fetchers.js'
-import { buildOptions } from '../../../../../common/helpers/options/build-options.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const teamScopeFormController = {

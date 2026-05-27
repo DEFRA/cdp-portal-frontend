@@ -1,7 +1,7 @@
 import { formatDistanceStrict } from 'date-fns'
 
 import { noValue } from '../../../common/constants/no-value.js'
-import { formatText } from '../../../../config/nunjucks/filters/filters.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { renderTag } from '../../../common/helpers/view/render-tag.js'
 import { creationStatuses } from '../../../common/constants/creation-statuses.js'
 

@@ -4,7 +4,7 @@ import { formatDistance, parseISO } from 'date-fns'
 
 import { provideTestRunStatusClassname } from '../helpers/provide-test-run-status-classname.js'
 import { buildLogsLink } from '../helpers/build-logs-link.js'
-import { formatText } from '../../../config/nunjucks/filters/filters.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { buildLink } from '../../common/helpers/view/build-link.js'
 import { taskStatus, testStatus } from '../constants/test-run-status.js'
 

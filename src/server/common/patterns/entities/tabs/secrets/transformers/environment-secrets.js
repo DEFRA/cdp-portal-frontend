@@ -1,6 +1,6 @@
 import pullAll from 'lodash/pullAll.js'
 
-import { config } from '../../../../../../../config/config.js'
+import { config } from '#config/config.js'
 import { sortBy } from '../../../../../helpers/sort/sort-by.js'
 import { platformKeyDescriptions } from '../../../../../constants/platform-key-descriptions.js'
 import { noValue } from '../../../../../constants/no-value.js'

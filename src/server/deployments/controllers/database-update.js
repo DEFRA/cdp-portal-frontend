@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '../../../config/nunjucks/filters/filters.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { pagination } from '../../common/constants/pagination.js'
 import { databaseStatus } from '../constants/database-status.js'
 import { provideMigration } from '../helpers/pre/provide-migration.js'

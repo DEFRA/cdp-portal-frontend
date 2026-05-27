@@ -1,5 +1,5 @@
-import { config } from '../../../../../config/config.js'
-import { fetchJson } from '../../../../common/helpers/fetch/fetch-json.js'
+import { config } from '#config/config.js'
+import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 import Wreck from '@hapi/wreck'
 
 const userServiceBackendUrl = config.get('userServiceBackendUrl')

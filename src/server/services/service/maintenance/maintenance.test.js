@@ -3,7 +3,7 @@ import {
   mockAuthAndRenderUrl,
   mockServiceEntityCall,
   mockServicesAdditionalCalls
-} from '../../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 
 vi.mock('../../../common/helpers/fetch/fetch-running-services.js')

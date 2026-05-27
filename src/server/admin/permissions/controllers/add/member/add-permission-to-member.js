@@ -3,7 +3,7 @@ import { userIdValidation } from '@defra/cdp-validation-kit'
 
 import Joi from 'joi'
 import { addScopeToMember } from '../../../helpers/fetchers.js'
-import { sessionNames } from '../../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { userPermissionValidation } from '../../../helpers/schema/user-permission-validation.js'
 import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 

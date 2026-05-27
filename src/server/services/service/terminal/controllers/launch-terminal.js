@@ -1,9 +1,9 @@
 import Boom from '@hapi/boom'
 
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { deployTerminal } from '../helpers/fetch/deploy-terminal.js'
 import { launchTerminalParamsValidation } from '../helpers/schema/terminal-params-validation.js'
-import { fetchActiveBreakGlass } from '../../../../admin/permissions/helpers/fetchers.js'
+import { fetchActiveBreakGlass } from '#server/admin/permissions/helpers/fetchers.js'
 
 const launchTerminalController = {
   options: {

@@ -1,4 +1,4 @@
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { noValue } from '../../../common/constants/no-value.js'
 
 function transformTeamToEntityRow(team) {

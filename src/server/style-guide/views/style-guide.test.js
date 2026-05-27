@@ -3,7 +3,7 @@ import { statusCodes } from '@defra/cdp-validation-kit'
 import {
   initialiseServer,
   mockAuthAndRenderUrl
-} from '../../../../test-helpers/common-page-rendering.js'
+} from '#test-helpers/common-page-rendering.js'
 
 vi.mock('../../../common/helpers/auth/get-user-session.js')
 

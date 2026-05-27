@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { config } from '../../../../config/config.js'
+import { config } from '#config/config.js'
 import { cdpTeamsFixture } from '../../../../__fixtures__/admin/cdp-teams.js'
 import { getUsersTeams } from './get-users-teams.js'
 

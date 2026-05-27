@@ -1,4 +1,4 @@
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
 
 describe('Copy Component', () => {
   let $copyElem, $copyContentElem

@@ -1,4 +1,4 @@
-import { renderTestComponent } from '../../../../../test-helpers/component-helpers.js'
+import { renderTestComponent } from '#test-helpers/component-helpers.js'
 
 describe('App select with loader Component', () => {
   let $select

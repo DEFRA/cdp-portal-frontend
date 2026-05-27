@@ -1,11 +1,11 @@
 import Boom from '@hapi/boom'
 import omit from 'lodash/omit.js'
 
-import { config } from '../../../../../../../config/config.js'
+import { config } from '#config/config.js'
 import { sessionNames } from '../../../../../constants/session-names.js'
 import { fetchSecrets } from '../../../../../helpers/fetch/fetch-secrets.js'
 import { buildErrorDetails } from '../../../../../helpers/build-error-details.js'
-import { serviceParamsValidation } from '../../../../../../services/helpers/schema/service-params-validation.js'
+import { serviceParamsValidation } from '#server/services/helpers/schema/service-params-validation.js'
 import { secretPayloadValidation } from '../schema/secret-payload-validation.js'
 import { pluralise } from '../../../../../helpers/pluralise.js'
 

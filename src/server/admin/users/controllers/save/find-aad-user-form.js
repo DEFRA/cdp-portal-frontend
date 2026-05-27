@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { buildOptions } from '../../../../common/helpers/options/build-options.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { searchAzureActiveDirectoryUsers } from '../../helpers/fetch/fetchers.js'
 
 const findAadUserFormController = {

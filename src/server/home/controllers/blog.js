@@ -22,33 +22,32 @@ const blogRoute = {
     const articlePath = request.params.articlePath
     const articleKey = `blog/${articlePath}`
 
-    try {
-      if (!articlePath) {
-        throw Boom.notFound()
+    let statusCode = 404
+
+    if (articlePath) {
+      try {
+        if (articlePath.toLowerCase().endsWith('.md')) {
+          return await blogMarkdownHandler(request, h, articlePath, bucket)
+        }
+
+        return await s3FileHandler(request, h, articleKey, bucket)
+      } catch (error) {
+        request.logger.error(error)
+        statusCode =
+          error?.output?.statusCode ||
+          error?.$metadata?.httpStatusCode ||
+          statusCodes.internalError
       }
-
-      if (articlePath.toLowerCase().endsWith('.md')) {
-        return await blogMarkdownHandler(request, h, articlePath, bucket)
-      }
-
-      return await s3FileHandler(request, h, articleKey, bucket)
-    } catch (error) {
-      request.logger.error(error)
-
-      const statusCode =
-        error?.output?.statusCode ||
-        error?.$metadata?.httpStatusCode ||
-        statusCodes.internalError
-      const errorMessage = statusCodeMessage(statusCode)
-
-      return h
-        .view('error/index', {
-          pageTitle: errorMessage,
-          heading: statusCode,
-          message: errorMessage
-        })
-        .code(statusCode)
     }
+    const errorMessage = statusCodeMessage(statusCode)
+
+    return h
+      .view('error/index', {
+        pageTitle: errorMessage,
+        heading: statusCode,
+        message: errorMessage
+      })
+      .code(statusCode)
   }
 }
 

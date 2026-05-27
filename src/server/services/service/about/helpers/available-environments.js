@@ -1,5 +1,5 @@
-import { getEnvironments } from '../../../../common/helpers/environments/get-environments.js'
-import { sortByEnv } from '../../../../common/helpers/sort/sort-by-env.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { sortByEnv } from '#server/common/helpers/sort/sort-by-env.js'
 
 function availableEnvironments({ userScopes, entity }) {
   const environments = getEnvironments(userScopes, entity.subType)

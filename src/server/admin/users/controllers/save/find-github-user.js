@@ -1,8 +1,8 @@
 import qs from 'qs'
 
-import { buildErrorDetails } from '../../../../common/helpers/build-error-details.js'
+import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { githubUserNameValidation } from '../../helpers/schema/github-user-name-validation.js'
-import { sessionNames } from '../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 const findGithubUserController = {
   handler: async (request, h) => {

@@ -1,8 +1,5 @@
 import { nullify404 } from './nullify-404.js'
-import {
-  getErrorSync,
-  NoErrorThrownError
-} from '../../../../test-helpers/get-error.js'
+import { getErrorSync, NoErrorThrownError } from '#test-helpers/get-error.js'
 
 const mock404Error = { message: 'Not Found', output: { statusCode: 404 } }
 const mock500Error = { message: 'Holy smokes!', output: { statusCode: 50 } }

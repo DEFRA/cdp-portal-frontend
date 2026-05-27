@@ -1,5 +1,5 @@
 import { scopes } from '@defra/cdp-validation-kit'
-import { sessionNames } from '../../../../../common/constants/session-names.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import {
   fetchPermissionByName,
   removeScopeFromUser

@@ -1,6 +1,6 @@
-import { config } from '../../../../../config/config.js'
-import { sessionNames } from '../../../../common/constants/session-names.js'
-import { removeNil } from '../../../../common/helpers/remove-nil.js'
+import { config } from '#config/config.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
+import { removeNil } from '#server/common/helpers/remove-nil.js'
 
 const createUserController = {
   handler: async (request, h) => {
