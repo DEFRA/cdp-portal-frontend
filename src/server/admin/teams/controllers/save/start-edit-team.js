@@ -4,7 +4,6 @@ import Boom from '@hapi/boom'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { fetchCdpTeam } from '../../helpers/fetch/fetchers.js'
 import { teamIdValidation } from '@defra/cdp-validation-kit'
-import { sessionNames } from '#server/common/constants/session-names.js'
 
 const startEditTeamController = {
   options: {

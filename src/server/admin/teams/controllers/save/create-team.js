@@ -1,7 +1,6 @@
 import { config } from '#config/config.js'
 import { removeNil } from '#server/common/helpers/remove-nil.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
-import Joi from 'joi'
 
 const createTeamController = {
   handler: async (request, h) => {

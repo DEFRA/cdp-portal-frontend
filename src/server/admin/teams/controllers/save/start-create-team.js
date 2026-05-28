@@ -1,5 +1,3 @@
-import { sessionNames } from '#server/common/constants/session-names.js'
-
 const startCreateTeamController = {
   options: {
     id: 'admin/teams/create'
