@@ -1,18 +1,11 @@
 import qs from 'qs'
 
 import { sessionNames } from '../../common/constants/session-names.js'
-import { provideCreate } from '../helpers/pre/provide-create.js'
-import { saveToCreate, setStepComplete } from '../helpers/form/index.js'
 import { buildErrorDetails } from '../../common/helpers/build-error-details.js'
 import { chooseValidation } from '../helpers/schema/choose-validation.js'
 
 const chooseKindController = {
-  options: {
-    pre: [provideCreate]
-  },
   handler: async (request, h) => {
-    const create = request.pre?.create
-
     const payload = request?.payload
     const kind = payload.kind
     const redirectLocation = payload?.redirectLocation
@@ -39,16 +32,10 @@ const chooseKindController = {
     }
 
     if (!validationResult.error) {
-      const updatedCreate = await saveToCreate(
-        request,
-        h,
-        sanitisedPayload,
-        kind !== create?.kind
-      )
-      await setStepComplete(request, h, 'stepOne')
+      await request.app.initStepData(sanitisedPayload)
 
       const redirectTo =
-        redirectLocation && updatedCreate?.repositoryName
+        redirectLocation && sanitisedPayload?.repositoryName
           ? `/create/${kind}/${redirectLocation}`
           : `/create/${kind}/detail`
 
