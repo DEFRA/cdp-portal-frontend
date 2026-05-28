@@ -13,6 +13,7 @@ const usersListController = {
           { id: 'name', text: 'Name', width: '15' },
           { id: 'email', text: 'Email', width: '15' },
           { id: 'github-user', text: 'GitHub user', width: '15' },
+          { id: 'last-active', text: 'Last Active', width: '10' },
           { id: 'last-updated', text: 'Last Updated', width: '10' },
           { id: 'created', text: 'Created', width: '10' }
         ],

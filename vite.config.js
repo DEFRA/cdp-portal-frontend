@@ -36,5 +36,7 @@ export default defineConfig({
     lightningcss: { errorRecovery: true }
   },
   // Dev server
-  server: {}
+  server: {
+    allowedHosts: true
+  }
 })
