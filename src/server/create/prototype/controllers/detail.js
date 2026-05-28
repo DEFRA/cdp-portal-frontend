@@ -2,7 +2,6 @@ import qs from 'qs'
 
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { getUsersTeams } from '../../../common/helpers/user/get-users-teams.js'
-import { saveToCreate, setStepComplete } from '../../helpers/form/index.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { prototypeValidation } from '../schema/prototype-validation.js'
 
@@ -49,11 +48,13 @@ const prototypeDetailController = {
       const usersTeams = await getUsersTeams(request)
       const team = usersTeams.find((userTeam) => userTeam.teamId === teamId)
 
-      await saveToCreate(request, h, {
-        ...sanitisedPayload,
-        ...(team && { teamName: team.name })
-      })
-      await setStepComplete(request, h, 'stepTwo')
+      await request.app.saveStepData(
+        {
+          ...sanitisedPayload,
+          ...(team && { teamName: team.name })
+        },
+        h
+      )
 
       return h.redirect('/create/prototype/summary')
     }

@@ -10,6 +10,10 @@ import { perfTestSuiteDetailFormController } from '../perf-test-suite/controller
 import { perfTestSuiteDetailController } from '../perf-test-suite/controllers/detail.js'
 import { perfTestSuiteSummaryController } from '../perf-test-suite/controllers/summary.js'
 import { perfTestSuiteCreateController } from '../perf-test-suite/controllers/create.js'
+import { prototypeDetailFormController } from '../prototype/controllers/detail-form.js'
+import { prototypeDetailController } from '../prototype/controllers/detail.js'
+import { prototypeSummaryController } from '../prototype/controllers/summary.js'
+import { prototypeCreateController } from '../prototype/controllers/create.js'
 
 export const controllersMap = {
   microservice: {
@@ -29,5 +33,11 @@ export const controllersMap = {
     detail: perfTestSuiteDetailController,
     summary: perfTestSuiteSummaryController,
     create: perfTestSuiteCreateController
+  },
+  prototype: {
+    detailForm: prototypeDetailFormController,
+    detail: prototypeDetailController,
+    summary: prototypeSummaryController,
+    create: prototypeCreateController
   }
 }
