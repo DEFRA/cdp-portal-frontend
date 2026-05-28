@@ -37,6 +37,6 @@ export default defineConfig({
   },
   // Dev server
   server: {
-    allowedHosts: true
+    allowedHosts: true // Allow local CDP proxy hostnames (e.g. cdp.127.0.0.1.sslip.io) through the Vite dev server
   }
 })
