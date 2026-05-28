@@ -50,6 +50,11 @@ const create = {
               path: '/create/choose-kind',
               ...chooseKindFormController
             },
+            {
+              method: 'POST',
+              path: '/create/choose-kind',
+              ...chooseKindController
+            },
             ...createMicroserviceRoutes,
             ...createRepositoryRoutes,
             ...createJourneyTestSuiteRoutes,
@@ -65,11 +70,6 @@ const create = {
             method: 'GET',
             path: '/create/is-name-available/{repositoryName}',
             ...isNameAvailableController
-          },
-          {
-            method: 'POST',
-            path: '/create/choose-kind',
-            ...chooseKindController
           }
         ].map(serviceTeamAndAdminUserScope)
       )

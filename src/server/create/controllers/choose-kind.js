@@ -32,7 +32,8 @@ const chooseKindController = {
     }
 
     if (!validationResult.error) {
-      await request.app.initStepData(sanitisedPayload)
+      await request.yar.set(sessionNames.create, {}) // Flow changes based on first step
+      await request.app.saveStepData(sanitisedPayload, h)
 
       const redirectTo =
         redirectLocation && sanitisedPayload?.repositoryName

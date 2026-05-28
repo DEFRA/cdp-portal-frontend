@@ -55,14 +55,13 @@ const microserviceDetailController = {
       (serviceTemplate) => serviceTemplate.id === serviceTypeTemplateId
     )
 
-    await saveToCreate(request, h, {
+    await request.app.saveStepData({
       ...sanitisedPayload,
       ...(team && { teamName: team.name }),
       ...(serviceTemplateDetail && {
         serviceTypeName: serviceTemplateDetail.templateName
       })
     })
-    await setStepComplete(request, h, 'stepTwo')
 
     return h.redirect('/create/microservice/summary')
   }
