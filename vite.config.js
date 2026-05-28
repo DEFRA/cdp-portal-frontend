@@ -36,5 +36,7 @@ export default defineConfig({
     lightningcss: { errorRecovery: true }
   },
   // Dev server
-  server: {}
+  server: {
+    allowedHosts: true // Allow local CDP proxy hostnames (e.g. cdp.127.0.0.1.sslip.io) through the Vite dev server
+  }
 })

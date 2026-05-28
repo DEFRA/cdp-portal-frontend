@@ -33,6 +33,15 @@ describe('#transformUserToEntityRow', () => {
         {
           entity: {
             kind: 'date',
+            formatString: 'EEEE do MMMM yyyy, HH:mm:ss',
+            value: '2024-11-15T10:00:00.000Z'
+          },
+          headers: 'last-active'
+        },
+        {
+          entity: {
+            kind: 'date',
+            formatString: 'EEEE do MMMM yyyy, HH:mm:ss',
             value: '2023-08-24T15:31:52.259Z'
           },
           headers: 'last-updated'
@@ -40,6 +49,7 @@ describe('#transformUserToEntityRow', () => {
         {
           entity: {
             kind: 'date',
+            formatString: 'EEEE do MMMM yyyy, HH:mm:ss',
             value: '2023-08-23T16:17:57.883Z'
           },
           headers: 'created'

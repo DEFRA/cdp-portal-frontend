@@ -1,4 +1,5 @@
 import { renderComponent } from '../../../common/helpers/nunjucks/render-component.js'
+import { dateFormatString } from '../../../common/constants/date.js'
 import { noValue } from '../../../common/constants/no-value.js'
 import { buildLink } from '../../../common/helpers/view/build-link.js'
 
@@ -49,12 +50,29 @@ function transformUserToSummary(user, withActions = true) {
       },
       {
         key: { text: 'Last Updated' },
-        value: { html: renderComponent('time', { datetime: user.updatedAt }) }
+        value: {
+          html: renderComponent('time', {
+            datetime: user.updatedAt,
+            formatString: dateFormatString
+          })
+        }
+      },
+      {
+        key: { text: 'Last Active' },
+        value: {
+          html: renderComponent('time', {
+            datetime: user.lastActive,
+            formatString: dateFormatString
+          })
+        }
       },
       {
         key: { text: 'Created' },
         value: {
-          html: renderComponent('time', { datetime: user.createdAt })
+          html: renderComponent('time', {
+            datetime: user.createdAt,
+            formatString: dateFormatString
+          })
         }
       }
     ]
