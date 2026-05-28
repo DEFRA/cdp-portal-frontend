@@ -2,6 +2,10 @@ import { microserviceDetailFormController } from '#server/create/microservice/co
 import { microserviceDetailController } from '#server/create/microservice/controllers/detail.js'
 import { microserviceSummaryController } from '#server/create/microservice/controllers/summary.js'
 import { microserviceCreateController } from '#server/create/microservice/controllers/create.js'
+import { testSuiteDetailFormController } from '../journey-test-suite/controllers/detail-form.js'
+import { testSuiteDetailController } from '../journey-test-suite/controllers/detail.js'
+import { testSuiteSummaryController } from '../journey-test-suite/controllers/summary.js'
+import { testSuiteCreateController } from '../journey-test-suite/controllers/create.js'
 
 export const controllersMap = {
   microservice: {
@@ -9,5 +13,11 @@ export const controllersMap = {
     detail: microserviceDetailController,
     summary: microserviceSummaryController,
     create: microserviceCreateController
+  },
+  'journey-test-suite': {
+    detailForm: testSuiteDetailFormController,
+    detail: testSuiteDetailController,
+    summary: testSuiteSummaryController,
+    create: testSuiteCreateController
   }
 }

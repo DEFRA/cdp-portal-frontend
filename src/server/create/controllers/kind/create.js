@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { controllersMap } from './controllers-map.js'
+import { controllersMap } from '../../constants/controllers-map.js'
 import { scopes } from '@defra/cdp-validation-kit'
 
 export const kindCreateController = {
