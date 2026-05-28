@@ -11,9 +11,12 @@ function requestHelpers(urlTemplates, sessionName) {
         request.params?.multiStepFormId || randomUUID()
     }
 
-    request.app.initStepData = () => {
-      request.yar.clear(sessionName)
+    request.app.initStepData = (data = {}) => {
+      request.yar.set(sessionName ?? request.app.multiStepFormId, { ...data })
+
       request.yar.clear(sessionNames.validationFailure)
+
+      return request.yar.commit(h)
     }
 
     request.app.saveStepData = saveStepDataRequestHelper(

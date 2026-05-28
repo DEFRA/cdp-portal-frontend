@@ -1,18 +1,13 @@
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { environments } from '#config/environments.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
-import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
 
 const teamDetailsFormController = {
-  options: {
-    pre: [provideStepData]
-  },
   handler: (request, h) => {
     const query = request?.query
     const redirectLocation = query?.redirectLocation
 
-    const cdpTeam = request.pre?.stepData ?? {}
-    const multiStepFormId = request.app.multiStepFormId
+    const cdpTeam = request.app.getStepData()
     const isEdit = cdpTeam?.isEdit
 
     const updateOrCreate = isEdit ? 'Edit' : 'Create'
@@ -33,7 +28,6 @@ const teamDetailsFormController = {
       pageTitle: `${updateOrCreate} Team`,
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
-      multiStepFormId,
       pageHeading: {
         text: isEdit ? 'Edit' : 'Create New'
       },

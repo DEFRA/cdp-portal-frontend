@@ -1,9 +1,9 @@
 import { populatePathParams } from '#server/plugins/multistep-form/populate-path-params.js'
 
 export const urlTemplates = {
-  stepOne: '/admin/teams/team-details/{multiStepFormId?}',
-  stepTwo: '/admin/teams/find-github-team/{multiStepFormId}',
-  stepThree: '/admin/teams/summary/{multiStepFormId}'
+  stepOne: '/admin/teams/team-details',
+  stepTwo: '/admin/teams/find-github-team',
+  stepThree: '/admin/teams/summary'
 }
 
 export function formSteps({

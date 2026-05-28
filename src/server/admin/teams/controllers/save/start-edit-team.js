@@ -1,8 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { randomUUID } from 'node:crypto'
 
-import { sessionNames } from '#server/common/constants/session-names.js'
 import { fetchCdpTeam } from '../../helpers/fetch/fetchers.js'
 import { teamIdValidation } from '@defra/cdp-validation-kit'
 
@@ -17,21 +15,17 @@ const startEditTeamController = {
   },
   handler: async (request, h) => {
     const team = await fetchCdpTeam(request.params?.teamId)
-    const id = randomUUID()
 
-    request.yar.set(id, {
-      id,
+    await request.app.initStepData({
       ...team,
       // user-service-backend supports multiple service codes - we want to just allow one service code for now
       ...(team.serviceCodes?.at(0) && { serviceCode: team.serviceCodes.at(0) }),
-      isEdit: true,
-      isComplete: {}
+      isEdit: true
     })
 
-    request.yar.clear(sessionNames.validationFailure)
     await request.yar.commit(h)
 
-    return h.redirect(`/admin/teams/team-details/${id}`)
+    return h.redirect(`/admin/teams/team-details`)
   }
 }
 

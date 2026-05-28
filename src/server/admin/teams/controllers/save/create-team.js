@@ -1,21 +1,10 @@
 import { config } from '#config/config.js'
 import { removeNil } from '#server/common/helpers/remove-nil.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
-import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
-import Joi from 'joi'
 
 const createTeamController = {
-  options: {
-    pre: [provideStepData],
-    validate: {
-      params: Joi.object({
-        multiStepFormId: Joi.string().uuid().optional()
-      })
-    }
-  },
   handler: async (request, h) => {
-    const cdpTeam = request.pre?.stepData
-    const multiStepFormId = request.app.multiStepFormId
+    const cdpTeam = request.app.getStepData()
     const endpoint = config.get('userServiceBackendUrl') + '/teams'
 
     try {
@@ -26,7 +15,8 @@ const createTeamController = {
           description: cdpTeam.description,
           github: cdpTeam.github,
           serviceCodes: cdpTeam.serviceCode ? [cdpTeam.serviceCode] : [],
-          alertEmailAddresses: cdpTeam.alertEmailAddresses
+          alertEmailAddresses: cdpTeam.alertEmailAddresses,
+          alertEnvironments: cdpTeam.alertEnvironments
         })
       })
 
@@ -39,7 +29,7 @@ const createTeamController = {
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect(`/admin/teams/summary/${multiStepFormId}`)
+      return h.redirect(`/admin/teams/summary`)
     }
   }
 }

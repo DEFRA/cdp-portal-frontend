@@ -4,19 +4,10 @@ import { sessionNames } from '#server/common/constants/session-names.js'
 import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { teamValidation } from '../../helpers/schema/team-validation.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import Joi from 'joi'
 
 const teamDetailsController = {
-  options: {
-    validate: {
-      params: Joi.object({
-        multiStepFormId: Joi.string().uuid().optional()
-      })
-    }
-  },
   handler: async (request, h) => {
     const payload = request?.payload
-    const multiStepFormId = request.app.multiStepFormId
     const redirectLocation = payload?.redirectLocation
 
     const name = payload.name
@@ -62,14 +53,11 @@ const teamDetailsController = {
         }
       )
 
-      return h.redirect(
-        `/admin/teams/team-details/${multiStepFormId}${queryString}`
-      )
+      return h.redirect(`/admin/teams/team-details${queryString}`)
     }
 
     if (!validationResult.error) {
       const cdpTeam = await request.app.saveStepData(
-        multiStepFormId,
         {
           ...sanitisedPayload
         },
@@ -84,8 +72,8 @@ const teamDetailsController = {
       )
 
       const redirectTo = redirectLocation
-        ? `/admin/teams/${redirectLocation}/${multiStepFormId}`
-        : `/admin/teams/find-github-team/${multiStepFormId}${queryString}`
+        ? `/admin/teams/${redirectLocation}`
+        : `/admin/teams/find-github-team${queryString}`
 
       return h.redirect(redirectTo)
     }

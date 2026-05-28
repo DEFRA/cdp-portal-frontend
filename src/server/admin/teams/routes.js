@@ -45,45 +45,55 @@ const adminTeams = {
       await server.register({
         plugin: multistepForm,
         options: {
-          sessionKey: sessionNames.cdpTeam,
+          sessionName: sessionNames.cdpTeam,
           urlTemplates,
           formSteps,
           ext: serverExtensions,
           routes: [
             {
               method: 'GET',
-              path: '/admin/teams/team-details/{multiStepFormId?}',
+              path: '/admin/teams/team-details',
               ...teamDetailsFormController
             },
             {
               method: 'POST',
-              path: '/admin/teams/team-details/{multiStepFormId?}',
+              path: '/admin/teams/team-details',
               ...teamDetailsController
             },
             {
               method: 'POST',
-              path: '/admin/teams/create/{multiStepFormId}',
+              path: '/admin/teams/create',
               ...createTeamController
             },
             {
               method: 'GET',
-              path: '/admin/teams/find-github-team/{multiStepFormId}',
+              path: '/admin/teams/find-github-team',
               ...findGithubTeamFormController
             },
             {
               method: 'POST',
-              path: '/admin/teams/find-github-team/{multiStepFormId}',
+              path: '/admin/teams/find-github-team',
               ...findGithubTeamController
             },
             {
               method: 'GET',
-              path: '/admin/teams/summary/{multiStepFormId}',
+              path: '/admin/teams/summary',
               ...teamSummaryController
             },
             {
               method: 'POST',
-              path: '/admin/teams/edit/{multiStepFormId}',
+              path: '/admin/teams/edit',
               ...editTeamController
+            },
+            {
+              method: 'GET',
+              path: '/admin/teams/create',
+              ...startCreateTeamController
+            },
+            {
+              method: 'GET',
+              path: '/admin/teams/{teamId}/edit',
+              ...startEditTeamController
             }
           ].map(adminScope)
         }
@@ -95,16 +105,6 @@ const adminTeams = {
             method: 'GET',
             path: '/admin/teams',
             ...teamsListController
-          },
-          {
-            method: 'GET',
-            path: '/admin/teams/create/{multiStepFormId}',
-            ...startCreateTeamController
-          },
-          {
-            method: 'GET',
-            path: '/admin/teams/{teamId}/edit',
-            ...startEditTeamController
           },
           {
             method: 'GET',
