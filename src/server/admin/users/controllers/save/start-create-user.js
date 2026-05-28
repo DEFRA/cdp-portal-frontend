@@ -3,7 +3,7 @@ const startCreateUserController = {
     id: 'admin/users/create'
   },
   handler: async (request, h) => {
-    request.app.initStepData()
+    await request.app.initStepData()
     return h.redirect('/admin/users/find-aad-user')
   }
 }

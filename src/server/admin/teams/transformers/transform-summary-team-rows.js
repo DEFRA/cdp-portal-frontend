@@ -4,8 +4,8 @@ import { config } from '#config/config.js'
 import { noValue } from '../../../common/constants/no-value.js'
 import { buildLink } from '../../../common/helpers/view/build-link.js'
 
-function buildRow(name, value, stepPath, multiStepFormId) {
-  const href = `/admin/teams/${stepPath}/${multiStepFormId}?redirectLocation=summary`
+function buildRow(name, value, stepPath) {
+  const href = `/admin/teams/${stepPath}?redirectLocation=summary`
   const withTestIdWrapper = (text) => {
     if (text) {
       return `<span data-testid="${name.toLowerCase().replace(/\s+/g, '-')}">${text}</span>`
@@ -33,7 +33,7 @@ function buildRow(name, value, stepPath, multiStepFormId) {
   }
 }
 
-function transformSummaryTeamRows(cdpTeam, multiStepFormId) {
+function transformSummaryTeamRows(cdpTeam) {
   const githubOrg = config.get('githubOrg')
   const teamDetails = Object.entries(cdpTeam).reduce((obj, [key, value]) => {
     return {
@@ -50,36 +50,19 @@ function transformSummaryTeamRows(cdpTeam, multiStepFormId) {
     : noValue
 
   return [
-    buildRow('Name', teamDetails.name, teamDetailsPath, multiStepFormId),
-    buildRow(
-      'Description',
-      teamDetails.description,
-      teamDetailsPath,
-      multiStepFormId
-    ),
-    buildRow(
-      'GitHub team',
-      githubTeamUiValue,
-      'find-github-team',
-      multiStepFormId
-    ),
-    buildRow(
-      'Service Code',
-      teamDetails.serviceCode,
-      teamDetailsPath,
-      multiStepFormId
-    ),
+    buildRow('Name', teamDetails.name, teamDetailsPath),
+    buildRow('Description', teamDetails.description, teamDetailsPath),
+    buildRow('GitHub team', githubTeamUiValue, 'find-github-team'),
+    buildRow('Service Code', teamDetails.serviceCode, teamDetailsPath),
     buildRow(
       'Alert Emails',
       teamDetails.alertEmailAddresses?.join('<br>'),
-      teamDetailsPath,
-      multiStepFormId
+      teamDetailsPath
     ),
     buildRow(
       'Alert Environments',
       teamDetails.alertEnvironments?.join(', '),
-      teamDetailsPath,
-      multiStepFormId
+      teamDetailsPath
     )
   ]
 }

@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
-import { randomUUID } from 'node:crypto'
 
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { fetchCdpTeam } from '../../helpers/fetch/fetchers.js'
 import { teamIdValidation } from '@defra/cdp-validation-kit'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 const startEditTeamController = {
   options: {
@@ -17,8 +17,10 @@ const startEditTeamController = {
   },
   handler: async (request, h) => {
     const team = await fetchCdpTeam(request.params?.teamId)
-    const id = randomUUID()
+    const id = sessionNames.cdpTeam
 
+    await request.app.initStepData()
+    // TODO: set default
     request.yar.set(id, {
       id,
       ...team,
@@ -28,7 +30,6 @@ const startEditTeamController = {
       isComplete: {}
     })
 
-    request.yar.clear(sessionNames.validationFailure)
     await request.yar.commit(h)
 
     return h.redirect(`/admin/teams/team-details/${id}`)

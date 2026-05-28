@@ -14,6 +14,8 @@ function requestHelpers(urlTemplates, sessionName) {
     request.app.initStepData = () => {
       request.yar.clear(sessionName)
       request.yar.clear(sessionNames.validationFailure)
+
+      return request.yar.commit(h)
     }
 
     request.app.saveStepData = saveStepDataRequestHelper(

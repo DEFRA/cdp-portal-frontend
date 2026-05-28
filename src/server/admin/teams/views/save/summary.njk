@@ -14,7 +14,7 @@
 
           {% set actionSuffix = "edit" if isEdit else "create" %}
 
-          <form action="/admin/teams/{{ actionSuffix }}/{{ multiStepFormId }}" method="post">
+          <form action="/admin/teams/{{ actionSuffix }}" method="post">
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
             {% call appPanel({
               classes: "govuk-!-margin-bottom-4"

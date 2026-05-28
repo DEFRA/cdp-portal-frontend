@@ -3,19 +3,10 @@ import qs from 'qs'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { githubTeamNameValidation } from '../../helpers/schema/github-team-name-validation.js'
-import Joi from 'joi'
 
 const findGithubTeamController = {
-  options: {
-    validate: {
-      params: Joi.object({
-        multiStepFormId: Joi.string().uuid().optional()
-      })
-    }
-  },
   handler: async (request, h) => {
     const payload = request?.payload
-    const multiStepFormId = request.app.multiStepFormId
     const button = payload?.button
     const redirectLocation = payload?.redirectLocation
 
@@ -52,21 +43,18 @@ const findGithubTeamController = {
         }
       )
 
-      return h.redirect(
-        `/admin/teams/find-github-team/${multiStepFormId}${queryString}`
-      )
+      return h.redirect(`/admin/teams/find-github-team${queryString}`)
     }
 
     if (!validationResult.error) {
       await request.app.saveStepData(
-        multiStepFormId,
         {
           github: button === 'skip' ? null : github
         },
         h
       )
 
-      return h.redirect(`/admin/teams/summary/${multiStepFormId}`)
+      return h.redirect(`/admin/teams/summary`)
     }
   }
 }

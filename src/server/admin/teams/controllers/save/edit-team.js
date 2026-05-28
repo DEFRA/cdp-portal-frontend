@@ -1,14 +1,8 @@
 import { editTeam } from '../../helpers/fetch/fetchers.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
-import { provideStepData } from '#server/plugins/multistep-form/provide-step-data.js'
-
 const editTeamController = {
-  options: {
-    pre: [provideStepData]
-  },
   handler: async (request, h) => {
     const cdpTeam = request.pre?.stepData
-    const multiStepFormId = request.app.multiStepFormId
 
     try {
       await editTeam(request, cdpTeam.teamId, {
@@ -29,7 +23,7 @@ const editTeamController = {
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
-      return h.redirect(`/admin/teams/summary/${multiStepFormId}`)
+      return h.redirect(`/admin/teams/summary`)
     }
   }
 }

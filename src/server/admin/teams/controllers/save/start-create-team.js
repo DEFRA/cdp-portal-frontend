@@ -5,7 +5,7 @@ const startCreateTeamController = {
     id: 'admin/teams/create'
   },
   handler: async (request, h) => {
-    request.yar.clear(sessionNames.validationFailure)
+    await request.app.initStepData()
 
     return h.redirect('/admin/teams/team-details')
   }
