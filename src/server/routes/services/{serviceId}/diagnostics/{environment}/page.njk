@@ -48,25 +48,15 @@
                       int_browser int_browser_link@--> alb
                       int_browser_link@{ animation: slow }
                     {% else %}
-                      {% if resources.tenant_config.api_gateway %} %% TODO: Use new api_gateways section
-                        {% if resources.api_gateway.type == 'REGIONAL' and (environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev') %}
-                          ext-client@{ icon: "logos:postman-icon", label: "External client"}
-                          ext-client ext-client_link@--> public_api
-                          ext-client_link@{ animation: slow }
+                      {% for api in resources.api_gateways %}
+                        client{{loop.index}}@{ icon: "logos:postman-icon", label: "{{'External client' if api.type == 'REGIONAL' else 'Internal client'}}"}
+                        client{{loop.index}} client{{loop.index}}_link@--> api{{loop.index}}
+                        client{{loop.index}}_link@{ animation: slow }
 
-                          public_api@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Public)', logViewUrl('api-gw-public'), resources.metrics.apigw_public[0].url) | safe }}"}
-                          public_api public_api_link@--> alb
-                          public_api_link@{ animation: slow }
-                        {% endif %}
-
-                        client@{ icon: "logos:postman-icon", label: "Internal client"}
-                        client client_link@--> api
-                        client_link@{ animation: slow }
-
-                        api@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Private)', logViewUrl('api-gw-private'), resources.metrics.apigw[0].url) | safe }}"}
-                        api api_link@--> alb
-                        api_link@{ animation: slow }
-                      {% endif %}
+                        api{{loop.index}}@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Public)' if api.type == 'REGIONAL' else 'API Gateway (Private)', logViewUrl('api-gw-public') if api.type == 'REGIONAL' else logViewUrl('api-gw-private'), resources.metrics.apigw[0].url) | safe }}"}
+                        api{{loop.index}} api{{loop.index}}_link@--> alb
+                        api{{loop.index}}_link@{ animation: slow }
+                      {% endfor %}
 
                       frontend@{ icon: "logos:aws-fargate", label: "Frontend client"}
                       frontend frontend_link@--> alb
