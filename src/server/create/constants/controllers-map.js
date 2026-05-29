@@ -14,6 +14,10 @@ import { prototypeDetailFormController } from '../prototype/controllers/detail-f
 import { prototypeDetailController } from '../prototype/controllers/detail.js'
 import { prototypeSummaryController } from '../prototype/controllers/summary.js'
 import { prototypeCreateController } from '../prototype/controllers/create.js'
+import { repositoryDetailFormController } from '../repository/controllers/detail-form.js'
+import { repositoryDetailController } from '../repository/controllers/detail.js'
+import { repositorySummaryController } from '../repository/controllers/summary.js'
+import { repositoryCreateController } from '../repository/controllers/create.js'
 
 export const controllersMap = {
   microservice: {
@@ -39,5 +43,11 @@ export const controllersMap = {
     detail: prototypeDetailController,
     summary: prototypeSummaryController,
     create: prototypeCreateController
+  },
+  repository: {
+    detailForm: repositoryDetailFormController,
+    detail: repositoryDetailController,
+    summary: repositorySummaryController,
+    create: repositoryCreateController
   }
 }

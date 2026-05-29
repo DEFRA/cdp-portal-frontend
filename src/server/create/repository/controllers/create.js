@@ -1,22 +1,11 @@
 import { config } from '#config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
-import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { repositoryValidation } from '../helpers/schema/repository-validation.js'
-import { scopes } from '@defra/cdp-validation-kit'
 
 const repositoryCreateController = {
-  options: {
-    auth: {
-      mode: 'required',
-      access: {
-        scope: [scopes.admin, 'team:{payload.teamId}']
-      }
-    },
-    pre: [provideCreate]
-  },
   handler: async (request, h) => {
-    const create = request.pre?.create
+    const create = request.app.getStepData()
     const repositoryName = create.repositoryName
     const repositoryVisibility = create.repositoryVisibility
     const teamId = request.payload?.teamId

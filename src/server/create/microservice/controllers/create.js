@@ -1,7 +1,6 @@
 import { config } from '#config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
-import { setStepComplete } from '../../helpers/form/index.js'
 import { entityTypes } from '@defra/cdp-validation-kit'
 import { fetchServiceTemplates } from '../helpers/fetch/fetch-service-templates.js'
 import { buildPayload } from '../helpers/build-payload.js'
@@ -46,8 +45,6 @@ const microserviceCreateController = {
             payload: sanitisedPayload
           }
         )
-
-        await setStepComplete(request, h, 'allSteps')
 
         request.yar.clear(sessionNames.validationFailure)
         await request.yar.commit(h)

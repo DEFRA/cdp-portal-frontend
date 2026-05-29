@@ -1,16 +1,8 @@
-import { provideCreate } from '../../helpers/pre/provide-create.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { summaryRepositoryRows } from '../transformers/summary-repository-rows.js'
 
 const repositorySummaryController = {
-  options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
-    pre: [provideCreate]
-  },
   handler: (request, h) => {
-    const create = request.pre?.create
+    const create = request.app.getStepData()
 
     return h.view('create/views/summary', {
       pageTitle: 'Create repository summary',
