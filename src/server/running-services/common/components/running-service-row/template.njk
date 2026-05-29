@@ -1,7 +1,4 @@
-{% from "time/macro.njk" import appTime %}
 {% from "icons/star-icon/macro.njk" import appStarIcon %}
-{% from "govuk/components/tag/macro.njk" import govukTag %}
-{% from "running-service-entity/macro.njk" import appRunningServiceEntity %}
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
 
@@ -35,14 +32,13 @@
   {% for environment in params.allEnvironments %}
     <td headers="{{ environment }}" class="app-entity-table__cell app-entity-table__cell--slim"
         data-label="{{ environment | title }}">
-      {% set row = params.serviceEnvironments[environment] %}
+      {% set environmentRow = params.serviceEnvironments[environment] %}
 
-      {% if row %}
-        {{ appRunningServiceEntity(row) }}
+      {% if environmentRow %}
+        {{ environmentRow.html | safe }}
       {% else %}
         <div class="app-running-service-entity--empty"></div>
       {% endif %}
     </td>
   {% endfor %}
 </tr>
-
