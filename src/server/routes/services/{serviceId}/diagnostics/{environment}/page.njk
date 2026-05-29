@@ -60,12 +60,12 @@
                     {% endif %}
 
                     {% if (environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev') and (entity.subType == 'Frontend' or resources.api_gateways | selectattr('type', 'REGIONAL') | length) %}
-                      public_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Public)') | safe }}"}
+                      public_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Public)', logViewUrl('alb-vanity-url')) | safe }}"}
                       public_alb public_alb_link@--> nginx
                       public_alb_link@{ animation: slow }
                     {% endif %}
 
-                    alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Private)') | safe }}"}
+                    alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Private)', logViewUrl('alb')) | safe }}"}
                     alb alb_link@--> nginx
                     alb_link@{ animation: slow }
 
