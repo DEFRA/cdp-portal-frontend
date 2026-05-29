@@ -38,10 +38,6 @@
                         browser@{ icon: "logos:chrome", label: "External Browser"}
                         browser browser_link@--> public_alb
                         browser_link@{ animation: slow }
-
-                        public_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Public)') | safe }}"}
-                        public_alb public_alb_link@--> nginx
-                        public_alb_link@{ animation: slow }
                       {% endif %}
 
                       int_browser@{ icon: "logos:microsoft-edge", label: "Internal Browser"}
@@ -54,7 +50,7 @@
                         client{{loop.index}}_link@{ animation: slow }
 
                         api{{loop.index}}@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Public)' if api.type == 'REGIONAL' else 'API Gateway (Private)', logViewUrl('api-gw-public') if api.type == 'REGIONAL' else logViewUrl('api-gw-private'), resources.metrics.apigw[0].url) | safe }}"}
-                        api{{loop.index}} api{{loop.index}}_link@--> alb
+                        api{{loop.index}} api{{loop.index}}_link@--> {{'public_alb' if api.type == 'REGIONAL' else 'alb'}}
                         api{{loop.index}}_link@{ animation: slow }
                       {% endfor %}
 
@@ -63,24 +59,28 @@
                       frontend_link@{ animation: slow }
                     {% endif %}
 
+                    {% if (environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev') and (entity.subType == 'Frontend' or resources.api_gateways | selectattr('type', 'REGIONAL') | length) %}
+                      public_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Public)') | safe }}"}
+                      public_alb public_alb_link@--> nginx
+                      public_alb_link@{ animation: slow }
+                    {% endif %}
+
                     alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Private)') | safe }}"}
+                    alb alb_link@--> nginx
+                    alb_link@{ animation: slow }
 
                     nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx (Public)' if entity.subType == 'Frontend' else 'Nginx (Protected)', logViewUrl('nginx-public') if entity.subType == 'Frontend' else logViewUrl('nginx-protected')) | safe }}"}
+                    nginx nginx_link@--> sslSidecar
+                    nginx_link@{ animation: slow }
 
                     subgraph ingress_pod[{{ entity.name }}]
                       sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', logViewUrl('ssl-sidecar')) | safe }}"}
+                      sslSidecar sslSidecar_link@--> service_ingress
+                      sslSidecar_link@{ animation: slow }
 
                       service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
                     end
 
-                    alb alb_link@--> nginx
-                    alb_link@{ animation: slow }
-
-                    nginx nginx_link@--> sslSidecar
-                    nginx_link@{ animation: slow }
-
-                    sslSidecar sslSidecar_link@--> service_ingress
-                    sslSidecar_link@{ animation: slow }
                   end
 
                   subgraph egress[Egress - <a href="/documentation/architecture/architectural-overview.md#egress" data-js="open-window">Documentation</a>]
