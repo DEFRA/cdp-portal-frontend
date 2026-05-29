@@ -3,47 +3,80 @@ import { startController } from './controllers/start.js'
 import { chooseKindController } from './controllers/choose-kind.js'
 import { chooseKindFormController } from './controllers/choose-kind-form.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { provideCreateSteps } from './helpers/form/index.js'
 import { authScope } from '../common/helpers/auth/auth-scope.js'
 import { sessionNames } from '../common/constants/session-names.js'
-import { provideFormContextValues } from '../common/helpers/form/provide-form-context-values.js'
-import { createJourneyTestSuiteRoutes } from './journey-test-suite/routes.js'
-import { createRepositoryRoutes } from './repository/routes.js'
-import { createMicroserviceRoutes } from './microservice/routes.js'
-import { createPerfTestSuiteRoutes } from './perf-test-suite/routes.js'
 import { checkFeatureToggle } from '../admin/features/helpers/check-feature-toggle.js'
-import { createPrototypeRoutes } from './prototype/routes.js'
+import { formSteps, urlTemplates } from './helpers/form/steps.js'
+import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
+import { kindDetailFormController } from './controllers/kind/detail-form.js'
+import { kindDetailController } from './controllers/kind/detail.js'
+import { kindSummaryController } from './controllers/kind/summary.js'
+import { kindCreateController } from './controllers/kind/create.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
+
+const serverExtensions = [
+  {
+    type: 'onPreHandler',
+    method: checkFeatureToggle,
+    options: {
+      sandbox: 'plugin'
+    }
+  }
+]
 
 const create = {
   plugin: {
     name: 'create',
-    register: (server) => {
-      server.ext([
-        {
-          type: 'onPostHandler',
-          method: provideFormContextValues(sessionNames.create),
-          options: {
-            before: ['yar'],
-            sandbox: 'plugin'
-          }
-        },
-        {
-          type: 'onPostHandler',
-          method: provideCreateSteps,
-          options: {
-            sandbox: 'plugin'
-          }
-        },
-        {
-          type: 'onPreHandler',
-          method: checkFeatureToggle,
-          options: {
-            sandbox: 'plugin'
-          }
+    register: async (server) => {
+      server.ext(serverExtensions)
+
+      await server.register({
+        plugin: multistepForm,
+        options: {
+          sessionName: sessionNames.create,
+          urlTemplates,
+          formSteps,
+          ext: serverExtensions,
+          routes: [
+            {
+              method: 'GET',
+              path: '/create',
+              ...startController
+            },
+            {
+              method: 'GET',
+              path: '/create/choose-kind',
+              ...chooseKindFormController
+            },
+            {
+              method: 'POST',
+              path: '/create/choose-kind',
+              ...chooseKindController
+            },
+            {
+              method: 'GET',
+              path: '/create/{kind}/detail',
+              ...kindDetailFormController
+            },
+            {
+              method: 'POST',
+              path: '/create/{kind}/detail',
+              ...kindDetailController
+            },
+            {
+              method: 'GET',
+              path: '/create/{kind}/summary',
+              ...kindSummaryController
+            },
+            {
+              method: 'POST',
+              path: '/create/{kind}',
+              ...kindCreateController
+            }
+          ].map(serviceTeamAndAdminUserScope)
         }
-      ])
+      })
 
       server.route(
         [
@@ -51,27 +84,7 @@ const create = {
             method: 'GET',
             path: '/create/is-name-available/{repositoryName}',
             ...isNameAvailableController
-          },
-          {
-            method: 'GET',
-            path: '/create',
-            ...startController
-          },
-          {
-            method: 'GET',
-            path: '/create/choose-kind',
-            ...chooseKindFormController
-          },
-          {
-            method: 'POST',
-            path: '/create/choose-kind',
-            ...chooseKindController
-          },
-          ...createMicroserviceRoutes,
-          ...createRepositoryRoutes,
-          ...createJourneyTestSuiteRoutes,
-          ...createPerfTestSuiteRoutes,
-          ...createPrototypeRoutes
+          }
         ].map(serviceTeamAndAdminUserScope)
       )
     }

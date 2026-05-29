@@ -1,24 +1,13 @@
 import { config } from '#config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
-import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
-import { setStepComplete } from '../../helpers/form/index.js'
-import { entitySubTypes, entityTypes, scopes } from '@defra/cdp-validation-kit'
+import { entitySubTypes, entityTypes } from '@defra/cdp-validation-kit'
 import { createTenantPayloadValidation } from '../../helpers/schema/create-tenant-payload-validation.js'
 import { fetchServiceTemplates } from '../../microservice/helpers/fetch/fetch-service-templates.js'
 
 const perfTestSuiteCreateController = {
-  options: {
-    auth: {
-      mode: 'required',
-      access: {
-        scope: [scopes.admin, 'team:{payload.teamId}']
-      }
-    },
-    pre: [provideCreate]
-  },
   handler: async (request, h) => {
-    const create = request.pre?.create
+    const create = request.app.getStepData()
     const repositoryName = create.repositoryName
     const teamId = request.payload?.teamId
     const templateTag = create.templateTag
@@ -64,8 +53,6 @@ const perfTestSuiteCreateController = {
             payload: sanitisedPayload
           }
         )
-
-        await setStepComplete(request, h, 'allSteps')
 
         request.yar.clear(sessionNames.validationFailure)
         await request.yar.commit(h)

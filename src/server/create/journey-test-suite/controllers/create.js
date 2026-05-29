@@ -1,23 +1,13 @@
 import { config } from '#config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
-import { provideCreate } from '../../helpers/pre/provide-create.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
-import { scopes, entityTypes, entitySubTypes } from '@defra/cdp-validation-kit'
+import { entityTypes, entitySubTypes } from '@defra/cdp-validation-kit'
 import { fetchServiceTemplates } from '../../microservice/helpers/fetch/fetch-service-templates.js'
 import { createTenantPayloadValidation } from '../../helpers/schema/create-tenant-payload-validation.js'
 
 const testSuiteCreateController = {
-  options: {
-    auth: {
-      mode: 'required',
-      access: {
-        scope: [scopes.admin, 'team:{payload.teamId}']
-      }
-    },
-    pre: [provideCreate]
-  },
   handler: async (request, h) => {
-    const create = request.pre?.create
+    const create = request.app.getStepData()
     const repositoryName = create.repositoryName
     const templateTag = create.templateTag
     const teamId = request.payload?.teamId

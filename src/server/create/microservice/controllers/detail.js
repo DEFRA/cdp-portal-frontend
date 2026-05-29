@@ -2,7 +2,6 @@ import qs from 'qs'
 
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { getUsersTeams } from '../../../common/helpers/user/get-users-teams.js'
-import { saveToCreate, setStepComplete } from '../../helpers/form/index.js'
 import { buildErrorDetails } from '../../../common/helpers/build-error-details.js'
 import { fetchServiceTemplates } from '../helpers/fetch/fetch-service-templates.js'
 import { microserviceValidation } from '../helpers/schema/microservice-validation.js'
@@ -55,14 +54,16 @@ const microserviceDetailController = {
       (serviceTemplate) => serviceTemplate.id === serviceTypeTemplateId
     )
 
-    await saveToCreate(request, h, {
-      ...sanitisedPayload,
-      ...(team && { teamName: team.name }),
-      ...(serviceTemplateDetail && {
-        serviceTypeName: serviceTemplateDetail.templateName
-      })
-    })
-    await setStepComplete(request, h, 'stepTwo')
+    await request.app.saveStepData(
+      {
+        ...sanitisedPayload,
+        ...(team && { teamName: team.name }),
+        ...(serviceTemplateDetail && {
+          serviceTypeName: serviceTemplateDetail.templateName
+        })
+      },
+      h
+    )
 
     return h.redirect('/create/microservice/summary')
   }

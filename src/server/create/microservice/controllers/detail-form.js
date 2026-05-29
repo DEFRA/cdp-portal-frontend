@@ -4,14 +4,10 @@ import Boom from '@hapi/boom'
 import { buildOptions } from '../../../common/helpers/options/build-options.js'
 import { getUsersTeams } from '../../../common/helpers/user/get-users-teams.js'
 import { serviceTemplateIdsForNamesAndRepos } from '../helpers/fetch/fetch-service-templates.js'
-import { noSessionRedirect } from '../../helpers/ext/no-session-redirect.js'
 import { entityTypes } from '@defra/cdp-validation-kit'
 
 const microserviceDetailFormController = {
   options: {
-    ext: {
-      onPreHandler: [noSessionRedirect]
-    },
     validate: {
       query: Joi.object({
         redirectLocation: Joi.string().valid('summary').allow('')
