@@ -38,59 +38,49 @@
                         browser@{ icon: "logos:chrome", label: "External Browser"}
                         browser browser_link@--> public_alb
                         browser_link@{ animation: slow }
-
-                        public_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Public)') | safe }}"}
-                        public_alb public_alb_link@--> nginx
-                        public_alb_link@{ animation: slow }
                       {% endif %}
 
                       int_browser@{ icon: "logos:microsoft-edge", label: "Internal Browser"}
                       int_browser int_browser_link@--> alb
                       int_browser_link@{ animation: slow }
                     {% else %}
-                      {% if resources.tenant_config.api_gateway %} %% TODO: Use new api_gateways section
-                        {% if resources.api_gateway.type == 'REGIONAL' and (environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev') %}
-                          ext-client@{ icon: "logos:postman-icon", label: "External client"}
-                          ext-client ext-client_link@--> public_api
-                          ext-client_link@{ animation: slow }
+                      {% for api in resources.api_gateways %}
+                        client{{loop.index}}@{ icon: "logos:postman-icon", label: "{{'External client' if api.type == 'REGIONAL' else 'Internal client'}}"}
+                        client{{loop.index}} client{{loop.index}}_link@--> api{{loop.index}}
+                        client{{loop.index}}_link@{ animation: slow }
 
-                          public_api@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Public)', logViewUrl('api-gw-public'), resources.metrics.apigw_public[0].url) | safe }}"}
-                          public_api public_api_link@--> alb
-                          public_api_link@{ animation: slow }
-                        {% endif %}
-
-                        client@{ icon: "logos:postman-icon", label: "Internal client"}
-                        client client_link@--> api
-                        client_link@{ animation: slow }
-
-                        api@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Private)', logViewUrl('api-gw-private'), resources.metrics.apigw[0].url) | safe }}"}
-                        api api_link@--> alb
-                        api_link@{ animation: slow }
-                      {% endif %}
+                        api{{loop.index}}@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Public)' if api.type == 'REGIONAL' else 'API Gateway (Private)', logViewUrl('api-gw-public') if api.type == 'REGIONAL' else logViewUrl('api-gw-private'), resources.metrics.apigw[0].url) | safe }}"}
+                        api{{loop.index}} api{{loop.index}}_link@--> {{'public_alb' if api.type == 'REGIONAL' else 'alb'}}
+                        api{{loop.index}}_link@{ animation: slow }
+                      {% endfor %}
 
                       frontend@{ icon: "logos:aws-fargate", label: "Frontend client"}
                       frontend frontend_link@--> alb
                       frontend_link@{ animation: slow }
                     {% endif %}
 
-                    alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Private)') | safe }}"}
+                    {% if (environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev') and (entity.subType == 'Frontend' or resources.api_gateways | selectattr('type', 'REGIONAL') | length) %}
+                      public_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Public)', logViewUrl('alb-vanity-url')) | safe }}"}
+                      public_alb public_alb_link@--> nginx
+                      public_alb_link@{ animation: slow }
+                    {% endif %}
+
+                    alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Private)', logViewUrl('alb')) | safe }}"}
+                    alb alb_link@--> nginx
+                    alb_link@{ animation: slow }
 
                     nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx (Public)' if entity.subType == 'Frontend' else 'Nginx (Protected)', logViewUrl('nginx-public') if entity.subType == 'Frontend' else logViewUrl('nginx-protected')) | safe }}"}
+                    nginx nginx_link@--> sslSidecar
+                    nginx_link@{ animation: slow }
 
                     subgraph ingress_pod[{{ entity.name }}]
                       sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', logViewUrl('ssl-sidecar')) | safe }}"}
+                      sslSidecar sslSidecar_link@--> service_ingress
+                      sslSidecar_link@{ animation: slow }
 
                       service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
                     end
 
-                    alb alb_link@--> nginx
-                    alb_link@{ animation: slow }
-
-                    nginx nginx_link@--> sslSidecar
-                    nginx_link@{ animation: slow }
-
-                    sslSidecar sslSidecar_link@--> service_ingress
-                    sslSidecar_link@{ animation: slow }
                   end
 
                   subgraph egress[Egress - <a href="/documentation/architecture/architectural-overview.md#egress" data-js="open-window">Documentation</a>]
@@ -99,7 +89,7 @@
                     subgraph egress_pod[{{ entity.name }}]
                       service_egress@{ icon: "logos:aws-fargate", label: "Service"}
 
-                      forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Forwarder Proxy', logViewUrl('forwarder-proxy'), null, 'how-to/proxy.md') | safe }}"}
+                      forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Forwarder Proxy', logViewUrl('forwarder-proxy'), null) | safe }}"}
                     end
 
                     squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('Squid proxy', logViewUrl('squid-proxy')) | safe }}"}
