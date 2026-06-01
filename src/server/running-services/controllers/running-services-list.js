@@ -1,7 +1,6 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 
-import { formatText } from '#config/nunjucks/filters/filters.js'
 import { buildRunningServicesTableData } from '../helpers/build-running-services-table-data.js'
 
 const runningServicesListController = {
@@ -29,21 +28,7 @@ const runningServicesListController = {
 
     return h.view('running-services/views/list', {
       pageTitle: 'Running Services',
-      tableData: {
-        headers: [
-          { id: 'owner', classes: 'app-entity-table__cell--owned' },
-          { id: 'service', text: 'Service', width: '15', isLeftAligned: true },
-          { id: 'team', text: 'Team', width: '15' },
-          ...environments.map((env) => ({
-            id: env.toLowerCase(),
-            text: formatText(env),
-            width: 70 / environments.length
-          }))
-        ],
-        rows,
-        noResult: 'No running services found',
-        isWide: true
-      },
+      rows,
       environments,
       serviceFilters,
       userFilters,

@@ -1,6 +1,6 @@
 {% extends "layouts/page.njk" %}
 
-{% from "running-services/common/components/running-service-row/macro.njk" import appEntityTableRunningServiceRow %}
+{% from "icons/star-icon/macro.njk" import appStarIcon %}
 
 {% block content %}
 
@@ -97,21 +97,96 @@
 
   {% block xhrContent %}
     <div data-xhr="running-services">
-      {% call(params) appEntityTable(tableData) %}
+      {% set tableClasses = ["app-entity-table", "app-entity-table--wide"] | join(" ") | trim %}
+      {% set environmentColumnWidth = 70 / (environments | length) %}
+      {% set noResultsColspan = 3 + (environments | length) %}
 
-        {{ appEntityTableRunningServiceRow({
-          rowClasses: params.rowClasses,
-          loopIndex: params.loopIndex,
-          isOwner: params.row.isOwner,
-          serviceName: params.row.serviceName,
-          serviceTeams: params.row.serviceTeams,
-          serviceEnvironments: params.row.serviceEnvironments,
-          allEnvironments: environments
-        }) | safe }}
+      <article>
+        <table class="{{ tableClasses }}" data-testid="app-entity-table">
+          <thead class="app-entity-table__head" data-testid="app-entity-table-head">
+          <tr>
+            <th id="owner" scope="col"
+                class="app-entity-table__heading app-entity-table__cell--owned"
+                data-testid="app-entity-table-header-1">
+              <span class="govuk-visually-hidden">owner</span>
+            </th>
+            <th id="service" scope="col"
+                class="app-entity-table__heading app-entity-table__heading--left-aligned"
+                data-testid="app-entity-table-header-2"
+                width="15%">
+              Service
+            </th>
+            <th id="team" scope="col"
+                class="app-entity-table__heading"
+                data-testid="app-entity-table-header-3"
+                width="15%">
+              Team
+            </th>
+            {% for environment in environments %}
+              <th id="{{ environment | lower }}" scope="col"
+                  class="app-entity-table__heading"
+                  data-testid="app-entity-table-header-{{ loop.index + 3 }}"
+                  width="{{ environmentColumnWidth }}%">
+                {{ environment | formatText }}
+              </th>
+            {% endfor %}
+          </tr>
+          </thead>
+          <tbody>
+          {% for row in rows %}
+            {% set rowClasses = ["app-entity-table__row", row.classes if row.classes] | join(" ") | trim %}
+            <tr class="{{ rowClasses }}" data-testid="app-entity-table-row-{{ loop.index }}">
 
-      {% endcall %}
+              <td headers="owner" class="app-entity-table__cell app-entity-table__cell--owned" data-label="Owner">
+                {% if row.isOwner %}
+                  {{ appStarIcon({classes: "app-icon--minuscule" }) }}
+                {% endif %}
+              </td>
 
+              <td headers="service" class="app-entity-table__cell" data-label="Service">
+                <a class="app-link app-entity-table__row-header" href="/running-services/{{ row.serviceName }}"
+                   data-testid="app-link">
+                  {{ row.serviceName }}
+                </a>
+              </td>
 
+              <td headers="team" class="app-entity-table__cell" data-label="Team">
+                {% if row.serviceTeams | length %}
+                  <ul class="app-entity__list">
+                    {% for team in row.serviceTeams %}
+                      <a class="app-link" href="/teams/{{ team.id }}" data-testid="app-entity-link">
+                        {{ team.name }}
+                      </a>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <span class="app-entity-no-value">{{ noValue }}</span>
+                {% endif %}
+              </td>
+
+              {% for environment in environments %}
+                <td headers="{{ environment }}" class="app-entity-table__cell app-entity-table__cell--slim"
+                    data-label="{{ environment | title }}">
+                  {% set environmentRow = row.serviceEnvironments[environment] %}
+
+                  {% if environmentRow %}
+                    {{ environmentRow.html | safe }}
+                  {% else %}
+                    <div class="app-running-service-entity--empty"></div>
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+          {% else %}
+            <tr class="app-entity-table__row--no-results" data-testid="app-entity-table-no-results">
+              <td class="app-entity-table__cell" colspan="{{ noResultsColspan }}">
+                No running services found
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </article>
     </div>
   {% endblock %}
 
