@@ -60,15 +60,12 @@ Use the caller pattern with row components:
 #### Available Row Components
 
 - `appEntityTableServiceRow` - For services list (`src/server/services/common/components/service-row`)
-- `appEntityTableRunningServiceRow` - For running services list (
-  `src/server/running-services/common/components/running-service-row`)
 
 When creating new entity tables, create a domain-specific row component following these patterns.
 
 #### Real-World Implementation Examples
 
-These row component implementations have significantly improved performance for both the services and running-services
-list pages.
+These row component implementations have significantly improved performance for services list pages.
 
 ##### Service Row
 
@@ -98,34 +95,8 @@ service name with tags, teams, type, GitHub URL, and creation date.
 {% endcall %}
 ```
 
-##### Running Service Row
-
-> [!TIP]
-> A working example can be seen
-> in [/src/server/running-services/common/components/running-service-row](/src/server/running-services/common/components/running-service-row)
-
-Used in the running services list page (`/running-services`), this row component renders service status across multiple
-environments dynamically.
-
-```nunjucks
-{# src/server/running-services/views/list.njk #}
-{% from "running-services/common/components/running-service-row/macro.njk" import appEntityTableRunningServiceRow %}
-
-{% call(params) appEntityTable(tableData) %}
-  {{ appEntityTableRunningServiceRow({
-    rowClasses: params.rowClasses,
-    loopIndex: params.loopIndex,
-    isOwner: params.row.isOwner,
-    serviceName: params.row.serviceName,
-    serviceTeams: params.row.serviceTeams,
-    serviceEnvironments: params.row.serviceEnvironments,
-    allEnvironments: environments
-  }) | safe }}
-{% endcall %}
-```
-
-Both implementations avoid the `renderComponent`/`appEntity` overhead by directly rendering HTML in the row template,
-resulting in much faster page loads for lists with many rows.
+The services row implementation avoids the `renderComponent`/`appEntity` overhead by directly rendering HTML in the
+row template, resulting in much faster page loads for lists with many rows.
 
 ### Known Performance Issues
 
