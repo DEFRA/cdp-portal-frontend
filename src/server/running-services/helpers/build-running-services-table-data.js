@@ -8,6 +8,19 @@ import { runningServiceToEntityRow } from './transformers/running-service-to-ent
 import { sortByOwner } from '../../common/helpers/sort/sort-by-owner.js'
 import { fetchRunningServices } from './fetch/fetch-running-services.js'
 import { fetchServices } from '../../common/helpers/fetch/fetch-entities.js'
+import { renderRunningServiceEntity } from './render-running-service-entity.js'
+
+function addEnvironmentCellHtml(rows) {
+  return rows.map((row) => ({
+    ...row,
+    serviceEnvironments: Object.fromEntries(
+      Object.entries(row.serviceEnvironments).map(([environment, cell]) => [
+        environment,
+        { html: renderRunningServiceEntity(cell) }
+      ])
+    )
+  }))
+}
 
 function getFilters(runningServicesFilters) {
   const {
@@ -66,7 +79,9 @@ async function buildRunningServicesTableData(request) {
   })
 
   const ownerSorter = sortByOwner('serviceName')
-  const rows = services.toSorted(ownerSorter).map(runningServiceToEntityRow)
+  const rows = addEnvironmentCellHtml(
+    services.toSorted(ownerSorter).map(runningServiceToEntityRow)
+  )
 
   return {
     environments,

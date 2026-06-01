@@ -1,5 +1,3 @@
-{% from "time/macro.njk" import appTime %}
-{% from "tool-tip/macro.njk" import appToolTip %}
 {% from "icons/instance-success-icon/macro.njk" import appInstanceSuccessIcon %}
 {% from "icons/instance-pending-icon/macro.njk" import appInstancePendingIcon %}
 {% from "icons/instance-undeployed-icon/macro.njk" import appInstanceUndeployedIcon %}
@@ -9,7 +7,7 @@
     <span class="app-running-service-entity__label govuk-visually-hidden">Version:</span>
     {% set tooltipText = "failed" if params.unstable === true else params.status %}
 
-    {% call appToolTip({ text: tooltipText | title + " in " + params.environment | title }) %}
+    <span class="app-tool-tip" data-text="{{ tooltipText | title + " in " + params.environment | title }}">
       {% switch params.status %}
       {% case "running" %}
         {{ appInstanceSuccessIcon({ description: "Running", classes: "app-icon--tiny" }) }}
@@ -19,7 +17,7 @@
       {% case "undeployed" %}
         {{ appInstanceUndeployedIcon({ description: "Undeployed", classes: "app-icon--tiny" }) }}
       {% endswitch %}
-    {% endcall %}
+    </span>
 
     <a class="app-link govuk-!-margin-left-1"
        href="https://github.com/DEFRA/{{ params.service }}/releases/tag/{{ params.version }}"
@@ -35,10 +33,10 @@
       {{ "Undeployed" if params.status == "undeployed" else "Deployed" }}
     </a>
 
-    {{ appTime({
-      text: params.created | formatDistanceToNow,
-      datetime: params.created
-    }) }} ago
+    <span class="app-tool-tip" data-text="{{ params.created | formatDate }}">
+      <time datetime="{{ params.created }}" data-testid="app-time">
+        {{ params.created | formatDistanceToNow }}
+      </time>
+    </span> ago
   </div>
 </div>
-
