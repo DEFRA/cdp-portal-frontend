@@ -72,7 +72,7 @@
     "disinfect": "2.0.0",
     "fast-glob": "3.3.3",
     "get-form-data": "3.0.0",
-    "govuk-frontend": "5.14.0",
+    "govuk-frontend": "6.1.0",
     "hapi-pino": "13.0.0",
     "hapi-pulse": "3.0.1",
     "highlight.js": "11.11.1",
