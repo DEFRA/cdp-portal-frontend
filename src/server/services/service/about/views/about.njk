@@ -329,6 +329,26 @@
           </dl>
         </section>
 
+        {% if apiHubUrls | length %}
+          <section class="govuk-!-margin-bottom-6">
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">API Hub</h2>
+            <p>
+              Swagger/OpenAPI documentation for this service
+            </p>
+            <dl class="app-description-list">
+              {% for apiHubUrl in apiHubUrls %}
+                <dt class="app-description-list__term">{{ apiHubUrl.environment | title }}</dt>
+                <dd class="app-description-list__details app-description-list__details--slim">
+                  <a class="app-link"
+                     href="{{ apiHubUrl.url }}"
+                     target="_blank" rel="noopener noreferrer">
+                    {{ apiHubUrl.url }}
+                  </a>
+                </dd>
+              {% endfor %}
+            </dl>
+          </section>
+        {% endif %}
 
         <section class="govuk-!-margin-bottom-6">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Logs</h2>

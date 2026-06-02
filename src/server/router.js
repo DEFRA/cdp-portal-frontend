@@ -1,6 +1,7 @@
 import inert from '@hapi/inert'
 
 import { admin } from './admin/routes.js'
+import { apis } from './apis/routes.js'
 import { applyChangelog } from './apply-changelog/routes.js'
 import { authCallback } from './auth-callback/routes.js'
 import { create } from './create/routes.js'
@@ -30,6 +31,7 @@ export const router = {
       await server.register([inert])
       await server.register([
         admin,
+        apis,
         applyChangelog,
         authCallback,
         create,
