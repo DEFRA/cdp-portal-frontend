@@ -13,6 +13,7 @@ async function buildNavigation(request, userSession) {
   const servicesPath = userSession?.isAdmin
     ? request.routeLookup('services/all')
     : request.routeLookup('services')
+  const apisPath = request.routeLookup('apis')
   const testSuitesPath = request.routeLookup('test-suites')
   const runningServicesPath = request.routeLookup('running-services')
   const deployServicePath = request.routeLookup('deploy-service')
@@ -64,6 +65,14 @@ async function buildNavigation(request, userSession) {
       current: request?.path?.includes('/services'),
       attributes: {
         'data-testid': 'nav-services'
+      }
+    },
+    {
+      text: 'APIs',
+      href: apisPath,
+      current: request?.path?.includes('/apis'),
+      attributes: {
+        'data-testid': 'nav-apis'
       }
     },
     {

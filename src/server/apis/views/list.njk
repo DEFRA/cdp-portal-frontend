@@ -1,0 +1,82 @@
+{% extends "layouts/page.njk" %}
+
+{% from "tag/macro.njk" import appTag %}
+
+{% block content %}
+  {{ appPageHeading({
+    text: "APIs",
+    intro: "Available API Hub documentation links for microservices running in CDP environments."
+  }) }}
+
+  <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-6">
+    {{ appTag({
+      text: "Beta",
+      classes: "govuk-tag--light-blue"
+    }) }}
+  </p>
+
+  {% set environmentColumnWidth = 50 / (environments | length) %}
+
+  <article>
+    <table class="app-entity-table app-entity-table--wide" data-testid="app-entity-table">
+      <thead class="app-entity-table__head" data-testid="app-entity-table-head">
+        <tr>
+          <th scope="col" class="app-entity-table__heading app-entity-table__heading--left-aligned" width="25%" data-testid="app-entity-table-header-1">Service</th>
+          <th scope="col" class="app-entity-table__heading" width="15%" data-testid="app-entity-table-header-2">Team</th>
+          <th scope="col" class="app-entity-table__heading" width="10%" data-testid="app-entity-table-header-3">Format</th>
+          {% for environment in environments %}
+            <th scope="col"
+                class="app-entity-table__heading"
+                width="{{ environmentColumnWidth }}%"
+                data-testid="app-entity-table-header-{{ loop.index + 3 }}">
+              {{ environment | formatText }}
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+          <tr class="app-entity-table__row" data-testid="app-entity-table-row-{{ loop.index }}">
+            <td class="app-entity-table__cell" data-label="Service">
+              <a class="app-link app-entity-table__row-header"
+                 href="/services/{{ row.serviceName }}"
+                 data-testid="app-link">
+                {{ row.serviceName }}
+              </a>
+            </td>
+            <td class="app-entity-table__cell" data-label="Team">
+              {{ row.teams if row.teams else noValue }}
+            </td>
+            <td class="app-entity-table__cell" data-label="Format">
+              {% if row.format %}
+                {{ appTag({
+                  text: row.format,
+                  classes: "govuk-tag--blue"
+                }) }}
+              {% else %}
+                <span class="app-entity-no-value">{{ noValue }}</span>
+              {% endif %}
+            </td>
+            {% for environment in environments %}
+              <td class="app-entity-table__cell app-entity-table__cell--slim" data-label="{{ environment | title }}">
+                {% if row.envLinks[environment] %}
+                  <a class="app-link"
+                     href="{{ row.envLinks[environment] }}"
+                     target="_blank" rel="noopener noreferrer">
+                    View
+                  </a>
+                {% endif %}
+              </td>
+            {% endfor %}
+          </tr>
+        {% else %}
+          <tr class="app-entity-table__row--no-results" data-testid="app-entity-table-no-results">
+            <td class="app-entity-table__cell" colspan="{{ 3 + (environments | length) }}">
+              No APIs available
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </article>
+{% endblock %}

@@ -27,6 +27,12 @@ const buildPrimaryNav = ({ servicesHref = '/services', path = '' } = {}) => [
     attributes: { 'data-testid': 'nav-services' }
   },
   {
+    current: path.includes('/apis'),
+    text: 'APIs',
+    href: '/apis',
+    attributes: { 'data-testid': 'nav-apis' }
+  },
+  {
     current: path.includes('/test-suites'),
     text: 'Test Suites',
     href: '/test-suites',
