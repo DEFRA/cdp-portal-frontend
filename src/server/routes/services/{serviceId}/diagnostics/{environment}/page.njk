@@ -59,7 +59,7 @@
                       frontend_link@{ animation: slow }
                     {% endif %}
 
-                    {% if (environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev') and (entity.subType == 'Frontend' or resources.api_gateways | selectattr('type', 'REGIONAL') | length) %}
+                    {% if (entity.subType == 'Frontend' and (environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev') or (resources.api_gateways and resources.api_gateways | selectattr('type', 'REGIONAL') | length)) %}
                       public_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Public)', logViewUrl('alb-vanity-url')) | safe }}"}
                       public_alb public_alb_link@--> nginx
                       public_alb_link@{ animation: slow }
