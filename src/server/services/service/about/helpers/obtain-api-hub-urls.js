@@ -1,4 +1,4 @@
-import { sortKeyByEnv } from './sort/sort-by-env.js'
+import { sortKeyByEnv } from '#server/common/helpers/sort/sort-by-env.js'
 
 function obtainApiHubUrls(entity, availableServiceEnvironments) {
   const hasApiDocs = Boolean(entity?.metadata?.api_docs)

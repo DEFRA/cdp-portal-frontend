@@ -8,7 +8,7 @@ import { fetchAboutServiceData } from './helpers/fetch-about-service-data.js'
 import { transformServiceToSummary } from './transformers/service-to-summary.js'
 import { obtainServiceUrls } from '../../../common/helpers/service-urls/obtain-service-urls.js'
 import { obtainLogsAndMetricsUrls } from '../../../common/helpers/obtain-logs-and-metrics-urls.js'
-import { obtainApiHubUrls } from '../../../common/helpers/obtain-api-hub-urls.js'
+import { obtainApiHubUrls } from './helpers/obtain-api-hub-urls.js'
 import { isBackendEntity, isFrontendEntity } from '../../helpers/entity-type.js'
 
 async function aboutHandler(request, h) {
