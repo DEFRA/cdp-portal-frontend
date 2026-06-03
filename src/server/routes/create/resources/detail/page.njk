@@ -1,0 +1,175 @@
+{% extends "layouts/page.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+
+{% block content %}
+  {{ appStepNavigation(stepNavigation) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appPageHeading({
+      caption: "Create",
+      text: "Resources",
+      intro: 'Request resources to be created'
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+        <form action="/create/resources/detail" method="post" data-js="app-form-errors"
+              class="govuk-!-margin-bottom-4">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+
+          {{ govukSummaryList({
+            card: {
+              title: {
+                text: "S3 buckets"
+              },
+              actions: {
+                items: [
+                  {
+                    href: "/create/resources/detail/s3-bucket",
+                    text: "Add"
+                  }
+                ]
+              }
+            },
+            rows: [
+              {
+                key: {
+                  text: "cdp-portal-backend"
+                },
+                value: {
+                  html: '<dl style="display: flex;"><dt><strong>Service</strong></dt><dd>cdp-example-backend</dd></dl><br/><dl style="display: flex;"><dt><strong>Versioning</strong></dt><dd>Disabled</dd></dl>'
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "#",
+                      text: "Edit"
+                    },
+                    {
+                      href: "#",
+                      text: "Remove"
+                    }
+                  ]
+                }
+              },
+              {
+                key: {
+                  text: "cdp-portal-backend-images"
+                },
+                value: {
+                  html: '<dl style="display: flex;"><dt><strong>Service</strong></dt><dd>cdp-example-frontend</dd></dl><br/><dl style="display: flex;"><dt><strong>Versioning</strong></dt><dd>Disabled</dd></dl>'
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "#",
+                      text: "Edit"
+                    },
+                    {
+                      href: "#",
+                      text: "Remove"
+                    }
+                  ]
+                }
+              }
+            ]
+          }) }}
+
+          {{ govukSummaryList({
+            card: {
+              title: {
+                text: "SNS topics"
+              },
+              actions: {
+                items: [
+                  {
+                    href: "#",
+                    text: "Add"
+                  }
+                ]
+              }
+            },
+            rows: [
+              {
+                key: {
+                  text: "decision_notification.fifo"
+                },
+                value: {
+                  html: '<dl style="display: flex;"><dt><strong>Service</strong></dt><dd>cdp-example-backend</dd></dl><br/><dl style="display: flex;"><dt><strong>Content based deduplication</strong></dt><dd>false</dd></dl><br/><dl style="display: flex;"><dt><strong>Fifo topic</strong></dt><dd>true</dd></dl>'
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "#",
+                      text: "Edit"
+                    },
+                    {
+                      href: "#",
+                      text: "Remove"
+                    }
+                  ]
+                }
+              }
+            ]
+          }) }}
+
+          {{ govukSummaryList({
+            card: {
+              title: {
+                text: "SQS queues"
+              },
+              actions: {
+                items: [
+                  {
+                    href: "#",
+                    text: "Add"
+                  }
+                ]
+              }
+            },
+            rows: [
+              {
+                key: {
+                  html: '<a href="#">Add</a>'
+                }
+              }
+            ]
+          }) }}
+
+
+          {{ govukButton({
+            classes: "app-button",
+            text: 'Submit request'
+          }) }}
+
+        </form>
+      </div>
+
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+        {% call appPanel() %}
+          <section>
+            <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-3">Resources request</h2>
+
+            <p class="govuk-!-margin-bottom-2">
+              Add the resources you want created on the CDP Platform.
+            </p>
+
+            <h3 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-3">Self-service process</h3>
+            <p class="govuk-!-margin-bottom-2">
+              <ol class="govuk-list govuk-list--number govuk-list--spaced">
+                <li>Submit your request</li>
+                <li>A Github PR will be automatically raised modifying CDP infrastructure</li>
+                <li>The CDP team will review and merge the PR</li>
+                <li>The resources are automatically created</li>
+                <li>You will be notified on completion</li>
+              </ol>
+            </p>
+          </section>
+        {% endcall %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
