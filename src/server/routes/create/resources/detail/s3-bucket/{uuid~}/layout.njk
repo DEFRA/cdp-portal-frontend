@@ -1,0 +1,15 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appPageHeading({
+      caption: "Create Resource",
+      text: "S3 Bucket"
+    }) }}
+
+    {% block formContent %}{% endblock %}
+
+  </div>
+
+{% endblock %}
