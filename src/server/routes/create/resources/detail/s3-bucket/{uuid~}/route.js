@@ -1,5 +1,7 @@
+import { formatText } from '#config/nunjucks/filters/filters.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import formEngin from '#server/plugins/form-engine/form-engine.js'
-import { scopes } from '@defra/cdp-validation-kit'
+import { scopes, repositoryNameValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
 
 export function register(routePath) {
@@ -20,17 +22,38 @@ export function register(routePath) {
         },
         layout: 'routes/create/resources/detail/s3-bucket/{uuid~}/layout.njk',
         async schema(request) {
+          const environments = getEnvironments(request.auth.credentials?.scope)
+
           return Joi.object({
+            service: repositoryNameValidation
+              .label('Owning service')
+              .description('Select the microservice to add the bucket to'),
+
             name: Joi.string()
-              .label('Team name')
+              .label('Bucket name')
+              .description(
+                'A prefix and suffix will automatically be added to the bucket name. See <a href="/documentation/how-to/buckets.md#bucket-naming">Bucket Naming documentation</a>'
+              )
               .min(3)
-              .max(53)
-              .regex(/^[A-Za-z0-9-]+$/)
+              .max(63)
+              .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
+              .required(),
+            environments: Joi.array()
+              .label('Environments')
+              .single()
+              .items(
+                ...environments.map((env) =>
+                  Joi.string().valid(env).label(formatText(env))
+                )
+              )
+              .min(1)
               .required()
           })
         },
         async init() {
-          return {}
+          return {
+            environments: getEnvironments(scopes.tenant)
+          }
         },
         async actions() {
           return {

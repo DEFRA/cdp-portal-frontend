@@ -38,6 +38,9 @@ export default {
       async handler(request, h) {
         const formSchema = await schema(request, h)
         const formDefinition = formSchema.describe()
+
+        console.dir(formDefinition, { depth: 10 })
+
         const layoutContext = await layoutHandler(request, h) // TODO: Replace with ext ?
 
         const formValues = await init(request, h)
@@ -68,7 +71,8 @@ export default {
         }
 
         const validationResult = formSchema.validate(formValues, {
-          abortEarly: false
+          abortEarly: false,
+          stripUnknown: true
         })
 
         if (validationResult.error) {
@@ -111,6 +115,10 @@ function resolveComponent(def) {
   return this.ctx[component] ?? this.ctx.string
 }
 
-function resolveItems(def) {
-  return def.items?.map((item) => ({ value: '', text: item.flags?.label }))
+function resolveItems(def, values) {
+  return def.items?.map((item) => ({
+    value: item.allow.at(0),
+    text: item.flags?.label,
+    checked: values?.includes(item.allow.at(0))
+  }))
 }

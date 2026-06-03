@@ -12,8 +12,7 @@
         classes: "govuk-fieldset__legend--m"
       }
     },
-    items: params.resolveItems(params.def),
-    value: params.formValues[params.name],
+    items: params.resolveItems(params.def, params.formValues[params.name]),
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}
 {% endmacro %}
