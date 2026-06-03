@@ -27,7 +27,10 @@ export function register(routePath) {
           return Joi.object({
             service: repositoryNameValidation
               .label('Owning service')
-              .description('Select the microservice to add the bucket to'),
+              .description('Select the microservice to add the bucket to')
+              .meta({
+                component: 'autocompleteField'
+              }),
 
             name: Joi.string()
               .label('Bucket name')
@@ -38,6 +41,7 @@ export function register(routePath) {
               .max(63)
               .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
               .required(),
+
             environments: Joi.array()
               .label('Environments')
               .single()

@@ -1,7 +1,7 @@
-{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "autocomplete/macro.njk" import appAutocomplete %}
 
-{% macro textareaField(params) %}
-  {{ govukTextarea({
+{% macro autocompleteField(params) %}
+  {{ appAutocomplete({
     id: params.name,
     name: params.name,
     label: {
@@ -12,17 +12,10 @@
       html: params.def.flags.description,
       classes: "app-hint"
     },
-    classes: "app-input app-input--wide",
     formGroup: {
       classes: "app-form-group app-form-group-js"
     },
-    hint: {
-      html: params.def.flags.description,
-      classes: "app-hint"
-    },
-    attributes: {
-      "data-1p-ignore": ""
-    },
+    suggestions: [],
     value: params.formValues[params.name],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}

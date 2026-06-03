@@ -2,12 +2,12 @@
 
 {% macro inputField(params) %}
   {{ govukInput({
+    id: params.name,
+    name: params.name,
     label: {
       text: params.resolveLabel(params.def, params.name),
       classes: "app-label"
     },
-    id: params.name,
-    name: params.name,
     classes: "app-input app-input--wide",
     formGroup: {
       classes: "app-form-group app-form-group-js"

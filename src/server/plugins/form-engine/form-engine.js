@@ -39,8 +39,6 @@ export default {
         const formSchema = await schema(request, h)
         const formDefinition = formSchema.describe()
 
-        console.dir(formDefinition, { depth: 10 })
-
         const layoutContext = await layoutHandler(request, h) // TODO: Replace with ext ?
 
         const formValues = await init(request, h)
