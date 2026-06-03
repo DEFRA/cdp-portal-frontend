@@ -26,23 +26,18 @@
     {% endcall %}
 
     <div class="govuk-button-group">
-      {% if actions.submit %}
-        {{ govukButton({
-          classes: "app-button",
-          text: actions.submit.text,
-          name: 'actionButton',
-          value: 'submit'
-        }) }}
-      {% endif %}
-
-      {% if actions.cancel %}
-        {{ govukButton({
-          classes: "app-button  app-button--tertiary",
-          text: actions.cancel.text,
-          name: 'actionButton',
-          value: 'cancel'
-        }) }}
-      {% endif %}
+      {% for action, def in actions %}
+        {% if def.url %}
+          <a class="app-link {{def.classes}}"  href="{{ def.url }}">{{ def.text }}</a>
+        {% else %}
+          {{ govukButton({
+            classes: "app-button " + def.classes,
+            text: def.text,
+            name: action + 'Button',
+            value: 'submit'
+          }) }}
+        {% endif %}
+      {% endfor %}
     </div>
 
   </form>

@@ -32,7 +32,18 @@ export function register(routePath) {
         async init() {
           return {}
         },
-        actions: {}
+        async actions() {
+          return {
+            submit: {
+              text: 'Add',
+              async method(request, h, sanitisedFormValues) {}
+            },
+            cancel: {
+              text: 'Cancel',
+              url: '/create/resources/detail'
+            }
+          }
+        }
       }
     }
   ]

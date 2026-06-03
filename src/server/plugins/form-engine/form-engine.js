@@ -41,13 +41,14 @@ export default {
         const layoutContext = await layoutHandler(request, h) // TODO: Replace with ext ?
 
         const formValues = await init(request, h)
+        const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {
           ...layoutContext,
           fields: formDefinition.keys,
           layout,
           formValues,
-          actions,
+          actions: resolvedActions,
           resolveComponent,
           resolveLabel,
           resolveItems
