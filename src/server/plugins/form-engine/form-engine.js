@@ -52,7 +52,8 @@ export default {
           actions: resolvedActions,
           resolveComponent,
           resolveLabel,
-          resolveItems
+          resolveItems,
+          resolveMeta
         })
       }
     })
@@ -64,9 +65,8 @@ export default {
         const formSchema = await schema(request, h)
         const { csrfToken, actionButton, ...formValues } = request.payload
 
-        if (actionButton === 'cancel') {
-          return actions.cancel.method(request, h)
-        }
+        const resolvedActions = await actions(request, h)
+        const action = resolvedActions[actionButton]
 
         const validationResult = formSchema.validate(formValues, {
           abortEarly: false,
@@ -86,7 +86,7 @@ export default {
 
         request.yar.clear(sessionNames.validationFailure)
 
-        return await actions.submit.method(request, h, validationResult.value)
+        return await action.method(request, h, validationResult.value)
       }
     })
   }
@@ -119,4 +119,8 @@ function resolveItems(def, values) {
     text: item.flags?.label,
     checked: values?.includes(item.allow.at(0))
   }))
+}
+
+function resolveMeta(def, name) {
+  return def.metas?.find((meta) => meta[name])?.[name]
 }

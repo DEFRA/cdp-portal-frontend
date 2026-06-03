@@ -19,7 +19,8 @@
           formValues: formValues,
           formErrors: formErrors,
           resolveLabel: resolveLabel,
-          resolveItems: resolveItems
+          resolveItems: resolveItems,
+          resolveMeta: resolveMeta
         }) }}
 
       {% endfor %}
@@ -34,7 +35,7 @@
           {{ govukButton({
             classes: "app-button " + def.classes,
             text: def.text,
-            name: action + 'Button',
+            name: 'actionButton',
             value: 'submit'
           }) }}
         {% endif %}

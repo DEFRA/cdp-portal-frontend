@@ -1,5 +1,8 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { fetchServices } from '#server/common/helpers/fetch/fetch-entities.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
+import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
 import formEngin from '#server/plugins/form-engine/form-engine.js'
 import { scopes, repositoryNameValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
@@ -24,12 +27,22 @@ export function register(routePath) {
         async schema(request) {
           const environments = getEnvironments(request.auth.credentials?.scope)
 
+          const entities = await fetchServices()
+          const entityNames =
+            entities
+              .map((e) => e.name)
+              .toSorted(sortByName)
+              .map((entityName) => ({ value: entityName, text: entityName })) ??
+            []
+          const entityOptions = buildOptions(entityNames)
+
           return Joi.object({
             service: repositoryNameValidation
               .label('Owning service')
               .description('Select the microservice to add the bucket to')
               .meta({
-                component: 'autocompleteField'
+                component: 'autocompleteField',
+                suggestions: entityOptions
               }),
 
             name: Joi.string()
@@ -63,7 +76,10 @@ export function register(routePath) {
           return {
             submit: {
               text: 'Add',
-              async method(request, h, sanitisedFormValues) {}
+              async method(request, h, sanitisedFormValues) {
+                console.log(sanitisedFormValues)
+                return h.redirect('/create/resources/detail/')
+              }
             },
             cancel: {
               text: 'Cancel',

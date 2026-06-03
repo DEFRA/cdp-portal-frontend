@@ -15,7 +15,7 @@
     formGroup: {
       classes: "app-form-group app-form-group-js"
     },
-    suggestions: [],
+    suggestions: params.resolveMeta(params.def, 'suggestions'),
     value: params.formValues[params.name],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}
