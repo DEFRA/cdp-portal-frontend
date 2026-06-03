@@ -1,6 +1,8 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { fetchServices } from '#server/common/helpers/fetch/fetch-entities.js'
+import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
 import formEngin from '#server/plugins/form-engine/form-engine.js'
@@ -23,6 +25,13 @@ export function register(routePath) {
             }
           }
         },
+        ext: [
+          {
+            type: 'onPostHandler',
+            method: provideFormContextValues(sessionNames.resourcesRequest),
+            options: { before: ['yar'], sandbox: 'plugin' }
+          }
+        ],
         layout: 'routes/create/resources/detail/s3-bucket/{uuid~}/layout.njk',
         async schema(request) {
           const environments = getEnvironments(request.auth.credentials?.scope)
@@ -77,7 +86,15 @@ export function register(routePath) {
             submit: {
               text: 'Add',
               async method(request, h, sanitisedFormValues) {
-                console.log(sanitisedFormValues)
+                const basket = request.yar.get(sessionNames.resourcesRequest)
+                const { name, ...props } = sanitisedFormValues
+
+                request.yar.set(sessionNames.resourcesRequest, {
+                  ...basket,
+                  s3_buckets: { ...basket.s3_buckets, [name]: props }
+                })
+                await request.yar.commit(h)
+
                 return h.redirect('/create/resources/detail/')
               }
             },

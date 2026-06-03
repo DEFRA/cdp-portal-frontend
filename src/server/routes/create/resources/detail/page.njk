@@ -27,101 +27,48 @@
               class="govuk-!-margin-bottom-4">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
-          {{ govukSummaryList({
-            card: {
-              title: {
-                text: "S3 buckets"
-              },
-              actions: {
-                items: [
-                  {
-                    href: "/create/resources/detail/s3-bucket",
-                    text: "Add"
-                  }
-                ]
-              }
-            },
-            rows: [
-              {
-                key: {
-                  text: "cdp-portal-backend"
-                },
-                value: {
-                  html: '<dl style="display: flex;"><dt><strong>Service</strong></dt><dd>cdp-example-backend</dd></dl><br/><dl style="display: flex;"><dt><strong>Versioning</strong></dt><dd>Disabled</dd></dl>'
-                },
-                actions: {
-                  items: [
-                    {
-                      href: "#",
-                      text: "Edit"
-                    },
-                    {
-                      href: "#",
-                      text: "Remove"
-                    }
-                  ]
-                }
-              },
-              {
-                key: {
-                  text: "cdp-portal-backend-images"
-                },
-                value: {
-                  html: '<dl style="display: flex;"><dt><strong>Service</strong></dt><dd>cdp-example-frontend</dd></dl><br/><dl style="display: flex;"><dt><strong>Versioning</strong></dt><dd>Disabled</dd></dl>'
-                },
-                actions: {
-                  items: [
-                    {
-                      href: "#",
-                      text: "Edit"
-                    },
-                    {
-                      href: "#",
-                      text: "Remove"
-                    }
-                  ]
-                }
-              }
-            ]
-          }) }}
+          {% for type, resources in basket %}
 
-          {{ govukSummaryList({
-            card: {
-              title: {
-                text: "SNS topics"
-              },
-              actions: {
-                items: [
-                  {
-                    href: "#",
-                    text: "Add"
-                  }
-                ]
-              }
-            },
-            rows: [
-              {
-                key: {
-                  text: "decision_notification.fifo"
-                },
-                value: {
-                  html: '<dl style="display: flex;"><dt><strong>Service</strong></dt><dd>cdp-example-backend</dd></dl><br/><dl style="display: flex;"><dt><strong>Content based deduplication</strong></dt><dd>false</dd></dl><br/><dl style="display: flex;"><dt><strong>Fifo topic</strong></dt><dd>true</dd></dl>'
+            {{ govukSummaryList({
+              card: {
+                title: {
+                  text: type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
                 },
                 actions: {
                   items: [
                     {
-                      href: "#",
-                      text: "Edit"
-                    },
-                    {
-                      href: "#",
-                      text: "Remove"
+                      href: "/create/resources/detail/" + type,
+                      text: "Add"
                     }
                   ]
                 }
-              }
-            ]
-          }) }}
+              },
+              rows: [
+                {
+                  key: {
+                    text: "cdp-portal-backend"
+                  },
+                  value: {
+                    html: '<dl style="display: flex;"><dt><strong>Service</strong></dt><dd>cdp-example-backend</dd></dl><br/><dl style="display: flex;"><dt><strong>Versioning</strong></dt><dd>Disabled</dd></dl>'
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "#",
+                        text: "Edit"
+                      },
+                      {
+                        href: "#",
+                        text: "Remove"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }) }}
+
+          {% endfor %}
+
 
           {{ govukSummaryList({
             card: {
