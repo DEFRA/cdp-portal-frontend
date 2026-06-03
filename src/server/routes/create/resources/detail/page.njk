@@ -3,7 +3,15 @@
 
 
 {% block content %}
-  {{ appStepNavigation(stepNavigation) }}
+  {{ appStepNavigation({
+    "classes":"app-step-navigation--slim",
+    "width":50,
+    "steps":[
+      {"url":"/create/choose-kind","isComplete":true,"isCurrent":false,"text":"Create"},
+      {"url":"/create/resources/detail","isCurrent":true,"text":"Details"},
+      {"url":"/create/resouces/summary","isCurrent":false,"text":"Summary"}
+    ]
+  }) }}
 
   <div class="govuk-main-wrapper app-main-wrapper">
 
@@ -18,7 +26,6 @@
         <form action="/create/resources/detail" method="post" data-js="app-form-errors"
               class="govuk-!-margin-bottom-4">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-          <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
 
           {{ govukSummaryList({
             card: {

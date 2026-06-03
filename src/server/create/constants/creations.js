@@ -24,6 +24,11 @@ export function getCreations() {
       value: 'repository',
       text: 'Repository',
       hint: 'A container for a collection of files that are versioned and stored in DEFRA GitHub'
+    },
+    {
+      value: 'resources',
+      text: 'Resources request',
+      hint: 'Request resources to be created on the platform'
     }
   ].map((creation) => ({
     ...creation,
