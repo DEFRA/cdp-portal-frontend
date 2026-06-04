@@ -65,7 +65,7 @@ async function run() {
     })
 
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`)
-    svg.style.maxWidth = width
+    svg.style.maxWidth = `${width}px`
   })
 
   document
