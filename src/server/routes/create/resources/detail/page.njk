@@ -43,55 +43,10 @@
                   ]
                 }
               },
-              rows: [
-                {
-                  key: {
-                    text: "cdp-portal-backend"
-                  },
-                  value: {
-                    html: '<dl style="display: flex;"><dt><strong>Service</strong></dt><dd>cdp-example-backend</dd></dl><br/><dl style="display: flex;"><dt><strong>Versioning</strong></dt><dd>Disabled</dd></dl>'
-                  },
-                  actions: {
-                    items: [
-                      {
-                        href: "#",
-                        text: "Edit"
-                      },
-                      {
-                        href: "#",
-                        text: "Remove"
-                      }
-                    ]
-                  }
-                }
-              ]
+              rows: resourcesToRows(type, resources)
             }) }}
 
           {% endfor %}
-
-
-          {{ govukSummaryList({
-            card: {
-              title: {
-                text: "SQS queues"
-              },
-              actions: {
-                items: [
-                  {
-                    href: "#",
-                    text: "Add"
-                  }
-                ]
-              }
-            },
-            rows: [
-              {
-                key: {
-                  html: '<a href="#">Add</a>'
-                }
-              }
-            ]
-          }) }}
 
 
           {{ govukButton({

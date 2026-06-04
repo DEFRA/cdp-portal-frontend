@@ -20,7 +20,7 @@ export function register(routePath) {
             auth: {
               mode: 'required',
               access: {
-                scope: scopes.admin
+                scope: scopes.admin // TODO: Open to tenants
               }
             }
           }
@@ -32,7 +32,7 @@ export function register(routePath) {
             options: { before: ['yar'], sandbox: 'plugin' }
           }
         ],
-        layout: 'routes/create/resources/detail/s3-bucket/{uuid~}/layout.njk',
+        layout: 'routes/create/resources/detail/s3_bucket/{uuid~}/layout.njk',
         async schema(request) {
           const environments = getEnvironments(request.auth.credentials?.scope)
 
@@ -91,7 +91,7 @@ export function register(routePath) {
 
                 request.yar.set(sessionNames.resourcesRequest, {
                   ...basket,
-                  s3_buckets: { ...basket.s3_buckets, [name]: props }
+                  s3_bucket: { ...basket?.s3_bucket, [name]: props }
                 })
                 await request.yar.commit(h)
 
