@@ -31,7 +31,7 @@ function resourcesToRows(userIsAdmin) {
     const entries = Object.entries(resources)
 
     if (entries.length) {
-      return entries.map(([name, props]) => ({
+      return entries.map(([uuid, { name, ...props }]) => ({
         key: {
           text: name
         },
@@ -49,11 +49,11 @@ function resourcesToRows(userIsAdmin) {
         actions: {
           items: [
             {
-              href: `/create/resources/detail/${type}/${name}`,
+              href: `/create/resources/detail/${type}/${uuid}`,
               text: 'Edit'
             },
             {
-              href: `/create/resources/detail/${type}/${name}/remove`,
+              href: `/create/resources/detail/${type}/${uuid}/remove`,
               text: 'Remove'
             }
           ]

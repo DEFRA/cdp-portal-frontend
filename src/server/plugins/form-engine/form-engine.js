@@ -40,10 +40,11 @@ export default {
       async handler(request, h) {
         const formSchema = await schema(request, h)
         const formDefinition = formSchema.describe()
-        console.dir(formDefinition, { depth: 10 })
+
         const layoutContext = await layoutHandler(request, h) // TODO: Replace with ext ?
 
-        const formValues = getDefaults(formDefinition)
+        const formValues =
+          (await load(request, h)) ?? getDefaults(formDefinition)
         const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {

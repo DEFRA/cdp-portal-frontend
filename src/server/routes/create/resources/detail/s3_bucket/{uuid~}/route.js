@@ -8,6 +8,7 @@ import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
 import formEngin from '#server/plugins/form-engine/form-engine.js'
 import { scopes, repositoryNameValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
+import { randomUUID } from 'node:crypto'
 
 export function register(routePath) {
   return [
@@ -91,20 +92,29 @@ export function register(routePath) {
               .required()
           })
         },
-        async load() {
-          return {}
+        async load(request) {
+          const uuid = request.params.uuid
+
+          if (!uuid) return undefined
+
+          const basket = request.yar.get(sessionNames.resourcesRequest)
+          return basket.s3_bucket[uuid]
         },
-        async actions() {
+        async actions(request, h) {
+          const uuid = request.params.uuid
+
           return {
             submit: {
-              text: 'Add',
+              text: uuid ? 'Update' : 'Add',
               async method(request, h, sanitisedFormValues) {
                 const basket = request.yar.get(sessionNames.resourcesRequest)
-                const { name, ...props } = sanitisedFormValues
 
                 request.yar.set(sessionNames.resourcesRequest, {
                   ...basket,
-                  s3_bucket: { ...basket?.s3_bucket, [name]: props }
+                  s3_bucket: {
+                    ...basket?.s3_bucket,
+                    [uuid ?? randomUUID()]: sanitisedFormValues
+                  }
                 })
                 await request.yar.commit(h)
 
