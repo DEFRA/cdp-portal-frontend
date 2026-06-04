@@ -35,6 +35,7 @@ export function register(routePath) {
         layout: 'routes/create/resources/detail/s3_bucket/{uuid~}/layout.njk',
         async schema(request) {
           const environments = getEnvironments(request.auth.credentials?.scope)
+          const tenantEnvironments = getEnvironments(scopes.tenant)
 
           const entities = await fetchServices()
           const entityNames =
@@ -78,6 +79,7 @@ export function register(routePath) {
 
             environments: Joi.array()
               .label('Environments')
+              .description('(Admin only)')
               .single()
               .items(
                 ...environments.map((env) =>
@@ -85,14 +87,12 @@ export function register(routePath) {
                 )
               )
               .min(1)
+              .default(tenantEnvironments)
               .required()
           })
         },
-        async init() {
-          return {
-            environments: getEnvironments(scopes.tenant),
-            versioning: 'disabled'
-          }
+        async load() {
+          return {}
         },
         async actions() {
           return {

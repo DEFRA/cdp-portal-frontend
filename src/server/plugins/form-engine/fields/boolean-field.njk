@@ -22,14 +22,13 @@
     items: [
       {
         value: true,
-        text: "Enabled"
+        text: "Yes"
       },
       {
         value: false,
-        text: "Disabled"
+        text: "No"
       }
     ],
-    xitems: params.resolveItems(params.def, params.formValues[params.name]),
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}
 {% endmacro %}

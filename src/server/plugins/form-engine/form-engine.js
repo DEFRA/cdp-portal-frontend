@@ -20,7 +20,7 @@ export default {
       layout,
       layoutHandler = () => {},
       schema,
-      init = () => undefined,
+      load = () => undefined,
       ext = [],
       actions
     } = options
@@ -40,10 +40,10 @@ export default {
       async handler(request, h) {
         const formSchema = await schema(request, h)
         const formDefinition = formSchema.describe()
-        console.log(formDefinition.keys.versioning)
+        console.dir(formDefinition, { depth: 10 })
         const layoutContext = await layoutHandler(request, h) // TODO: Replace with ext ?
 
-        const formValues = await init(request, h)
+        const formValues = getDefaults(formDefinition)
         const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {
@@ -134,4 +134,13 @@ function resolveValid(def, values) {
 
 function resolveMeta(def, name) {
   return def.metas?.find((meta) => meta[name])?.[name]
+}
+
+function getDefaults(formDefinition) {
+  return Object.fromEntries(
+    Object.entries(formDefinition.keys).map(([name, def]) => [
+      name,
+      def.flags?.default
+    ])
+  )
 }
