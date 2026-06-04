@@ -1,3 +1,4 @@
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { scopes } from '@defra/cdp-validation-kit'
 
@@ -32,7 +33,14 @@ function resourcesToRows(type, resources) {
         text: name
       },
       value: {
-        html: '<table></table>'
+        html: `<table class="table--embedded">${Object.entries(props)
+          .map(
+            ([field, value]) => `<tr>
+            <th>${formatText(field)}</th>
+            <td>${value}</td>
+          </tr>`
+          )
+          .join('')}</table>`
       },
       actions: {
         items: [
