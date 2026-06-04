@@ -64,11 +64,16 @@ export function register(routePath) {
               .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
               .required(),
 
-            versioning: Joi.boolean()
+            versioning: Joi.string()
               .label('Versioning')
               .description(
-                'A prefix and suffix will automatically be added to the bucket name. See <a href="/documentation/how-to/buckets.md#bucket-naming">Bucket Naming documentation</a>'
+                'Disabled by default on CDP to prevent unnecessary cost. See <a href="/documentation/how-to/buckets.md#bucket-versioning">Bucket Versioning documentation</a>'
               )
+              .meta({
+                component: 'radioGroupField'
+              })
+              .valid('enabled', 'disabled')
+              .default('disabled')
               .optional(),
 
             environments: Joi.array()
@@ -85,7 +90,8 @@ export function register(routePath) {
         },
         async init() {
           return {
-            environments: getEnvironments(scopes.tenant)
+            environments: getEnvironments(scopes.tenant),
+            versioning: 'disabled'
           }
         },
         async actions() {

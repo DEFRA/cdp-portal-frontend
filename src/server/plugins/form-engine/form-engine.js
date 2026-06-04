@@ -1,10 +1,12 @@
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
 
 const typeToField = {
   string: 'inputField',
-  array: 'arrayField'
+  array: 'arrayField',
+  boolean: 'booleanField'
 }
 
 export default {
@@ -38,7 +40,7 @@ export default {
       async handler(request, h) {
         const formSchema = await schema(request, h)
         const formDefinition = formSchema.describe()
-
+        console.log(formDefinition.keys.versioning)
         const layoutContext = await layoutHandler(request, h) // TODO: Replace with ext ?
 
         const formValues = await init(request, h)
@@ -53,7 +55,8 @@ export default {
           resolveComponent,
           resolveLabel,
           resolveItems,
-          resolveMeta
+          resolveMeta,
+          resolveValid
         })
       }
     })
@@ -118,6 +121,14 @@ function resolveItems(def, values) {
     value: item.allow.at(0),
     text: item.flags?.label,
     checked: values?.includes(item.allow.at(0))
+  }))
+}
+
+function resolveValid(def, values) {
+  return def.allow?.map((value) => ({
+    value,
+    text: formatText(value),
+    checked: values?.includes(value)
   }))
 }
 
