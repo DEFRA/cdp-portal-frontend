@@ -16,52 +16,57 @@ export default async function (request, h) {
     s3_bucket: {}
   }
 
+  const userIsAdmin = await request.userIsAdmin()
+
   console.dir(basket, { depth: 10 })
 
   return {
     basket,
-    resourcesToRows
+    resourcesToRows: resourcesToRows(userIsAdmin)
   }
 }
 
-function resourcesToRows(type, resources) {
-  const entries = Object.entries(resources)
+function resourcesToRows(userIsAdmin) {
+  return (type, resources) => {
+    const entries = Object.entries(resources)
 
-  if (entries.length) {
-    return entries.map(([name, props]) => ({
-      key: {
-        text: name
-      },
-      value: {
-        html: `<table class="table--embedded">${Object.entries(props)
-          .map(
-            ([field, value]) => `<tr>
+    if (entries.length) {
+      return entries.map(([name, props]) => ({
+        key: {
+          text: name
+        },
+        value: {
+          html: `<table class="table--embedded">${Object.entries(props)
+            .filter(([field]) => field !== 'environments' || userIsAdmin)
+            .map(
+              ([field, value]) => `<tr>
             <th>${formatText(field)}</th>
             <td>${value}</td>
           </tr>`
-          )
-          .join('')}</table>`
-      },
-      actions: {
-        items: [
-          {
-            href: `/create/resources/detail/${type}/${name}`,
-            text: 'Edit'
-          },
-          {
-            href: `/create/resources/detail/${type}/${name}/remove`,
-            text: 'Remove'
-          }
-        ]
-      }
-    }))
-  }
-
-  return [
-    {
-      key: {
-        html: `<a href="/create/resources/detail/${type}">Add</a>`
-      }
+            )
+            .join('')}</table>`
+        },
+        actions: {
+          items: [
+            {
+              href: `/create/resources/detail/${type}/${name}`,
+              text: 'Edit'
+            },
+            {
+              href: `/create/resources/detail/${type}/${name}/remove`,
+              text: 'Remove'
+            }
+          ]
+        }
+      }))
     }
-  ]
+
+    return [
+      {
+        key: {
+          html: `<a href="/create/resources/detail/${type}">Add</a>`
+        }
+      }
+    ]
+  }
 }

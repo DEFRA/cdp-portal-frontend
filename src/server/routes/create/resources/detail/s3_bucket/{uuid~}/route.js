@@ -64,6 +64,13 @@ export function register(routePath) {
               .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
               .required(),
 
+            versioning: Joi.boolean()
+              .label('Versioning')
+              .description(
+                'A prefix and suffix will automatically be added to the bucket name. See <a href="/documentation/how-to/buckets.md#bucket-naming">Bucket Naming documentation</a>'
+              )
+              .optional(),
+
             environments: Joi.array()
               .label('Environments')
               .single()

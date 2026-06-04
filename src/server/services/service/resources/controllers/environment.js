@@ -23,6 +23,8 @@ export const environmentResourcesController = {
 
     const resources = await fetchResources(entity.name, environment)
 
+    if (!resources) throw new Error('Failed to load resources')
+
     const hasNoResources = !Object.entries(resources).some(
       ([_, items]) => items?.length
     )
