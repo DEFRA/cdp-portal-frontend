@@ -9,6 +9,7 @@ import { scopes, repositoryNameValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
 import { randomUUID } from 'node:crypto'
 import handleNoBasket from '../../ext/handleNoBasket.js'
+import provideLayoutContext from '../../ext/provideLayoutContext.js'
 
 export function register(routePath) {
   return [
@@ -27,9 +28,9 @@ export function register(routePath) {
           }
         },
 
-        ext: [handleNoBasket],
+        ext: [handleNoBasket, provideLayoutContext('s3_bucket')],
 
-        layout: 'routes/create/resources/detail/s3_bucket/{uuid~}/layout.njk',
+        layout: 'routes/create/resources/detail/layouts/resource.njk',
 
         async schema(request) {
           const environments = getEnvironments(request.auth.credentials?.scope)
