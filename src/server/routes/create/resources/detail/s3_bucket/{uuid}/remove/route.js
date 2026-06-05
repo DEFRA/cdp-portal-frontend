@@ -31,6 +31,12 @@ export function register(routePath) {
           const basket = request.yar.get(sessionNames.resourcesBasket)
           const resource = basket.s3_bucket[uuid]
 
+          const userIsAdmin = await request.userIsAdmin()
+
+          if (!userIsAdmin) {
+            delete resource.environments
+          }
+
           return Joi.object({
             summary: Joi.object().label('Resource details').default(resource)
           })
