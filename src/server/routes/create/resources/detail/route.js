@@ -37,7 +37,15 @@ export async function POST(request, h) {
     return h.redirect('/create/resources/detail')
   }
 
-  console.dir(basket, { depth: 10 })
+  const resourceRequest = Object.fromEntries(
+    Object.entries(basket).map(([type, resources]) => [
+      type,
+      Object.entries(resources).map(([_, props]) => props)
+    ])
+  )
+
+  // TODO: call the Be with the resourceRequest
+  request.logger.info(`Request resources: ${JSON.stringify(resourceRequest)}`)
 
   return h.redirect('/create/resources/detail')
 }
