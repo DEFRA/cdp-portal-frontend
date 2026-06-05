@@ -6,7 +6,8 @@ import { provideFormContextValues } from '#server/common/helpers/form/provide-fo
 const typeToField = {
   string: 'inputField',
   array: 'arrayField',
-  boolean: 'booleanField'
+  boolean: 'booleanField',
+  object: 'summaryField'
 }
 
 export default {
@@ -54,7 +55,8 @@ export default {
           resolveLabel,
           resolveItems,
           resolveMeta,
-          resolveValid
+          resolveValid,
+          resolveSummaryRows
         })
       }
     })
@@ -119,6 +121,17 @@ function resolveItems(def, values) {
     value: item.allow.at(0),
     text: item.flags?.label,
     checked: values?.includes(item.allow.at(0))
+  }))
+}
+
+function resolveSummaryRows(def) {
+  return Object.entries(def.flags?.default ?? {}).map(([key, value]) => ({
+    key: {
+      text: formatText(key)
+    },
+    value: {
+      text: value
+    }
   }))
 }
 

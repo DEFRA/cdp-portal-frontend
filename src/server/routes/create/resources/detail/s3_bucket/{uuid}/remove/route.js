@@ -27,7 +27,13 @@ export function register(routePath) {
         layout: 'routes/create/resources/detail/layouts/remove.njk',
 
         async schema(request) {
-          return Joi.object({})
+          const uuid = request.params.uuid
+          const basket = request.yar.get(sessionNames.resourcesBasket)
+          const resource = basket.s3_bucket[uuid]
+
+          return Joi.object({
+            summary: Joi.object().label('Resource details').default(resource)
+          })
         },
 
         async load(request) {

@@ -1,0 +1,8 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+
+{% macro summaryField(params) %}
+  {{ govukSummaryList({
+    rows: params.resolveSummaryRows(params.def)
+  }) }}
+{% endmacro %}

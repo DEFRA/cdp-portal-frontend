@@ -4,7 +4,7 @@
   <div class="govuk-main-wrapper app-main-wrapper">
 
     {{ appPageHeading({
-      caption: actionLabel + " Resource",
+      caption: actionLabel,
       text: resourceTypeLabel | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
     }) }}
 

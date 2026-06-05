@@ -5,6 +5,7 @@
 {% from "./fields/autocomplete-field.njk" import autocompleteField %}
 {% from "./fields/boolean-field.njk" import booleanField %}
 {% from "./fields/radio-group-field.njk" import radioGroupField %}
+{% from "./fields/summary-field.njk" import summaryField %}
 
 {% block formContent %}
 
@@ -23,7 +24,8 @@
           resolveLabel: resolveLabel,
           resolveItems: resolveItems,
           resolveMeta: resolveMeta,
-          resolveValid: resolveValid
+          resolveValid: resolveValid,
+          resolveSummaryRows: resolveSummaryRows
         }) }}
 
       {% endfor %}
