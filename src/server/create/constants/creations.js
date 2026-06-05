@@ -1,4 +1,4 @@
-export function getCreations() {
+export function getCreations(isAdmin) {
   return [
     {
       value: 'microservice',
@@ -25,11 +25,15 @@ export function getCreations() {
       text: 'Repository',
       hint: 'A container for a collection of files that are versioned and stored in DEFRA GitHub'
     },
-    {
-      value: 'resources',
-      text: 'Resources request',
-      hint: 'Request resources to be created on the platform'
-    }
+    ...(isAdmin
+      ? [
+          {
+            value: 'resources',
+            text: 'Resources request',
+            hint: 'Request resources to be created on the platform'
+          }
+        ]
+      : [])
   ].map((creation) => ({
     ...creation,
     label: { classes: 'govuk-!-font-weight-bold' },
