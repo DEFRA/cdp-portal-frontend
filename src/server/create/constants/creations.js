@@ -25,7 +25,7 @@ export function getCreations(isAdmin) {
       text: 'Repository',
       hint: 'A container for a collection of files that are versioned and stored in DEFRA GitHub'
     },
-    ...(isAdmin
+    ...(isAdmin // TODO: allow for tenants
       ? [
           {
             value: 'resources',
