@@ -2,13 +2,13 @@ import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import { fetchServices } from '#server/common/helpers/fetch/fetch-entities.js'
-import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
 import formEngin from '#server/plugins/form-engine/form-engine.js'
 import { scopes, repositoryNameValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
 import { randomUUID } from 'node:crypto'
+import handleNoBasket from '../../ext/handleNoBasket.js'
 
 export function register(routePath) {
   return [
@@ -26,14 +26,11 @@ export function register(routePath) {
             }
           }
         },
-        ext: [
-          {
-            type: 'onPostHandler',
-            method: provideFormContextValues(sessionNames.resourcesRequest),
-            options: { before: ['yar'], sandbox: 'plugin' }
-          }
-        ],
+
+        ext: [handleNoBasket],
+
         layout: 'routes/create/resources/detail/s3_bucket/{uuid~}/layout.njk',
+
         async schema(request) {
           const environments = getEnvironments(request.auth.credentials?.scope)
           const tenantEnvironments = getEnvironments(scopes.tenant)
@@ -92,14 +89,16 @@ export function register(routePath) {
               .required()
           })
         },
+
         async load(request) {
           const uuid = request.params.uuid
 
           if (!uuid) return undefined
 
-          const basket = request.yar.get(sessionNames.resourcesRequest)
+          const basket = request.yar.get(sessionNames.resourcesBasket)
           return basket.s3_bucket[uuid]
         },
+
         async actions(request, h) {
           const uuid = request.params.uuid
 
@@ -107,9 +106,9 @@ export function register(routePath) {
             submit: {
               text: uuid ? 'Update' : 'Add',
               async method(request, h, sanitisedFormValues) {
-                const basket = request.yar.get(sessionNames.resourcesRequest)
+                const basket = request.yar.get(sessionNames.resourcesBasket)
 
-                request.yar.set(sessionNames.resourcesRequest, {
+                request.yar.set(sessionNames.resourcesBasket, {
                   ...basket,
                   s3_bucket: {
                     ...basket?.s3_bucket,

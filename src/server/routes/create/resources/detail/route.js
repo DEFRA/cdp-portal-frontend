@@ -12,13 +12,17 @@ export const options = {
 }
 
 export default async function (request, h) {
-  const basket = request.yar.get(sessionNames.resourcesRequest) ?? {
-    s3_bucket: {}
+  if (!request.yar.get(sessionNames.resourcesBasket)) {
+    request.yar.set(sessionNames.resourcesBasket, {
+      s3_bucket: {}
+    })
+
+    await request.yar.commit(h)
   }
 
-  const userIsAdmin = await request.userIsAdmin()
+  const basket = request.yar.get(sessionNames.resourcesBasket)
 
-  console.dir(basket, { depth: 10 })
+  const userIsAdmin = await request.userIsAdmin()
 
   return {
     basket,
