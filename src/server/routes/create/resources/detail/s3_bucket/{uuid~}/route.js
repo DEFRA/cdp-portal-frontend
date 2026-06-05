@@ -4,7 +4,7 @@ import { getEnvironments } from '#server/common/helpers/environments/get-environ
 import { fetchServices } from '#server/common/helpers/fetch/fetch-entities.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
-import formEngin from '#server/plugins/form-engine/form-engine.js'
+import formEngine from '#server/plugins/form-engine/form-engine.js'
 import { scopes, repositoryNameValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
 import { randomUUID } from 'node:crypto'
@@ -14,7 +14,7 @@ import provideLayoutContext from '../../ext/provideLayoutContext.js'
 export function register(routePath) {
   return [
     {
-      plugin: formEngin,
+      plugin: formEngine,
       options: {
         route: {
           path: routePath,

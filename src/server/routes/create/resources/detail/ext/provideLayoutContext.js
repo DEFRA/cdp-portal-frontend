@@ -1,5 +1,3 @@
-import { formatText } from '#config/nunjucks/filters/filters.js'
-
 export default function provideLayoutContext(resourceType) {
   return {
     type: 'onPostHandler',

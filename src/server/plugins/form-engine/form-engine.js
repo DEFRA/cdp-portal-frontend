@@ -11,6 +11,7 @@ const typeToField = {
 
 export default {
   name: 'formEngine',
+  multiple: true,
   version: '0.0.1',
   description: 'Joi schema based forms',
   register: async function (server, options) {
