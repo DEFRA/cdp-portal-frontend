@@ -29,7 +29,7 @@ export function register(routePath) {
         async schema(request) {
           const uuid = request.params.uuid
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          const resource = basket.s3_bucket[uuid]
+          const resource = basket.s3_buckets[uuid]
 
           const userIsAdmin = await request.userIsAdmin()
 
@@ -48,7 +48,7 @@ export function register(routePath) {
           if (!uuid) return undefined
 
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          return basket.s3_bucket[uuid]
+          return basket.s3_buckets[uuid]
         },
 
         async actions(request, h) {
@@ -63,8 +63,8 @@ export function register(routePath) {
 
                 request.yar.set(sessionNames.resourcesBasket, {
                   ...basket,
-                  s3_bucket: {
-                    ...basket?.s3_bucket,
+                  s3_buckets: {
+                    ...basket?.s3_buckets,
                     [uuid]: undefined
                   }
                 })

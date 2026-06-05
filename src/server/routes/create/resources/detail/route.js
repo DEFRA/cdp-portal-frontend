@@ -14,7 +14,7 @@ export const options = {
 export default async function (request, h) {
   if (!request.yar.get(sessionNames.resourcesBasket)) {
     request.yar.set(sessionNames.resourcesBasket, {
-      s3_bucket: {}
+      s3_buckets: {}
     })
 
     await request.yar.commit(h)
@@ -28,6 +28,18 @@ export default async function (request, h) {
     basket,
     resourcesToRows: resourcesToRows(userIsAdmin)
   }
+}
+
+export async function POST(request, h) {
+  const basket = request.yar.get(sessionNames.resourcesBasket)
+
+  if (!basket) {
+    return h.redirect('/create/resources/detail')
+  }
+
+  console.dir(basket, { depth: 10 })
+
+  return h.redirect('/create/resources/detail')
 }
 
 function resourcesToRows(userIsAdmin) {
