@@ -3,19 +3,14 @@ import {
   mockAuthAndRenderUrl,
   mockCsrfToken
 } from '#test-helpers/common-page-rendering.js'
-import hapi from '@hapi/hapi'
 import formEngine from './form-engine.js'
 import Joi from 'joi'
 import { statusCodes } from '@defra/cdp-validation-kit'
-import { sessionManager } from '../session-manager.js'
-import { addFlashMessagesToContext } from '#server/common/helpers/add-flash-messages-to-context.js'
-import { nunjucksConfig } from '#config/nunjucks/index.js'
-import { sessionCookie } from '#server/common/helpers/auth/session-cookie.js'
-import qs from 'qs'
-import { getCacheEngine } from '#server/common/helpers/session/cache-engine.js'
-import { csrf } from '../csrf.js'
 import { createServer } from '#server/index.js'
 import { config } from '#config/config.js'
+import { buildOptions } from '#server/common/helpers/options/build-options.js'
+
+const suggestions = buildOptions(['default value', 'another value'])
 
 describe('formEngine', () => {
   let server
@@ -49,11 +44,41 @@ describe('formEngine', () => {
               .label('Text input')
               .description('with default')
               .required()
+              .default('default value'),
+
+            selectInput: Joi.string()
+              .label('Select input')
+              .description('without default')
+              .valid('default value', 'another value')
+              .required()
+              .meta({ suggestions }),
+
+            selectDefault: Joi.string()
+              .label('Select input')
+              .description('with default')
+              .valid('default value', 'another value')
+              .required()
               .default('default value')
+              .meta({ suggestions })
           })
         },
 
-        actions() {
+        async load(request) {
+          const isEdit = request.query.edit !== undefined
+
+          if (isEdit) {
+            return {
+              textInput: 'test',
+              textInputDefault: 'test',
+              selectInput: 'another value',
+              selectInputDefault: 'another value'
+            }
+          }
+
+          return undefined
+        },
+
+        async actions() {
           return {
             submit: {
               text: 'Submit',
@@ -75,9 +100,17 @@ describe('formEngine', () => {
     await server.stop({ timeout: 0 })
   })
 
-  test('Renders the form', async () => {
+  test('Renders the form with defaults', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: `/form`
+    })
+    expect(statusCode).toBe(statusCodes.ok)
+    expect(result).toMatchFile()
+  })
+
+  test('Renders the form with init values', async () => {
+    const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `/form?edit`
     })
     expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
