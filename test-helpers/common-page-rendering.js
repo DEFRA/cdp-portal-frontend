@@ -50,7 +50,7 @@ export const mockTeam = {
   name: 'Mock Team'
 }
 
-async function mockCsrfToken(server) {
+export async function mockCsrfToken(server) {
   await server.register({
     plugin: {
       name: 'mock-crumb',
