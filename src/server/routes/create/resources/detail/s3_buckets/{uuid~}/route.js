@@ -1,15 +1,23 @@
-import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
-import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import { fetchServices } from '#server/common/helpers/fetch/fetch-entities.js'
+import { fetchServiceNames } from '#server/common/helpers/fetch/fetch-entities.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
 import formEngine from '#server/plugins/form-engine/form-engine.js'
-import { scopes, repositoryNameValidation } from '@defra/cdp-validation-kit'
+import {
+  scopes,
+  repositoryNameValidation,
+  entityTypes
+} from '@defra/cdp-validation-kit'
 import Joi from 'joi'
 import { randomUUID } from 'node:crypto'
 import handleNoBasket from '../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../ext/provideLayoutContext.js'
+
+const createBucketEnvironments = [
+  { value: 'tenants', text: 'Tenant environments' },
+  { value: 'platform', text: 'Platform environments' },
+  { value: 'all', text: 'All environments' }
+]
 
 export function register(routePath) {
   return [
@@ -33,13 +41,11 @@ export function register(routePath) {
         layout: 'routes/create/resources/detail/layouts/resource.njk',
 
         async schema(request) {
-          const environments = getEnvironments(request.auth.credentials?.scope)
-          const tenantEnvironments = getEnvironments(scopes.tenant)
+          const userSession = request.auth.credentials
 
-          const entities = await fetchServices()
+          const serviceNames = await fetchServiceNames(userSession)
           const entityNames =
-            entities
-              .map((e) => e.name)
+            serviceNames
               .toSorted(sortByName)
               .map((entityName) => ({ value: entityName, text: entityName })) ??
             []
@@ -49,6 +55,7 @@ export function register(routePath) {
             service: repositoryNameValidation
               .label('Owning service')
               .description('Select the microservice to add the bucket to')
+              .valid(...serviceNames)
               .meta({
                 component: 'autocompleteField',
                 suggestions: entityOptions
@@ -76,17 +83,15 @@ export function register(routePath) {
               .default('disabled')
               .optional(),
 
-            environments: Joi.array()
+            environments: Joi.string()
               .label('Environments')
               .description('(Admin only)')
-              .single()
-              .items(
-                ...environments.map((env) =>
-                  Joi.string().valid(env).label(formatText(env))
-                )
-              )
-              .min(1)
-              .default(tenantEnvironments)
+              .valid(...createBucketEnvironments.map(({ value }) => value))
+              .meta({
+                component: 'selectField',
+                suggestions: createBucketEnvironments
+              })
+              .default('tenants')
               .required()
           })
         },

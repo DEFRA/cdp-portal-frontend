@@ -88,7 +88,7 @@ function resourcesToRows(userIsAdmin) {
     return [
       {
         key: {
-          html: `<a href="/create/resources/detail/${type}">Add</a>`
+          text: '- - -'
         }
       }
     ]
