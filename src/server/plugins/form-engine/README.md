@@ -74,3 +74,28 @@ The `method` function is called with the Hapi `request` and `h` values, but also
 ### options.load (optional)
 
 Async function returning the initial form values to use. This can be used to load a resource into the form when being used in an Edit capacity. Return `undefined` to use the forms default values.
+
+### options.ext (optional)
+
+Hapi server extensions. A common usage would be to define `context` items to render in the layout.
+
+```js
+[{
+  type: 'onPostHandler',
+  method: (request, h) => {
+    if (request.response.variety !== 'view') {
+      return h.continue
+    }
+    const response = request.response
+    response.source.context = response.source.context
+      ? response.source.context
+      : {}
+
+    response.source.context.title = 'My Form'
+
+
+    return h.continue
+  },
+  options: { sandbox: 'plugin' }
+}]
+````

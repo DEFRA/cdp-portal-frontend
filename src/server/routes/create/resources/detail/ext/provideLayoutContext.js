@@ -15,6 +15,7 @@ export default function provideLayoutContext(resourceType) {
       response.source.context.actionLabel = uuid
         ? 'Edit resource'
         : 'Add resource to request'
+      response.source.context.pageTitle = response.source.context.actionLabel
       response.source.context.resourceTypeLabel = resourceType
 
       return h.continue
