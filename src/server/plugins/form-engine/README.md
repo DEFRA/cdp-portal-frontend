@@ -38,6 +38,7 @@ server.register({
     }
 
 ```
+
 ## API
 
 ### options.route (required)
@@ -80,22 +81,23 @@ Async function returning the initial form values to use. This can be used to loa
 Hapi server extensions. A common usage would be to define `context` items to render in the layout.
 
 ```js
-[{
-  type: 'onPostHandler',
-  method: (request, h) => {
-    if (request.response.variety !== 'view') {
+;[
+  {
+    type: 'onPostHandler',
+    method: (request, h) => {
+      if (request.response.variety !== 'view') {
+        return h.continue
+      }
+      const response = request.response
+      response.source.context = response.source.context
+        ? response.source.context
+        : {}
+
+      response.source.context.title = 'My Form'
+
       return h.continue
-    }
-    const response = request.response
-    response.source.context = response.source.context
-      ? response.source.context
-      : {}
-
-    response.source.context.title = 'My Form'
-
-
-    return h.continue
-  },
-  options: { sandbox: 'plugin' }
-}]
-````
+    },
+    options: { sandbox: 'plugin' }
+  }
+]
+```
