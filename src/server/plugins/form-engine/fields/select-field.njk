@@ -1,11 +1,11 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 
-{% macro selectField(params) %}
+{% macro selectField(params, helpers) %}
   {{ govukSelect({
     id: params.name,
     name: params.name,
     label: {
-      text: params.resolveLabel(params.def, params.name),
+      text: helpers.resolveLabel(params.def, params.name),
       classes: "app-label"
     },
     classes: "app-select",
@@ -16,7 +16,7 @@
     formGroup: {
       classes: "app-form-group app-form-group-js"
     },
-    items: params.resolveMeta(params.def, 'suggestions'),
+    items: helpers.resolveMeta(params.def, 'suggestions'),
     value: params.formValues[params.name],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}

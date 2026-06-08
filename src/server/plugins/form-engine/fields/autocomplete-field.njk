@@ -1,11 +1,11 @@
 {% from "autocomplete/macro.njk" import appAutocomplete %}
 
-{% macro autocompleteField(params) %}
+{% macro autocompleteField(params, helpers) %}
   {{ appAutocomplete({
     id: params.name,
     name: params.name,
     label: {
-      text: params.resolveLabel(params.def, params.name),
+      text: helpers.resolveLabel(params.def, params.name),
       classes: "app-label"
     },
     hint: {
@@ -15,7 +15,7 @@
     formGroup: {
       classes: "app-form-group app-form-group-js"
     },
-    suggestions: params.resolveMeta(params.def, 'suggestions'),
+    suggestions: helpers.resolveMeta(params.def, 'suggestions'),
     value: params.formValues[params.name],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}

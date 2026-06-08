@@ -1,6 +1,6 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% macro arrayField(params) %}
+{% macro arrayField(params, helpers) %}
   {{ govukCheckboxes({
     id: params.name,
     name: params.name,
@@ -11,12 +11,12 @@
     },
     fieldset: {
       legend: {
-        text: params.resolveLabel(params.def, params.name),
+        text: helpers.resolveLabel(params.def, params.name),
         isPageHeading: false,
         classes: "govuk-fieldset__legend--m"
       }
     },
-    items: params.resolveItems(params.def, params.formValues[params.name]),
+    items: helpers.resolveItems(params.def, params.formValues[params.name]),
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}
 {% endmacro %}

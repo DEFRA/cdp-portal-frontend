@@ -1,7 +1,7 @@
-import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
+import provideHelpers from './ext/provideHelpers.js'
 
 const typeToField = {
   string: 'inputField',
@@ -32,7 +32,8 @@ export default {
         type: 'onPostHandler',
         method: provideFormContextValues(sessionKey),
         options: { before: ['yar'], sandbox: 'plugin' }
-      }
+      },
+      provideHelpers
     ])
 
     await server.route({
@@ -51,12 +52,7 @@ export default {
           layout,
           formValues,
           actions: resolvedActions,
-          resolveComponent,
-          resolveLabel,
-          resolveItems,
-          resolveMeta,
-          resolveValid,
-          resolveSummaryRows
+          resolveComponent
         })
       }
     })
@@ -95,10 +91,6 @@ export default {
   }
 }
 
-function resolveLabel(def, name) {
-  return `${def.flags.label ?? name}${def.flags.presence === 'optional' ? ' (optional)' : ''}`
-}
-
 function defaultComponent(def) {
   const type =
     def.type === 'array' && def.items.length === 1
@@ -114,37 +106,6 @@ function resolveComponent(def) {
     defaultComponent(def)
 
   return this.ctx[component] ?? this.ctx.string
-}
-
-function resolveItems(def, values) {
-  return def.items?.map((item) => ({
-    value: item.allow.at(0),
-    text: item.flags?.label,
-    checked: values?.includes(item.allow.at(0))
-  }))
-}
-
-function resolveSummaryRows(def) {
-  return Object.entries(def.flags?.default ?? {}).map(([key, value]) => ({
-    key: {
-      text: formatText(key)
-    },
-    value: {
-      text: value
-    }
-  }))
-}
-
-function resolveValid(def, values) {
-  return def.allow?.map((value) => ({
-    value,
-    text: formatText(value),
-    checked: values?.includes(value)
-  }))
-}
-
-function resolveMeta(def, name) {
-  return def.metas?.find((meta) => meta[name])?.[name]
 }
 
 function getDefaults(formDefinition) {

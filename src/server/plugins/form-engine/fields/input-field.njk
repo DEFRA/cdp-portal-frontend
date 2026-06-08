@@ -1,11 +1,11 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% macro inputField(params) %}
+{% macro inputField(params, helpers) %}
   {{ govukInput({
     id: params.name,
     name: params.name,
     label: {
-      text: params.resolveLabel(params.def, params.name),
+      text: helpers.resolveLabel(params.def, params.name),
       classes: "app-label"
     },
     classes: "app-input app-input--wide",

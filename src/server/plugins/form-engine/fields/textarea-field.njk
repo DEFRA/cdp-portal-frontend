@@ -1,11 +1,11 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
-{% macro textareaField(params) %}
+{% macro textareaField(params, helpers) %}
   {{ govukTextarea({
     id: params.name,
     name: params.name,
     label: {
-      text: params.resolveLabel(params.def, params.name),
+      text: helpers.resolveLabel(params.def, params.name),
       classes: "app-label"
     },
     hint: {
