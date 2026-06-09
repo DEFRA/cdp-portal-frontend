@@ -1,10 +1,14 @@
 import { randomUUID } from 'node:crypto'
 
+export const Resources = {
+  s3Buckets: 's3_buckets',
+  snsTopics: 'sns_topics'
+}
+
 export function initBasket() {
-  return {
-    s3_buckets: {},
-    sns_topics: {}
-  }
+  return Object.fromEntries(
+    Object.entries(Resources).map(([_, name]) => [name, {}])
+  )
 }
 
 export function getBasketResource(basket, type, uuid) {
@@ -22,5 +26,13 @@ export function updateBasketResource(basket, type, uuid, resource) {
 }
 
 export function removeBasketResource(basket, type, uuid) {
-  return updateBasketResource(basket, type, uuid, undefined)
+  const typeValues = basket[type]
+  delete typeValues[uuid]
+
+  return {
+    ...basket,
+    [type]: {
+      ...typeValues
+    }
+  }
 }

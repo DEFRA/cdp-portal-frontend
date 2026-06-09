@@ -6,7 +6,8 @@ import handleNoBasket from '../../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../../ext/provideLayoutContext.js'
 import {
   getBasketResource,
-  removeBasketResource
+  removeBasketResource,
+  Resources
 } from '../../../domain/basket.js'
 
 export function register(routePath) {
@@ -33,7 +34,7 @@ export function register(routePath) {
         async schema(request) {
           const uuid = request.params.uuid
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          const resource = basket.sns_topics[uuid]
+          const resource = getBasketResource(basket, Resources.snsTopics, uuid)
 
           const userIsAdmin = await request.userIsAdmin()
 
@@ -52,7 +53,7 @@ export function register(routePath) {
           if (!uuid) return undefined
 
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          return getBasketResource(basket, 'sns_topics', uuid)
+          return getBasketResource(basket, Resources.snsTopics, uuid)
         },
 
         async actions(request) {
@@ -67,7 +68,7 @@ export function register(routePath) {
 
                 request.yar.set(
                   sessionNames.resourcesBasket,
-                  removeBasketResource(basket, 'sns_topics', uuid)
+                  removeBasketResource(basket, Resources.snsTopics, uuid)
                 )
 
                 await request.yar.commit(h)

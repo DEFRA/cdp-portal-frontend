@@ -8,7 +8,11 @@ import Joi from 'joi'
 import handleNoBasket from '../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../ext/provideLayoutContext.js'
 import createEnvironmentOptions from '../../domain/create-environment-options.js'
-import { getBasketResource, updateBasketResource } from '../../domain/basket.js'
+import {
+  getBasketResource,
+  Resources,
+  updateBasketResource
+} from '../../domain/basket.js'
 
 export function register(routePath) {
   return [
@@ -94,7 +98,7 @@ export function register(routePath) {
           if (!uuid) return undefined
 
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          return getBasketResource(basket, 's3_buckets', uuid)
+          return getBasketResource(basket, Resources.s3Buckets, uuid)
         },
 
         async actions(request, h) {
@@ -110,7 +114,7 @@ export function register(routePath) {
                   sessionNames.resourcesBasket,
                   updateBasketResource(
                     basket,
-                    's3_buckets',
+                    Resources.s3Buckets,
                     uuid,
                     sanitisedFormValues
                   )
