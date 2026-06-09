@@ -1,10 +1,9 @@
-import { renderTag } from '#server/common/helpers/view/render-tag.js'
 import { entitySubTypes } from '@defra/cdp-validation-kit'
 
 function renderTestSuiteTagHtml(testSuite) {
   let classes
 
-  switch (testSuite.subType) {
+  switch (testSuite?.subType) {
     case entitySubTypes.performance:
       classes = ['govuk-tag--green']
       break
@@ -12,13 +11,12 @@ function renderTestSuiteTagHtml(testSuite) {
       classes = ['govuk-tag--blue']
       break
     default:
-      classes = ['app-tag--purple']
+      classes = ['govuk-tag--grey']
   }
 
-  return renderTag({
-    text: testSuite.subType,
-    classes
-  })
+  const text = testSuite?.subType ?? 'Unknown'
+
+  return `<strong class="govuk-tag app-tag ${classes.join(' ')}" data-testid="govuk-tag">${text}</strong>\n`
 }
 
 export { renderTestSuiteTagHtml }
