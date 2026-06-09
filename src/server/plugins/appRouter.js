@@ -43,6 +43,10 @@ async function registerRoute(path, templatesPath, sourcePath, server) {
   server.register({
     name: routePath.replaceAll('/', '-'),
     register: async function (pluginServer) {
+      if (route.register) {
+        pluginServer.register(route.register(routePath))
+      }
+
       pluginServer.ext(route.ext ?? [])
 
       for (const method of [

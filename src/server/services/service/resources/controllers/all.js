@@ -23,6 +23,8 @@ export const allResourcesController = {
 
     const resourcesPerEnv = await fetchResources(entity.name)
 
+    if (!resourcesPerEnv) throw new Error('Failed to load resources')
+
     const rowsPerResourceType = transformResourcesToRows(
       environments,
       resourcesPerEnv

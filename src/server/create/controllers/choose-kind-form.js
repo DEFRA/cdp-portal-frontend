@@ -14,12 +14,13 @@ const chooseKindFormController = {
   },
   handler: async (request, h) => {
     const query = request?.query
+    const userIsAdmin = await request.userIsAdmin()
 
     return h.view('create/views/choose-kind-form', {
       pageTitle: 'Create',
       heading: 'Create',
       headingCaption: 'What would you like to create?',
-      createItems: getCreations(),
+      createItems: getCreations(userIsAdmin),
       formButtonText: query?.redirectLocation ? 'Save' : 'Next',
       redirectLocation: query?.redirectLocation
     })

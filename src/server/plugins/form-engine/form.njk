@@ -1,0 +1,52 @@
+{% extends layout %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% from "./fields/input-field.njk" import inputField %}
+{% from "./fields/textarea-field.njk" import textareaField %}
+{% from "./fields/array-field.njk" import arrayField %}
+{% from "./fields/autocomplete-field.njk" import autocompleteField %}
+{% from "./fields/boolean-field.njk" import booleanField %}
+{% from "./fields/radio-group-field.njk" import radioGroupField %}
+{% from "./fields/summary-field.njk" import summaryField %}
+{% from "./fields/select-field.njk" import selectField %}
+
+{% block formContent %}
+
+  <form method="post" data-js="app-form-errors">
+    <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+
+    {% call govukFieldset() %}
+
+      {% for name, def in fields %}
+
+        {{ resolveComponent(def)({
+          name: name,
+          def: def,
+          formValues: formValues,
+          formErrors: formErrors
+        }, helpers) }}
+
+      {% endfor %}
+
+    {% endcall %}
+
+    <div class="govuk-button-group">
+      {% for action, def in actions %}
+        {% if def.url %}
+          <a class="app-link {{def.classes}}"  href="{{ def.url }}">{{ def.text }}</a>
+        {% else %}
+          {{ govukButton({
+            classes: "app-button " + def.classes,
+            text: def.text,
+            name: 'actionButton',
+            value: 'submit'
+          }) }}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </form>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% macro booleanField(params, helpers) %}
+  {{ govukRadios({
+    id: params.name,
+    name: params.name,
+    classes: "govuk-radios--inline govuk-radios--small",
+    fieldset: {
+      legend: {
+        text: helpers.resolveLabel(params.def, params.name),
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    formGroup: {
+      classes: "app-form-group app-form-group-js"
+    },
+    hint: {
+      html: params.def.flags.description,
+      classes: "app-hint"
+    },
+    items: [
+      {
+        value: true,
+        text: "Yes"
+      },
+      {
+        value: false,
+        text: "No"
+      }
+    ],
+    errorMessage: errorMessageHelper(params.formErrors[params.name].message)
+  }) }}
+{% endmacro %}

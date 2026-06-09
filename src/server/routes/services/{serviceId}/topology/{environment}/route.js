@@ -46,6 +46,8 @@ export default async function (request) {
     fetchRunningServices(entity.name)
   ])
 
+  if (!topology) throw new Error('Failed to load topology')
+
   const serviceDeployedInEnvironment = runningServices.some(
     (service) => service.environment === environment
   )

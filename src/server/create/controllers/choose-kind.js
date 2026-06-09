@@ -9,8 +9,9 @@ const chooseKindController = {
     const payload = request?.payload
     const kind = payload.kind
     const redirectLocation = payload?.redirectLocation
+    const userIsAdmin = await request.userIsAdmin()
 
-    const validationResult = chooseValidation.validate(payload, {
+    const validationResult = chooseValidation(userIsAdmin).validate(payload, {
       abortEarly: false
     })
 
@@ -33,6 +34,7 @@ const chooseKindController = {
 
     if (!validationResult.error) {
       await request.yar.set(sessionNames.create, {}) // Flow changes based on first step
+      await request.yar.set(sessionNames.resourcesBasket, undefined) // Flow changes based on first step
       await request.app.saveStepData(sanitisedPayload, h)
 
       const redirectTo =
