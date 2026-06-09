@@ -52,6 +52,7 @@ export function register(routePath) {
               .label('Owning service')
               .description('Select the microservice to add the bucket to')
               .valid(...serviceNames)
+              .messages({ 'any.only': 'Select a service' })
               .meta({
                 component: 'autocompleteField',
                 suggestions: entityOptions
