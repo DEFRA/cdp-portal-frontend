@@ -27,7 +27,7 @@ export function register(routePath) {
           }
         },
 
-        ext: [handleNoBasket, provideLayoutContext('sns_topics')],
+        ext: [handleNoBasket, provideLayoutContext('sqs_queues')],
 
         layout: 'routes/create/resources/detail/layouts/resource.njk',
 
@@ -54,9 +54,9 @@ export function register(routePath) {
               }),
 
             name: Joi.string()
-              .label('Topic name')
+              .label('Queue name')
               .description(
-                'When requesting a FIFO topic <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
+                'When requesting a FIFO queue <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
               )
               .min(3)
               .max(75)
@@ -95,7 +95,7 @@ export function register(routePath) {
           if (!uuid) return undefined
 
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          return getBasketResource(basket, Resources.snsTopics, uuid)
+          return getBasketResource(basket, Resources.sqsQueues, uuid)
         },
 
         async actions(request) {
@@ -111,7 +111,7 @@ export function register(routePath) {
                   sessionNames.resourcesBasket,
                   updateBasketResource(
                     basket,
-                    Resources.snsTopics,
+                    Resources.sqsQueues,
                     uuid,
                     sanitisedFormValues
                   )

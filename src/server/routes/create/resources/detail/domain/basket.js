@@ -2,7 +2,8 @@ import { randomUUID } from 'node:crypto'
 
 export const Resources = {
   s3Buckets: 's3_buckets',
-  snsTopics: 'sns_topics'
+  snsTopics: 'sns_topics',
+  sqsQueues: 'sqs_queues'
 }
 
 export function initBasket() {
