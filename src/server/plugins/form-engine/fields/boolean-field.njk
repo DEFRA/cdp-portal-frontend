@@ -22,11 +22,13 @@
     items: [
       {
         value: true,
-        text: "Yes"
+        text: "Yes",
+        checked: params.formValues[params.name] == true
       },
       {
         value: false,
-        text: "No"
+        text: "No",
+        checked: params.formValues[params.name] == false
       }
     ],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)

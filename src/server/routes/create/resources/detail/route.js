@@ -1,6 +1,7 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { scopes } from '@defra/cdp-validation-kit'
+import { initBasket } from './domain/basket.js'
 
 export const options = {
   auth: {
@@ -13,9 +14,7 @@ export const options = {
 
 export default async function (request, h) {
   if (!request.yar.get(sessionNames.resourcesBasket)) {
-    request.yar.set(sessionNames.resourcesBasket, {
-      s3_buckets: {}
-    })
+    request.yar.set(sessionNames.resourcesBasket, initBasket())
 
     await request.yar.commit(h)
   }
