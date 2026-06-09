@@ -56,24 +56,25 @@ export function register(routePath) {
             name: Joi.string()
               .label('Topic name')
               .description(
-                'A prefix and suffix will automatically be added to the bucket name. See <a href="/documentation/how-to/buckets.md#bucket-naming">Bucket Naming documentation</a>'
+                'When requesting a FIFO topic <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
               )
               .min(3)
               .max(63)
               .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
               .required(),
 
-            versioning: Joi.string()
-              .label('Type')
+            fifo: Joi.boolean()
+              .label('Fifo topic')
               .description(
-                'Disabled by default on CDP to prevent unnecessary cost. See <a href="/documentation/how-to/buckets.md#bucket-versioning">Bucket Versioning documentation</a>'
+                'See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
               )
-              .meta({
-                component: 'radioGroupField'
-              })
-              .valid('standard', 'fifo')
-              .default('standard')
-              .optional(),
+              .default(false)
+              .required(),
+
+            contentDeduplication: Joi.boolean()
+              .label('Content based deduplication')
+              .default(false)
+              .required(),
 
             environments: Joi.string()
               .label('Environments')
