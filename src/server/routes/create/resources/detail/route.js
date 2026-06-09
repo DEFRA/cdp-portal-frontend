@@ -14,7 +14,8 @@ export const options = {
 export default async function (request, h) {
   if (!request.yar.get(sessionNames.resourcesBasket)) {
     request.yar.set(sessionNames.resourcesBasket, {
-      s3_buckets: {}
+      s3_buckets: {},
+      sns_topics: {}
     })
 
     await request.yar.commit(h)

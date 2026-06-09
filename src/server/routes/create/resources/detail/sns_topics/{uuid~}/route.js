@@ -27,7 +27,7 @@ export function register(routePath) {
           }
         },
 
-        ext: [handleNoBasket, provideLayoutContext('s3_bucket')],
+        ext: [handleNoBasket, provideLayoutContext('sns_topics')],
 
         layout: 'routes/create/resources/detail/layouts/resource.njk',
 
@@ -45,7 +45,7 @@ export function register(routePath) {
           return Joi.object({
             service: repositoryNameValidation
               .label('Owning service')
-              .description('Select the microservice to add the bucket to')
+              .description('Select the microservice to add the topic to')
               .valid(...serviceNames)
               .messages({ 'any.only': 'Select a service' })
               .meta({
@@ -54,7 +54,7 @@ export function register(routePath) {
               }),
 
             name: Joi.string()
-              .label('Bucket name')
+              .label('Topic name')
               .description(
                 'A prefix and suffix will automatically be added to the bucket name. See <a href="/documentation/how-to/buckets.md#bucket-naming">Bucket Naming documentation</a>'
               )
@@ -64,15 +64,15 @@ export function register(routePath) {
               .required(),
 
             versioning: Joi.string()
-              .label('Versioning')
+              .label('Type')
               .description(
                 'Disabled by default on CDP to prevent unnecessary cost. See <a href="/documentation/how-to/buckets.md#bucket-versioning">Bucket Versioning documentation</a>'
               )
               .meta({
                 component: 'radioGroupField'
               })
-              .valid('enabled', 'disabled')
-              .default('disabled')
+              .valid('standard', 'fifo')
+              .default('standard')
               .optional(),
 
             environments: Joi.string()
@@ -94,7 +94,7 @@ export function register(routePath) {
           if (!uuid) return undefined
 
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          return basket.s3_buckets[uuid]
+          return basket.sns_topics[uuid]
         },
 
         async actions(request, h) {
@@ -108,7 +108,7 @@ export function register(routePath) {
 
                 request.yar.set(sessionNames.resourcesBasket, {
                   ...basket,
-                  s3_buckets: {
+                  sns_topics: {
                     ...basket?.s3_buckets,
                     [uuid ?? randomUUID()]: sanitisedFormValues
                   }
