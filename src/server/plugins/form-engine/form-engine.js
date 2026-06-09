@@ -73,6 +73,11 @@ export default {
         })
 
         if (validationResult.error) {
+          request.logger.debug(
+            validationResult,
+            'formEngine - failed validation result'
+          )
+
           const errorDetails = buildErrorDetails(validationResult.error.details)
 
           request.yar.flash(sessionNames.validationFailure, {
