@@ -5,10 +5,10 @@ import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
 import formEngine from '#server/plugins/form-engine/form-engine.js'
 import { scopes, repositoryNameValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
-import { randomUUID } from 'node:crypto'
 import handleNoBasket from '../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../ext/provideLayoutContext.js'
 import createEnvironmentOptions from '../../domain/create-environment-options.js'
+import { getBasketResource, updateBasketResource } from '../../domain/basket.js'
 
 export function register(routePath) {
   return [
@@ -94,7 +94,7 @@ export function register(routePath) {
           if (!uuid) return undefined
 
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          return basket.s3_buckets[uuid]
+          return getBasketResource(basket, 's3_buckets', uuid)
         },
 
         async actions(request, h) {
@@ -106,13 +106,16 @@ export function register(routePath) {
               async method(request, h, sanitisedFormValues) {
                 const basket = request.yar.get(sessionNames.resourcesBasket)
 
-                request.yar.set(sessionNames.resourcesBasket, {
-                  ...basket,
-                  s3_buckets: {
-                    ...basket?.s3_buckets,
-                    [uuid ?? randomUUID()]: sanitisedFormValues
-                  }
-                })
+                request.yar.set(
+                  sessionNames.resourcesBasket,
+                  updateBasketResource(
+                    basket,
+                    's3_buckets',
+                    uuid,
+                    sanitisedFormValues
+                  )
+                )
+
                 await request.yar.commit(h)
 
                 return h.redirect('/create/resources/detail/')

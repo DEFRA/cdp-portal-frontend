@@ -4,6 +4,10 @@ import { scopes } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
 import handleNoBasket from '../../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../../ext/provideLayoutContext.js'
+import {
+  getBasketResource,
+  removeBasketResource
+} from '../../../domain/basket.js'
 
 export function register(routePath) {
   return [
@@ -22,14 +26,14 @@ export function register(routePath) {
           }
         },
 
-        ext: [handleNoBasket, provideLayoutContext('s3_bucket')],
+        ext: [handleNoBasket, provideLayoutContext('sns_topics')],
 
         layout: 'routes/create/resources/detail/layouts/remove.njk',
 
         async schema(request) {
           const uuid = request.params.uuid
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          const resource = basket.s3_buckets[uuid]
+          const resource = basket.sns_topics[uuid]
 
           const userIsAdmin = await request.userIsAdmin()
 
@@ -48,10 +52,10 @@ export function register(routePath) {
           if (!uuid) return undefined
 
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          return basket.s3_buckets[uuid]
+          return getBasketResource(basket, 'sns_topics', uuid)
         },
 
-        async actions(request, h) {
+        async actions(request) {
           const uuid = request.params.uuid
 
           return {
@@ -61,13 +65,11 @@ export function register(routePath) {
               async method(request, h) {
                 const basket = request.yar.get(sessionNames.resourcesBasket)
 
-                request.yar.set(sessionNames.resourcesBasket, {
-                  ...basket,
-                  s3_buckets: {
-                    ...basket?.s3_buckets,
-                    [uuid]: undefined
-                  }
-                })
+                request.yar.set(
+                  sessionNames.resourcesBasket,
+                  removeBasketResource(basket, 'sns_topics', uuid)
+                )
+
                 await request.yar.commit(h)
 
                 return h.redirect('/create/resources/detail/')
