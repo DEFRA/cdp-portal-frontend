@@ -66,7 +66,7 @@ export default {
         const resolvedActions = await actions(request, h)
         const action = resolvedActions[actionButton]
 
-        const validationResult = formSchema.validate(formValues, {
+        const validationResult = formSchema.validate(expandNested(formValues), {
           abortEarly: false,
           stripUnknown: true
         })
@@ -114,9 +114,21 @@ function defaultComponent(def) {
 
 function getDefaults(formDefinition) {
   return Object.fromEntries(
-    Object.entries(formDefinition.keys).map(([name, def]) => [
-      name,
-      def.flags?.default
-    ])
+    Object.entries(formDefinition.keys).map(([name, def]) => {
+      return [name, def.flags?.default]
+    })
+  )
+}
+
+function expandNested(formValues = {}) {
+  return Object.fromEntries(
+    Object.entries(formValues).map(([key, value]) => {
+      if (key.includes('.')) {
+        const parts = key.split('.')
+        return [parts[0], { [parts[1]]: value }] // TODO: handle any number
+      }
+
+      return [key, value]
+    })
   )
 }

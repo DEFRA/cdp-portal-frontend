@@ -5,8 +5,10 @@
 
   {% for name, def in params.def.keys %}
 
+    {{ params.formValues | dump }}
+
     {{ resolveFormComponent(def)({
-      name: name,
+      name: params.name + "." + name,
       def: def,
       formValues: params.formValues,
       formErrors: params.formErrors

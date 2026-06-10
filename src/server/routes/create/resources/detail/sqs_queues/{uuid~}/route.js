@@ -84,7 +84,9 @@ export function register(routePath) {
                 .label('Content based deduplication')
                 .default(false)
                 .required()
-            }).label('Queue options'),
+            })
+              .label('Queue options')
+              .required(),
 
             deadLetterQueueOptions: Joi.object({
               receiveWaitTime: Joi.number()
@@ -99,7 +101,9 @@ export function register(routePath) {
                 .label('Content based deduplication')
                 .default(false)
                 .required()
-            }).label('Dead letter queue options'),
+            })
+              .label('Dead letter queue options')
+              .required(),
 
             environments: Joi.string()
               .label('Environments')
