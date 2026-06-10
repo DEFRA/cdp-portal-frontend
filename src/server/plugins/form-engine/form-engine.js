@@ -114,9 +114,17 @@ function defaultComponent(def) {
 
 function getDefaults(formDefinition) {
   return Object.fromEntries(
-    Object.entries(formDefinition.keys).map(([name, def]) => {
-      return [name, def.flags?.default]
-    })
+    Object.entries(formDefinition.keys)
+      .map(([name, def]) => {
+        if (def.keys) {
+          return Object.entries(def.keys).map(([n, d]) => [
+            `${name}.${n}`,
+            d.flags?.default
+          ]) // TODO: handle any depth
+        }
+        return [[name, def.flags?.default]]
+      })
+      .flat()
   )
 }
 
@@ -125,7 +133,7 @@ function expandNested(formValues = {}) {
     Object.entries(formValues).map(([key, value]) => {
       if (key.includes('.')) {
         const parts = key.split('.')
-        return [parts[0], { [parts[1]]: value }] // TODO: handle any number
+        return [parts[0], { [parts[1]]: value }] // TODO: handle any depth
       }
 
       return [key, value]
