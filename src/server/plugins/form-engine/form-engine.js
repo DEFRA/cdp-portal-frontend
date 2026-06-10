@@ -7,7 +7,7 @@ const typeToField = {
   string: 'inputField',
   array: 'arrayField',
   boolean: 'booleanField',
-  object: 'summaryField'
+  object: 'detailsField'
 }
 
 export default {

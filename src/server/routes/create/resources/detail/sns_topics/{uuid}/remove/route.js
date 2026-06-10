@@ -38,7 +38,10 @@ export function register(routePath) {
           }
 
           return Joi.object({
-            summary: Joi.object().label('Resource details').default(resource)
+            summary: Joi.object()
+              .label('Resource details')
+              .default(resource)
+              .meta({ component: 'summaryField' })
           })
         },
 

@@ -1,0 +1,10 @@
+{% from "details/macro.njk" import appDetails %}
+
+{% macro detailsField(params, helpers) %}
+  {% call appDetails({ summaryText: helpers.resolveLabel(params.def, params.name) }) %}
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Parameter 1: Required</li>
+      <li>Parameter 2: Optional</li>
+    </ul>
+  {% endcall %}
+{% endmacro %}

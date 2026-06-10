@@ -13,7 +13,7 @@ export default {
 
     response.source.context.helpers = {
       resolveLabel(def, name) {
-        return `${def.flags.label ?? name}${def.flags.presence === 'optional' ? ' (optional)' : ''}`
+        return `${def.flags?.label ?? name}${def.flags?.presence === 'optional' ? ' (optional)' : ''}`
       },
 
       resolveItems(def, values) {

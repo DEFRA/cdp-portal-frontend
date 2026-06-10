@@ -71,10 +71,35 @@ export function register(routePath) {
               .default(false)
               .required(),
 
-            contentDeduplication: Joi.boolean()
-              .label('Content based deduplication')
-              .default(false)
-              .required(),
+            queueOptions: Joi.object({
+              receiveWaitTime: Joi.number()
+                .label('Receive wait time')
+                .description('Time in seconds')
+                .default(20)
+                .min(0)
+                .max(20)
+                .required(),
+
+              contentDeduplication: Joi.boolean()
+                .label('Content based deduplication')
+                .default(false)
+                .required()
+            }).label('Queue options'),
+
+            deadLetterQueueOptions: Joi.object({
+              receiveWaitTime: Joi.number()
+                .label('Receive wait time')
+                .description('Time in seconds')
+                .default(20)
+                .min(0)
+                .max(20)
+                .required(),
+
+              contentDeduplication: Joi.boolean()
+                .label('Content based deduplication')
+                .default(false)
+                .required()
+            }).label('Dead letter queue options'),
 
             environments: Joi.string()
               .label('Environments')
