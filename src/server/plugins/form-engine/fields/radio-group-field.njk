@@ -19,7 +19,7 @@
       html: params.def.flags.description,
       classes: "app-hint"
     },
-    items: helpers.resolveValid(params.def, params.formValues[params.name]),
+    items: helpers.resolveChecked(helpers.resolveMeta(params.def, 'suggestions'), [params.formValues[params.name]]),
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}
 {% endmacro %}

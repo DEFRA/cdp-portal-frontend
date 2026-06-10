@@ -35,11 +35,11 @@ export default {
         }))
       },
 
-      resolveValid(def, values) {
-        return def.allow?.map((value) => ({
-          value,
-          text: formatText(value),
-          checked: values?.includes(value)
+      resolveChecked(options, values) {
+        return options.map((option) => ({
+          value: option.value,
+          text: option.text,
+          checked: values?.includes(option.value)
         }))
       },
 

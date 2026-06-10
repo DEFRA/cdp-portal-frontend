@@ -63,17 +63,21 @@ export function register(routePath) {
               .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
               .required(),
 
-            versioning: Joi.string()
+            versioning: Joi.boolean()
               .label('Versioning')
               .description(
                 'Disabled by default on CDP to prevent unnecessary cost. See <a href="/documentation/how-to/buckets.md#bucket-versioning">Bucket Versioning documentation</a>'
               )
               .meta({
-                component: 'radioGroupField'
+                component: 'radioGroupField',
+                suggestions: [
+                  { text: 'Enabled', value: 'enabled' },
+                  { text: 'Disabled', value: 'disabled' }
+                ]
               })
-              .valid('enabled', 'disabled')
-              .default('disabled')
-              .optional(),
+              .truthy('enabled')
+              .falsy('disabled')
+              .default('disabled'),
 
             environments: Joi.string()
               .label('Environments')
