@@ -9,7 +9,7 @@
   <summary class="app-details__summary">
     {{- summary | trim -}}
   </summary>
-  <div class="app-details__content" data-testid="app-details-content">
+  <div class="app-details__content {{params.classes}}" data-testid="app-details-content">
     {{- caller() if caller else content -}}
   </div>
 </details>
