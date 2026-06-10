@@ -56,6 +56,16 @@ const joiValidationErrorDetailsFixture = [
     }
   },
   {
+    message: '"nested" is not allowed to be empty',
+    path: ['test', 'nested'],
+    type: 'string.empty',
+    context: {
+      label: 'nested',
+      value: '',
+      key: 'nested'
+    }
+  },
+  {
     message: 'Environment is not available for this service',
     path: ['autoDeployEnvironments', 2],
     type: 'any.only',

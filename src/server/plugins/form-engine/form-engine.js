@@ -68,7 +68,8 @@ export default {
 
         const validationResult = formSchema.validate(expandNested(formValues), {
           abortEarly: false,
-          stripUnknown: true
+          stripUnknown: true,
+          convert: true
         })
 
         if (validationResult.error) {

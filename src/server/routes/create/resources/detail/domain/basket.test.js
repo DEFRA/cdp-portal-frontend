@@ -14,7 +14,8 @@ vi.mock('node:crypto', () => {
 test('Creates initial basket', () => {
   expect(initBasket()).toEqual({
     s3_buckets: {},
-    sns_topics: {}
+    sns_topics: {},
+    sqs_queues: {}
   })
 })
 

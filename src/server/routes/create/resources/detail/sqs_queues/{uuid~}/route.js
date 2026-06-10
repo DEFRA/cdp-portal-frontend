@@ -68,6 +68,8 @@ export function register(routePath) {
               .description(
                 'See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
               )
+              .falsy('false')
+              .truthy('true')
               .default(false)
               .required(),
 
