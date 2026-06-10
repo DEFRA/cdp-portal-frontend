@@ -51,8 +51,7 @@ export default {
           fields: formDefinition.keys,
           layout,
           formValues,
-          actions: resolvedActions,
-          resolveComponent
+          actions: resolvedActions
         })
       }
     })
@@ -96,6 +95,14 @@ export default {
   }
 }
 
+export function resolveFormComponent(def) {
+  const component =
+    def.metas?.find((meta) => meta.component)?.component ??
+    defaultComponent(def)
+
+  return this.ctx[component] ?? this.ctx.string
+}
+
 function defaultComponent(def) {
   const type =
     def.type === 'array' && def.items.length === 1
@@ -103,14 +110,6 @@ function defaultComponent(def) {
       : def.type
 
   return typeToField[type] ?? 'inputField'
-}
-
-function resolveComponent(def) {
-  const component =
-    def.metas?.find((meta) => meta.component)?.component ??
-    defaultComponent(def)
-
-  return this.ctx[component] ?? this.ctx.string
 }
 
 function getDefaults(formDefinition) {

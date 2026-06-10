@@ -2,9 +2,17 @@
 
 {% macro detailsField(params, helpers) %}
   {% call appDetails({ summaryText: helpers.resolveLabel(params.def, params.name) }) %}
-    <ul class="govuk-list govuk-list--bullet">
-      <li>Parameter 1: Required</li>
-      <li>Parameter 2: Optional</li>
-    </ul>
+
+  {% for name, def in params.def.keys %}
+
+    {{ resolveFormComponent(def)({
+      name: name,
+      def: def,
+      formValues: params.formValues,
+      formErrors: params.formErrors
+    }, helpers) }}
+
+  {% endfor %}
+
   {% endcall %}
 {% endmacro %}
