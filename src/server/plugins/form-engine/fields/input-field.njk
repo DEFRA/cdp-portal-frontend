@@ -19,6 +19,12 @@
     attributes: {
       "data-1p-ignore": ""
     },
+    prefix: {
+      html: helpers.resolveMeta(params.def, 'prefix')
+    },
+    suffix: {
+      html: helpers.resolveMeta(params.def, 'suffix')
+    },
     value: params.formValues[params.name],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}

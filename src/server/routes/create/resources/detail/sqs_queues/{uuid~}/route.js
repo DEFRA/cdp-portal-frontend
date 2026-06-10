@@ -42,6 +42,37 @@ export function register(routePath) {
             []
           const entityOptions = buildOptions(entityNames)
 
+          const options = {
+            messageRetention: Joi.number()
+              .label('Message retention')
+              .default(14)
+              .min(0)
+              .max(14)
+              .required()
+              .meta({ suffix: 'days' }),
+
+            visibilityTimeout: Joi.number()
+              .label('Visibility Timeout')
+              .default(60)
+              .min(0)
+              .max(43200)
+              .required()
+              .meta({ suffix: 'seconds' }),
+
+            receiveWaitTime: Joi.number()
+              .label('Receive wait time')
+              .default(20)
+              .min(0)
+              .max(20)
+              .required()
+              .meta({ suffix: 'seconds' }),
+
+            contentDeduplication: Joi.boolean()
+              .label('Content based deduplication')
+              .default(false)
+              .required()
+          }
+
           return Joi.object({
             service: repositoryNameValidation
               .label('Owning service')
@@ -73,37 +104,9 @@ export function register(routePath) {
               .default(false)
               .required(),
 
-            queueOptions: Joi.object({
-              receiveWaitTime: Joi.number()
-                .label('Receive wait time')
-                .description('Time in seconds')
-                .default(20)
-                .min(0)
-                .max(20)
-                .required(),
+            queueOptions: Joi.object(options).label('Queue options').required(),
 
-              contentDeduplication: Joi.boolean()
-                .label('Content based deduplication')
-                .default(false)
-                .required()
-            })
-              .label('Queue options')
-              .required(),
-
-            deadLetterQueueOptions: Joi.object({
-              receiveWaitTime: Joi.number()
-                .label('Receive wait time')
-                .description('Time in seconds')
-                .default(20)
-                .min(0)
-                .max(20)
-                .required(),
-
-              contentDeduplication: Joi.boolean()
-                .label('Content based deduplication')
-                .default(false)
-                .required()
-            })
+            deadLetterQueueOptions: Joi.object(options)
               .label('Dead letter queue options')
               .required(),
 
