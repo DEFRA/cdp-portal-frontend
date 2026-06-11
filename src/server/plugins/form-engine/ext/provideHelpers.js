@@ -30,7 +30,7 @@ export default {
             text: formatText(key)
           },
           value: {
-            text: value
+            html: renderObject(value)
           }
         }))
       },
@@ -51,4 +51,20 @@ export default {
     return h.continue
   },
   options: { sandbox: 'plugin' }
+}
+
+function renderObject(obj) {
+  if (typeof obj === 'object') {
+    return `<table class="table--embedded">${Object.entries(obj)
+      .filter(([field]) => field !== 'environments')
+      .map(
+        ([field, value]) => `<tr>
+    <th>${formatText(field).replaceAll('-', ' ')}</th>
+    <td>${typeof value === 'object' ? renderObject(value) : value}</td>
+  </tr>`
+      )
+      .join('')}</table>`
+  } else {
+    return obj
+  }
 }

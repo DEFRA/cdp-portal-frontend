@@ -44,7 +44,7 @@ export async function POST(request, h) {
   )
 
   // TODO: call the BE with the resourceRequest
-  request.logger.info(`Request resources: ${JSON.stringify(resourceRequest)}`)
+  request.logger.info(resourceRequest, 'Request resources:')
 
   return h.redirect('/create/resources/detail')
 }
