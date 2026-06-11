@@ -15,7 +15,8 @@ test('Creates initial basket', () => {
   expect(initBasket()).toEqual({
     s3_buckets: {},
     sns_topics: {},
-    sqs_queues: {}
+    sqs_queues: {},
+    sqsSnsSubscriptions: {}
   })
 })
 
@@ -43,7 +44,8 @@ test('Adds a resource', () => {
       123456789: { name: 'test' }
     },
     sns_topics: {},
-    sqs_queues: {}
+    sqs_queues: {},
+    sqsSnsSubscriptions: {}
   })
 })
 
@@ -63,7 +65,8 @@ test('Updates a resource', () => {
       uuid: { name: '123' }
     },
     sns_topics: {},
-    sqs_queues: {}
+    sqs_queues: {},
+    sqsSnsSubscriptions: {}
   })
 })
 
@@ -84,6 +87,7 @@ test('Removes a resource', () => {
       uuid2: { name: '123' }
     },
     sns_topics: {},
-    sqs_queues: {}
+    sqs_queues: {},
+    sqsSnsSubscriptions: {}
   })
 })
