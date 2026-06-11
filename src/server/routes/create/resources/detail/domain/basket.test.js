@@ -42,7 +42,8 @@ test('Adds a resource', () => {
     s3_buckets: {
       123456789: { name: 'test' }
     },
-    sns_topics: {}
+    sns_topics: {},
+    sqs_queues: {}
   })
 })
 
@@ -61,7 +62,8 @@ test('Updates a resource', () => {
     s3_buckets: {
       uuid: { name: '123' }
     },
-    sns_topics: {}
+    sns_topics: {},
+    sqs_queues: {}
   })
 })
 
@@ -81,6 +83,7 @@ test('Removes a resource', () => {
     s3_buckets: {
       uuid2: { name: '123' }
     },
-    sns_topics: {}
+    sns_topics: {},
+    sqs_queues: {}
   })
 })
