@@ -43,8 +43,9 @@ export default {
         const formSchema = await schema(request, h)
         const formDefinition = formSchema.describe()
 
-        const formValues =
+        const formValues = createNested(
           (await load(request, h)) ?? getDefaults(formDefinition)
+        )
         const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {
@@ -115,17 +116,12 @@ function defaultComponent(def) {
 
 function getDefaults(formDefinition) {
   return Object.fromEntries(
-    Object.entries(formDefinition.keys)
-      .map(([name, def]) => {
-        if (def.keys) {
-          return Object.entries(def.keys).map(([n, d]) => [
-            `${name}.${n}`,
-            d.flags?.default
-          ]) // TODO: handle any depth
-        }
-        return [[name, def.flags?.default]]
-      })
-      .flat()
+    Object.entries(formDefinition.keys).map(([name, def]) => {
+      if (def.keys) {
+        return [name, getDefaults(def)]
+      }
+      return [name, def.flags?.default]
+    })
   )
 }
 
@@ -149,4 +145,21 @@ function expandNested(formValues = {}) {
   })
 
   return result
+}
+
+function createNested(data = {}) {
+  return Object.fromEntries(
+    Object.entries(data)
+      .map(([key, value]) => {
+        if (typeof value === 'object') {
+          return Object.entries(createNested(value)).map(([k, v]) => [
+            `${key}.${k}`,
+            v
+          ])
+        }
+
+        return [[key, value]]
+      })
+      .flat()
+  )
 }
