@@ -27,7 +27,7 @@ export function register(routePath) {
           }
         },
 
-        ext: [handleNoBasket, provideLayoutContext('sns_topics')],
+        ext: [handleNoBasket, provideLayoutContext('sqs_queues')],
 
         layout: 'routes/create/resources/detail/layouts/resource.njk',
 
@@ -42,6 +42,37 @@ export function register(routePath) {
             []
           const entityOptions = buildOptions(entityNames)
 
+          const options = {
+            messageRetention: Joi.number()
+              .label('Message retention')
+              .default(14)
+              .min(0)
+              .max(14)
+              .required()
+              .meta({ suffix: 'days', classes: 'govuk-input--width-10' }),
+
+            visibilityTimeout: Joi.number()
+              .label('Visibility Timeout')
+              .default(60)
+              .min(0)
+              .max(43200)
+              .required()
+              .meta({ suffix: 'seconds', classes: 'govuk-input--width-10' }),
+
+            receiveWaitTime: Joi.number()
+              .label('Receive wait time')
+              .default(20)
+              .min(0)
+              .max(20)
+              .required()
+              .meta({ suffix: 'seconds', classes: 'govuk-input--width-10' }),
+
+            contentDeduplication: Joi.boolean()
+              .label('Content based deduplication')
+              .default(false)
+              .required()
+          }
+
           return Joi.object({
             service: repositoryNameValidation
               .label('Owning service')
@@ -54,9 +85,9 @@ export function register(routePath) {
               }),
 
             name: Joi.string()
-              .label('Topic name')
+              .label('Queue name')
               .description(
-                'When requesting a FIFO topic <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
+                'When requesting a FIFO queue <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
               )
               .min(3)
               .max(75)
@@ -68,12 +99,24 @@ export function register(routePath) {
               .description(
                 'See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
               )
+              .falsy('false')
+              .truthy('true')
               .default(false)
               .required(),
 
-            contentDeduplication: Joi.boolean()
-              .label('Content based deduplication')
-              .default(false)
+            queueOptions: Joi.object(options).label('Queue options').required(),
+
+            deadLetterQueueOptions: Joi.object({
+              ...options,
+              maxReceiveCount: Joi.number()
+                .label('Max Receive Count')
+                .default(3)
+                .min(1)
+                .max(10)
+                .required()
+                .meta({ classes: 'govuk-input--width-10' })
+            })
+              .label('Dead letter queue options')
               .required(),
 
             environments: Joi.string()
@@ -95,7 +138,7 @@ export function register(routePath) {
           if (!uuid) return undefined
 
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          return getBasketResource(basket, Resources.snsTopics, uuid)
+          return getBasketResource(basket, Resources.sqsQueues, uuid)
         },
 
         async actions(request) {
@@ -111,7 +154,7 @@ export function register(routePath) {
                   sessionNames.resourcesBasket,
                   updateBasketResource(
                     basket,
-                    Resources.snsTopics,
+                    Resources.sqsQueues,
                     uuid,
                     sanitisedFormValues
                   )

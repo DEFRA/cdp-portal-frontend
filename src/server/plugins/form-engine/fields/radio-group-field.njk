@@ -4,7 +4,7 @@
   {{ govukRadios({
     id: params.name,
     name: params.name,
-    classes: "govuk-radios--small",
+    classes: "govuk-radios--small " + helpers.resolveMeta(params.def, 'classes'),
     fieldset: {
       legend: {
         text: helpers.resolveLabel(params.def, params.name),
@@ -19,7 +19,7 @@
       html: params.def.flags.description,
       classes: "app-hint"
     },
-    items: helpers.resolveValid(params.def, params.formValues[params.name]),
+    items: helpers.resolveChecked(helpers.resolveMeta(params.def, 'suggestions'), [params.formValues[params.name]]),
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}
 {% endmacro %}

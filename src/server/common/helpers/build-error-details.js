@@ -1,16 +1,11 @@
 function buildErrorDetails(errorDetails) {
   return errorDetails.reduce((errors, detail) => {
+    const key = detail.path.filter((val) => typeof val === 'string').join('.')
+    const value = {
+      message: detail.message
+    }
     return {
-      ...Object.fromEntries(
-        detail.path
-          .filter((path) => typeof path === 'string')
-          .map((path) => [
-            path,
-            {
-              message: detail.message
-            }
-          ])
-      ),
+      ...{ [key]: value },
       ...errors
     }
   }, {})

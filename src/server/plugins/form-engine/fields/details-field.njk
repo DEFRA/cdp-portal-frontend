@@ -1,0 +1,22 @@
+{% from "details/macro.njk" import appDetails %}
+
+{% macro detailsField(params, helpers) %}
+  {% call appDetails({
+    summaryText: helpers.resolveLabel(params.def, params.name),
+    classes: "app-details__content-no-word-break " + helpers.resolveMeta(params.def, 'classes'),
+    open: helpers.hasNestedErrors(params.name, params.formErrors)
+  }) %}
+
+  {% for name, def in params.def.keys %}
+
+    {{ resolveFormComponent(def)({
+      name: params.name + "." + name,
+      def: def,
+      formValues: params.formValues,
+      formErrors: params.formErrors
+    }, helpers) }}
+
+  {% endfor %}
+
+  {% endcall %}
+{% endmacro %}

@@ -4,7 +4,7 @@
   {{ govukCheckboxes({
     id: params.name,
     name: params.name,
-    classes: "govuk-checkboxes--small",
+    classes: "govuk-checkboxes--small " + helpers.resolveMeta(params.def, 'classes'),
     hint: {
       html: params.def.flags.description,
       classes: "app-hint"

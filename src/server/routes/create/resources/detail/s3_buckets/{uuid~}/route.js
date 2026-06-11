@@ -3,7 +3,7 @@ import { fetchServiceNames } from '#server/common/helpers/fetch/fetch-entities.j
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
 import formEngine from '#server/plugins/form-engine/form-engine.js'
-import { scopes, repositoryNameValidation } from '@defra/cdp-validation-kit'
+import { repositoryNameValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
 import handleNoBasket from '../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../ext/provideLayoutContext.js'
@@ -13,6 +13,7 @@ import {
   Resources,
   updateBasketResource
 } from '../../domain/basket.js'
+import { options as parentOptions } from '../../route.js'
 
 export function register(routePath) {
   return [
@@ -22,12 +23,7 @@ export function register(routePath) {
         route: {
           path: routePath,
           options: {
-            auth: {
-              mode: 'required',
-              access: {
-                scope: scopes.admin // TODO: Open to tenants
-              }
-            }
+            auth: parentOptions.auth
           }
         },
 
@@ -67,17 +63,21 @@ export function register(routePath) {
               .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
               .required(),
 
-            versioning: Joi.string()
+            versioning: Joi.boolean()
               .label('Versioning')
               .description(
                 'Disabled by default on CDP to prevent unnecessary cost. See <a href="/documentation/how-to/buckets.md#bucket-versioning">Bucket Versioning documentation</a>'
               )
               .meta({
-                component: 'radioGroupField'
+                component: 'radioGroupField',
+                suggestions: [
+                  { text: 'Enabled', value: 'enabled' },
+                  { text: 'Disabled', value: 'disabled' }
+                ]
               })
-              .valid('enabled', 'disabled')
-              .default('disabled')
-              .optional(),
+              .truthy('enabled')
+              .falsy('disabled')
+              .default('disabled'),
 
             environments: Joi.string()
               .label('Environments')

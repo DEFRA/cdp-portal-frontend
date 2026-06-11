@@ -4,5 +4,6 @@ export {
   renderComponent,
   renderTemplate,
   renderIcon
-} from '../../../server/common/helpers/nunjucks/render-component.js'
+} from '#server/common/helpers/nunjucks/render-component.js'
 export const govukRebrand = true
+export { resolveFormComponent } from '#server/plugins/form-engine/form-engine.js'

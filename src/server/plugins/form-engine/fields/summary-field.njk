@@ -2,6 +2,7 @@
 
 {% macro summaryField(params, helpers) %}
   {{ govukSummaryList({
-    rows: helpers.resolveSummaryRows(params.def)
+    rows: helpers.resolveSummaryRows(params.def),
+    classes: helpers.resolveMeta(params.def, 'classes')
   }) }}
 {% endmacro %}

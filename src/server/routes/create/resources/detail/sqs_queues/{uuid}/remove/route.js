@@ -22,14 +22,14 @@ export function register(routePath) {
           }
         },
 
-        ext: [handleNoBasket, provideLayoutContext('s3_bucket')],
+        ext: [handleNoBasket, provideLayoutContext('sqs_queues')],
 
         layout: 'routes/create/resources/detail/layouts/remove.njk',
 
         async schema(request) {
           const uuid = request.params.uuid
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          const resource = getBasketResource(basket, Resources.s3Buckets, uuid)
+          const resource = getBasketResource(basket, Resources.sqsQueues, uuid)
 
           const userIsAdmin = await request.userIsAdmin()
 
@@ -51,10 +51,10 @@ export function register(routePath) {
           if (!uuid) return undefined
 
           const basket = request.yar.get(sessionNames.resourcesBasket)
-          return getBasketResource(basket, Resources.s3Buckets, uuid)
+          return getBasketResource(basket, Resources.sqsQueues, uuid)
         },
 
-        async actions(request, h) {
+        async actions(request) {
           const uuid = request.params.uuid
 
           return {
@@ -66,7 +66,7 @@ export function register(routePath) {
 
                 request.yar.set(
                   sessionNames.resourcesBasket,
-                  removeBasketResource(basket, Resources.s3Buckets, uuid)
+                  removeBasketResource(basket, Resources.sqsQueues, uuid)
                 )
 
                 await request.yar.commit(h)

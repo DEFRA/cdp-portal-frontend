@@ -63,9 +63,13 @@
   text-align: left;
   border-spacing: 0;
 
+  tr {
+    vertical-align: top;
+  }
+
   th,
   td {
-    padding: 0.5rem;
+    padding-bottom: 0.5rem;
     white-space: nowrap;
 
     // stylelint-disable-next-line max-nesting-depth

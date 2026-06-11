@@ -7,7 +7,7 @@ const typeToField = {
   string: 'inputField',
   array: 'arrayField',
   boolean: 'booleanField',
-  object: 'summaryField'
+  object: 'detailsField'
 }
 
 export default {
@@ -43,16 +43,16 @@ export default {
         const formSchema = await schema(request, h)
         const formDefinition = formSchema.describe()
 
-        const formValues =
+        const formValues = createNested(
           (await load(request, h)) ?? getDefaults(formDefinition)
+        )
         const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {
           fields: formDefinition.keys,
           layout,
           formValues,
-          actions: resolvedActions,
-          resolveComponent
+          actions: resolvedActions
         })
       }
     })
@@ -67,9 +67,10 @@ export default {
         const resolvedActions = await actions(request, h)
         const action = resolvedActions[actionButton]
 
-        const validationResult = formSchema.validate(formValues, {
+        const validationResult = formSchema.validate(expandNested(formValues), {
           abortEarly: false,
-          stripUnknown: true
+          stripUnknown: true,
+          convert: true
         })
 
         if (validationResult.error) {
@@ -96,6 +97,14 @@ export default {
   }
 }
 
+export function resolveFormComponent(def) {
+  const component =
+    def.metas?.find((meta) => meta.component)?.component ??
+    defaultComponent(def)
+
+  return this.ctx[component] ?? this.ctx.string
+}
+
 function defaultComponent(def) {
   const type =
     def.type === 'array' && def.items.length === 1
@@ -105,19 +114,52 @@ function defaultComponent(def) {
   return typeToField[type] ?? 'inputField'
 }
 
-function resolveComponent(def) {
-  const component =
-    def.metas?.find((meta) => meta.component)?.component ??
-    defaultComponent(def)
-
-  return this.ctx[component] ?? this.ctx.string
-}
-
 function getDefaults(formDefinition) {
   return Object.fromEntries(
-    Object.entries(formDefinition.keys).map(([name, def]) => [
-      name,
-      def.flags?.default
-    ])
+    Object.entries(formDefinition.keys).map(([name, def]) => {
+      if (def.keys) {
+        return [name, getDefaults(def)]
+      }
+      return [name, def.flags?.default]
+    })
+  )
+}
+
+function expandNested(formValues = {}) {
+  const result = {}
+
+  Object.entries(formValues).forEach(([key, value]) => {
+    const keyParts = key.split('.')
+    const lastIndex = keyParts.length - 1
+    let ref = result
+
+    for (let i = 0; i < lastIndex; i++) {
+      const part = keyParts[i]
+      if (!ref[part]) {
+        ref[part] = {}
+      }
+      ref = ref[part]
+    }
+
+    ref[keyParts[lastIndex]] = value
+  })
+
+  return result
+}
+
+function createNested(data = {}) {
+  return Object.fromEntries(
+    Object.entries(data)
+      .map(([key, value]) => {
+        if (typeof value === 'object') {
+          return Object.entries(createNested(value)).map(([k, v]) => [
+            `${key}.${k}`,
+            v
+          ])
+        }
+
+        return [[key, value]]
+      })
+      .flat()
   )
 }

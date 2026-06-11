@@ -8,7 +8,7 @@
       text: helpers.resolveLabel(params.def, params.name),
       classes: "app-label"
     },
-    classes: "app-input app-input--wide",
+    classes: "app-input app-input--wide " + helpers.resolveMeta(params.def, 'classes'),
     formGroup: {
       classes: "app-form-group app-form-group-js"
     },
@@ -18,6 +18,13 @@
     },
     attributes: {
       "data-1p-ignore": ""
+    },
+    prefix: {
+      html: helpers.resolveMeta(params.def, 'prefix')
+    },
+    suffix: {
+      html: helpers.resolveMeta(params.def, 'suffix'),
+      classes: "app-input__suffix"
     },
     value: params.formValues[params.name],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)

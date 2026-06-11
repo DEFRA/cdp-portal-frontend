@@ -1,6 +1,5 @@
 import { sessionNames } from '#server/common/constants/session-names.js'
 import formEngine from '#server/plugins/form-engine/form-engine.js'
-import { scopes } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
 import handleNoBasket from '../../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../../ext/provideLayoutContext.js'
@@ -9,6 +8,7 @@ import {
   removeBasketResource,
   Resources
 } from '../../../domain/basket.js'
+import { options as parentOptions } from '../../../route.js'
 
 export function register(routePath) {
   return [
@@ -18,12 +18,7 @@ export function register(routePath) {
         route: {
           path: routePath,
           options: {
-            auth: {
-              mode: 'required',
-              access: {
-                scope: scopes.admin // TODO: Open to tenants
-              }
-            }
+            auth: parentOptions.auth
           }
         },
 
@@ -43,7 +38,10 @@ export function register(routePath) {
           }
 
           return Joi.object({
-            summary: Joi.object().label('Resource details').default(resource)
+            summary: Joi.object()
+              .label('Resource details')
+              .default(resource)
+              .meta({ component: 'summaryField' })
           })
         },
 

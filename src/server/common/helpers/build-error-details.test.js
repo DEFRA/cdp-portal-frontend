@@ -13,6 +13,9 @@ describe('#buildErrorDetails', () => {
       imageName: {
         message: 'Choose an entry'
       },
+      'test.nested': {
+        message: '"nested" is not allowed to be empty'
+      },
       version: {
         message: 'Choose an entry'
       }

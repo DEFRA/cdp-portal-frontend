@@ -8,7 +8,7 @@
       text: helpers.resolveLabel(params.def, params.name),
       classes: "app-label"
     },
-    classes: "app-select",
+    classes: "app-select " + helpers.resolveMeta(params.def, 'classes'),
     hint: {
       text: params.def.flags.description,
       classes: "app-hint"

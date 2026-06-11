@@ -13,7 +13,7 @@ export default {
 
     response.source.context.helpers = {
       resolveLabel(def, name) {
-        return `${def.flags.label ?? name}${def.flags.presence === 'optional' ? ' (optional)' : ''}`
+        return `${def.flags?.label ?? name}${def.flags?.presence === 'optional' ? ' (optional)' : ''}`
       },
 
       resolveItems(def, values) {
@@ -30,25 +30,45 @@ export default {
             text: formatText(key)
           },
           value: {
-            text: value
+            html: renderObject(value)
           }
         }))
       },
 
-      resolveValid(def, values) {
-        return def.allow?.map((value) => ({
-          value,
-          text: formatText(value),
-          checked: values?.includes(value)
+      resolveChecked(options, values) {
+        return options.map((option) => ({
+          value: option.value,
+          text: option.text,
+          checked: values?.includes(option.value)
         }))
       },
 
       resolveMeta(def, name) {
         return def.metas?.find((meta) => meta[name])?.[name]
+      },
+
+      hasNestedErrors(name, formErrors = {}) {
+        return Object.entries(formErrors).find(([key]) => key.includes(name))
       }
     }
 
     return h.continue
   },
   options: { sandbox: 'plugin' }
+}
+
+function renderObject(obj) {
+  if (typeof obj === 'object') {
+    return `<table class="table--embedded">${Object.entries(obj)
+      .filter(([field]) => field !== 'environments')
+      .map(
+        ([field, value]) => `<tr>
+    <th>${formatText(field).replaceAll('-', ' ')}</th>
+    <td>${typeof value === 'object' ? renderObject(value) : value}</td>
+  </tr>`
+      )
+      .join('')}</table>`
+  } else {
+    return obj
+  }
 }
