@@ -59,15 +59,7 @@ function resourcesToRows(userIsAdmin) {
           text: name
         },
         value: {
-          html: `<table class="table--embedded">${Object.entries(props)
-            .filter(([field]) => field !== 'environments' || userIsAdmin)
-            .map(
-              ([field, value]) => `<tr>
-            <th>${formatText(field)}</th>
-            <td>${value}</td>
-          </tr>`
-            )
-            .join('')}</table>`
+          html: renderObject(props, userIsAdmin)
         },
         actions: {
           items: [
@@ -92,4 +84,16 @@ function resourcesToRows(userIsAdmin) {
       }
     ]
   }
+}
+
+function renderObject(obj, userIsAdmin) {
+  return `<table class="table--embedded">${Object.entries(obj)
+    .filter(([field]) => field !== 'environments' || userIsAdmin)
+    .map(
+      ([field, value]) => `<tr>
+    <th>${formatText(field).replaceAll('-', ' ')}</th>
+    <td>${typeof value === 'object' ? renderObject(value, userIsAdmin) : value}</td>
+  </tr>`
+    )
+    .join('')}</table>`
 }

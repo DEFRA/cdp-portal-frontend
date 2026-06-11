@@ -175,14 +175,3 @@ export function register(routePath) {
     }
   ]
 }
-
-const numberAsString = Joi.extend({
-  type: 'number',
-  base: Joi.number(),
-  coerce: {
-    from: 'string',
-    method(value) {
-      return typeof value === 'string' ? { value: Number(value) } : undefined
-    }
-  }
-})
