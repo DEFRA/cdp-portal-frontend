@@ -4,7 +4,7 @@
   {{ govukRadios({
     id: params.name,
     name: params.name,
-    classes: "govuk-radios--small",
+    classes: "govuk-radios--small " + helpers.resolveMeta(params.def, 'classes'),
     fieldset: {
       legend: {
         text: helpers.resolveLabel(params.def, params.name),

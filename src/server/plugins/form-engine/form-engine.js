@@ -130,14 +130,23 @@ function getDefaults(formDefinition) {
 }
 
 function expandNested(formValues = {}) {
-  return Object.fromEntries(
-    Object.entries(formValues).map(([key, value]) => {
-      if (key.includes('.')) {
-        const parts = key.split('.')
-        return [parts[0], { [parts[1]]: value }] // TODO: handle any depth
-      }
+  const result = {}
 
-      return [key, value]
-    })
-  )
+  Object.entries(formValues).forEach(([key, value]) => {
+    const keyParts = key.split('.')
+    const lastIndex = keyParts.length - 1
+    let ref = result
+
+    for (let i = 0; i < lastIndex; i++) {
+      const part = keyParts[i]
+      if (!ref[part]) {
+        ref[part] = {}
+      }
+      ref = ref[part]
+    }
+
+    ref[keyParts[lastIndex]] = value
+  })
+
+  return result
 }

@@ -6,7 +6,7 @@
     name: params.name,
     label: {
       text: helpers.resolveLabel(params.def, params.name),
-      classes: "app-label"
+      classes: "app-label " + helpers.resolveMeta(params.def, 'classes')
     },
     hint: {
       html: params.def.flags.description,

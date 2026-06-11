@@ -49,7 +49,7 @@ export function register(routePath) {
               .min(0)
               .max(14)
               .required()
-              .meta({ suffix: 'days' }),
+              .meta({ suffix: 'days', classes: 'govuk-input--width-10' }),
 
             visibilityTimeout: Joi.number()
               .label('Visibility Timeout')
@@ -57,7 +57,7 @@ export function register(routePath) {
               .min(0)
               .max(43200)
               .required()
-              .meta({ suffix: 'seconds' }),
+              .meta({ suffix: 'seconds', classes: 'govuk-input--width-10' }),
 
             receiveWaitTime: Joi.number()
               .label('Receive wait time')
@@ -65,7 +65,7 @@ export function register(routePath) {
               .min(0)
               .max(20)
               .required()
-              .meta({ suffix: 'seconds' }),
+              .meta({ suffix: 'seconds', classes: 'govuk-input--width-10' }),
 
             contentDeduplication: Joi.boolean()
               .label('Content based deduplication')
@@ -106,7 +106,16 @@ export function register(routePath) {
 
             queueOptions: Joi.object(options).label('Queue options').required(),
 
-            deadLetterQueueOptions: Joi.object(options)
+            deadLetterQueueOptions: Joi.object({
+              ...options,
+              maxReceiveCount: Joi.number()
+                .label('Max Receive Count')
+                .default(3)
+                .min(1)
+                .max(10)
+                .required()
+                .meta({ classes: 'govuk-input--width-10' })
+            })
               .label('Dead letter queue options')
               .required(),
 
@@ -166,3 +175,14 @@ export function register(routePath) {
     }
   ]
 }
+
+const numberAsString = Joi.extend({
+  type: 'number',
+  base: Joi.number(),
+  coerce: {
+    from: 'string',
+    method(value) {
+      return typeof value === 'string' ? { value: Number(value) } : undefined
+    }
+  }
+})

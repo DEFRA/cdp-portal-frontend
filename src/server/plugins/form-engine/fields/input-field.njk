@@ -8,7 +8,7 @@
       text: helpers.resolveLabel(params.def, params.name),
       classes: "app-label"
     },
-    classes: "app-input app-input--wide",
+    classes: "app-input app-input--wide " + helpers.resolveMeta(params.def, 'classes'),
     formGroup: {
       classes: "app-form-group app-form-group-js"
     },
