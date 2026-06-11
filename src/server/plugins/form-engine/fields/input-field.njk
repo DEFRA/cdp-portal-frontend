@@ -23,7 +23,8 @@
       html: helpers.resolveMeta(params.def, 'prefix')
     },
     suffix: {
-      html: helpers.resolveMeta(params.def, 'suffix')
+      html: helpers.resolveMeta(params.def, 'suffix'),
+      classes: "app-input__suffix"
     },
     value: params.formValues[params.name],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
