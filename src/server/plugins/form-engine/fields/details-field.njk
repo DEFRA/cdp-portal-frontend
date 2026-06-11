@@ -3,7 +3,8 @@
 {% macro detailsField(params, helpers) %}
   {% call appDetails({
     summaryText: helpers.resolveLabel(params.def, params.name),
-    classes: "app-details__content-no-word-break " + helpers.resolveMeta(params.def, 'classes')
+    classes: "app-details__content-no-word-break " + helpers.resolveMeta(params.def, 'classes'),
+    open: helpers.hasNestedErrors(params.name, params.formErrors)
   }) %}
 
   {% for name, def in params.def.keys %}

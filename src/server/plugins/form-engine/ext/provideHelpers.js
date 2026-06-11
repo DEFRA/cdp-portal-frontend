@@ -45,6 +45,10 @@ export default {
 
       resolveMeta(def, name) {
         return def.metas?.find((meta) => meta[name])?.[name]
+      },
+
+      hasNestedErrors(name, formErrors = {}) {
+        return Object.entries(formErrors).find(([key]) => key.includes(name))
       }
     }
 
