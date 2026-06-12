@@ -18,6 +18,9 @@
     },
     items: helpers.resolveMeta(params.def, 'suggestions'),
     value: params.formValues[params.name],
-    errorMessage: errorMessageHelper(params.formErrors[params.name].message)
+    errorMessage: errorMessageHelper(params.formErrors[params.name].message),
+    attributes: {
+      'data-xhr': helpers.resolveMeta(params.def, 'dataXhr') or undefined
+    }
   }) }}
 {% endmacro %}

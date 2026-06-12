@@ -40,7 +40,11 @@ export default {
       ...route,
       method: 'GET',
       async handler(request, h) {
-        const formSchema = await schema(request, h)
+        const formSchema = await schema(
+          request,
+          h,
+          request.yar.flash(sessionNames.xhrRefresh)?.at(0)?.formValues ?? {}
+        )
         const formDefinition = formSchema.describe()
 
         const formValues = createNested(
@@ -61,9 +65,17 @@ export default {
       ...route,
       method: 'POST',
       async handler(request, h) {
-        const formSchema = await schema(request, h)
         const { csrfToken, actionButton, ...formValues } = request.payload
 
+        if (!actionButton) {
+          request.yar.flash(sessionNames.xhrRefresh, {
+            formValues
+          })
+
+          return h.redirect(request.url)
+        }
+
+        const formSchema = await schema(request, h, formValues)
         const resolvedActions = await actions(request, h)
         const action = resolvedActions[actionButton]
 
@@ -84,6 +96,9 @@ export default {
           request.yar.flash(sessionNames.validationFailure, {
             formValues,
             formErrors: errorDetails
+          })
+          request.yar.flash(sessionNames.xhrRefresh, {
+            formValues
           })
 
           return h.redirect(request.url)

@@ -8,6 +8,7 @@ import Joi from 'joi'
 import handleNoBasket from '../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../ext/provideLayoutContext.js'
 import createEnvironmentOptions from '../../domain/create-environment-options.js'
+import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 import {
   Resources,
   getBasketResource,
@@ -31,7 +32,7 @@ export function register(routePath) {
 
         layout: 'routes/create/resources/detail/layouts/resource.njk',
 
-        async schema(request) {
+        async schema(request, h, formValues) {
           const userSession = request.auth.credentials
 
           const serviceNames = await fetchServiceNames(userSession)
@@ -42,6 +43,15 @@ export function register(routePath) {
             []
           const entityOptions = buildOptions(entityNames)
 
+          const queueService = normalize(formValues.queueService)
+          const topicService = normalize(formValues.topicService)
+
+          const queueNames = queueService ? await getQueues(queueService) : []
+          const queueOptions = buildOptions(queueNames)
+
+          const topicNames = topicService ? await getTopics(topicService) : []
+          const topicOptions = buildOptions(topicNames)
+
           return Joi.object({
             queueService: repositoryNameValidation
               .label('Queue service')
@@ -50,7 +60,22 @@ export function register(routePath) {
               .messages({ 'any.only': 'Select a service' })
               .meta({
                 component: 'autocompleteField',
-                suggestions: entityOptions
+                suggestions: entityOptions,
+                dataJs: 'auto-refresh'
+              }),
+
+            queue: Joi.string()
+              .label('Queue name')
+              .min(3)
+              .max(75)
+              .regex(/^[a-z0-9][a-z0-9-_]+[a-z0-9]$/)
+              .required()
+              .valid(...queueNames)
+              .messages({ 'any.only': 'Select a service' })
+              .meta({
+                component: 'selectField',
+                suggestions: queueOptions,
+                dataXhr: 'queue'
               }),
 
             topicService: repositoryNameValidation
@@ -60,7 +85,21 @@ export function register(routePath) {
               .messages({ 'any.only': 'Select a service' })
               .meta({
                 component: 'autocompleteField',
-                suggestions: entityOptions
+                suggestions: entityOptions,
+                dataJs: 'auto-refresh'
+              }),
+
+            topic: Joi.string()
+              .label('Topic name')
+              .min(3)
+              .max(75)
+              .regex(/^[a-z0-9][a-z0-9-_]+[a-z0-9]$/)
+              .required()
+              .valid(...topicNames)
+              .messages({ 'any.only': 'Select a service' })
+              .meta({
+                component: 'selectField',
+                suggestions: topicOptions
               }),
 
             environments: Joi.string()
@@ -118,4 +157,21 @@ export function register(routePath) {
       }
     }
   ]
+}
+
+async function getQueues(serviceName) {
+  const resources = await fetchResources(serviceName, 'dev')
+
+  return resources?.sqs_queues?.map((resource) => resource.name) ?? []
+}
+
+async function getTopics(serviceName) {
+  const resources = await fetchResources(serviceName, 'dev')
+
+  return resources?.sns_topics?.map((resource) => resource.name) ?? []
+}
+
+function normalize(fieldValue) {
+  if (Array.isArray(fieldValue)) return fieldValue.at(0)
+  return fieldValue
 }

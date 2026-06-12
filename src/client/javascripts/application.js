@@ -104,4 +104,4 @@ initModules('app-filters', filters)
 initModules('app-tabs', tabs)
 
 // Auto Refresh
-initModules('auto-refresh', autoRefresh)
+initModules('auto-refresh', autoRefresh, '*=')
