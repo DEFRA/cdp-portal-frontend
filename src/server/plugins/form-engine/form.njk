@@ -15,39 +15,43 @@
 
 {% block formContent %}
 
-  <form method="post" data-js="app-form-errors">
-    <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+{% block xhrContent %}
 
-    {% call govukFieldset() %}
+    <form method="post" data-js="app-form-errors">
+      <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
-      {% for name, def in fields %}
+      {% call govukFieldset() %}
 
-        {{ resolveFormComponent(def)({
-          name: name,
-          def: def,
-          formValues: formValues,
-          formErrors: formErrors
-        }, helpers) }}
+        {% for name, def in fields %}
 
-      {% endfor %}
+          {{ resolveFormComponent(def)({
+            name: name,
+            def: def,
+            formValues: formValues,
+            formErrors: formErrors
+          }, helpers) }}
 
-    {% endcall %}
+        {% endfor %}
 
-    <div class="govuk-button-group">
-      {% for action, def in actions %}
-        {% if def.url %}
-          <a class="app-link {{def.classes}}"  href="{{ def.url }}">{{ def.text }}</a>
-        {% else %}
-          {{ govukButton({
-            classes: "app-button " + def.classes,
-            text: def.text,
-            name: 'actionButton',
-            value: 'submit'
-          }) }}
-        {% endif %}
-      {% endfor %}
-    </div>
+      {% endcall %}
 
-  </form>
+      <div class="govuk-button-group">
+        {% for action, def in actions %}
+          {% if def.url %}
+            <a class="app-link {{def.classes}}"  href="{{ def.url }}">{{ def.text }}</a>
+          {% else %}
+            {{ govukButton({
+              classes: "app-button " + def.classes,
+              text: def.text,
+              name: 'actionButton',
+              value: 'submit'
+            }) }}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </form>
+
+  {% endblock %}
 
 {% endblock %}

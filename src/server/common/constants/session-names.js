@@ -8,7 +8,8 @@ const sessionNames = {
   query: 'query',
   referrer: 'referrer',
   validationFailure: 'validationFailure',
-  resourcesBasket: 'resourcesBasket'
+  resourcesBasket: 'resourcesBasket',
+  xhrRefresh: 'xhrRefresh'
 }
 
 export { sessionNames }

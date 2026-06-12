@@ -40,12 +40,25 @@ export default {
       ...route,
       method: 'GET',
       async handler(request, h) {
-        const formSchema = await schema(request, h)
+        const refreshFormValues = request.yar
+          .flash(sessionNames.xhrRefresh)
+          ?.at(0)?.formValues
+
+        let loaded = {}
+        if (!refreshFormValues) {
+          loaded = await load(request, h)
+        }
+
+        const formSchema = await schema(
+          request,
+          h,
+          refreshFormValues ?? createNested(loaded)
+        )
         const formDefinition = formSchema.describe()
 
-        const formValues = createNested(
-          (await load(request, h)) ?? getDefaults(formDefinition)
-        )
+        const formValues =
+          refreshFormValues ??
+          createNested(loaded ?? getDefaults(formDefinition))
         const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {
@@ -61,9 +74,17 @@ export default {
       ...route,
       method: 'POST',
       async handler(request, h) {
-        const formSchema = await schema(request, h)
         const { csrfToken, actionButton, ...formValues } = request.payload
 
+        if (!actionButton) {
+          request.yar.flash(sessionNames.xhrRefresh, {
+            formValues
+          })
+
+          return h.redirect(request.url)
+        }
+
+        const formSchema = await schema(request, h, formValues)
         const resolvedActions = await actions(request, h)
         const action = resolvedActions[actionButton]
 
@@ -84,6 +105,9 @@ export default {
           request.yar.flash(sessionNames.validationFailure, {
             formValues,
             formErrors: errorDetails
+          })
+          request.yar.flash(sessionNames.xhrRefresh, {
+            formValues
           })
 
           return h.redirect(request.url)

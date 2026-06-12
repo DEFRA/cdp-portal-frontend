@@ -60,7 +60,7 @@ export function register(routePath) {
               )
               .min(3)
               .max(75)
-              .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
+              .regex(/^[a-z0-9][a-z0-9-_]+[a-z0-9]$/)
               .required(),
 
             fifo: Joi.boolean()

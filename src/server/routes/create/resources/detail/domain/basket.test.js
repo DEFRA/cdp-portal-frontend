@@ -4,7 +4,8 @@ import {
   initBasket,
   updateBasketResource,
   removeBasketResource,
-  getBasketResource
+  getBasketResource,
+  getBasketResourceList
 } from './basket.js'
 
 vi.mock('node:crypto', () => {
@@ -15,7 +16,8 @@ test('Creates initial basket', () => {
   expect(initBasket()).toEqual({
     s3_buckets: {},
     sns_topics: {},
-    sqs_queues: {}
+    sqs_queues: {},
+    sqs_sns_subscriptions: {}
   })
 })
 
@@ -31,6 +33,20 @@ test('Gets a resource', () => {
   })
 })
 
+test('Gets a list of resources', () => {
+  let basket = initBasket()
+
+  basket = updateBasketResource(basket, Resources.s3Buckets, 'uuid', {
+    name: 'test'
+  })
+
+  expect(getBasketResourceList(basket, Resources.s3Buckets)).toEqual([
+    {
+      name: 'test'
+    }
+  ])
+})
+
 test('Adds a resource', () => {
   let basket = initBasket()
 
@@ -43,7 +59,8 @@ test('Adds a resource', () => {
       123456789: { name: 'test' }
     },
     sns_topics: {},
-    sqs_queues: {}
+    sqs_queues: {},
+    sqs_sns_subscriptions: {}
   })
 })
 
@@ -63,7 +80,8 @@ test('Updates a resource', () => {
       uuid: { name: '123' }
     },
     sns_topics: {},
-    sqs_queues: {}
+    sqs_queues: {},
+    sqs_sns_subscriptions: {}
   })
 })
 
@@ -84,6 +102,7 @@ test('Removes a resource', () => {
       uuid2: { name: '123' }
     },
     sns_topics: {},
-    sqs_queues: {}
+    sqs_queues: {},
+    sqs_sns_subscriptions: {}
   })
 })

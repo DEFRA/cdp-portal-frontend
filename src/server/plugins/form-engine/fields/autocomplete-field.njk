@@ -17,6 +17,7 @@
     },
     suggestions: helpers.resolveMeta(params.def, 'suggestions'),
     value: params.formValues[params.name],
-    errorMessage: errorMessageHelper(params.formErrors[params.name].message)
+    errorMessage: errorMessageHelper(params.formErrors[params.name].message),
+    dataJs: helpers.resolveMeta(params.def, 'dataJs')
   }) }}
 {% endmacro %}
