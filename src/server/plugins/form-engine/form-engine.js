@@ -40,16 +40,16 @@ export default {
       ...route,
       method: 'GET',
       async handler(request, h) {
-        const formSchema = await schema(
-          request,
-          h,
-          request.yar.flash(sessionNames.xhrRefresh)?.at(0)?.formValues ?? {}
-        )
+        const refreshFormValues = request.yar
+          .flash(sessionNames.xhrRefresh)
+          ?.at(0)?.formValues
+
+        const formSchema = await schema(request, h, refreshFormValues ?? {})
         const formDefinition = formSchema.describe()
 
-        const formValues = createNested(
-          (await load(request, h)) ?? getDefaults(formDefinition)
-        )
+        const formValues =
+          refreshFormValues ??
+          createNested((await load(request, h)) ?? getDefaults(formDefinition))
         const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {
