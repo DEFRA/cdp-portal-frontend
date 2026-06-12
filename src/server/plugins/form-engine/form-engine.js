@@ -44,12 +44,21 @@ export default {
           .flash(sessionNames.xhrRefresh)
           ?.at(0)?.formValues
 
-        const formSchema = await schema(request, h, refreshFormValues ?? {})
+        let loaded = {}
+        if (!refreshFormValues) {
+          loaded = await load(request, h)
+        }
+
+        const formSchema = await schema(
+          request,
+          h,
+          refreshFormValues ?? createNested(loaded)
+        )
         const formDefinition = formSchema.describe()
 
         const formValues =
           refreshFormValues ??
-          createNested((await load(request, h)) ?? getDefaults(formDefinition))
+          createNested(loaded ?? getDefaults(formDefinition))
         const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {
