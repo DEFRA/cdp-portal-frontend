@@ -12,6 +12,7 @@ import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.j
 import {
   Resources,
   getBasketResource,
+  getBasketResourceList,
   updateBasketResource
 } from '../../domain/basket.js'
 import { options as parentOptions } from '../../route.js'
@@ -45,11 +46,16 @@ export function register(routePath) {
 
           const queueService = normalize(formValues.queueService)
           const topicService = normalize(formValues.topicService)
+          const basket = request.yar.get(sessionNames.resourcesBasket)
 
-          const queueNames = queueService ? await getQueues(queueService) : []
+          const queueNames = queueService
+            ? await getQueues(queueService, basket)
+            : []
           const queueOptions = buildOptions(queueNames)
 
-          const topicNames = topicService ? await getTopics(topicService) : []
+          const topicNames = topicService
+            ? await getTopics(topicService, basket)
+            : []
           const topicOptions = buildOptions(topicNames)
 
           return Joi.object({
@@ -159,16 +165,28 @@ export function register(routePath) {
   ]
 }
 
-async function getQueues(serviceName) {
+async function getQueues(serviceName, basket) {
   const resources = await fetchResources(serviceName, 'dev')
+  const existingQueues =
+    resources?.sqs_queues?.map((resource) => resource.name) ?? []
+  const inBasketQueues =
+    getBasketResourceList(basket, Resources.sqsQueues)
+      .filter(({ service }) => service === serviceName)
+      .map(({ name }) => name) ?? []
 
-  return resources?.sqs_queues?.map((resource) => resource.name) ?? []
+  return [...existingQueues, ...inBasketQueues].sort(sortByName)
 }
 
-async function getTopics(serviceName) {
+async function getTopics(serviceName, basket) {
   const resources = await fetchResources(serviceName, 'dev')
+  const existingTopics =
+    resources?.sns_topics?.map((resource) => resource.name) ?? []
+  const inBasketTopics =
+    getBasketResourceList(basket, Resources.snsTopics)
+      .filter(({ service }) => service === serviceName)
+      .map(({ name }) => name) ?? []
 
-  return resources?.sns_topics?.map((resource) => resource.name) ?? []
+  return [...existingTopics, ...inBasketTopics].sort(sortByName)
 }
 
 function normalize(fieldValue) {

@@ -38,3 +38,8 @@ export function removeBasketResource(basket, type, uuid) {
     }
   }
 }
+
+export function getBasketResourceList(basket, type) {
+  const typeValues = basket[type]
+  return Object.entries(typeValues).map(([_, resource]) => resource)
+}
