@@ -1,6 +1,7 @@
 import getFormData from 'get-form-data'
 import debounce from 'lodash/debounce.js'
 import { xhrPostRequest } from './xhr.js'
+import { clientNotification } from './client-notification.js'
 
 export default function autoRefresh($input) {
   if (!$input) {
@@ -40,7 +41,7 @@ async function refresh(event) {
   }
 
   if (!result.ok) {
-    throw new Error('Loading failed, please refresh the page')
+    clientNotification('Loading failed, please refresh the page')
   }
 
   $form.dataset.isSubmitting = 'false'
