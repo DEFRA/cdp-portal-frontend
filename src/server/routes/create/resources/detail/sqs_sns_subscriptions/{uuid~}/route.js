@@ -186,7 +186,7 @@ async function getQueues(serviceName, basket) {
 }
 
 async function getTopics(serviceName, basket) {
-  const resources = await fetchResources(serviceName, 'dev')
+  const resources = (await fetchResources(serviceName)) ?? {}
   const existingTopics = [
     ...new Set(
       Object.entries(resources)
