@@ -81,7 +81,7 @@ export default {
             formValues
           })
 
-          return h.redirect(request.url)
+          return h.redirect(request.path)
         }
 
         const formSchema = await schema(request, h, formValues)
@@ -110,7 +110,7 @@ export default {
             formValues
           })
 
-          return h.redirect(request.url)
+          return h.redirect(request.path)
         }
 
         request.yar.clear(sessionNames.validationFailure)
