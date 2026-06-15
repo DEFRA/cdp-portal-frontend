@@ -1,4 +1,5 @@
 import getFormData from 'get-form-data'
+import debounce from 'lodash/debounce.js'
 import { xhrPostRequest } from './xhr.js'
 
 export default function autoRefresh($input) {
@@ -6,7 +7,7 @@ export default function autoRefresh($input) {
     return
   }
 
-  $input.addEventListener('change', refresh)
+  $input.addEventListener('change', debounce(refresh, 300))
 }
 
 async function refresh(event) {
