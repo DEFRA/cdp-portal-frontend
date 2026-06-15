@@ -166,9 +166,17 @@ export function register(routePath) {
 }
 
 async function getQueues(serviceName, basket) {
-  const resources = await fetchResources(serviceName, 'dev')
-  const existingQueues =
-    resources?.sqs_queues?.map((resource) => resource.name) ?? []
+  const resources = (await fetchResources(serviceName)) ?? {}
+  const existingQueues = [
+    ...new Set(
+      Object.entries(resources)
+        .map(([_, config]) =>
+          config?.sqs_queues?.map((resource) => resource.name)
+        )
+        .flat()
+    )
+  ]
+
   const inBasketQueues =
     getBasketResourceList(basket, Resources.sqsQueues)
       .filter(({ service }) => service === serviceName)
@@ -178,9 +186,17 @@ async function getQueues(serviceName, basket) {
 }
 
 async function getTopics(serviceName, basket) {
-  const resources = await fetchResources(serviceName, 'dev')
-  const existingTopics =
-    resources?.sns_topics?.map((resource) => resource.name) ?? []
+  const resources = (await fetchResources(serviceName)) ?? {}
+  const existingTopics = [
+    ...new Set(
+      Object.entries(resources)
+        .map(([_, config]) =>
+          config?.sns_topics?.map((resource) => resource.name)
+        )
+        .flat()
+    )
+  ]
+
   const inBasketTopics =
     getBasketResourceList(basket, Resources.snsTopics)
       .filter(({ service }) => service === serviceName)
