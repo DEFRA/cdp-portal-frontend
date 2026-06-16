@@ -90,7 +90,7 @@ export function register(routePath) {
                 'When requesting a FIFO queue <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
               )
               .min(3)
-              .max(75)
+              .max(256)
               .regex(/^[a-z0-9][a-z0-9-_]+[a-z0-9]$/)
               .required(),
 

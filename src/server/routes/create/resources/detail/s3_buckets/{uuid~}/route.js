@@ -59,7 +59,7 @@ export function register(routePath) {
                 'A prefix and suffix will automatically be added to the bucket name. See <a href="/documentation/how-to/buckets.md#bucket-naming">Bucket Naming documentation</a>'
               )
               .min(3)
-              .max(63)
+              .max(46)
               .regex(/^[a-z0-9][a-z0-9.-]+[a-z0-9]$/)
               .required(),
 
