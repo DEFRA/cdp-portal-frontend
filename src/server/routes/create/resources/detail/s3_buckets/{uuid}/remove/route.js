@@ -4,7 +4,7 @@ import Joi from 'joi'
 import handleNoBasket from '../../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../../ext/provideLayoutContext.js'
 import {
-  formatResource,
+  formatBasketResource,
   getBasketResource,
   removeBasketResource,
   Resources
@@ -37,7 +37,7 @@ export function register(routePath) {
           return Joi.object({
             summary: Joi.object()
               .label('Resource details')
-              .default(formatResource(resource, userIsAdmin))
+              .default(formatBasketResource(resource, userIsAdmin))
               .meta({ component: 'summaryField' })
           })
         },

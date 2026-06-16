@@ -1,7 +1,12 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { formatResource, initBasket } from './domain/basket.js'
+import {
+  formatBasketResource,
+  initBasket,
+  serializeBasket
+} from './domain/basket.js'
+import { config } from '#config/config.js'
 
 export const options = {
   auth: {
@@ -36,17 +41,29 @@ export async function POST(request, h) {
     return h.redirect('/create/resources/detail')
   }
 
-  const resourceRequest = Object.fromEntries(
-    Object.entries(basket).map(([type, resources]) => [
-      type,
-      Object.entries(resources).map(([_, props]) => props)
-    ])
-  )
+  const resourceRequest = serializeBasket(basket)
 
-  // TODO: call the BE with the resourceRequest
   request.logger.info(resourceRequest, 'Request resources:')
 
-  return h.redirect('/create/resources/detail')
+  try {
+    const { payload } = await request.authedFetchJson(
+      `${config.get('portalBackendUrl')}/resources`,
+      {
+        method: 'post',
+        payload: resourceRequest
+      }
+    )
+    console.log(payload)
+
+    return h.redirect('/create/resources/detail')
+  } catch (error) {
+    request.yar.flash(
+      sessionNames.globalValidationFailures,
+      'Failed to submit request: ' + error
+    )
+
+    return h.redirect('/create/resources/detail')
+  }
 }
 
 function resourcesToRows(userIsAdmin) {
@@ -55,7 +72,7 @@ function resourcesToRows(userIsAdmin) {
 
     if (entries.length) {
       return entries
-        .map(([uuid, res]) => [uuid, formatResource(res, userIsAdmin)])
+        .map(([uuid, res]) => [uuid, formatBasketResource(res, userIsAdmin)])
         .map(([uuid, { name, ...props }]) => ({
           key: {
             text: name

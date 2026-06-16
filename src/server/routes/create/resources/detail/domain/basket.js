@@ -44,7 +44,7 @@ export function getBasketResourceList(basket, type) {
   return Object.entries(typeValues).map(([_, resource]) => resource)
 }
 
-export function formatResource(resource, userIsAdmin) {
+export function formatBasketResource(resource, userIsAdmin) {
   const res = { ...resource }
   if (!userIsAdmin && resource.environments) {
     delete res.environments
@@ -55,4 +55,13 @@ export function formatResource(resource, userIsAdmin) {
   }
 
   return res
+}
+
+export function serializeBasket(basket) {
+  return Object.fromEntries(
+    Object.entries(basket).map(([type, resources]) => [
+      type,
+      Object.entries(resources).map(([_, props]) => props)
+    ])
+  )
 }
