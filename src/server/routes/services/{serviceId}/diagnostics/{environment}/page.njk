@@ -49,7 +49,7 @@
                         client{{loop.index}} client{{loop.index}}_link@--> api{{loop.index}}
                         client{{loop.index}}_link@{ animation: slow }
 
-                        api{{loop.index}}@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Public)' if api.type == 'REGIONAL' else 'API Gateway (Private)', logViewUrl('api-gw-public') if api.type == 'REGIONAL' else logViewUrl('api-gw-private'), resources.metrics.apigw[0].url) | safe }}"}
+                        api{{loop.index}}@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Public)' if api.type == 'REGIONAL' else 'API Gateway (Private)', logViewUrl('api-gw-public') if api.type == 'REGIONAL' else logViewUrl('api-gw-private'), apigwMetricLink(resources.metrics.apigw, 'public') if api.type == 'REGIONAL' else apigwMetricLink(resources.metrics.apigw, 'private')) | safe }}"}
                         api{{loop.index}} api{{loop.index}}_link@--> {{'public_alb' if api.type == 'REGIONAL' else 'alb'}}
                         api{{loop.index}}_link@{ animation: slow }
                       {% endfor %}
