@@ -1,6 +1,7 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { scopes } from '@defra/cdp-validation-kit'
+import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
 import {
   formatBasketResource,
   initBasket,
@@ -16,6 +17,14 @@ export const options = {
     }
   }
 }
+
+export const ext = [
+  {
+    type: 'onPostHandler',
+    method: provideFormContextValues(),
+    options: { before: ['yar'], sandbox: 'plugin' }
+  }
+]
 
 export default async function (request, h) {
   if (!request.yar.get(sessionNames.resourcesBasket)) {
@@ -58,13 +67,17 @@ export async function POST(request, h) {
     // return h.redirect('/create/resources/detail')
   } catch (error) {
     if (error?.data?.res.statusCode === 400) {
-      return error.data.payload
+      request.yar.flash(sessionNames.validationFailure, {
+        formMessages: error.data.payload.errors.map((msg) => ({
+          text: msg
+        }))
+      })
+    } else {
+      request.yar.flash(
+        sessionNames.globalValidationFailures,
+        'Failed to submit request: ' + error
+      )
     }
-
-    request.yar.flash(
-      sessionNames.globalValidationFailures,
-      'Failed to submit request: ' + error
-    )
 
     return h.redirect('/create/resources/detail')
   }
