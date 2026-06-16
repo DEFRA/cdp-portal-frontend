@@ -53,9 +53,9 @@ export async function POST(request, h) {
         payload: resourceRequest
       }
     )
-    console.log(payload)
+    return payload
 
-    return h.redirect('/create/resources/detail')
+    // return h.redirect('/create/resources/detail')
   } catch (error) {
     request.yar.flash(
       sessionNames.globalValidationFailures,
