@@ -66,7 +66,7 @@ export async function POST(request, h) {
 
     // return h.redirect('/create/resources/detail')
   } catch (error) {
-    if (error?.data?.res.statusCode === 400) {
+    if (error?.data?.res.statusCode === 400 && error.data.payload?.errors) {
       request.yar.flash(sessionNames.validationFailure, {
         formMessages: error.data.payload.errors.map((msg) => ({
           text: msg
@@ -75,7 +75,7 @@ export async function POST(request, h) {
     } else {
       request.yar.flash(
         sessionNames.globalValidationFailures,
-        'Failed to submit request: ' + error
+        'Failed to submit request: ' + error?.data?.payload?.message ?? error
       )
     }
 
