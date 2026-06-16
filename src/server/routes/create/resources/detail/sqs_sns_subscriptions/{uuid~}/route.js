@@ -11,6 +11,7 @@ import createEnvironmentOptions from '../../domain/create-environment-options.js
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 import {
   Resources,
+  formatResource,
   getBasketResource,
   getBasketResourceList,
   updateBasketResource
@@ -180,6 +181,7 @@ async function getQueues(serviceName, basket) {
   const inBasketQueues =
     getBasketResourceList(basket, Resources.sqsQueues)
       .filter(({ service }) => service === serviceName)
+      .map((res) => formatResource(res))
       .map(({ name }) => name) ?? []
 
   return [...existingQueues, ...inBasketQueues].sort(sortByName)
@@ -200,6 +202,7 @@ async function getTopics(serviceName, basket) {
   const inBasketTopics =
     getBasketResourceList(basket, Resources.snsTopics)
       .filter(({ service }) => service === serviceName)
+      .map((res) => formatResource(res))
       .map(({ name }) => name) ?? []
 
   return [...existingTopics, ...inBasketTopics].sort(sortByName)

@@ -1,7 +1,7 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { initBasket } from './domain/basket.js'
+import { formatResource, initBasket } from './domain/basket.js'
 
 export const options = {
   auth: {
@@ -54,26 +54,28 @@ function resourcesToRows(userIsAdmin) {
     const entries = Object.entries(resources)
 
     if (entries.length) {
-      return entries.map(([uuid, { name, ...props }]) => ({
-        key: {
-          text: name
-        },
-        value: {
-          html: renderObject(props, userIsAdmin)
-        },
-        actions: {
-          items: [
-            {
-              href: `/create/resources/detail/${type}/${uuid}`,
-              text: 'Edit'
-            },
-            {
-              href: `/create/resources/detail/${type}/${uuid}/remove`,
-              text: 'Remove'
-            }
-          ]
-        }
-      }))
+      return entries
+        .map(([uuid, res]) => [uuid, formatResource(res, userIsAdmin)])
+        .map(([uuid, { name, ...props }]) => ({
+          key: {
+            text: name
+          },
+          value: {
+            html: renderObject(props, userIsAdmin)
+          },
+          actions: {
+            items: [
+              {
+                href: `/create/resources/detail/${type}/${uuid}`,
+                text: 'Edit'
+              },
+              {
+                href: `/create/resources/detail/${type}/${uuid}/remove`,
+                text: 'Remove'
+              }
+            ]
+          }
+        }))
     }
 
     return [
@@ -86,13 +88,12 @@ function resourcesToRows(userIsAdmin) {
   }
 }
 
-function renderObject(obj, userIsAdmin) {
+function renderObject(obj) {
   return `<table class="table--embedded">${Object.entries(obj)
-    .filter(([field]) => field !== 'environments' || userIsAdmin)
     .map(
       ([field, value]) => `<tr>
     <th>${formatText(field).replaceAll('-', ' ')}</th>
-    <td>${typeof value === 'object' ? renderObject(value, userIsAdmin) : value}</td>
+    <td>${typeof value === 'object' ? renderObject(value) : value}</td>
   </tr>`
     )
     .join('')}</table>`

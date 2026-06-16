@@ -43,3 +43,16 @@ export function getBasketResourceList(basket, type) {
   const typeValues = basket[type]
   return Object.entries(typeValues).map(([_, resource]) => resource)
 }
+
+export function formatResource(resource, userIsAdmin) {
+  const res = { ...resource }
+  if (!userIsAdmin && resource.environments) {
+    delete res.environments
+  }
+
+  if (res.name && res.fifo) {
+    res.name = `${res.name}.fifo`
+  }
+
+  return res
+}
