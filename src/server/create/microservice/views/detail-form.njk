@@ -166,6 +166,14 @@
               </p>
             {% endif %}
 
+            {% if hasScope("permission:restrictedTechJava") %}
+              <p class="govuk-!-margin-bottom-0">
+                <a class="app-link" href="https://github.com/DEFRA/cdp-java-backend-template" target="_blank"
+                   rel="noopener noreferrer">
+                  Java Backend</a> - Java API service + MongoDB
+              </p>
+            {% endif %}
+
           </section>
         {% endcall %}
       </div>
