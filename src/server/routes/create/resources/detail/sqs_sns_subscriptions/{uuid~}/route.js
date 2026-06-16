@@ -117,7 +117,7 @@ export function register(routePath) {
                 component: 'selectField',
                 suggestions: createEnvironmentOptions
               })
-              .default('tenants')
+              .default('tenant')
               .required()
           })
         },
