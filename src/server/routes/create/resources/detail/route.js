@@ -57,6 +57,10 @@ export async function POST(request, h) {
 
     // return h.redirect('/create/resources/detail')
   } catch (error) {
+    if (error?.data?.res.statusCode === 400) {
+      return error.data.payload
+    }
+
     request.yar.flash(
       sessionNames.globalValidationFailures,
       'Failed to submit request: ' + error
