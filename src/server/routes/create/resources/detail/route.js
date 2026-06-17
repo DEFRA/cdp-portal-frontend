@@ -100,7 +100,7 @@ function resourcesToRows(userIsAdmin) {
             text: name
           },
           value: {
-            html: renderObject(props, userIsAdmin)
+            html: renderObject(props)
           },
           actions: {
             items: [
