@@ -81,7 +81,7 @@ export default async function (request) {
   }
 
   function apigwMetricLink(metrics = [], type) {
-    return metrics.find((url) => url.endsWith(type))
+    return metrics.find(({ scope }) => scope === type)?.url
   }
 
   return {
