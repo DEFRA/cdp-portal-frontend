@@ -73,10 +73,11 @@ export async function POST(request, h) {
         }))
       })
     } else {
-      request.yar.flash(
-        sessionNames.globalValidationFailures,
-        'Failed to submit request: ' + error?.data?.payload?.message ?? error
-      )
+      return error.data
+      // request.yar.flash(
+      //   sessionNames.globalValidationFailures,
+      //   'Failed to submit request: ' + error?.data?.payload?.message ?? error
+      // )
     }
 
     return h.redirect('/create/resources/detail')
