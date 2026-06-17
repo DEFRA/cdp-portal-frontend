@@ -54,6 +54,12 @@ export function formatBasketResource(resource, userIsAdmin) {
     res.name = `${res.name}.fifo`
   }
 
+  if (!res.fifo) {
+    delete res.contentDeduplication
+    delete res.deduplicationScope
+    delete res.fifoThroughputLimit
+  }
+
   return res
 }
 
