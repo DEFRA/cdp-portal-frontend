@@ -4,6 +4,7 @@ import Joi from 'joi'
 import handleNoBasket from '../../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../../ext/provideLayoutContext.js'
 import {
+  formatBasketResource,
   getBasketResource,
   removeBasketResource,
   Resources
@@ -33,14 +34,10 @@ export function register(routePath) {
 
           const userIsAdmin = await request.userIsAdmin()
 
-          if (!userIsAdmin) {
-            delete resource.environments
-          }
-
           return Joi.object({
             summary: Joi.object()
               .label('Resource details')
-              .default(resource)
+              .default(formatBasketResource(resource, userIsAdmin))
               .meta({ component: 'summaryField' })
           })
         },

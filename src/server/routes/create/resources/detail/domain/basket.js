@@ -43,3 +43,31 @@ export function getBasketResourceList(basket, type) {
   const typeValues = basket[type]
   return Object.entries(typeValues).map(([_, resource]) => resource)
 }
+
+export function formatBasketResource(resource, userIsAdmin) {
+  const res = { ...resource }
+  if (!userIsAdmin && resource.environments) {
+    delete res.environments
+  }
+
+  if (res.name && res.fifo) {
+    res.name = `${res.name}.fifo`
+  }
+
+  if (!res.fifo) {
+    delete res.contentDeduplication
+    delete res.deduplicationScope
+    delete res.fifoThroughputLimit
+  }
+
+  return res
+}
+
+export function serializeBasket(basket) {
+  return Object.fromEntries(
+    Object.entries(basket).map(([type, resources]) => [
+      type,
+      Object.entries(resources).map(([_, props]) => props)
+    ])
+  )
+}

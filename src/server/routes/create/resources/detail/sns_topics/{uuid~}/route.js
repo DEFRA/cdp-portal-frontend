@@ -72,7 +72,7 @@ export function register(routePath) {
               .required(),
 
             contentDeduplication: Joi.boolean()
-              .label('Content based deduplication')
+              .label('Content deduplication (FIFO only)')
               .default(false)
               .required(),
 

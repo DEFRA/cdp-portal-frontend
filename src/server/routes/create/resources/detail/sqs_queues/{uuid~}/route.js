@@ -8,6 +8,8 @@ import Joi from 'joi'
 import handleNoBasket from '../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../ext/provideLayoutContext.js'
 import createEnvironmentOptions from '../../domain/create-environment-options.js'
+import deduplicationScopeOptions from '../../domain/deduplication-scope-options.js'
+import fifoThroughputLimitOptions from '../../domain/fifo-throughput-limit-options.js'
 import {
   Resources,
   getBasketResource,
@@ -42,41 +44,10 @@ export function register(routePath) {
             []
           const entityOptions = buildOptions(entityNames)
 
-          const options = {
-            messageRetention: Joi.number()
-              .label('Message retention')
-              .default(14)
-              .min(0)
-              .max(14)
-              .required()
-              .meta({ suffix: 'days', classes: 'govuk-input--width-10' }),
-
-            visibilityTimeout: Joi.number()
-              .label('Visibility Timeout')
-              .default(60)
-              .min(0)
-              .max(43200)
-              .required()
-              .meta({ suffix: 'seconds', classes: 'govuk-input--width-10' }),
-
-            receiveWaitTime: Joi.number()
-              .label('Receive wait time')
-              .default(20)
-              .min(0)
-              .max(20)
-              .required()
-              .meta({ suffix: 'seconds', classes: 'govuk-input--width-10' }),
-
-            contentDeduplication: Joi.boolean()
-              .label('Content based deduplication')
-              .default(false)
-              .required()
-          }
-
           return Joi.object({
             service: repositoryNameValidation
               .label('Owning service')
-              .description('Select the microservice to add the topic to')
+              .description('Select the microservice to add the topic to.')
               .valid(...serviceNames)
               .messages({ 'any.only': 'Select a service' })
               .meta({
@@ -87,12 +58,20 @@ export function register(routePath) {
             name: Joi.string()
               .label('Queue name')
               .description(
-                'When requesting a FIFO queue <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
+                'When requesting a FIFO queue <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>.'
               )
               .min(3)
-              .max(75)
+              .max(256)
               .regex(/^[a-z0-9][a-z0-9-_]+[a-z0-9]$/)
               .required(),
+
+            visibilityTimeout: Joi.number()
+              .label('Visibility Timeout')
+              .default(60)
+              .min(0)
+              .max(43200)
+              .required()
+              .meta({ suffix: 'seconds', classes: 'govuk-input--width-10' }),
 
             fifo: Joi.boolean()
               .label('Fifo topic')
@@ -104,19 +83,48 @@ export function register(routePath) {
               .default(false)
               .required(),
 
-            queueOptions: Joi.object(options).label('Queue options').required(),
+            contentDeduplication: Joi.boolean()
+              .label('Content deduplication (FIFO only)')
+              .default(false)
+              .required(),
 
-            deadLetterQueueOptions: Joi.object({
-              ...options,
-              maxReceiveCount: Joi.number()
-                .label('Max Receive Count')
-                .default(3)
-                .min(1)
-                .max(10)
-                .required()
-                .meta({ classes: 'govuk-input--width-10' })
-            })
-              .label('Dead letter queue options')
+            deduplicationScope: Joi.string()
+              .label('Deduplication Scope (FIFO only)')
+              .default(false)
+              .required()
+              .valid(...deduplicationScopeOptions.map(({ value }) => value))
+              .meta({
+                component: 'selectField',
+                suggestions: deduplicationScopeOptions
+              }),
+
+            fifoThroughputLimit: Joi.string()
+              .label('FIFO Throughput Limit (FIFO only)')
+              .default(false)
+              .required()
+              .valid(...fifoThroughputLimitOptions.map(({ value }) => value))
+              .meta({
+                component: 'selectField',
+                suggestions: fifoThroughputLimitOptions
+              }),
+
+            dlqMaxReceiveCount: Joi.number()
+              .label('DLQ Max Receive Count')
+              .description(
+                'The Platform will always create a Dead-Letter Queue with all SQS requests. This queue will have a <strong>-deadletter</strong> suffix.'
+              )
+              .default(3)
+              .min(1)
+              .max(10)
+              .required()
+              .meta({ classes: 'govuk-input--width-10' }),
+
+            redriveAllowPolicyByQueue: Joi.boolean()
+              .label('Redrive Allow Policy by Queue')
+              .description(
+                "When enabled, the dead-letter queue is restricted so that only this queue's source queue may redrive messages to it."
+              )
+              .default(false)
               .required(),
 
             environments: Joi.string()

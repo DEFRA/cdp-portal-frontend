@@ -35,6 +35,10 @@ function provideFormContextValues(sessionName = null) {
       if (validationFailure?.formErrors) {
         response.source.context.formErrors = validationFailure?.formErrors
       }
+
+      if (validationFailure?.formMessages) {
+        response.source.context.formMessages = validationFailure?.formMessages
+      }
     }
 
     return h.continue

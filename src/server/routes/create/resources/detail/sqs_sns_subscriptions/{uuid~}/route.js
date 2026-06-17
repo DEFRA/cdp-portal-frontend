@@ -11,6 +11,7 @@ import createEnvironmentOptions from '../../domain/create-environment-options.js
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 import {
   Resources,
+  formatBasketResource,
   getBasketResource,
   getBasketResourceList,
   updateBasketResource
@@ -167,45 +168,47 @@ export function register(routePath) {
 
 async function getQueues(serviceName, basket) {
   const resources = (await fetchResources(serviceName)) ?? {}
-  const existingQueues = [
-    ...new Set(
-      Object.entries(resources)
-        .map(([_, config]) =>
-          config?.sqs_queues?.map((resource) => resource.name)
-        )
-        .flat()
-    )
-  ]
+  const existingQueues = dedup(
+    Object.entries(resources)
+      .map(([_, config]) =>
+        config?.sqs_queues?.map((resource) => resource.name)
+      )
+      .flat()
+  )
 
   const inBasketQueues =
     getBasketResourceList(basket, Resources.sqsQueues)
       .filter(({ service }) => service === serviceName)
+      .map((res) => formatBasketResource(res))
       .map(({ name }) => name) ?? []
 
-  return [...existingQueues, ...inBasketQueues].sort(sortByName)
+  return dedup([...existingQueues, ...inBasketQueues]).sort(sortByName)
 }
 
 async function getTopics(serviceName, basket) {
   const resources = (await fetchResources(serviceName)) ?? {}
-  const existingTopics = [
-    ...new Set(
-      Object.entries(resources)
-        .map(([_, config]) =>
-          config?.sns_topics?.map((resource) => resource.name)
-        )
-        .flat()
-    )
-  ]
+  const existingTopics = dedup(
+    Object.entries(resources)
+      .map(([_, config]) =>
+        config?.sns_topics?.map((resource) => resource.name)
+      )
+      .flat()
+  )
 
   const inBasketTopics =
     getBasketResourceList(basket, Resources.snsTopics)
       .filter(({ service }) => service === serviceName)
+      .map((res) => formatBasketResource(res))
       .map(({ name }) => name) ?? []
 
-  return [...existingTopics, ...inBasketTopics].sort(sortByName)
+  return dedup([...existingTopics, ...inBasketTopics]).sort(sortByName)
 }
 
 function normalize(fieldValue) {
   if (Array.isArray(fieldValue)) return fieldValue.at(0)
   return fieldValue
+}
+
+function dedup(arr) {
+  return [...new Set(arr)]
 }

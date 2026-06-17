@@ -1,6 +1,6 @@
 {% extends "layouts/page.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block content %}
   {{ appStepNavigation({
@@ -9,7 +9,7 @@
     "steps":[
       {"url":"/create/choose-kind","isComplete":true,"isCurrent":false,"text":"Create"},
       {"url":"/create/resources/detail","isCurrent":true,"text":"Details"},
-      {"url":"/create/resouces/summary","isCurrent":false,"text":"Summary"}
+      {"isCurrent":false,"text":"Summary"}
     ]
   }) }}
 
@@ -23,6 +23,15 @@
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+
+        {% if (formMessages) %}
+          {{ govukErrorSummary({
+            titleText: "Please resolve the following issues",
+            errorList: formMessages,
+            disableAutoFocus: true
+          }) }}
+        {% endif %}
+
         <form method="post" data-js="app-form-errors"
               class="govuk-!-margin-bottom-4">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
