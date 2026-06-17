@@ -1,6 +1,5 @@
 {% extends "layouts/page.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block content %}
   {{ appStepNavigation({
@@ -25,6 +24,11 @@
       <div class="govuk-grid-column-two-thirds-from-desktop-wide">
 
         {{ resourcesRequest | dump }}
+        {{ govukSummaryList({
+          classes: "govuk-!-margin-bottom-9",
+          rows: requestDetails,
+          attributes: { 'data-testid': 'govuk-summary-list' }
+        }) }}
 
       </div>
 

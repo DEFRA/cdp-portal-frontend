@@ -55,21 +55,13 @@ export async function POST(request, h) {
   request.logger.info(resourceRequest, 'Request resources:')
 
   try {
-    // const { payload } = await request.authedFetchJson(
-    //   `${config.get('portalBackendUrl')}/resources`,
-    //   {
-    //     method: 'post',
-    //     payload: resourceRequest
-    //   }
-    // )
-
-    const payload = {
-      workflow_run_id: 27618916186,
-      run_url:
-        'https://api.github.com/repos/DEFRA/cdp-tenant-config/actions/runs/27618916186',
-      html_url:
-        'https://github.com/DEFRA/cdp-tenant-config/actions/runs/27618916186'
-    }
+    const { payload } = await request.authedFetchJson(
+      `${config.get('portalBackendUrl')}/resources`,
+      {
+        method: 'post',
+        payload: resourceRequest
+      }
+    )
 
     request.yar.set(sessionNames.resourcesRequest, {
       basket,
