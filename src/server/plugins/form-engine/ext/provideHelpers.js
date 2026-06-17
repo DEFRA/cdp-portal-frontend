@@ -64,11 +64,11 @@ function renderObject(obj) {
       .map(
         ([field, value]) => `<tr>
     <th>${formatText(field).replaceAll('-', ' ')}</th>
-    <td>${typeof value === 'object' ? renderObject(value) : value}</td>
+    <td>${renderObject(value)}</td>
   </tr>`
       )
       .join('')}</table>`
   } else {
-    return obj
+    return obj.toString()
   }
 }
