@@ -9,7 +9,7 @@ import handleNoBasket from '../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../ext/provideLayoutContext.js'
 import createEnvironmentOptions from '../../domain/create-environment-options.js'
 import deduplicationScopeOptions from '../../domain/deduplication-scope-options.js'
-import fifoThroughputLimitOptions from '../..domain/fifo-throughput-limit-options.js'
+import fifoThroughputLimitOptions from '../../domain/fifo-throughput-limit-options.js'
 import {
   Resources,
   getBasketResource,
@@ -47,7 +47,7 @@ export function register(routePath) {
           return Joi.object({
             service: repositoryNameValidation
               .label('Owning service')
-              .description('Select the microservice to add the topic to')
+              .description('Select the microservice to add the topic to.')
               .valid(...serviceNames)
               .messages({ 'any.only': 'Select a service' })
               .meta({
@@ -58,12 +58,20 @@ export function register(routePath) {
             name: Joi.string()
               .label('Queue name')
               .description(
-                'When requesting a FIFO queue <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
+                'When requesting a FIFO queue <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>.'
               )
               .min(3)
               .max(256)
               .regex(/^[a-z0-9][a-z0-9-_]+[a-z0-9]$/)
               .required(),
+
+            visibilityTimeout: Joi.number()
+              .label('Visibility Timeout')
+              .default(60)
+              .min(0)
+              .max(43200)
+              .required()
+              .meta({ suffix: 'seconds', classes: 'govuk-input--width-10' }),
 
             fifo: Joi.boolean()
               .label('Fifo topic')
@@ -75,16 +83,8 @@ export function register(routePath) {
               .default(false)
               .required(),
 
-            visibilityTimeout: Joi.number()
-              .label('Visibility Timeout')
-              .default(60)
-              .min(0)
-              .max(43200)
-              .required()
-              .meta({ suffix: 'seconds', classes: 'govuk-input--width-10' }),
-
             contentDeduplication: Joi.boolean()
-              .label('Content based deduplication (FIFO only)')
+              .label('Content deduplication (FIFO only)')
               .default(false)
               .required(),
 
@@ -111,13 +111,21 @@ export function register(routePath) {
             dlqMaxReceiveCount: Joi.number()
               .label('DLQ Max Receive Count')
               .description(
-                'The Platform will always create a Dead-Letter Queue with all SQS requests. These queue will have a <strong>-deadletter</strong> suffix.'
+                'The Platform will always create a Dead-Letter Queue with all SQS requests. This queue will have a <strong>-deadletter</strong> suffix.'
               )
               .default(3)
               .min(1)
               .max(10)
               .required()
               .meta({ classes: 'govuk-input--width-10' }),
+
+            redriveAllowPolicyByQueue: Joi.boolean()
+              .label('Redrive Allow Policy by Queue')
+              .description(
+                "When enabled, the dead-letter queue is restricted so that only this queue's source queue may redrive messages to it."
+              )
+              .default(false)
+              .required(),
 
             environments: Joi.string()
               .label('Environments')
