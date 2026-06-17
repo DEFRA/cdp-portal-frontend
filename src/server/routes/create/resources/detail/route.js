@@ -55,16 +55,29 @@ export async function POST(request, h) {
   request.logger.info(resourceRequest, 'Request resources:')
 
   try {
-    const { payload } = await request.authedFetchJson(
-      `${config.get('portalBackendUrl')}/resources`,
-      {
-        method: 'post',
-        payload: resourceRequest
-      }
-    )
-    return payload
+    // const { payload } = await request.authedFetchJson(
+    //   `${config.get('portalBackendUrl')}/resources`,
+    //   {
+    //     method: 'post',
+    //     payload: resourceRequest
+    //   }
+    // )
 
-    // return h.redirect('/create/resources/detail')
+    const payload = {
+      workflow_run_id: 27618916186,
+      run_url:
+        'https://api.github.com/repos/DEFRA/cdp-tenant-config/actions/runs/27618916186',
+      html_url:
+        'https://github.com/DEFRA/cdp-tenant-config/actions/runs/27618916186'
+    }
+
+    request.yar.set(sessionNames.resourcesRequest, {
+      basket,
+      workflow: payload
+    })
+    await request.yar.commit(h)
+
+    return h.redirect('/create/resources/summary')
   } catch (error) {
     if (error?.data?.res.statusCode === 400 && error.data.payload?.errors) {
       request.yar.flash(sessionNames.validationFailure, {
@@ -73,11 +86,10 @@ export async function POST(request, h) {
         }))
       })
     } else {
-      return error.data
-      // request.yar.flash(
-      //   sessionNames.globalValidationFailures,
-      //   'Failed to submit request: ' + error?.data?.payload?.message ?? error
-      // )
+      request.yar.flash(
+        sessionNames.globalValidationFailures,
+        'Failed to submit request: ' + error?.data?.payload?.message ?? error
+      )
     }
 
     return h.redirect('/create/resources/detail')

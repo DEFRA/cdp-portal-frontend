@@ -1,0 +1,36 @@
+{% extends "layouts/page.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block content %}
+  {{ appStepNavigation({
+    "classes":"app-step-navigation--slim",
+    "width":50,
+    "steps":[
+      {"isComplete":true,"isCurrent":false,"text":"Create"},
+      {"isComplete":true,"isCurrent":false,"text":"Details"},
+      {"isCurrent":true,"text":"Summary"}
+    ]
+  }) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appPageHeading({
+      caption: "Create resources",
+      text: "Summary",
+      intro: 'View the resources creation request'
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+
+        {{ resourcesRequest | dump }}
+
+      </div>
+
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

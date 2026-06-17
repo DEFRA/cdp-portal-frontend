@@ -9,6 +9,7 @@ const sessionNames = {
   referrer: 'referrer',
   validationFailure: 'validationFailure',
   resourcesBasket: 'resourcesBasket',
+  resourcesRequest: 'resourcesRequest',
   xhrRefresh: 'xhrRefresh'
 }
 
