@@ -71,10 +71,12 @@ export function register(routePath) {
               .default(false)
               .required(),
 
-            contentDeduplication: Joi.boolean()
-              .label('Content deduplication (FIFO only)')
-              .default(false)
-              .required(),
+            contentDeduplication: Joi.when('fifo', {
+              then: Joi.boolean()
+                .label('Content deduplication (FIFO only)')
+                .default(false)
+                .required()
+            }),
 
             environments: Joi.string()
               .label('Environments')

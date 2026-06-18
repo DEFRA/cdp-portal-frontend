@@ -24,12 +24,17 @@
 
         {% for name, def in fields %}
 
-          {{ resolveFormComponent(def)({
-            name: name,
-            def: def,
-            formValues: formValues,
-            formErrors: formErrors
-          }, helpers) }}
+          {% if not def.whens %}
+
+            {{ resolveFormComponent(def)({
+              name: name,
+              def: def,
+              formValues: formValues,
+              formErrors: formErrors,
+              conditionalFields: resolveConditionalFields(name, def)
+            }, helpers) }}
+
+          {% endif %}
 
         {% endfor %}
 
