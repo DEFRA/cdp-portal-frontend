@@ -158,6 +158,9 @@ function getDefaults(formDefinition) {
       if (def.keys) {
         return [name, getDefaults(def)]
       }
+      if (def.whens) {
+        return [name, def.whens?.at(0)?.then?.flags?.default]
+      }
       return [name, def.flags?.default]
     })
   )

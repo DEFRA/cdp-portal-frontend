@@ -9,9 +9,8 @@
       {{ resolveFormComponent(def.whens[0].then)({
         name: name,
         def: def.whens[0].then,
-        formValues: formValues,
-        formErrors: formErrors,
-        conditionalFields: {}
+        formValues: params.formValues,
+        formErrors: params.formErrors
       }, helpers) }}
     {% endset -%}
     {% set trueConditionalHtml = trueConditionalHtml + html %}
@@ -21,7 +20,7 @@
   {{ govukRadios({
     id: params.name,
     name: params.name,
-    classes: "govuk-radios--inline govuk-radios--small " + helpers.resolveMeta(params.def, 'classes'),
+    classes: "govuk-radios--small " + helpers.resolveMeta(params.def, 'classes'),
     fieldset: {
       legend: {
         text: helpers.resolveLabel(params.def, params.name),
