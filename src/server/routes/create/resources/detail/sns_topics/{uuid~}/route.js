@@ -73,7 +73,7 @@ export function register(routePath) {
 
             contentDeduplication: Joi.when('fifo', {
               then: Joi.boolean()
-                .label('Content deduplication (FIFO only)')
+                .label('Content deduplication')
                 .default(false)
                 .required()
             }),

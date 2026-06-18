@@ -66,7 +66,7 @@ export function register(routePath) {
               .required(),
 
             visibilityTimeout: Joi.number()
-              .label('Visibility Timeout')
+              .label('Visibility timeout')
               .default(60)
               .min(0)
               .max(43200)
@@ -83,33 +83,39 @@ export function register(routePath) {
               .default(false)
               .required(),
 
-            contentDeduplication: Joi.boolean()
-              .label('Content deduplication (FIFO only)')
-              .default(false)
-              .required(),
+            contentDeduplication: Joi.when('fifo', {
+              then: Joi.boolean()
+                .label('Content deduplication')
+                .default(false)
+                .required()
+            }),
 
-            deduplicationScope: Joi.string()
-              .label('Deduplication Scope (FIFO only)')
-              .default(false)
-              .required()
-              .valid(...deduplicationScopeOptions.map(({ value }) => value))
-              .meta({
-                component: 'selectField',
-                suggestions: deduplicationScopeOptions
-              }),
+            deduplicationScope: Joi.when('fifo', {
+              then: Joi.string()
+                .label('Deduplication scope')
+                .default('')
+                .required()
+                .valid(...deduplicationScopeOptions.map(({ value }) => value))
+                .meta({
+                  component: 'selectField',
+                  suggestions: deduplicationScopeOptions
+                })
+            }),
 
-            fifoThroughputLimit: Joi.string()
-              .label('FIFO Throughput Limit (FIFO only)')
-              .default(false)
-              .required()
-              .valid(...fifoThroughputLimitOptions.map(({ value }) => value))
-              .meta({
-                component: 'selectField',
-                suggestions: fifoThroughputLimitOptions
-              }),
+            fifoThroughputLimit: Joi.when('fifo', {
+              then: Joi.string()
+                .label('Throughput limit')
+                .default(false)
+                .required()
+                .valid(...fifoThroughputLimitOptions.map(({ value }) => value))
+                .meta({
+                  component: 'selectField',
+                  suggestions: fifoThroughputLimitOptions
+                })
+            }),
 
             dlqMaxReceiveCount: Joi.number()
-              .label('DLQ Max Receive Count')
+              .label('DLQ max receive count')
               .description(
                 'The Platform will always create a Dead-Letter Queue with all SQS requests. This queue will have a <strong>-deadletter</strong> suffix.'
               )
@@ -120,7 +126,7 @@ export function register(routePath) {
               .meta({ classes: 'govuk-input--width-10' }),
 
             redriveAllowPolicyByQueue: Joi.boolean()
-              .label('Redrive Allow Policy by Queue')
+              .label('Redrive allow policy by queue')
               .description(
                 "When enabled, the dead-letter queue is restricted so that only this queue's source queue may redrive messages to it."
               )
