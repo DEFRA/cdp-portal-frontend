@@ -87,7 +87,8 @@ export function register(routePath) {
               then: Joi.boolean()
                 .label('Content deduplication')
                 .default(false)
-                .required()
+                .required(),
+              otherwise: Joi.any().strip()
             }),
 
             deduplicationScope: Joi.when('fifo', {
@@ -99,7 +100,8 @@ export function register(routePath) {
                 .meta({
                   component: 'selectField',
                   suggestions: deduplicationScopeOptions
-                })
+                }),
+              otherwise: Joi.any().strip()
             }),
 
             fifoThroughputLimit: Joi.when('fifo', {
@@ -111,7 +113,8 @@ export function register(routePath) {
                 .meta({
                   component: 'selectField',
                   suggestions: fifoThroughputLimitOptions
-                })
+                }),
+              otherwise: Joi.any().strip()
             }),
 
             dlqMaxReceiveCount: Joi.number()
