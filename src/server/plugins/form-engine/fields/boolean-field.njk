@@ -1,6 +1,23 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% macro booleanField(params, helpers) %}
+  {% set trueConditionalHtml = '' %}
+
+  {% for name, def in params.conditionalFields %}
+
+    {% set html %}
+      {{ resolveFormComponent(def.whens[0].then)({
+        name: name,
+        def: def.whens[0].then,
+        formValues: formValues,
+        formErrors: formErrors,
+        conditionalFields: {}
+      }, helpers) }}
+    {% endset -%}
+    {% set trueConditionalHtml = trueConditionalHtml + html %}
+
+  {% endfor %}
+
   {{ govukRadios({
     id: params.name,
     name: params.name,
@@ -23,7 +40,10 @@
       {
         value: true,
         text: "Yes",
-        checked: params.formValues[params.name] == true or params.formValues[params.name] == "true"
+        checked: params.formValues[params.name] == true or params.formValues[params.name] == "true",
+        conditional: {
+          html: trueConditionalHtml
+        }
       },
       {
         value: false,

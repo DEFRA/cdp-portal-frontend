@@ -65,7 +65,10 @@ export default {
           fields: formDefinition.keys,
           layout,
           formValues,
-          actions: resolvedActions
+          actions: resolvedActions,
+          resolveConditionalFields: resolveConditionalFields(
+            formDefinition.keys
+          )
         })
       }
     })
@@ -127,6 +130,17 @@ export function resolveFormComponent(def) {
     defaultComponent(def)
 
   return this.ctx[component] ?? this.ctx.string
+}
+
+function resolveConditionalFields(fields) {
+  const conditionals = Object.groupBy(
+    Object.entries(fields).filter(([_, def]) => def.whens),
+    ([_, def]) => def.whens.at(0).ref.path.at(0)
+  )
+
+  return (name, def) => {
+    return Object.fromEntries(conditionals[name] ?? [])
+  }
 }
 
 function defaultComponent(def) {
