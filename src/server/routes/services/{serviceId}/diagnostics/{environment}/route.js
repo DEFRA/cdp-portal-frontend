@@ -80,12 +80,17 @@ export default async function (request) {
     return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/view/${entity.name}-${type}`
   }
 
+  function apigwMetricLink(metrics = [], type) {
+    return metrics.find(({ scope }) => scope === type)?.url
+  }
+
   return {
     environment,
     serviceDeployedInEnvironment,
     resources,
     renderLinks,
     logViewUrl,
+    apigwMetricLink,
     breadcrumbs: [
       {
         text: 'Services',
