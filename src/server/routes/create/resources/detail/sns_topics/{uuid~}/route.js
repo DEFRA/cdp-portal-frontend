@@ -75,7 +75,8 @@ export function register(routePath) {
               then: Joi.boolean()
                 .label('Content deduplication')
                 .default(false)
-                .required()
+                .required(),
+              otherwise: Joi.any().strip()
             }),
 
             environments: Joi.string()

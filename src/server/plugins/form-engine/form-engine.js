@@ -58,7 +58,7 @@ export default {
 
         const formValues =
           refreshFormValues ??
-          createNested(loaded ?? getDefaults(formDefinition))
+          createNested({ ...getDefaults(formDefinition), ...(loaded ?? {}) })
         const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {
@@ -93,8 +93,11 @@ export default {
 
         const validationResult = formSchema.validate(expandNested(formValues), {
           abortEarly: false,
-          stripUnknown: true,
-          convert: true
+          convert: true,
+          stripUnknown: {
+            arrays: true,
+            objects: true
+          }
         })
 
         if (validationResult.error) {
