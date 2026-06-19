@@ -141,7 +141,7 @@ function resolveConditionalFields(fields) {
     ([_, def]) => def.whens.at(0).ref.path.at(0)
   )
 
-  return (name, def) => {
+  return (name) => {
     return Object.fromEntries(conditionals[name] ?? [])
   }
 }
