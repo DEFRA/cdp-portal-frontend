@@ -68,7 +68,7 @@
     "@smithy/property-provider": "4.2.10",
     "blankie": "5.0.0",
     "convict": "6.2.5",
-    "date-fns": "4.1.0",
+    "date-fns": "4.3.0",
     "disinfect": "2.0.0",
     "fast-glob": "3.3.3",
     "get-form-data": "3.0.0",
