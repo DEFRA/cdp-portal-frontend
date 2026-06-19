@@ -76,6 +76,11 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
+          label: 'Diagnostics',
+          url: '/services/cdp-portal-frontend/diagnostics'
+        },
+        {
+          isActive: false,
           label: 'Maintenance',
           url: `/services/${mockServiceName}/maintenance`
         },
@@ -105,7 +110,7 @@ describe('#provideServiceTabs', () => {
           url: `/services/${mockServiceName}/topology`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(8)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(9)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -127,6 +132,11 @@ describe('#provideServiceTabs', () => {
           isActive: false,
           label: 'Automations',
           url: `/services/${mockServiceName}/automations`
+        },
+        {
+          isActive: false,
+          label: 'Diagnostics',
+          url: '/services/cdp-portal-frontend/diagnostics'
         },
         {
           isActive: false,
@@ -229,6 +239,11 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
+          label: 'Diagnostics',
+          url: '/services/cdp-portal-frontend/diagnostics'
+        },
+        {
+          isActive: false,
           label: 'Maintenance',
           url: `/services/${mockServiceName}/maintenance`
         },
@@ -258,7 +273,7 @@ describe('#provideServiceTabs', () => {
           url: `/services/${mockServiceName}/topology`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(8)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(9)
     })
 
     test('Should mark matching url as Active', () => {
@@ -272,6 +287,11 @@ describe('#provideServiceTabs', () => {
           isActive: false,
           label: 'Automations',
           url: `/services/${mockServiceName}/automations`
+        },
+        {
+          isActive: false,
+          label: 'Diagnostics',
+          url: '/services/cdp-portal-frontend/diagnostics'
         },
         {
           isActive: false,
@@ -334,6 +354,11 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
+          label: 'Diagnostics',
+          url: '/services/cdp-portal-frontend/diagnostics'
+        },
+        {
+          isActive: false,
           label: 'Proxy',
           url: `/services/${mockServiceName}/proxy`
         },
@@ -348,7 +373,7 @@ describe('#provideServiceTabs', () => {
           url: `/services/${mockServiceName}/topology`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(4)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -365,6 +390,11 @@ describe('#provideServiceTabs', () => {
           isActive: false,
           label: 'About',
           url: `/services/${mockServiceName}`
+        },
+        {
+          isActive: false,
+          label: 'Diagnostics',
+          url: '/services/cdp-portal-frontend/diagnostics'
         },
         {
           isActive: false,
