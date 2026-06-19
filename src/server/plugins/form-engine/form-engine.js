@@ -58,14 +58,17 @@ export default {
 
         const formValues =
           refreshFormValues ??
-          createNested(loaded ?? getDefaults(formDefinition))
+          createNested({ ...getDefaults(formDefinition), ...(loaded ?? {}) })
         const resolvedActions = await actions(request, h)
 
         return h.view('plugins/form-engine/form', {
           fields: formDefinition.keys,
           layout,
           formValues,
-          actions: resolvedActions
+          actions: resolvedActions,
+          resolveConditionalFields: resolveConditionalFields(
+            formDefinition.keys
+          )
         })
       }
     })
@@ -90,8 +93,11 @@ export default {
 
         const validationResult = formSchema.validate(expandNested(formValues), {
           abortEarly: false,
-          stripUnknown: true,
-          convert: true
+          convert: true,
+          stripUnknown: {
+            arrays: true,
+            objects: true
+          }
         })
 
         if (validationResult.error) {
@@ -129,6 +135,17 @@ export function resolveFormComponent(def) {
   return this.ctx[component] ?? this.ctx.string
 }
 
+function resolveConditionalFields(fields) {
+  const conditionals = Object.groupBy(
+    Object.entries(fields).filter(([_, def]) => def.whens),
+    ([_, def]) => def.whens.at(0).ref.path.at(0)
+  )
+
+  return (name) => {
+    return Object.fromEntries(conditionals[name] ?? [])
+  }
+}
+
 function defaultComponent(def) {
   const type =
     def.type === 'array' && def.items.length === 1
@@ -143,6 +160,9 @@ function getDefaults(formDefinition) {
     Object.entries(formDefinition.keys).map(([name, def]) => {
       if (def.keys) {
         return [name, getDefaults(def)]
+      }
+      if (def.whens) {
+        return [name, def.whens?.at(0)?.then?.flags?.default]
       }
       return [name, def.flags?.default]
     })

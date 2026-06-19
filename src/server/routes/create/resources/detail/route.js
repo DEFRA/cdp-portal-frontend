@@ -52,7 +52,7 @@ export async function POST(request, h) {
 
   const resourceRequest = serializeBasket(basket)
 
-  request.logger.info(resourceRequest, 'Request resources:')
+  request.logger.info(`Requested resources: ${JSON.stringify(resourceRequest)}`)
 
   try {
     const { payload } = await request.authedFetchJson(
@@ -71,6 +71,8 @@ export async function POST(request, h) {
 
     return h.redirect('/create/resources/summary')
   } catch (error) {
+    request.logger.error(error, 'Resources request failed:')
+
     if (error?.data?.res.statusCode === 400 && error.data.payload?.errors) {
       request.yar.flash(sessionNames.validationFailure, {
         formMessages: error.data.payload.errors.map((msg) => ({
