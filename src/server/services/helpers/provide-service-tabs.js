@@ -51,11 +51,7 @@ async function provideServiceTabs(request, h) {
         buildTab(response, request, 'services', 'resources', entityName)
         buildTab(response, request, 'services', 'proxy', entityName)
         buildTab(response, request, 'services', 'topology', entityName)
-
-        if (!isTenant) {
-          // TODO: Allow for tenants
-          buildTab(response, request, 'services', 'diagnostics', entityName)
-        }
+        buildTab(response, request, 'services', 'diagnostics', entityName)
       }
     } else {
       response.source.context.tabDetails.displayTabs = false

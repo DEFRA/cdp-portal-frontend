@@ -34,7 +34,7 @@ export const options = {
   auth: {
     mode: 'required',
     access: {
-      scope: [/* scopes.tenant, */ scopes.admin] // TODO: Enable for tenants
+      scope: [scopes.tenant, scopes.admin]
     }
   }
 }
@@ -50,13 +50,15 @@ export default async function (request) {
   )
 
   const resources = Object.fromEntries(
-    Object.entries(entity.environments[environment]).map(([key, value]) => {
-      if (key === 'metrics') {
-        return [key, { ...Object.groupBy(value, (item) => item.type) }]
-      }
+    Object.entries(entity.environments[environment] ?? {}).map(
+      ([key, value]) => {
+        if (key === 'metrics') {
+          return [key, { ...Object.groupBy(value, (item) => item.type) }]
+        }
 
-      return [key, value]
-    })
+        return [key, value]
+      }
+    )
   )
 
   const bucket = config.get('documentation.bucket')
