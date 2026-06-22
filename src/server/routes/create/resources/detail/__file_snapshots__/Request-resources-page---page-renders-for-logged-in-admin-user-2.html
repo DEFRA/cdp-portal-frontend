@@ -437,10 +437,23 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
+          
 
-          <button type="submit" class="govuk-button app-button" data-module="govuk-button">
-  Submit request
-</button>
+
+<span class="app-button__container">
+  <button class="govuk-button app-button "
+data-loader="request-button"          data-js="app-button"
+          data-testid="app-button">
+    Submit request
+  </button>
+
+    <span class="app-loader"
+      data-testid="app-loader"
+data-js="request-button">
+</span>
+
+</span>
+
 
         </form>
       </div>

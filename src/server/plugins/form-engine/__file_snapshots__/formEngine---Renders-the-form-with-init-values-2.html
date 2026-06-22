@@ -93,9 +93,23 @@
 </fieldset>
 
       <div class="govuk-button-group">
-            <button value="submit" type="submit" name="actionButton" class="govuk-button app-button undefined" data-module="govuk-button">
-  Submit
-</button>
+            
+
+
+<span class="app-button__container">
+  <button class="govuk-button app-button "
+name="actionButton"value="submit"data-loader="action-button"          data-js="app-button"
+          data-testid="app-button">
+    Submit
+  </button>
+
+    <span class="app-loader"
+      data-testid="app-loader"
+data-js="action-button">
+</span>
+
+</span>
+
             <a class="app-link "  href="/">Cancel</a>
       </div>
 
