@@ -50,11 +50,11 @@
               text: def.text,
               classes: def.classes,
               loader: {
-                name: "action-button"
+                name: "action-button",
+                hasSiblingButton: actions.length !== 0
               },
               name: 'actionButton',
-              value: 'submit',
-              hasSiblingButton: true
+              value: 'submit'
             }) }}
           {% endif %}
         {% endfor %}
