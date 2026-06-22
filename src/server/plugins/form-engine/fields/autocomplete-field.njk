@@ -18,6 +18,7 @@
     suggestions: helpers.resolveMeta(params.def, 'suggestions'),
     value: params.formValues[params.name],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message),
-    dataJs: helpers.resolveMeta(params.def, 'dataJs')
+    dataJs: helpers.resolveMeta(params.def, 'dataJs'),
+    autoRefreshLoader: helpers.resolveMeta(params.def, 'autoRefreshLoader')
   }) }}
 {% endmacro %}

@@ -1,26 +1,30 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "loader/macro.njk" import appLoader %}
 
 {% macro selectField(params, helpers) %}
-  {{ govukSelect({
-    id: params.name,
-    name: params.name,
-    label: {
-      text: helpers.resolveLabel(params.def, params.name),
-      classes: "app-label"
-    },
-    classes: "app-select " + helpers.resolveMeta(params.def, 'classes'),
-    hint: {
-      text: params.def.flags.description,
-      classes: "app-hint"
-    },
-    formGroup: {
-      classes: "app-form-group app-form-group-js"
-    },
-    items: helpers.resolveMeta(params.def, 'suggestions'),
-    value: params.formValues[params.name],
-    errorMessage: errorMessageHelper(params.formErrors[params.name].message),
-    attributes: {
-      'data-xhr': helpers.resolveMeta(params.def, 'dataXhr') or undefined
-    }
-  }) }}
+  <span style="display: flex; align-items: center">
+    {{ govukSelect({
+      id: params.name,
+      name: params.name,
+      label: {
+        text: helpers.resolveLabel(params.def, params.name),
+        classes: "app-label"
+      },
+      classes: "app-select " + helpers.resolveMeta(params.def, 'classes'),
+      hint: {
+        text: params.def.flags.description,
+        classes: "app-hint"
+      },
+      formGroup: {
+        classes: "app-form-group app-form-group-js"
+      },
+      items: helpers.resolveMeta(params.def, 'suggestions'),
+      value: params.formValues[params.name],
+      errorMessage: errorMessageHelper(params.formErrors[params.name].message),
+      attributes: {
+        'data-xhr': helpers.resolveMeta(params.def, 'dataXhr') or undefined
+      }
+    }) }}
+    {{ appLoader({ name: params.name + '-loader', classes: 'govuk-!-margin-bottom-2 govuk-!-margin-left-2' }) }}
+  </span>
 {% endmacro %}

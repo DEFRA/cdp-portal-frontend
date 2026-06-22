@@ -68,7 +68,8 @@ export function register(routePath) {
               .meta({
                 component: 'autocompleteField',
                 suggestions: entityOptions,
-                dataJs: 'auto-refresh'
+                dataJs: 'auto-refresh',
+                autoRefreshLoader: 'queue-loader'
               }),
 
             queue: Joi.string()
@@ -93,7 +94,8 @@ export function register(routePath) {
               .meta({
                 component: 'autocompleteField',
                 suggestions: entityOptions,
-                dataJs: 'auto-refresh'
+                dataJs: 'auto-refresh',
+                autoRefreshLoader: 'topic-loader'
               }),
 
             topic: Joi.string()
