@@ -1,6 +1,6 @@
-@use "govuk-frontend" as *;
-@use "variables/colours" as *;
-@use "variables/border-radius" as *;
+@use 'govuk-frontend' as *;
+@use 'variables/colours' as *;
+@use 'variables/border-radius' as *;
 
 $compact-label-height: govuk-spacing(4);
 $min-width: 200px;
@@ -56,15 +56,16 @@ $min-grid-cell-width: 100px;
     gap: govuk-spacing(1);
     grid-auto-rows: 1fr;
     margin-bottom: govuk-spacing(3);
-    background-color: govuk-colour("white");
+    background-color: govuk-colour('white');
     border-bottom: 2px solid $app-brand-border-colour-light;
 
     &:last-child {
       border-bottom: none;
     }
 
-    &:hover, &:nth-child(even) {
-      background-color: govuk-colour("white");
+    &:hover,
+    &:nth-child(even) {
+      background-color: govuk-colour('white');
     }
   }
 
@@ -75,10 +76,13 @@ $min-grid-cell-width: 100px;
     height: 100%;
 
     @include govuk-text-colour;
-    word-break: break-word;
+    word-break: normal;
+    overflow-wrap: anywhere;
 
     .app-entity {
-      height: calc(100% - $compact-label-height); // So the height all off all entities in row match
+      height: calc(
+        100% - $compact-label-height
+      ); // So the height all off all entities in row match
     }
 
     &::before {
@@ -165,10 +169,10 @@ $min-grid-cell-width: 100px;
 
   .app-entity-table__row {
     display: table-row;
-    background-color: govuk-colour("white");
+    background-color: govuk-colour('white');
 
     .app-entity-table__cell {
-      border: 1px solid govuk-colour("white");
+      border: 1px solid govuk-colour('white');
     }
 
     &:nth-child(even) {
@@ -182,10 +186,10 @@ $min-grid-cell-width: 100px;
 
   .app-entity-table--inverse {
     .app-entity-table__head {
-      background-color: govuk-colour("white");
+      background-color: govuk-colour('white');
 
       .app-entity-table__heading {
-        background-color: govuk-colour("white");
+        background-color: govuk-colour('white');
       }
     }
 
@@ -199,7 +203,7 @@ $min-grid-cell-width: 100px;
       }
 
       &:nth-child(even) {
-        background-color: govuk-colour("white");
+        background-color: govuk-colour('white');
       }
     }
   }
@@ -231,5 +235,5 @@ $min-grid-cell-width: 100px;
 }
 
 .app-entity-table__row-caption {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('dark-grey');
 }
