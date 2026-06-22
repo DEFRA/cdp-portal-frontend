@@ -1,5 +1,5 @@
-@use "govuk-frontend" as *;
-@use "variables/border-radius" as *;
+@use 'govuk-frontend' as *;
+@use 'variables/border-radius' as *;
 
 $shadow-opacity: 0.8;
 $shadow-opacity-light: 0.4;
@@ -11,6 +11,7 @@ $shadow-opacity-light: 0.4;
   padding: govuk-spacing(1) govuk-spacing(2);
   margin: 0;
   box-shadow: 0 2px 0 rgba(0, 45, 24, $shadow-opacity);
+  vertical-align: inherit;
 }
 
 .app-button--small {
@@ -19,99 +20,99 @@ $shadow-opacity-light: 0.4;
 }
 
 .app-button--primary {
-  background-color: govuk-colour("green");
-  color: govuk-colour("white");
+  background-color: govuk-colour('green');
+  color: govuk-colour('white');
   box-shadow: 0 2px 0 rgba(12, 45, 74, $shadow-opacity);
 
   &:hover {
-    background-color: govuk-shade(govuk-colour("green"), 20%);
+    background-color: govuk-shade(govuk-colour('green'), 20%);
   }
 
   &:link,
   &:active,
   &:visited {
-    color: govuk-colour("white");
+    color: govuk-colour('white');
   }
 }
 
 .app-button--secondary {
-  background-color: govuk-colour("bright-purple");
+  background-color: govuk-colour('bright-purple');
   box-shadow: 0 2px 0 rgba(58, 17, 54, $shadow-opacity);
 
   &:hover {
-    background-color: govuk-shade(govuk-colour("bright-purple"), 20%);
+    background-color: govuk-shade(govuk-colour('bright-purple'), 20%);
   }
 
   &:link,
   &:active,
   &:visited {
-    color: govuk-colour("white");
+    color: govuk-colour('white');
   }
 }
 
 .app-button--tertiary {
-  background-color: govuk-colour("light-grey");
-  color: govuk-colour("black");
+  background-color: govuk-colour('light-grey');
+  color: govuk-colour('black');
   box-shadow: 0 2px 0 rgba(97, 97, 96, $shadow-opacity-light);
 
   &:hover {
-    color: govuk-colour("black");
-    background-color: govuk-shade(govuk-colour("light-grey"), 5%);
+    color: govuk-colour('black');
+    background-color: govuk-shade(govuk-colour('light-grey'), 5%);
   }
 
   &:link,
   &:active,
   &:visited {
-    color: govuk-colour("black");
+    color: govuk-colour('black');
   }
 }
 
 .app-button--significant {
-  background-color: govuk-colour("blue");
-  color: govuk-colour("white");
+  background-color: govuk-colour('blue');
+  color: govuk-colour('white');
   box-shadow: 0 2px 0 rgba(12, 45, 74, $shadow-opacity);
 
   &:hover {
-    background-color: govuk-shade(govuk-colour("blue"), 20%);
+    background-color: govuk-shade(govuk-colour('blue'), 20%);
   }
 
   &:link,
   &:active,
   &:visited {
-    color: govuk-colour("white");
+    color: govuk-colour('white');
   }
 }
 
 .app-button--destructive {
-  background-color: govuk-colour("red");
-  color: govuk-colour("white");
-  box-shadow: 0 2px 0 rgba(85, 21, 11, $shadow-opacity) ;
+  background-color: govuk-colour('red');
+  color: govuk-colour('white');
+  box-shadow: 0 2px 0 rgba(85, 21, 11, $shadow-opacity);
 
   &:hover {
-    background-color: govuk-shade(govuk-colour("red"), 20%);
+    background-color: govuk-shade(govuk-colour('red'), 20%);
   }
 
   &:link,
   &:active,
   &:visited {
-    color: govuk-colour("white");
+    color: govuk-colour('white');
   }
 }
 
 .app-button--hover-destructive {
-  background-color: govuk-colour("light-grey");
-  color: govuk-colour("black");
+  background-color: govuk-colour('light-grey');
+  color: govuk-colour('black');
   box-shadow: 0 2px 0 rgba(97, 97, 96, $shadow-opacity-light);
 
   &:hover {
-    color: govuk-colour("white");
-    background-color: govuk-colour("red");
+    color: govuk-colour('white');
+    background-color: govuk-colour('red');
   }
 
   &:link,
   &:active,
   &:visited {
-    color: govuk-colour("black");
+    color: govuk-colour('black');
   }
 }
 

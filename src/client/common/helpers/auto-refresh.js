@@ -17,7 +17,8 @@ async function refresh(event) {
     return
   }
 
-  const loaderName = $form.dataset.autoRefreshLoader
+  const loaderName =
+    event.target.dataset.autoRefreshLoader ?? $form.dataset.autoRefreshLoader
   const onRefreshHandler = $form.dataset.onRefresh
 
   let loader
