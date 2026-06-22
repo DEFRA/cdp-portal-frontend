@@ -3,7 +3,7 @@
 {# Implmentation of GovUk Button with JavaScript loader, if you don"t need a loader use the standard GovUk Button #}
 
 <span class="app-button__container">
-  <button class="govuk-button app-button"
+  <button class="govuk-button app-button {{ params.classes }}"
     {% if params.name %}name="{{ params.name }}"{% endif %}
     {% if params.value %}value="{{ params.value }}"{% endif %}
     {% if params.loader.name %}data-loader="{{ params.loader.name }}"{% endif %}

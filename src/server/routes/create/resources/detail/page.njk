@@ -57,10 +57,11 @@
 
           {% endfor %}
 
-
-          {{ govukButton({
-            classes: "app-button",
-            text: 'Submit request'
+          {{ appButton({
+            text: 'Submit request',
+            loader: {
+              name: "request-button"
+            }
           }) }}
 
         </form>

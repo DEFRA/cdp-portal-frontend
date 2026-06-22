@@ -45,11 +45,15 @@
           {% if def.url %}
             <a class="app-link {{def.classes}}"  href="{{ def.url }}">{{ def.text }}</a>
           {% else %}
-            {{ govukButton({
-              classes: "app-button " + def.classes,
+            {{ appButton({
               text: def.text,
+              classes: def.classes,
+              loader: {
+                name: "action-button"
+              },
               name: 'actionButton',
-              value: 'submit'
+              value: 'submit',
+              hasSiblingButton: true
             }) }}
           {% endif %}
         {% endfor %}
