@@ -41,6 +41,7 @@ $min-grid-cell-width: 100px;
   // Hide header, we place headings on individual cells on small screens
   .app-entity-table__head {
     border: none;
+    // stylelint-disable-next-line property-no-deprecated
     clip: rect(0 0 0 0);
     height: 1px;
     margin: -1px;
