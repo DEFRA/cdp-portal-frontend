@@ -1,20 +1,21 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .app-entity {
   @include govuk-text-colour;
   display: flex;
   align-items: center;
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 .app-entity-label {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('dark-grey');
   margin-right: govuk-spacing(1);
 }
 
 .app-entity-no-value {
   margin-left: govuk-spacing(1);
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('dark-grey');
 }
 
 .app-entity__list {
