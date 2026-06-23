@@ -3,7 +3,7 @@
 .app-help {
   display: flex;
   align-items: center;
-  border-left: 4px solid govuk-colour('bright-purple');
+  border-left: 4px solid govuk-colour('magenta', $variant: 'shade-25');
   background-color: govuk-colour('black', $variant: 'tint-95');
   margin: govuk-spacing(2) govuk-spacing(0) govuk-spacing(4);
   padding: govuk-spacing(2);
@@ -11,7 +11,7 @@
 
 .app-help-icon {
   margin-right: govuk-spacing(2);
-  fill: govuk-colour('bright-purple');
+  fill: govuk-colour('magenta', $variant: 'shade-25');
 }
 
 .app-help__content {

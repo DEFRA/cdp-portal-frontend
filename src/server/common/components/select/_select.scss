@@ -1,18 +1,18 @@
-@use "govuk-frontend" as *;
-@use "variables/border-radius" as *;
+@use 'govuk-frontend' as *;
+@use 'variables/border-radius' as *;
 
 .app-select {
   min-width: 14em;
   border-radius: $app-border-radius;
-  border: 1px solid govuk-colour("mid-grey");
+  border: 1px solid govuk-colour('black', $variant: 'tint-80');
 
   &:focus {
-    border: 1px solid govuk-colour("black");
+    border: 1px solid govuk-colour('black');
     box-shadow: none;
   }
 
   &.govuk-select--error {
-    border-color: govuk-colour("red");
+    border-color: govuk-colour('red');
   }
 }
 

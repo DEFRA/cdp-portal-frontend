@@ -36,11 +36,14 @@ $shadow-opacity-light: 0.4;
 }
 
 .app-button--secondary {
-  background-color: govuk-colour('bright-purple');
+  background-color: govuk-colour('magenta', $variant: 'shade-25');
   box-shadow: 0 2px 0 rgba(58, 17, 54, $shadow-opacity);
 
   &:hover {
-    background-color: govuk-shade(govuk-colour('bright-purple'), 20%);
+    background-color: govuk-shade(
+      govuk-colour('magenta', $variant: 'shade-25'),
+      20%
+    );
   }
 
   &:link,
