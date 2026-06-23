@@ -1,7 +1,7 @@
 @use 'govuk-frontend' as *;
 @use 'variables/border-radius' as *;
 
-$black-tint: govuk-tint(govuk-colour('black'), 20%);
+$black-tint: govuk-colour('black', 'tint-25');
 
 // Plain text tooltips
 .app-tool-tip {

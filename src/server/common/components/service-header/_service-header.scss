@@ -104,7 +104,7 @@
       text-decoration: underline;
 
       .app-user-icon {
-        background-color: govuk-tint($defra-brand-colour, 20%);
+        background-color: govuk-colour('blue', 'tint-25');
 
         &.app-user-icon--elevated-permissions {
           background-color: govuk-tint(

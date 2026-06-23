@@ -128,7 +128,7 @@
 
   &:hover {
     .app-step-navigation__point--complete {
-      background: govuk-tint(govuk-colour('green'), 40);
+      background: govuk-colour('green', 'tint-50');
     }
 
     .app-step-navigation__heading {
