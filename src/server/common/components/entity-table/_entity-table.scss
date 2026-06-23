@@ -236,5 +236,5 @@ $min-grid-cell-width: 100px;
 }
 
 .app-entity-table__row-caption {
-  color: govuk-colour('dark-grey');
+  color: govuk-colour('black', $variant: 'tint-25');
 }

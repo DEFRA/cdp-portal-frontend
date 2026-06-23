@@ -1,5 +1,5 @@
-@use "govuk-frontend" as *;
-@use "variables/colours" as *;
+@use 'govuk-frontend' as *;
+@use 'variables/colours' as *;
 
 $font-size: 19;
 $chevron-size: govuk-em(7px, $font-size);
@@ -38,16 +38,20 @@ $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
   display: inline-block;
   position: relative;
   margin-left: govuk-em(govuk-spacing(2), $font-size);
-  padding-left: govuk-em(govuk-spacing(2), $font-size) + $chevron-altitude-calculated;
+  padding-left: govuk-em(govuk-spacing(2), $font-size) +
+    $chevron-altitude-calculated;
   float: left;
 
   &::before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 0;
     bottom: 0;
-    left: (($chevron-altitude-calculated * -2) + $chevron-size + $chevron-border-width);
+    left: (
+      ($chevron-altitude-calculated * -2) + $chevron-size +
+        $chevron-border-width
+    );
     width: $chevron-size;
     height: $chevron-size;
     margin: auto 0;
@@ -55,13 +59,16 @@ $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
     border: solid;
     border-width: $chevron-border-min-width $chevron-border-min-width 0 0;
     border-color: $chevron-border-colour;
-    font-size: unquote("max(#{$font-size * 1px}, 1em)");
+    font-size: unquote('max(#{$font-size * 1px}, 1em)');
 
-    @supports (border-width: unquote("max(0px)")) {
-      border-width: unquote("max(#{$chevron-border-min-width}, #{$chevron-border-width}) max(#{$chevron-border-min-width}, #{$chevron-border-width})") 0 0;
+    @supports (border-width: unquote('max(0px)')) {
+      border-width: unquote(
+          'max(#{$chevron-border-min-width}, #{$chevron-border-width}) max(#{$chevron-border-min-width}, #{$chevron-border-width})'
+        )
+        0 0;
 
       // Ensure that the chevron never gets smaller than 16px
-      font-size: unquote("max(#{$font-size * 1px}, 1em)");
+      font-size: unquote('max(#{$font-size * 1px}, 1em)');
     }
   }
 
@@ -76,7 +83,7 @@ $chevron-altitude-calculated: govuk-em(5.655px, $font-size);
   }
 
   &.app-breadcrumbs__list-item--current {
-    color: govuk-colour("dark-grey");
+    color: govuk-colour('black', $variant: 'tint-25');
   }
 }
 

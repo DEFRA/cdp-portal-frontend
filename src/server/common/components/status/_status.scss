@@ -1,4 +1,4 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .app-status-info {
   display: flex;
@@ -11,6 +11,6 @@
 }
 
 .app-status-info__secondary {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('black', $variant: 'tint-25');
   margin-bottom: govuk-spacing(2);
 }

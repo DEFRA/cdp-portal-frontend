@@ -9,13 +9,13 @@
 }
 
 .app-entity-label {
-  color: govuk-colour('dark-grey');
+  color: govuk-colour('black', $variant: 'tint-25');
   margin-right: govuk-spacing(1);
 }
 
 .app-entity-no-value {
   margin-left: govuk-spacing(1);
-  color: govuk-colour('dark-grey');
+  color: govuk-colour('black', $variant: 'tint-25');
 }
 
 .app-entity__list {

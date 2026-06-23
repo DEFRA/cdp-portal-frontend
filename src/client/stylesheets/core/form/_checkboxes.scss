@@ -4,7 +4,7 @@
   margin-top: govuk-spacing(-1);
 
   .govuk-checkboxes__label::before {
-    border: 1px solid govuk-colour('mid-grey');
+    border: 1px solid govuk-colour('black', $variant: 'tint-80');
   }
 
   &.days-of-the-week {

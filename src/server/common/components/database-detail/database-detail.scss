@@ -1,6 +1,6 @@
-@use "govuk-frontend" as *;
-@use "variables/colours" as *;
-@use "variables/border-radius" as *;
+@use 'govuk-frontend' as *;
+@use 'variables/colours' as *;
+@use 'variables/border-radius' as *;
 
 $card-width: 240px;
 $card-height: 180px;
@@ -42,26 +42,26 @@ $card-height: 180px;
   border-radius: $app-border-radius;
   min-height: $card-height;
   min-width: $card-width;
-  background-color: govuk-colour("white");
+  background-color: govuk-colour('white');
 
   &.item-detail--green {
-    @include db-item-colours("green");
+    @include db-item-colours('green');
   }
 
   &.item-detail--purple {
-    @include db-item-colours("bright-purple");
+    @include db-item-colours('bright-purple');
   }
 
   &.item-detail--grey {
-    @include db-item-colours("dark-grey");
+    @include db-item-colours('dark-grey');
   }
 
   &.item-detail--light-blue {
-    @include db-item-colours("blue");
+    @include db-item-colours('blue');
   }
 
   &.item-detail--red {
-    @include db-item-colours("red");
+    @include db-item-colours('red');
   }
 }
 
@@ -94,13 +94,13 @@ $card-height: 180px;
 }
 
 .app-database-detail__label {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('black', $variant: 'tint-25');
 }
 
 .app-database-detail__card--empty {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('black', $variant: 'tint-25');
   border: 1px solid $app-brand-background-colour;
-  background-color: govuk-colour("white");
+  background-color: govuk-colour('white');
 
   .app-database-detail__item--heading {
     border: none;
@@ -110,7 +110,7 @@ $card-height: 180px;
     margin-bottom: 0;
 
     .app-tag {
-      background-color: govuk-colour("white");
+      background-color: govuk-colour('white');
     }
   }
 
