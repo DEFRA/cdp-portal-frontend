@@ -6,17 +6,16 @@ $card-width: 240px;
 $card-height: 180px;
 
 @mixin rs-item-colours($colourName, $variant: primary) {
-  background-color: govuk-tint(govuk-colour($colourName, $variant), 80%);
-  border: 1px solid govuk-tint(govuk-colour($colourName, $variant), 60%);
+  background-color: tint(govuk-colour($colourName, $variant), 80%);
+  border: 1px solid tint(govuk-colour($colourName, $variant), 60%);
 
   .app-tag {
-    background-color: govuk-tint(govuk-colour($colourName, $variant), 60%);
+    background-color: tint(govuk-colour($colourName, $variant), 60%);
   }
 
   .app-running-service__item--heading {
-    background-color: govuk-tint(govuk-colour($colourName, $variant), 70%);
-    border-bottom: 1px solid
-      govuk-tint(govuk-colour($colourName, $variant), 60%);
+    background-color: tint(govuk-colour($colourName, $variant), 70%);
+    border-bottom: 1px solid tint(govuk-colour($colourName, $variant), 60%);
   }
 }
 

@@ -1,4 +1,5 @@
 @use 'govuk-frontend' as *;
+@use 'sass:color';
 
 $defra-brand-colour: govuk-organisation-colour(
   department-for-environment-food-rural-affairs
@@ -7,3 +8,7 @@ $app-brand-background-colour: govuk-colour('blue', $variant: 'tint-80');
 $app-brand-background-colour-light: govuk-colour('blue', $variant: 'tint-95');
 $app-brand-border-colour-light: govuk-colour('blue', $variant: 'tint-80');
 $app-brand-border-colour: govuk-colour('blue', $variant: 'tint-50');
+
+@function tint($colour, $percentage) {
+  @return color.mix(govuk-colour('white'), $colour, $percentage);
+}

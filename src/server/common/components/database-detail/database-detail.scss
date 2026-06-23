@@ -6,22 +6,21 @@ $card-width: 240px;
 $card-height: 180px;
 
 @mixin db-item-colours($colourName, $variant: primary) {
-  background-color: govuk-tint(govuk-colour($colourName, $variant), 80%);
-  border: 1px solid govuk-tint(govuk-colour($colourName, $variant), 60%);
+  background-color: tint(govuk-colour($colourName, $variant), 80%);
+  border: 1px solid tint(govuk-colour($colourName, $variant), 60%);
 
   .app-tag {
-    background-color: govuk-tint(govuk-colour($colourName, $variant), 60%);
+    background-color: tint(govuk-colour($colourName, $variant), 60%);
   }
 
   .app-database-detail__item--heading {
-    background-color: govuk-tint(govuk-colour($colourName, $variant), 70%);
-    border-bottom: 1px solid
-      govuk-tint(govuk-colour($colourName, $variant), 60%);
+    background-color: tint(govuk-colour($colourName, $variant), 70%);
+    border-bottom: 1px solid tint(govuk-colour($colourName, $variant), 60%);
 
     .app-database-detail__item--version {
       .app-icon {
-        fill: govuk-tint(govuk-colour($colourName, $variant), 30%);
-        stroke: govuk-tint(govuk-colour($colourName, $variant), 70%);
+        fill: tint(govuk-colour($colourName, $variant), 30%);
+        stroke: tint(govuk-colour($colourName, $variant), 70%);
       }
     }
   }

@@ -6,8 +6,8 @@ $compact-label-height: govuk-spacing(4);
 $max-width: 300px;
 
 @mixin rs-entity-colours($colourName, $variant: primary) {
-  background-color: govuk-tint(govuk-colour($colourName, $variant), 80%);
-  border: 1px solid govuk-tint(govuk-colour($colourName, $variant), 60%);
+  background-color: tint(govuk-colour($colourName, $variant), 80%);
+  border: 1px solid tint(govuk-colour($colourName, $variant), 60%);
 }
 
 @include govuk-media-query($until: desktop-wide) {
