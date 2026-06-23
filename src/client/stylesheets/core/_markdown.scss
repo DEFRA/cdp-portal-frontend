@@ -1,7 +1,7 @@
-@use "govuk-frontend" as *;
-@use "helpers/link" as *;
-@use "variables/border-radius" as *;
-@use "variables/colours" as *;
+@use 'govuk-frontend' as *;
+@use 'helpers/link' as *;
+@use 'variables/border-radius' as *;
+@use 'variables/colours' as *;
 
 $note: #0969da;
 $important: #8250df;
@@ -71,8 +71,8 @@ $caution: #cf222e;
     @include govuk-link-style-text;
 
     &::before {
-      color: govuk-colour("black");
-      content: "#";
+      color: govuk-colour('black');
+      content: '#';
       display: inline-block;
       @include govuk-font(27);
       text-align: center;
@@ -125,7 +125,7 @@ $caution: #cf222e;
   }
 
   code {
-    padding: .15em .3em;
+    padding: 0.15em 0.3em;
     margin: 0;
     font-size: 85%;
     white-space: break-spaces;
@@ -148,7 +148,7 @@ $caution: #cf222e;
     margin-bottom: govuk-spacing(8);
 
     tr {
-      background-color: govuk-colour("white");
+      background-color: govuk-colour('white');
       border-top: 1px solid $app-brand-background-colour;
     }
 
@@ -159,7 +159,7 @@ $caution: #cf222e;
 
     tbody {
       tr {
-        background-color: govuk-colour("white");
+        background-color: govuk-colour('white');
         border-top: 1px solid $app-brand-background-colour;
 
         &:nth-child(2n) {
@@ -179,10 +179,10 @@ $caution: #cf222e;
   blockquote {
     margin: 0 0 govuk-spacing(4) govuk-spacing(2);
     padding: 0 govuk-spacing(2);
-    border-left: .25em solid $app-brand-border-colour-light;
+    border-left: 0.25em solid $app-brand-border-colour-light;
 
     & * {
-      color: govuk-colour("dark-grey");
+      color: govuk-colour('black', $variant: 'tint-25');
     }
   }
 
@@ -198,7 +198,7 @@ $caution: #cf222e;
     margin-top: govuk-spacing(2);
     margin-bottom: govuk-spacing(4);
     color: inherit;
-    border-left: .25em solid $app-brand-border-colour-light;
+    border-left: 0.25em solid $app-brand-border-colour-light;
     background-color: $app-brand-background-colour-light;
     border-radius: $app-border-radius-right;
 
@@ -208,7 +208,7 @@ $caution: #cf222e;
 
     .markdown-alert-title {
       display: flex;
-      @include govuk-font(19, "bold");
+      @include govuk-font(19, 'bold');
       align-items: center;
       line-height: 1;
       margin-bottom: govuk-spacing(2);

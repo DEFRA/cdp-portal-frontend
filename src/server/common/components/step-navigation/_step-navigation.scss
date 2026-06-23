@@ -1,4 +1,4 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .app-step-navigation-container {
   width: 100%;
@@ -12,7 +12,7 @@
 }
 
 %connecting-line {
-  content: "";
+  content: '';
   position: absolute;
   height: 4px;
   width: 100%;
@@ -30,13 +30,13 @@
 
   &::before {
     @extend %connecting-line;
-    background: govuk-colour("light-grey");
+    background: govuk-colour('black', $variant: 'tint-95');
   }
 
   &::after {
     @extend %connecting-line;
     width: 0;
-    background: govuk-colour("blue");
+    background: govuk-colour('blue');
   }
 }
 
@@ -76,10 +76,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow:
-    0 0 0 2px govuk-colour("white");
+  box-shadow: 0 0 0 2px govuk-colour('white');
 
-  background: govuk-colour("light-grey");
+  background: govuk-colour('black', $variant: 'tint-95');
   user-select: none;
 
   &:hover {
@@ -93,31 +92,29 @@
 }
 
 .app-step-navigation__point--complete {
-  box-shadow:
-    0 0 0 2px govuk-colour("white");
-  background: govuk-colour("green");
+  box-shadow: 0 0 0 2px govuk-colour('white');
+  background: govuk-colour('green');
 
   .app-complete-icon {
-    fill: govuk-colour("white");
+    fill: govuk-colour('white');
     width: 18px;
     height: 18px;
   }
 }
 
 .app-step-navigation__point--current {
-  box-shadow:
-    0 0 0 2px govuk-colour("white");
-  background: govuk-colour("blue");
+  box-shadow: 0 0 0 2px govuk-colour('white');
+  background: govuk-colour('blue');
 }
 
 .app-step-navigation__icon {
-  @include govuk-font(19, "bold");
+  @include govuk-font(19, 'bold');
   display: inline-block;
-  color: govuk-colour("black");
+  color: govuk-colour('black');
 }
 
 .app-step-navigation__heading {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('black', $variant: 'tint-25');
   position: absolute;
   top: 48px;
   left: 50%;
@@ -131,12 +128,12 @@
 
   &:hover {
     .app-step-navigation__point--complete {
-      background: govuk-tint(govuk-colour("green"), 40);
+      background: govuk-tint(govuk-colour('green'), 40);
     }
 
     .app-step-navigation__heading {
       text-decoration: underline;
-      color: govuk-colour("black");
+      color: govuk-colour('black');
     }
   }
 
@@ -149,10 +146,10 @@
 
 .app-step-navigation__item--current {
   .app-step-navigation__icon {
-    color: govuk-colour("white");
+    color: govuk-colour('white');
   }
 
   .app-step-navigation__heading {
-    color: govuk-colour("black");
+    color: govuk-colour('black');
   }
 }

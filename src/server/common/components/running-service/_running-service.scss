@@ -1,6 +1,6 @@
-@use "govuk-frontend" as *;
-@use "variables/colours" as *;
-@use "variables/border-radius" as *;
+@use 'govuk-frontend' as *;
+@use 'variables/colours' as *;
+@use 'variables/border-radius' as *;
 
 $card-width: 240px;
 $card-height: 180px;
@@ -35,26 +35,26 @@ $card-height: 180px;
   border-radius: $app-border-radius;
   min-height: $card-height;
   min-width: $card-width;
-  background-color: govuk-colour("white");
+  background-color: govuk-colour('white');
 
   &.item-detail--green {
-    @include rs-item-colours("green");
+    @include rs-item-colours('green');
   }
 
   &.item-detail--purple {
-    @include rs-item-colours("bright-purple");
+    @include rs-item-colours('bright-purple');
   }
 
   &.item-detail--grey {
-    @include rs-item-colours("dark-grey");
+    @include rs-item-colours('dark-grey');
   }
 
   &.item-detail--light-blue {
-    @include rs-item-colours("blue");
+    @include rs-item-colours('blue');
   }
 
   &.item-detail--red {
-    @include rs-item-colours("red");
+    @include rs-item-colours('red');
   }
 
   .app-running-service__item {
@@ -64,13 +64,13 @@ $card-height: 180px;
   .app-running-service__item--unstable {
     display: flex;
     align-items: center;
-    color: govuk-colour("white");
-    background-color: govuk-colour("red");
+    color: govuk-colour('white');
+    background-color: govuk-colour('red');
     padding: govuk-spacing(2);
     border-radius: $app-border-radius-top;
 
     .app-warning-icon {
-      fill: govuk-colour("white");
+      fill: govuk-colour('white');
     }
   }
 
@@ -96,11 +96,11 @@ $card-height: 180px;
 }
 
 .app-running-service__label {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('black', $variant: 'tint-25');
 }
 
 .app-running-service__card--empty {
-  color: govuk-colour("dark-grey");
+  color: govuk-colour('black', $variant: 'tint-25');
   border: 1px solid $app-brand-background-colour;
 
   .app-running-service__item--heading {
