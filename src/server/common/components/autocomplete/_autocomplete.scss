@@ -283,7 +283,7 @@ $large-width: 40em;
 
   &:hover,
   &:focus {
-    background-color: govuk-tint(govuk-colour('blue'), 30%);
+    background-color: govuk-colour('blue', 'tint-25');
     color: govuk-colour('white');
 
     .app-suggestion__action {
@@ -314,7 +314,7 @@ $large-width: 40em;
   }
 
   &.app-autocomplete__suggestion--highlight {
-    background-color: govuk-tint(govuk-colour('blue'), 30%);
+    background-color: govuk-colour('blue', 'tint-25');
     color: govuk-colour('white');
 
     .app-tick-icon {

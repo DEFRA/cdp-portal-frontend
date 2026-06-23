@@ -1,5 +1,5 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .app-schema-icon {
-  fill: govuk-tint(govuk-colour("blue"), 10%);
+  fill: govuk-colour('blue', 'tint-25');
 }

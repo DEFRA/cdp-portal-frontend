@@ -1,5 +1,5 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .app-instance-pending {
-  fill: govuk-tint(govuk-colour("purple"), 30%);
+  fill: govuk-colour('purple', 'tint-25');
 }

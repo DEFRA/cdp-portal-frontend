@@ -45,7 +45,7 @@ $max-width: 300px;
     @include rs-entity-colours('black', $variant: 'tint-25');
 
     .app-instance {
-      fill: govuk-tint(govuk-colour('black', $variant: 'tint-25'), 10%);
+      fill: govuk-colour('black', $variant: 'tint-25');
     }
   }
 

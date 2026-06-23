@@ -1,5 +1,5 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .app-instance-stopped {
-  fill: govuk-tint(govuk-colour("blue"), 30%);
+  fill: govuk-colour('blue', 'tint-25');
 }
