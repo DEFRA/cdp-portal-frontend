@@ -5,17 +5,18 @@
 $card-width: 240px;
 $card-height: 180px;
 
-@mixin rs-item-colours($colourName) {
-  background-color: govuk-tint(govuk-colour($colourName), 80%);
-  border: 1px solid govuk-tint(govuk-colour($colourName), 60%);
+@mixin rs-item-colours($colourName, $variant: primary) {
+  background-color: govuk-tint(govuk-colour($colourName, $variant), 80%);
+  border: 1px solid govuk-tint(govuk-colour($colourName, $variant), 60%);
 
   .app-tag {
-    background-color: govuk-tint(govuk-colour($colourName), 60%);
+    background-color: govuk-tint(govuk-colour($colourName, $variant), 60%);
   }
 
   .app-running-service__item--heading {
-    background-color: govuk-tint(govuk-colour($colourName), 70%);
-    border-bottom: 1px solid govuk-tint(govuk-colour($colourName), 60%);
+    background-color: govuk-tint(govuk-colour($colourName, $variant), 70%);
+    border-bottom: 1px solid
+      govuk-tint(govuk-colour($colourName, $variant), 60%);
   }
 }
 
@@ -42,11 +43,11 @@ $card-height: 180px;
   }
 
   &.item-detail--purple {
-    @include rs-item-colours('bright-purple');
+    @include rs-item-colours('magenta', $variant: 'shade-25');
   }
 
   &.item-detail--grey {
-    @include rs-item-colours('dark-grey');
+    @include rs-item-colours('black', $variant: 'tint-25');
   }
 
   &.item-detail--light-blue {

@@ -5,9 +5,9 @@
 $compact-label-height: govuk-spacing(4);
 $max-width: 300px;
 
-@mixin rs-entity-colours($colourName) {
-  background-color: govuk-tint(govuk-colour($colourName), 80%);
-  border: 1px solid govuk-tint(govuk-colour($colourName), 60%);
+@mixin rs-entity-colours($colourName, $variant: primary) {
+  background-color: govuk-tint(govuk-colour($colourName, $variant), 80%);
+  border: 1px solid govuk-tint(govuk-colour($colourName, $variant), 60%);
 }
 
 @include govuk-media-query($until: desktop-wide) {
@@ -38,11 +38,11 @@ $max-width: 300px;
   }
 
   &.item-detail--purple {
-    @include rs-entity-colours('bright-purple');
+    @include rs-entity-colours('magenta', $variant: 'shade-25');
   }
 
   &.item-detail--grey {
-    @include rs-entity-colours('dark-grey');
+    @include rs-entity-colours('black', $variant: 'tint-25');
 
     .app-instance {
       fill: govuk-tint(govuk-colour('black', $variant: 'tint-25'), 10%);
