@@ -136,7 +136,7 @@ $large-width: 40em;
       grid-column: 2;
       grid-row: 2;
       color: govuk-colour('mid-grey');
-      @include govuk-font(14);
+      @include govuk-font(16);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -158,7 +158,7 @@ $large-width: 40em;
   .app-autocomplete__suggestion-group {
     padding: govuk-spacing(2) govuk-spacing(3) govuk-spacing(1);
     color: govuk-colour('dark-grey');
-    @include govuk-font(14);
+    @include govuk-font(16);
     @include govuk-typography-weight-bold;
     text-transform: uppercase;
     letter-spacing: 0.06em;
