@@ -1,7 +1,7 @@
 @use 'govuk-frontend' as *;
 
 .app-entity {
-  @include govuk-text-colour;
+  color: govuk-functional-colour(text);
   display: flex;
   align-items: center;
   word-break: normal;
@@ -38,7 +38,7 @@
 }
 
 .app-entity__list-item {
-  @include govuk-text-colour;
+  color: govuk-functional-colour(text);
   margin: 0;
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -76,7 +76,7 @@ $min-grid-cell-width: 100px;
     box-sizing: border-box;
     height: 100%;
 
-    @include govuk-text-colour;
+    color: govuk-functional-colour(text);
     word-break: normal;
     overflow-wrap: anywhere;
 
