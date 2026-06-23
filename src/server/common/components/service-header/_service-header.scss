@@ -107,7 +107,7 @@
         background-color: govuk-colour('blue', 'tint-25');
 
         &.app-user-icon--elevated-permissions {
-          background-color: govuk-tint(
+          background-color: tint(
             color.adjust(govuk-colour('orange'), $saturation: 60%),
             20%
           );
