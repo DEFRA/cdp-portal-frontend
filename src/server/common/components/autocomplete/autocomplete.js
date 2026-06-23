@@ -128,8 +128,10 @@ class Autocomplete {
     )
     $autocomplete.dataset.testid = 'app-autocomplete-input'
     $autocomplete.dataset.typeahead = this.typeahead
-    $autocomplete.dataset.autoRefreshLoader =
-      this.$select.dataset.autoRefreshLoader
+    if (this.$select.dataset.autoRefreshLoader) {
+      $autocomplete.dataset.autoRefreshLoader =
+        this.$select.dataset.autoRefreshLoader
+    }
     $autocomplete.setAttribute('autocapitalize', 'none')
     $autocomplete.setAttribute('autocomplete', 'off')
     $autocomplete.setAttribute('role', 'combobox')
