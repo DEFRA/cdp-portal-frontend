@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "CDP Portal Frontend",
   "license": "OGL-UK-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DEFRA/cdp-portal-frontend"
+  },
   "author": "Defra DDTS",
   "sideEffects": false,
+  "private": true,
   "type": "module",
   "main": "src/index.js",
+  "files": [],
   "scripts": {
     "build": "run-s build:client",
     "build:client": "vite build",
@@ -105,7 +111,7 @@
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsdoc": "63.0.1",
-    "eslint-plugin-n": "18.0.1",
+    "eslint-plugin-n": "17.24.0",
     "eslint-plugin-package-json": "0.91.2",
     "eslint-plugin-prettier": "5.5.6",
     "eslint-plugin-promise": "7.3.0",
