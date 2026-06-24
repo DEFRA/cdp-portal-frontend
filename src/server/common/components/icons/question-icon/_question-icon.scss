@@ -1,5 +1,5 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .app-question-icon {
-  fill: govuk-colour("bright-purple");
+  fill: govuk-colour('magenta', $variant: 'shade-25');
 }

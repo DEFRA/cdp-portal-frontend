@@ -36,11 +36,14 @@ $shadow-opacity-light: 0.4;
 }
 
 .app-button--secondary {
-  background-color: govuk-colour('bright-purple');
+  background-color: govuk-colour('magenta', $variant: 'shade-25');
   box-shadow: 0 2px 0 rgba(58, 17, 54, $shadow-opacity);
 
   &:hover {
-    background-color: govuk-shade(govuk-colour('bright-purple'), 20%);
+    background-color: govuk-shade(
+      govuk-colour('magenta', $variant: 'shade-25'),
+      20%
+    );
   }
 
   &:link,
@@ -51,13 +54,16 @@ $shadow-opacity-light: 0.4;
 }
 
 .app-button--tertiary {
-  background-color: govuk-colour('light-grey');
+  background-color: govuk-colour('black', $variant: 'tint-95');
   color: govuk-colour('black');
   box-shadow: 0 2px 0 rgba(97, 97, 96, $shadow-opacity-light);
 
   &:hover {
     color: govuk-colour('black');
-    background-color: govuk-shade(govuk-colour('light-grey'), 5%);
+    background-color: govuk-shade(
+      govuk-colour('black', $variant: 'tint-95'),
+      5%
+    );
   }
 
   &:link,
@@ -100,7 +106,7 @@ $shadow-opacity-light: 0.4;
 }
 
 .app-button--hover-destructive {
-  background-color: govuk-colour('light-grey');
+  background-color: govuk-colour('black', $variant: 'tint-95');
   color: govuk-colour('black');
   box-shadow: 0 2px 0 rgba(97, 97, 96, $shadow-opacity-light);
 

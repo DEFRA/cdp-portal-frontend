@@ -1,7 +1,7 @@
 @use 'govuk-frontend' as *;
 
 .app-entity {
-  @include govuk-text-colour;
+  color: govuk-functional-colour(text);
   display: flex;
   align-items: center;
   word-break: normal;
@@ -9,13 +9,13 @@
 }
 
 .app-entity-label {
-  color: govuk-colour('dark-grey');
+  color: govuk-colour('black', $variant: 'tint-25');
   margin-right: govuk-spacing(1);
 }
 
 .app-entity-no-value {
   margin-left: govuk-spacing(1);
-  color: govuk-colour('dark-grey');
+  color: govuk-colour('black', $variant: 'tint-25');
 }
 
 .app-entity__list {
@@ -38,7 +38,7 @@
 }
 
 .app-entity__list-item {
-  @include govuk-text-colour;
+  color: govuk-functional-colour(text);
   margin: 0;
   white-space: nowrap;
   text-overflow: ellipsis;

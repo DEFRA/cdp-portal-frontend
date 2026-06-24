@@ -1,23 +1,23 @@
-@use "sass:map";
-@use "sass:color";
-@use "govuk-frontend" as *;
-@use "variables/border-radius" as *;
-@use "variables/colours" as *;
+@use 'sass:map';
+@use 'sass:color';
+@use 'govuk-frontend' as *;
+@use 'variables/border-radius' as *;
+@use 'variables/colours' as *;
 
 .app-service-header {
   @include govuk-font(19);
 
-  color: govuk-colour("white");
+  color: govuk-colour('white');
   background: $govuk-brand-colour;
 }
 
 .app-service-header--sensitive-environment {
-  background: govuk-colour("orange");
+  background: govuk-colour('orange');
   border-bottom: 10px solid $govuk-brand-colour;
 }
 
 .app-service-header__container--full-width {
-  border-color: govuk-colour("black");
+  border-color: govuk-colour('black');
 }
 
 // stylelint-disable max-nesting-depth
@@ -39,7 +39,7 @@
     padding: govuk-spacing(1) govuk-spacing(2);
     margin-left: govuk-spacing(2);
     border-radius: $app-border-radius;
-    background-color: govuk-colour("light-blue");
+    background-color: govuk-colour('blue', $variant: 'tint-25');
   }
 
   .app-service-header__actions {
@@ -57,9 +57,9 @@
       padding-left: govuk-spacing(3);
 
       &::before {
-        content: "";
+        content: '';
         padding-right: govuk-spacing(3);
-        border-left: 1px solid govuk-colour("white");
+        border-left: 1px solid govuk-colour('white');
       }
     }
   }
@@ -87,7 +87,7 @@
   .app-service-header_profile-link {
     display: flex;
     align-items: center;
-    color: govuk-colour("white");
+    color: govuk-colour('white');
     text-decoration: none;
     text-decoration-thickness: 3px;
 
@@ -96,7 +96,7 @@
       text-underline-offset: govuk-spacing(1);
 
       .app-user-icon {
-        border: 2px solid govuk-colour("white");
+        border: 2px solid govuk-colour('white');
       }
     }
 
@@ -104,10 +104,13 @@
       text-decoration: underline;
 
       .app-user-icon {
-        background-color: govuk-tint($defra-brand-colour, 20%);
+        background-color: govuk-colour('blue', 'tint-25');
 
         &.app-user-icon--elevated-permissions {
-          background-color: govuk-tint(color.adjust(govuk-colour("orange"), $saturation: 60%), 20%);
+          background-color: tint(
+            color.adjust(govuk-colour('orange'), $saturation: 60%),
+            20%
+          );
         }
       }
     }

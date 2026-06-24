@@ -1,5 +1,5 @@
-@use "govuk-frontend" as *;
+@use 'govuk-frontend' as *;
 
 .app-instance-undeployed {
-  fill: govuk-tint(govuk-colour("dark-grey"), 20%);
+  fill: govuk-colour('black', $variant: 'tint-25');
 }

@@ -1,7 +1,7 @@
-@use "govuk-frontend" as *;
-@use "variables/border-radius" as *;
+@use 'govuk-frontend' as *;
+@use 'variables/border-radius' as *;
 
-$black-tint: govuk-tint(govuk-colour("black"), 20%);
+$black-tint: govuk-colour('black', 'tint-25');
 
 // Plain text tooltips
 .app-tool-tip {
@@ -17,17 +17,17 @@ $black-tint: govuk-tint(govuk-colour("black"), 20%);
     opacity: 0;
     visibility: hidden;
     background-color: $black-tint;
-    color: govuk-colour("white");
+    color: govuk-colour('white');
     padding: govuk-spacing(3);
     border-radius: $app-border-radius;
     z-index: 800;
     @include govuk-font(16);
-    box-shadow: 3px 5px 4px -4px govuk-colour("dark-grey");
+    box-shadow: 3px 5px 4px -4px govuk-colour('black', $variant: 'tint-25');
     left: govuk-spacing(-2);
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     opacity: 0;
     visibility: hidden;
@@ -68,9 +68,9 @@ $black-tint: govuk-tint(govuk-colour("black"), 20%);
     max-width: 10rem;
     padding: govuk-spacing(3);
     background-color: $black-tint;
-    color: govuk-colour("white");
+    color: govuk-colour('white');
     border-radius: $app-border-radius;
-    box-shadow: 3px 5px 4px -4px govuk-colour("dark-grey");
+    box-shadow: 3px 5px 4px -4px govuk-colour('black', $variant: 'tint-25');
     @include govuk-font(16);
     white-space: normal;
     opacity: 0;
@@ -96,7 +96,7 @@ $black-tint: govuk-tint(govuk-colour("black"), 20%);
   }
 
   > .app-tool-tip__content::after {
-    content: "";
+    content: '';
     position: absolute;
     left: govuk-spacing(2);
     top: 100%;

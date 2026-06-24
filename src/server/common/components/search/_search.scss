@@ -1,5 +1,5 @@
-@use "govuk-frontend" as *;
-@use "variables/border-radius" as *;
+@use 'govuk-frontend' as *;
+@use 'variables/border-radius' as *;
 
 .app-search {
   position: relative;
@@ -14,7 +14,7 @@
   & .app-search-icon {
     position: absolute;
     left: 2px;
-    fill: govuk-colour("mid-grey");
+    fill: govuk-colour('black', $variant: 'tint-80');
     width: 26px;
     height: 26px;
   }
@@ -40,14 +40,14 @@
   padding: govuk-spacing(1) govuk-spacing(4) govuk-spacing(1) govuk-spacing(7);
   width: 24em;
   border-radius: $app-border-radius;
-  border: 1px solid govuk-colour("mid-grey");
+  border: 1px solid govuk-colour('black', $variant: 'tint-80');
 
   &:focus {
-    border: 1px solid govuk-colour("black");
+    border: 1px solid govuk-colour('black');
     box-shadow: none;
   }
 
   &.govuk-input--error {
-    border-color: govuk-colour("red");
+    border-color: govuk-colour('red');
   }
 }
