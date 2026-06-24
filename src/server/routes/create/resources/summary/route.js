@@ -13,15 +13,16 @@ export const options = {
 
 export default async function (request, h) {
   const resourcesRequest = request.yar.get(sessionNames.resourcesRequest)
+  const { workflow } = resourcesRequest ?? {}
+
+  // if (!workflowId) {
+  //   return h.redirect('/create')
+  // }
+
+  const prUrl = ''
 
   return {
-    requestDetails: Object.entries(resourcesRequest.workflow).map(
-      ([key, value]) => ({
-        key: { text: formatText(key).replaceAll('-', ' ') },
-        value: value?.startsWith?.('https://')
-          ? { html: `<a href="${value}">${value}</a>` }
-          : { text: value }
-      })
-    )
+    workflow,
+    prUrl
   }
 }
