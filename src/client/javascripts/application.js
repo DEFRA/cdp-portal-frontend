@@ -1,4 +1,3 @@
-// eslint-disable-next-line n/no-unpublished-import
 import 'vite/modulepreload-polyfill'
 import { initAll } from 'govuk-frontend'
 

@@ -53,7 +53,6 @@ export const router = {
 
       if (!config.get('isProduction') && !config.get('isTest')) {
         await (async () => {
-          // eslint-disable-next-line n/no-unpublished-import
           const createViteServer = (await import('vite')).createServer
           const vite = await createViteServer({
             server: { middlewareMode: true },
@@ -76,7 +75,6 @@ export const router = {
           })
 
           await server.register({
-            // eslint-disable-next-line n/no-unpublished-import
             plugin: (await import('@defra/hapi-connect')).default,
             options: {
               path: '/public',
