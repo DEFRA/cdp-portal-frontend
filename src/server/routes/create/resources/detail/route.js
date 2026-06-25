@@ -56,20 +56,16 @@ export async function POST(request, h) {
 
   try {
     const { payload } = await request.authedFetchJson(
-      `${config.get('portalBackendUrl')}/resources`,
+      `${config.get('portalBackendUrl')}/resources/requests`,
       {
         method: 'post',
         payload: resourceRequest
       }
     )
 
-    request.yar.set(sessionNames.resourcesRequest, {
-      basket,
-      workflow: payload
+    return h.redirect('/create/resources/summary/{workflowRunId}', {
+      workflowRunId: payload.workflow.workflowRunId
     })
-    await request.yar.commit(h)
-
-    return h.redirect('/create/resources/summary')
   } catch (error) {
     request.logger.error(error, 'Resources request failed:')
 
