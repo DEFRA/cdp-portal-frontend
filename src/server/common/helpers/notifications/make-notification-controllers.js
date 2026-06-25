@@ -110,7 +110,7 @@ function makeNotificationControllers(config) {
         environmentOptions,
         tableData: {
           headers: [
-            { id: 'eventType', text: 'Event', width: '10' },
+            { id: 'eventType', text: 'Event', width: '16' },
             { id: 'channel', text: 'Slack channel', width: '12' },
             ...environments.map((env) => ({
               ...(supportVerticalHeadings && { verticalText: true }),
@@ -123,7 +123,7 @@ function makeNotificationControllers(config) {
               id: 'actions',
               text: 'Actions',
               isRightAligned: true,
-              width: '12'
+              width: '6'
             }
           ],
           rows,
