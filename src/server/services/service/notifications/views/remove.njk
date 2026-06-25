@@ -1,0 +1,95 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
+
+{% set helpHtml %}
+  <p class="govuk-!-margin-bottom-1">
+    When a notification is removed, deployments will no longer trigger this notification.
+    <br>
+    Removing a notification is non-recoverable. If you remove the wrong notification simply
+    <a
+      href="{{ routeLookup('services/{serviceId}/notifications', { params: { serviceId : entity.name } }) }}"
+      class="govuk-link app-link">
+      add a new one
+    </a>
+  </p>
+{% endset %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Remove Notification",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+<section class="govuk-!-margin-top-6">
+  {% call appSplitPane() %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop">
+        <div data-testid="remove-notification">
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="remove-notification-heading">
+            Remove Notification
+          </h2>
+          <p class="govuk-!-margin-bottom-2">
+            Remove the following notification from the service:
+          </p>
+
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Service</h3>
+          <p class="govuk-!-margin-bottom-2">
+            <a
+              href="{{ routeLookup('services/{serviceId}', { params: { serviceId : entity.name } }) }}"
+              class="govuk-link app-link">
+              {{ entity.name }}
+            </a>
+          </p>
+
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Event</h3>
+          <p>
+            {{ notification.eventType | safe }}
+          </p>
+
+          <h3 class="govuk-heading-m govuk-!-padding-top-0 govuk-!-margin-bottom-2">Environments</h3>
+          <ul class="govuk-list govuk-list--spaced">
+            {% for environment in notification.environments %}
+              <li class="app-!-layout-centered">
+                <div class="app-check"></div> {{ environment | formatText }}
+              </li>
+            {% endfor %}
+          </ul>
+
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Slack channel</h3>
+          <p>
+            #{{ notification.slackChannel | safe }}
+          </p>
+
+          <div class="govuk-!-margin-bottom-4">
+            {{ appInfo({
+              html: helpHtml
+            }) }}
+          </div>
+
+          <form action="/services/{{ entity.name }}/notifications/{{ notification.ruleId }}/remove" method="post">
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+            <div class="govuk-body govuk-button-group govuk-!-margin-top-7">
+              {{ govukButton({
+                classes: "app-button app-button--destructive",
+                text: "Remove notification"
+              }) }}
+
+              <a class="app-link" href="{{ routeLookup('services/{serviceId}/notifications', {
+                params: { serviceId: entity.name }
+              }) }}">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  {% endcall %}
+</section>
+{% endblock %}

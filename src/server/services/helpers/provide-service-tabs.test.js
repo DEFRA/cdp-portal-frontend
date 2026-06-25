@@ -86,6 +86,11 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
+          label: 'Notifications',
+          url: `/services/${mockServiceName}/notifications`
+        },
+        {
+          isActive: false,
           label: 'Proxy',
           url: `/services/${mockServiceName}/proxy`
         },
@@ -110,7 +115,7 @@ describe('#provideServiceTabs', () => {
           url: `/services/${mockServiceName}/topology`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(9)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(10)
     })
 
     test('Should mark matching url as Active', async () => {
@@ -142,6 +147,11 @@ describe('#provideServiceTabs', () => {
           isActive: false,
           label: 'Maintenance',
           url: `/services/${mockServiceName}/maintenance`
+        },
+        {
+          isActive: false,
+          label: 'Notifications',
+          url: `/services/${mockServiceName}/notifications`
         },
         {
           isActive: false,
@@ -199,11 +209,16 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
+          label: 'Notifications',
+          url: `/services/${mockServiceName}/notifications`
+        },
+        {
+          isActive: false,
           label: 'Secrets',
           url: `/services/${mockServiceName}/secrets`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(4)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(5)
     })
   })
 
@@ -249,6 +264,11 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
+          label: 'Notifications',
+          url: `/services/${mockServiceName}/notifications`
+        },
+        {
+          isActive: false,
           label: 'Proxy',
           url: `/services/${mockServiceName}/proxy`
         },
@@ -273,7 +293,7 @@ describe('#provideServiceTabs', () => {
           url: `/services/${mockServiceName}/topology`
         }
       ])
-      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(9)
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(10)
     })
 
     test('Should mark matching url as Active', () => {
@@ -297,6 +317,11 @@ describe('#provideServiceTabs', () => {
           isActive: false,
           label: 'Maintenance',
           url: `/services/${mockServiceName}/maintenance`
+        },
+        {
+          isActive: false,
+          label: 'Notifications',
+          url: `/services/${mockServiceName}/notifications`
         },
         {
           isActive: false,

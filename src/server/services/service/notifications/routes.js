@@ -1,11 +1,11 @@
 import {
-  commonTestSuiteExtensions,
+  commonServiceExtensions,
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
 import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
 import { serviceOwnerOrAdminUserScope } from '#server/common/constants/scopes.js'
 import { makeNotificationControllers } from '#server/common/helpers/notifications/make-notification-controllers.js'
-import { testSuitesNotificationConfig } from '#server/common/helpers/notifications/notification-config.js'
+import { servicesNotificationConfig } from '#server/common/helpers/notifications/notification-config.js'
 
 const {
   list,
@@ -18,14 +18,14 @@ const {
   postUpdate,
   testNotification,
   postTestNotification
-} = makeNotificationControllers(testSuitesNotificationConfig)
+} = makeNotificationControllers(servicesNotificationConfig)
 
-export default {
+const serviceNotifications = {
   plugin: {
-    name: 'testSuiteNotifications',
+    name: 'serviceNotifications',
     register: (server) => {
       server.ext([
-        ...commonTestSuiteExtensions,
+        ...commonServiceExtensions,
         provideNotFoundIfPrototypeExtension,
         {
           type: 'onPostHandler',
@@ -41,52 +41,52 @@ export default {
         [
           {
             method: 'GET',
-            path: '/test-suites/{serviceId}/notifications',
+            path: '/services/{serviceId}/notifications',
             ...list
           },
           {
             method: 'POST',
-            path: '/test-suites/{serviceId}/notifications',
+            path: '/services/{serviceId}/notifications',
             ...listRefresh
           },
           {
             method: 'POST',
-            path: '/test-suites/{serviceId}/notifications/create',
+            path: '/services/{serviceId}/notifications/create',
             ...create
           },
           {
             method: 'GET',
-            path: '/test-suites/{serviceId}/notifications/{notificationId}/remove',
+            path: '/services/{serviceId}/notifications/{notificationId}/remove',
             ...remove
           },
           {
             method: 'POST',
-            path: '/test-suites/{serviceId}/notifications/{notificationId}/remove',
+            path: '/services/{serviceId}/notifications/{notificationId}/remove',
             ...postRemove
           },
           {
             method: 'GET',
-            path: '/test-suites/{serviceId}/notifications/{notificationId}/update',
+            path: '/services/{serviceId}/notifications/{notificationId}/update',
             ...update
           },
           {
             method: 'POST',
-            path: '/test-suites/{serviceId}/notifications/{notificationId}/update',
+            path: '/services/{serviceId}/notifications/{notificationId}/update',
             ...updateRefresh
           },
           {
             method: 'POST',
-            path: '/test-suites/{serviceId}/notifications/{notificationId}/update/action',
+            path: '/services/{serviceId}/notifications/{notificationId}/update/action',
             ...postUpdate
           },
           {
             method: 'GET',
-            path: '/test-suites/{serviceId}/notifications/{notificationId}/test',
+            path: '/services/{serviceId}/notifications/{notificationId}/test',
             ...testNotification
           },
           {
             method: 'POST',
-            path: '/test-suites/{serviceId}/notifications/{notificationId}/test/action',
+            path: '/services/{serviceId}/notifications/{notificationId}/test/action',
             ...postTestNotification
           }
         ].map(serviceOwnerOrAdminUserScope)
@@ -94,3 +94,5 @@ export default {
     }
   }
 }
+
+export { serviceNotifications }

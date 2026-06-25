@@ -8,7 +8,7 @@
 
 {% block beforeTabContent %}
   {{ appPageHeading({
-    caption: "Test Run Notifications",
+    caption: "Deployment Notifications",
     text: entity.name
   }) }}
 
@@ -22,11 +22,11 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop-huge">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-              data-testid="automatic-test-runs">
-                Test Run Notifications
+              data-testid="deployment-notifications">
+                Deployment Notifications
           </h2>
           <p class="govuk-!-margin-bottom-2">
-            Automatic notifications on test suite runs
+            Automatic notifications on service deployments
           </p>
 
           {{ appInfo({
@@ -40,7 +40,7 @@
               {{ notificationRow({
                 rowClasses: params.rowClasses,
                 loopIndex: params.loopIndex,
-                basePath: 'test-suites',
+                basePath: 'services',
                 serviceId: entity.name,
                 id: params.row.id,
                 eventType: params.row.eventType,
@@ -56,12 +56,12 @@
         <div class="govuk-grid-column-one-third-from-desktop-huge">
           <section>
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-                data-testid="add-test-run">Add Notification</h2>
+                data-testid="add-deployment-notification">Add Notification</h2>
             <p>
-              Create a notification for a test run
+              Create a notification for a deployment
             </p>
 
-            <form action="{{ routeLookup('post:test-suites/{serviceId}/notifications/create', { params: { serviceId : entity.name } }) }}"
+            <form action="{{ routeLookup('post:services/{serviceId}/notifications/create', { params: { serviceId : entity.name } }) }}"
                   method="post"
                   data-js="app-form-errors">
               <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />

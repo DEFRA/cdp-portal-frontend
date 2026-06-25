@@ -59,6 +59,7 @@ async function provideServiceTabs(request, h) {
 
     if (isAdmin || isServiceOwner) {
       buildTab(response, request, 'services', 'automations', entityName)
+      buildTab(response, request, 'services', 'notifications', entityName)
       buildTab(response, request, 'services', 'secrets', entityName)
       buildTab(response, request, 'services', 'maintenance', entityName)
 
