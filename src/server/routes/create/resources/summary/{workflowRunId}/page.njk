@@ -42,12 +42,12 @@
 
 
             {% set workflowLink %}
-              <a href="{{ workflow.html_url }}">{{ workflow.html_url }}</a>
+              <a href="{{ workflow.html_url }}" target="_blank" rel="noopener noreferrer">{{ workflow.html_url }}</a>
             {% endset %}
 
             {% set prLink %}
               {% if prUrl %}
-                <a href="{{ prUrl }}">{{ prUrl }}</a>
+                <a href="{{ prUrl }}" target="_blank" rel="noopener noreferrer">{{ prUrl }}</a>
               {% else %}
                 {{ appTag({
                   text: 'Generating',

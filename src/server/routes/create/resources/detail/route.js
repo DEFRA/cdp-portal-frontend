@@ -64,7 +64,7 @@ export async function POST(request, h) {
     )
 
     return h.redirect(
-      `/create/resources/summary/${payload.workflow.workflow_Run_id}`
+      `/create/resources/summary/${payload.workflow.workflow_run_id}`
     )
   } catch (error) {
     request.logger.error(error, 'Resources request failed:')
