@@ -3,6 +3,7 @@ import { serviceProxy } from './proxy/routes.js'
 import { serviceSecrets } from './secrets/routes.js'
 import { serviceTerminal } from './terminal/routes.js'
 import { serviceAutomations } from './automations/routes.js'
+import { serviceNotifications } from './notifications/routes.js'
 import { serviceMaintenance } from './maintenance/routes.js'
 import { serviceResources } from './resources/routes.js'
 
@@ -13,6 +14,7 @@ export const service = {
       await server.register([
         serviceHome,
         serviceAutomations,
+        serviceNotifications,
         serviceProxy,
         serviceResources,
         serviceSecrets,

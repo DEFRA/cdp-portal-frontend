@@ -1,0 +1,14 @@
+{# Renders an entity-table row for notifications
+
+@param {string} basePath - URL prefix, e.g. 'services' or 'test-suites'
+@param {string} serviceId - entity name
+@param {string} id - ruleId
+@param {string} eventType - notification event type
+@param {string} channel - Slack channel name
+@param {boolean} enabled - whether the rule is enabled
+@param {array} envs - list of { id, selected } environment objects
+#}
+
+{% macro notificationRow(params) %}
+  {%- include "./template.njk" -%}
+{% endmacro %}

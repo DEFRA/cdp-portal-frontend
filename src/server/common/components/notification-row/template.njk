@@ -1,5 +1,5 @@
-{% from "time/macro.njk" import appTime %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
+
 
 <tr class="{{ params.rowClasses }}" data-testid="app-entity-table-row-{{ params.loopIndex }}">
   <td headers="eventType" class="app-entity-table__cell" data-label="eventType">
@@ -43,20 +43,20 @@
   </td>
 
    <td headers="actions" class="app-entity-table__cell" data-label="actions">
-     <div class="app-entity">
+     <div class="app-entity" style="white-space: nowrap">
       <div>
         <a class="app-link app-link--underline"
-          href="/test-suites/{{ params.serviceId }}/notifications/{{ params.id }}/update"
+          href="/{{ params.basePath }}/{{ params.serviceId }}/notifications/{{ params.id }}/update"
         data-testid="app-link">Update</a>
       </div>
       <div class="govuk-!-margin-left-1">
         <a class="app-link app-link--underline"
-          href="/test-suites/{{ params.serviceId }}/notifications/{{ params.id }}/remove"
+          href="/{{ params.basePath }}/{{ params.serviceId }}/notifications/{{ params.id }}/remove"
         data-testid="app-link">Remove</a>
       </div>
        <div class="govuk-!-margin-left-1">
          <a class="app-link app-link--underline"
-            href="/test-suites/{{ params.serviceId }}/notifications/{{ params.id }}/test"
+            href="/{{ params.basePath }}/{{ params.serviceId }}/notifications/{{ params.id }}/test"
             data-testid="app-link">Test</a>
        </div>
      </div>
