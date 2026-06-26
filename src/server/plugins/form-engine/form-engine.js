@@ -60,7 +60,7 @@ export default {
           refreshFormValues ??
           createNested({ ...getDefaults(formDefinition), ...(loaded ?? {}) })
         const resolvedActions = await actions(request, h)
-        console.log(formValues, getDefaults(formDefinition), loaded)
+
         return h.view('plugins/form-engine/form', {
           fields: formDefinition.keys,
           layout,
