@@ -75,7 +75,7 @@ export function register(routePath) {
                   { text: 'Disabled', value: false }
                 ]
               })
-              .default('disabled'),
+              .default(false),
 
             environments: Joi.string()
               .label('Environments')
