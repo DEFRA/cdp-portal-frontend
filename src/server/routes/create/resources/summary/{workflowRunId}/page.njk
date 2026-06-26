@@ -9,7 +9,7 @@
 
       {{ appStepNavigation({
         "classes":"app-step-navigation--slim",
-        "width":50,
+        "width": 100 if prUrl else 50,
         "steps":[
           {url:"/create/choose-kind", isComplete:true, isCurrent:false, text:"Create"},
           {isComplete:true, isCurrent:false, text:"Details"},
