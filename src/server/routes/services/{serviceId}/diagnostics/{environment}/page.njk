@@ -1,5 +1,6 @@
 {% extends "layouts/tabbed-page.njk" %}
 {% from "tool-tip/macro.njk" import appToolTip %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -133,16 +134,69 @@
 
               </pre>
 
+              <div class="govuk-grid-row govuk-!-margin-top-8">
+                <div class="govuk-grid-column-one-half">
+                  {% call appPanel() %}
+                    <nav style="display: flex; align-items: center;" class="govuk-!-margin-bottom-2">
+                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Custom metrics dashboards</h3>
+                      <button>Create</button>
+                      <button>Promote</button>
+                    </nav>
+                    <p class="govuk-!-margin-bottom-2">
+                      Custom metrics dashboards are managed in the the <a href="./dev">Dev</a> environment and promoted up to the other environments.  View the <a href="/documentation/how-to/monitoring.md#creating-custom-dashboards" target="_blank" rel="noopener noreferrer">CDP documentation</a>.
+                    </p>
+
+                    {{ govukTable({
+                      classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                      head: [
+                        { text: "Dashboard" },
+                        { text: "Version" }
+                      ],
+                      rows: [
+                        [
+                          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway-all-3da12fe2</a>' },
+                          { text: "1" }
+                        ]
+                      ]
+                    }) }}
+
+                    {{ resources.metrics | dump}}
+                  {% endcall %}
+                </div>
+
+                <div class="govuk-grid-column-one-half">
+                  {% call appPanel() %}
+                    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Custom alerts</h3>
+                    <p class="govuk-!-margin-bottom-2">
+                      Custom alerts are managed in the the <a href="./dev">Dev</a> environment and promoted up to the other environments.  View the <a href="/documentation/how-to/monitoring.md#creating-advanced-custom-alerts" target="_blank" rel="noopener noreferrer">CDP documentation</a>.
+                    </p>
+
+                    {{ govukTable({
+                      classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                      head: [
+                        { text: "Average Response Time Alert" }
+                      ],
+                      rows: [
+                        [
+                          { text: "HTTP status codes alerts based on http.response.status_code in OpenSearch" }
+                        ]
+                      ]
+                    }) }}
+
+                    {{ resources.alerts | dump}}
+                  {% endcall %}
+                </div>
+              </div>
             {% else %}
 
               {{ appInfo({ text: "Service not deployed in this environment" }) }}
 
             {% endif %}
-
        {% endcall %}
 
       </div>
     </div>
+
   </section>
 
 
