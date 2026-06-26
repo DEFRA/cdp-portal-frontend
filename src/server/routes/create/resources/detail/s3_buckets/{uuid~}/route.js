@@ -71,12 +71,10 @@ export function register(routePath) {
               .meta({
                 component: 'radioGroupField',
                 suggestions: [
-                  { text: 'Enabled', value: 'enabled' },
-                  { text: 'Disabled', value: 'disabled' }
+                  { text: 'Enabled', value: true },
+                  { text: 'Disabled', value: false }
                 ]
               })
-              .truthy('enabled')
-              .falsy('disabled')
               .default('disabled'),
 
             environments: Joi.string()
