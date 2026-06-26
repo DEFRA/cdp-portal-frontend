@@ -17,7 +17,11 @@ import {
   updateNotificationRule
 } from '#server/common/helpers/fetch/fetch-notifications.js'
 
-// ── pure helpers ──────────────────────────────────────────────────────────────
+function normaliseEnvironments(environments) {
+  return Array.isArray(environments)
+    ? environments
+    : [environments].filter(Boolean)
+}
 
 function buildEventAndEnvOptions(
   notificationTypes,
@@ -44,8 +48,6 @@ function buildEventAndEnvOptions(
   return { validEnvironments, environmentOptions, eventTypeOptions }
 }
 
-// ── factory ───────────────────────────────────────────────────────────────────
-
 /**
  * @param {{ basePath: string, entityLabel: string, defaultEventType: string, breadcrumbRoot: {text: string, href: string}, views: {list: string, remove: string, update: string, test: string} }} config
  */
@@ -56,8 +58,6 @@ function makeNotificationControllers(config) {
   function breadcrumbs(...extra) {
     return [breadcrumbRoot, ...extra]
   }
-
-  // ── list ───────────────────────────────────────────────────────────────────
 
   const list = {
     options: {
@@ -139,8 +139,12 @@ function makeNotificationControllers(config) {
 
   const listRefresh = {
     handler: async (request, h) => {
+      const payload = request.payload
       request.yar.flash(sessionNames.validationFailure, {
-        formValues: request.payload
+        formValues: {
+          ...payload,
+          environments: normaliseEnvironments(payload.environments)
+        }
       })
       return h.redirect(
         request.routeLookup(`${basePath}/{serviceId}/notifications`, {
@@ -149,8 +153,6 @@ function makeNotificationControllers(config) {
       )
     }
   }
-
-  // ── create ─────────────────────────────────────────────────────────────────
 
   const create = {
     options: {
@@ -223,8 +225,6 @@ function makeNotificationControllers(config) {
     }
   }
 
-  // ── remove ─────────────────────────────────────────────────────────────────
-
   const remove = {
     handler: async (request, h) => {
       const entity = request.app.entity
@@ -279,8 +279,6 @@ function makeNotificationControllers(config) {
     }
   }
 
-  // ── update ─────────────────────────────────────────────────────────────────
-
   const update = {
     options: {
       id: `${basePath}/{serviceId}/notifications/{notificationId}/update`
@@ -331,8 +329,12 @@ function makeNotificationControllers(config) {
 
   const updateRefresh = {
     handler: async (request, h) => {
+      const payload = request.payload
       request.yar.flash(sessionNames.validationFailure, {
-        formValues: request.payload
+        formValues: {
+          ...payload,
+          environments: normaliseEnvironments(payload.environments)
+        }
       })
       return h.redirect(
         request.routeLookup(
@@ -425,8 +427,6 @@ function makeNotificationControllers(config) {
     }
   }
 
-  // ── test ───────────────────────────────────────────────────────────────────
-
   const testNotification = {
     options: {
       id: `${basePath}/{serviceId}/notifications/{notificationId}/test`
@@ -504,4 +504,4 @@ function makeNotificationControllers(config) {
   }
 }
 
-export { makeNotificationControllers }
+export { makeNotificationControllers, normaliseEnvironments }
