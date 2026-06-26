@@ -2,6 +2,7 @@ import { config } from '#config/config.js'
 import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
+import { parseISO, subMinutes } from 'date-fns'
 import Joi from 'joi'
 
 export const options = {
@@ -26,11 +27,14 @@ export default async function (request) {
     `${config.get('portalBackendUrl')}/resources/requests/${workflowRunId}`
   )
 
-  const { workflow, pullRequest } = payload
+  const { requestedAt, workflow, pullRequest } = payload
   const prUrl = pullRequest?.url
+
+  const isTwentyMinutesOld = parseISO(requestedAt) < subMinutes(Date.now(), 20)
 
   return {
     workflow,
-    prUrl
+    prUrl,
+    isTwentyMinutesOld
   }
 }

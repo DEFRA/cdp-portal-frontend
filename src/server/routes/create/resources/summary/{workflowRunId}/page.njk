@@ -33,9 +33,24 @@
               data-poll-url=""
               data-poll-interval="10000"
               data-poll-limit="500">
-                <div class="govuk-!-margin-bottom-6">
-                  {{ appInfo({ text: "Your resources request is currently being generated"}) }}
-                </div>
+                {% if isTwentyMinutesOld %}
+
+                  <div class="govuk-!-margin-bottom-6">
+                    {% set warningHtml %}
+                      It looks like your resources request generation is taking a while, contact the Platform team via Slack
+                      <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+                         rel="noopener noreferrer">#cdp-support</a> with this page's url for help
+                    {% endset %}
+                    {{ appWarning({ html: warningHtml }) }}
+                  </div>
+
+                {% else %}
+
+                  <div class="govuk-!-margin-bottom-6">
+                    {{ appInfo({ text: "Your resources request is currently being generated"}) }}
+                  </div>
+
+                {% endif %}
             {% else %}
               <div>
             {% endif %}
@@ -56,6 +71,7 @@
                     "data-testid": "app-overall-progress"
                   }
                 }) }}
+
               {% endif %}
             {% endset %}
 
