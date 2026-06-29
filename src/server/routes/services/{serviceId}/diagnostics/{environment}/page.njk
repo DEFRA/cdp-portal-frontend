@@ -136,40 +136,96 @@
 
               <div class="govuk-grid-row govuk-!-margin-top-8">
                 <div class="govuk-grid-column-one-half">
-                  {% call appPanel() %}
-                    <nav style="display: flex; align-items: center;" class="govuk-!-margin-bottom-2">
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">Custom metrics dashboards</h3>
-                      <button>Create</button>
-                      <button>Promote</button>
-                    </nav>
-                    <p class="govuk-!-margin-bottom-2">
-                      Custom metrics dashboards are managed in the the <a href="./dev">Dev</a> environment and promoted up to the other environments.  View the <a href="/documentation/how-to/monitoring.md#creating-custom-dashboards" target="_blank" rel="noopener noreferrer">CDP documentation</a>.
-                    </p>
+                  <h3 class="govuk-heading-l govuk-!-margin-bottom-4">
+                    Metrics dashboards
+                  </h3>
+
+                  {% call appPanel({
+                    classes: "govuk-!-margin-bottom-6"
+                  }) %}
+                    <div class="app-flex-center govuk-!-margin-bottom-2">
+                      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
+                        Dev
+                      </h3>
+                    </div>
 
                     {{ govukTable({
                       classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
                       head: [
+                        { text: "Type" },
                         { text: "Dashboard" },
                         { text: "Version" }
                       ],
                       rows: [
                         [
-                          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway-all-3da12fe2</a>' },
+                          { text: "Custom" },
+                          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway (custom)</a>' },
                           { text: "1" }
+                        ],
+                        [
+                          { text: "Mongo" },
+                          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway (mongodb)</a>' },
+                          { text: "4" }
+                        ],
+                        [
+                          { text: "Service" },
+                          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway (service)</a>' },
+                          { text: "2" }
                         ]
                       ]
                     }) }}
 
-                    {{ resources.metrics | dump}}
+                  {% endcall %}
+
+                  {% call appPanel() %}
+                    <div class="app-flex-center govuk-!-margin-bottom-2">
+                      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
+                      Playground
+                      </h3>
+                      <span class="app-align-right">
+                        <a href="/" class="app-link app-link--underline govuk-!-margin-right-2">Create</a>
+                        <a href="/" class="app-link app-link--underline">Promote</a>
+                      </span>
+                    </div>
+
+                    <p class="govuk-!-margin-bottom-3">
+                      Custom metrics dashboards are managed in the the Playground and promoted up to the other environments.  View the <a href="/documentation/how-to/monitoring.md#creating-custom-dashboards" target="_blank" rel="noopener noreferrer">CDP documentation</a>.
+                    </p>
+
+                    {{ govukTable({
+                      classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                      head: [
+                        { text: "Type" },
+                        { text: "Dashboard" },
+                        { text: "Version" }
+                      ],
+                      rows: [
+                        [
+                          { text: "Custom" },
+                          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway (custom)</a>' },
+                          { text: "3" }
+                        ]
+                      ]
+                    }) }}
+
                   {% endcall %}
                 </div>
 
                 <div class="govuk-grid-column-one-half">
+                  <h3 class="govuk-heading-l govuk-!-margin-bottom-4">
+                  Dev
+                  </h3>
+
                   {% call appPanel() %}
-                    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Custom alerts</h3>
-                    <p class="govuk-!-margin-bottom-2">
-                      Custom alerts are managed in the the <a href="./dev">Dev</a> environment and promoted up to the other environments.  View the <a href="/documentation/how-to/monitoring.md#creating-advanced-custom-alerts" target="_blank" rel="noopener noreferrer">CDP documentation</a>.
-                    </p>
+                    <div class="app-flex-center govuk-!-margin-bottom-2">
+                      <h4 class="govuk-heading-m govuk-!-margin-bottom-1">
+                        Custom
+                      </h4>
+                      <span class="app-align-right">
+                        <a href="/" class="app-link app-link--underline govuk-!-margin-right-2">Create</a>
+                        <a href="/" class="app-link app-link--underline">Promote</a>
+                      </span>
+                    </div>
 
                     {{ govukTable({
                       classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
