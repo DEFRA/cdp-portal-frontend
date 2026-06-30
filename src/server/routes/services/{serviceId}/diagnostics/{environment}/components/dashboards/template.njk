@@ -16,23 +16,7 @@
         { text: "Name" },
         { text: "Version" }
       ],
-      rows: [
-        [
-          { text: "Custom" },
-          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway-custom</a>' },
-          { text: "1" }
-        ],
-        [
-          { text: "Mongo" },
-          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway-mongodb</a>' },
-          { text: "4" }
-        ],
-        [
-          { text: "Service" },
-          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway-service</a>' },
-          { text: "2" }
-        ]
-      ]
+      rows: createDashboardRows(metrics)
     }) }}
 
   {% endcall %}
@@ -62,13 +46,7 @@
           { text: "Dashboard" },
           { text: "Version" }
         ],
-        rows: [
-          [
-            { text: "Custom" },
-            { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway (custom)</a>' },
-            { text: "3" }
-          ]
-        ]
+        rows: []
       }) }}
 
       {% else %}

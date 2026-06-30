@@ -32,7 +32,7 @@
               {{ trafficFlow(environment, entity, resources, getAssetPath, logViewUrl, renderLinks, apigwMetricLink) }}
 
               <div class="govuk-grid-row govuk-!-margin-top-8">
-                {{ dashboards(environment, resources.metrics) }}
+                {{ dashboards(environment, resources.metrics, createDashboardRows) }}
                 {{ alerts(environment, resources.alerts) }}
               </div>
             {% else %}

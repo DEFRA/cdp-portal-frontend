@@ -201,24 +201,8 @@ export default async function (request) {
     )
   )
 
-  function renderLinks(label, logsUrl, metricsUrl, docPath) {
-    const logsLink =
-      logsUrl && `<a href='${logsUrl}' data-js='open-window'>Logs</a>`
-    const metricsLink =
-      metricsUrl && `<a href='${metricsUrl}' data-js='open-window'>Metrics</a>`
-    const labelEl = docPath
-      ? `<button popovertarget="${label}" class="mermaid--label mermaid--popover-anchor">${label}</button><dialog id="${label}" class="mermaid--popover" popover><header>${label}</header><section><p>${summaries[docPath]}</p><p class="read-more"><a href="/documentation/${docPath}" data-js="open-window">Read the full documentation</p></p></section></dialog>`
-      : `<span class="mermaid--label">${label}</span>`
-
-    return `${labelEl}${[logsLink, metricsLink].filter(Boolean).join(' | ')}`
-  }
-
   function logViewUrl(type) {
     return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/view/${entity.name}-${type}`
-  }
-
-  function apigwMetricLink(metrics = [], type) {
-    return metrics.find(({ scope }) => scope === type)?.url
   }
 
   return {
@@ -228,6 +212,7 @@ export default async function (request) {
     renderLinks,
     logViewUrl,
     apigwMetricLink,
+    createDashboardRows,
     breadcrumbs: [
       {
         text: 'Services',
@@ -245,4 +230,39 @@ export default async function (request) {
       }
     ]
   }
+}
+
+function renderLinks(label, logsUrl, metricsUrl, docPath) {
+  const logsLink =
+    logsUrl && `<a href='${logsUrl}' data-js='open-window'>Logs</a>`
+  const metricsLink =
+    metricsUrl && `<a href='${metricsUrl}' data-js='open-window'>Metrics</a>`
+  const labelEl = docPath
+    ? `<button popovertarget="${label}" class="mermaid--label mermaid--popover-anchor">${label}</button><dialog id="${label}" class="mermaid--popover" popover><header>${label}</header><section><p>${summaries[docPath]}</p><p class="read-more"><a href="/documentation/${docPath}" data-js="open-window">Read the full documentation</p></p></section></dialog>`
+    : `<span class="mermaid--label">${label}</span>`
+
+  return `${labelEl}${[logsLink, metricsLink].filter(Boolean).join(' | ')}`
+}
+
+function apigwMetricLink(metrics = [], type) {
+  return metrics.find(({ scope }) => scope === type)?.url
+}
+
+function createDashboardRows(metrics) {
+  const dashboards = Object.entries(metrics)
+    .flatMap(([_, dashboard]) => dashboard)
+    .map((dashboard) => ({
+      // TODO: // replace with title
+      ...dashboard,
+      name: dashboard.url.split('/').at(-1)
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
+
+  return dashboards.map(({ name, type, version, url }) => [
+    { text: type },
+    {
+      html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
+    },
+    { text: version }
+  ])
 }
