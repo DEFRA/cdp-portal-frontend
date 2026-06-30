@@ -1,5 +1,6 @@
 {% from "panel/macro.njk" import appPanel %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "info/macro.njk" import appInfo %}
 
 <div class="govuk-grid-column-one-half">
   <h3 class="govuk-heading-l govuk-!-margin-bottom-4" id="alerts">
@@ -17,23 +18,7 @@
         { text: "Name" },
         { text: "Runbook" }
       ],
-      rows: [
-        [
-          { text: "Default" },
-          { html: '<a href="/" class="app-link app-link--underline">btms-gateway-ecs-desired-running-tasks</a>' },
-          { html: '<a href="/" class="app-link app-link--underline">Runbook</a>' }
-        ],
-        [
-          { text: "Default" },
-          { html: '<a href="/" class="app-link app-link--underline">btms-gateway-cpu-utilization</a>' },
-          { html: '<a href="/" class="app-link app-link--underline">Runbook</a>' }
-        ],
-        [
-          { text: "Custom" },
-          { html: '<a href="/" class="app-link app-link--underline">btms-gateway-health-status</a>' },
-          { html: '<a href="/" class="app-link app-link--underline">Runbook</a>' }
-        ]
-      ]
+      rows: createAlertRows(alerts, environment)
     }) }}
   {% endcall %}
 
@@ -54,7 +39,7 @@
       Advanced custom alerts are managed in the the playground and promoted up to the other environments.  View the <a href="/documentation/how-to/monitoring.md#creating-advanced-custom-alerts" target="_blank" rel="noopener noreferrer">CDP documentation</a>.
     </p>
 
-    {% if environment == 'infra-dev' %}
+    {% if environment.endsWith('dev') %}
 
       {{ govukTable({
         classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
@@ -63,18 +48,12 @@
           { text: "Name" },
           { text: "Runbook" }
         ],
-        rows: [
-          [
-            { text: "Custom" },
-            { html: '<a href="/" class="app-link app-link--underline">btms-gateway-health-status</a>' },
-            { html: '<a href="/" class="app-link app-link--underline">Runbook</a>' }
-          ]
-        ]
+        rows: []
       }) }}
 
     {% else %}
 
-      {{ appInfo({ html: "Switch to the <a href='./infra-dev#dashboards'>Dev</a> environment to view the playground alerts", isInverse: true}) }}
+      {{ appInfo({ html: "Switch to the <a href='./dev#dashboards'>Dev</a> environment to view the playground alerts", isInverse: true}) }}
 
     {% endif %}
 

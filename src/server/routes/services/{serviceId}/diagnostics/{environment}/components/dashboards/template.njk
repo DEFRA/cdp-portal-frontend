@@ -1,5 +1,6 @@
 {% from "panel/macro.njk" import appPanel %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "info/macro.njk" import appInfo %}
 
 <div class="govuk-grid-column-one-half">
   <h3 class="govuk-heading-l govuk-!-margin-bottom-4" id="dashboards">
@@ -51,7 +52,7 @@
 
       {% else %}
 
-        {{ appInfo({ html: "Switch to the <a href='./infra-dev#dashboards'>Dev</a> environment to view the playground dashboards", isInverse: true}) }}
+        {{ appInfo({ html: "Switch to the <a href='./dev#dashboards'>Dev</a> environment to view the playground dashboards", isInverse: true}) }}
 
       {% endif %}
 

@@ -33,7 +33,7 @@
 
               <div class="govuk-grid-row govuk-!-margin-top-8">
                 {{ dashboards(environment, resources.metrics, createDashboardRows) }}
-                {{ alerts(environment, resources.alerts) }}
+                {{ alerts(environment, resources.alerts, createAlertRows) }}
               </div>
             {% else %}
 
