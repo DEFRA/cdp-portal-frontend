@@ -2,6 +2,8 @@
 {% from "tool-tip/macro.njk" import appToolTip %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "./components/traffic-flow/macro.njk" import trafficFlow %}
+{% from "./components/dashboards/macro.njk" import dashboards %}
+{% from "./components/alerts/macro.njk" import alerts %}
 
 
 {% block beforeTabContent %}
@@ -30,164 +32,8 @@
               {{ trafficFlow(environment, entity, resources, getAssetPath, logViewUrl, renderLinks, apigwMetricLink) }}
 
               <div class="govuk-grid-row govuk-!-margin-top-8">
-                <div class="govuk-grid-column-one-half">
-                  <h3 class="govuk-heading-l govuk-!-margin-bottom-4" id="dashboards">
-                    Dashboards
-                  </h3>
-
-                  {% call appPanel({
-                    classes: "govuk-!-margin-bottom-6"
-                  }) %}
-                    {{ govukTable({
-                      classes: "app-table app-table--inverse govuk-!-margin-top-3 govuk-!-margin-bottom-3",
-                      head: [
-                        { text: "Type" },
-                        { text: "Name" },
-                        { text: "Version" }
-                      ],
-                      rows: [
-                        [
-                          { text: "Custom" },
-                          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway-custom</a>' },
-                          { text: "1" }
-                        ],
-                        [
-                          { text: "Mongo" },
-                          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway-mongodb</a>' },
-                          { text: "4" }
-                        ],
-                        [
-                          { text: "Service" },
-                          { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway-service</a>' },
-                          { text: "2" }
-                        ]
-                      ]
-                    }) }}
-
-                  {% endcall %}
-
-                  {% call appPanel() %}
-                    <div class="app-flex-center govuk-!-margin-bottom-3">
-                      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-                      Dashboards playground
-                      </h3>
-                      {% if environment == 'infra-dev' %}
-                      <span class="app-align-right">
-                        <a href="/" class="app-link app-link--underline">Promote</a>
-                      </span>
-                      {% endif %}
-                    </div>
-
-                    <p class="govuk-!-margin-bottom-3">
-                      Custom dashboards are managed in the the playground and promoted up to the other environments.  View the <a href="/documentation/how-to/monitoring.md#creating-custom-dashboards" target="_blank" rel="noopener noreferrer">CDP documentation</a>.
-                    </p>
-
-                    {% if environment == 'infra-dev' %}
-
-                      {{ govukTable({
-                        classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-                        head: [
-                          { text: "Type" },
-                          { text: "Dashboard" },
-                          { text: "Version" }
-                        ],
-                        rows: [
-                          [
-                            { text: "Custom" },
-                            { html: '<a href="/" target="_blank" rel="noopener noreferrer">btms-gateway (custom)</a>' },
-                            { text: "3" }
-                          ]
-                        ]
-                      }) }}
-
-                      {% else %}
-
-                        {{ appInfo({ html: "Switch to the <a href='./infra-dev#dashboards'>Dev</a> environment to view the playground dashboards", isInverse: true}) }}
-
-                      {% endif %}
-
-                  {% endcall %}
-                </div>
-
-                <div class="govuk-grid-column-one-half">
-                  <h3 class="govuk-heading-l govuk-!-margin-bottom-4" id="alerts">
-                  Alerts
-                  </h3>
-
-
-                  {% call appPanel({
-                    classes: "govuk-!-margin-bottom-6"
-                  }) %}
-                    {{ govukTable({
-                      classes: "app-table app-table--inverse govuk-!-margin-bottom-3 govuk-!-margin-top-3",
-                      head: [
-                        { text: "Type" },
-                        { text: "Name" },
-                        { text: "Runbook" }
-                      ],
-                      rows: [
-                        [
-                          { text: "Default" },
-                          { html: '<a href="/" class="app-link app-link--underline">btms-gateway-ecs-desired-running-tasks</a>' },
-                          { html: '<a href="/" class="app-link app-link--underline">Runbook</a>' }
-                        ],
-                        [
-                          { text: "Default" },
-                          { html: '<a href="/" class="app-link app-link--underline">btms-gateway-cpu-utilization</a>' },
-                          { html: '<a href="/" class="app-link app-link--underline">Runbook</a>' }
-                        ],
-                        [
-                          { text: "Custom" },
-                          { html: '<a href="/" class="app-link app-link--underline">btms-gateway-health-status</a>' },
-                          { html: '<a href="/" class="app-link app-link--underline">Runbook</a>' }
-                        ]
-                      ]
-                    }) }}
-                  {% endcall %}
-
-                  {% call appPanel() %}
-                    <div class="app-flex-center govuk-!-margin-bottom-3">
-                      <h4 class="govuk-heading-m govuk-!-margin-bottom-1 ">
-                      Alerts playground
-                      </h4>
-                      {% if environment == 'infra-dev' %}
-                        <span class="app-align-right">
-                          <a href="/" class="app-link app-link--underline">Promote</a>
-                        </span>
-                      {% endif %}
-                    </div>
-
-
-                    <p class="govuk-!-margin-bottom-3">
-                      Advanced custom alerts are managed in the the playground and promoted up to the other environments.  View the <a href="/documentation/how-to/monitoring.md#creating-advanced-custom-alerts" target="_blank" rel="noopener noreferrer">CDP documentation</a>.
-                    </p>
-
-                    {% if environment == 'infra-dev' %}
-
-                      {{ govukTable({
-                        classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-                        head: [
-                          { text: "Type" },
-                          { text: "Name" },
-                          { text: "Runbook" }
-                        ],
-                        rows: [
-                          [
-                            { text: "Custom" },
-                            { html: '<a href="/" class="app-link app-link--underline">btms-gateway-health-status</a>' },
-                            { html: '<a href="/" class="app-link app-link--underline">Runbook</a>' }
-                          ]
-                        ]
-                      }) }}
-
-                    {% else %}
-
-                      {{ appInfo({ html: "Switch to the <a href='./infra-dev#dashboards'>Dev</a> environment to view the playground alerts", isInverse: true}) }}
-
-                    {% endif %}
-
-                  {% endcall %}
-                </div>
+                {{ dashboards(environment, resources.metrics) }}
+                {{ alerts(environment, resources.alerts) }}
               </div>
             {% else %}
 
