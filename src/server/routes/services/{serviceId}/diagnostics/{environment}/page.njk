@@ -31,15 +31,18 @@
 
               {{ trafficFlow(environment, entity, resources, getAssetPath, logViewUrl, renderLinks, apigwMetricLink) }}
 
-              <div class="govuk-grid-row govuk-!-margin-top-8">
-                {{ dashboards(environment, resources.metrics, createDashboardRows) }}
-                {{ alerts(environment, resources.alerts, createAlertRows) }}
-              </div>
-            {% else %}
+              {% if userIsAdmin %}
+                <div class="govuk-grid-row govuk-!-margin-top-8">
+                  {{ dashboards(environment, resources.metrics, createDashboardRows) }}
+                  {{ alerts(environment, resources.alerts, createAlertRows) }}
+                </div>
+              {% endif %}
 
-              {{ appInfo({ text: "Service not deployed in this environment" }) }}
+          {% else %}
 
-            {% endif %}
+            {{ appInfo({ text: "Service not deployed in this environment" }) }}
+
+          {% endif %}
        {% endcall %}
 
       </div>
