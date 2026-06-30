@@ -27,9 +27,9 @@
       <h4 class="govuk-heading-m govuk-!-margin-bottom-1 ">
       Alerts playground
       </h4>
-      {% if environment == 'infra-dev' %}
+      {% if environment.endsWith('dev') %}
         <span class="app-align-right">
-          <a href="/" class="app-link app-link--underline">Promote</a>
+          <!--<a href="/" class="app-link app-link--underline">Promote</a>-->
         </span>
       {% endif %}
     </div>
