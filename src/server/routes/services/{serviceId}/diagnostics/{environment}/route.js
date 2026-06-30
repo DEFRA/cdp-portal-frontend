@@ -8,7 +8,6 @@ import { serviceParamsValidation } from '#server/services/helpers/schema/service
 import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
 import { formatText } from '#config/nunjucks/filters/filters.js'
-import { buildDocsPageHtml } from '#server/documentation/helpers/markdown/build-page-html.js'
 import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
 
 export const ext = [
@@ -246,13 +245,4 @@ export default async function (request) {
       }
     ]
   }
-}
-
-async function fetchFirstParagraph(request, bucket, path) {
-  const md = await fetchMarkdown(request, bucket, path).catch(
-    () => 'Summary not found'
-  )
-  const { html } = await buildDocsPageHtml(md)
-
-  return [path, html.match(/<p>([\s\S]*?)<\/p>/)?.at(0) ?? '']
 }
