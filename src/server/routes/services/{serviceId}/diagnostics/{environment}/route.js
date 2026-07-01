@@ -8,9 +8,6 @@ import { serviceParamsValidation } from '#server/services/helpers/schema/service
 import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
 import { formatText } from '#config/nunjucks/filters/filters.js'
-import { fetchMarkdown } from '#server/documentation/helpers/s3-file-handler.js'
-import { config } from '#config/config.js'
-import { buildDocsPageHtml } from '#server/documentation/helpers/markdown/build-page-html.js'
 import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
 
 export const ext = [
@@ -61,29 +58,8 @@ export default async function (request) {
     )
   )
 
-  const bucket = config.get('documentation.bucket')
-  const summaries = Object.fromEntries(
-    await Promise.all([fetchFirstParagraph(request, bucket, 'how-to/proxy.md')])
-  )
-
-  function renderLinks(label, logsUrl, metricsUrl, docPath) {
-    const logsLink =
-      logsUrl && `<a href='${logsUrl}' data-js='open-window'>Logs</a>`
-    const metricsLink =
-      metricsUrl && `<a href='${metricsUrl}' data-js='open-window'>Metrics</a>`
-    const labelEl = docPath
-      ? `<button popovertarget="${label}" class="mermaid--label mermaid--popover-anchor">${label}</button><dialog id="${label}" class="mermaid--popover" popover><header>${label}</header><section><p>${summaries[docPath]}</p><p class="read-more"><a href="/documentation/${docPath}" data-js="open-window">Read the full documentation</p></p></section></dialog>`
-      : `<span class="mermaid--label">${label}</span>`
-
-    return `${labelEl}${[logsLink, metricsLink].filter(Boolean).join(' | ')}`
-  }
-
   function logViewUrl(type) {
     return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/view/${entity.name}-${type}`
-  }
-
-  function apigwMetricLink(metrics = [], type) {
-    return metrics.find(({ scope }) => scope === type)?.url
   }
 
   return {
@@ -93,6 +69,9 @@ export default async function (request) {
     renderLinks,
     logViewUrl,
     apigwMetricLink,
+    createDashboardRows,
+    createAlertRows,
+    userIsAdmin: request.userIsAdmin(),
     breadcrumbs: [
       {
         text: 'Services',
@@ -112,11 +91,60 @@ export default async function (request) {
   }
 }
 
-async function fetchFirstParagraph(request, bucket, path) {
-  const md = await fetchMarkdown(request, bucket, path).catch(
-    () => 'Summary not found'
-  )
-  const { html } = await buildDocsPageHtml(md)
+function renderLinks(label, logsUrl, metricsUrl) {
+  const logsLink =
+    logsUrl && `<a href='${logsUrl}' data-js='open-window'>Logs</a>`
+  const metricsLink =
+    metricsUrl && `<a href='${metricsUrl}' data-js='open-window'>Metrics</a>`
+  const labelEl = `<span class="mermaid--label">${label}</span>`
 
-  return [path, html.match(/<p>([\s\S]*?)<\/p>/)?.at(0) ?? '']
+  return `${labelEl}${[logsLink, metricsLink].filter(Boolean).join(' | ')}`
+}
+
+function apigwMetricLink(metrics = [], type) {
+  return metrics.find(({ scope }) => scope === type)?.url
+}
+
+function createDashboardRows(metrics) {
+  const dashboards = Object.entries(metrics)
+    .flatMap(([_, dashboard]) => dashboard)
+    .map((dashboard) => ({
+      // TODO: // replace with title
+      ...dashboard,
+      name: dashboard.url.split('/').at(-1)
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
+
+  return dashboards.map(({ name, type, version, url }) => [
+    { text: type },
+    {
+      html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
+    },
+    { text: version }
+  ])
+}
+
+function createAlertRows(alerts, environment) {
+  return alerts
+    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
+    .map(
+      ({
+        name,
+        type,
+        uid,
+        // TODO: Missing url
+        url = `https://metrics.${environment}.cdp-int.defra.cloud/alerting/grafana/${uid}/view`,
+        annotations: { runbook_url } = {}
+      }) => [
+        { text: type },
+        {
+          html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
+        },
+        {
+          html: runbook_url
+            ? `<a href="${runbook_url}" target="_blank" rel="noopener noreferrer">Runbook</a>`
+            : '- - -'
+        }
+      ]
+    )
 }

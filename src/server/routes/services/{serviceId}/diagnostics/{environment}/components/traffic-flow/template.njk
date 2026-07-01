@@ -1,0 +1,108 @@
+<pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
+  flowchart LR
+    subgraph network[" "]
+      style network fill:#fff,stroke-dasharray:10 5
+      direction TD
+
+      subgraph ingress[Ingress - <a href="/documentation/architecture/architectural-overview.md#ingress" data-js="open-window">Documentation</a>]
+        direction LR
+
+        {% if entity.subType == 'Frontend' %}
+          {% if environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev' %}
+            browser@{ icon: "logos:chrome", label: "External Browser"}
+            browser browser_link@--> public_alb
+            browser_link@{ animation: slow }
+          {% endif %}
+
+          int_browser@{ icon: "logos:microsoft-edge", label: "Internal Browser"}
+          int_browser int_browser_link@--> alb
+          int_browser_link@{ animation: slow }
+        {% else %}
+          {% for api in resources.api_gateways %}
+            client{{loop.index}}@{ icon: "logos:postman-icon", label: "{{'External client' if api.type == 'REGIONAL' else 'Internal client'}}"}
+            client{{loop.index}} client{{loop.index}}_link@--> api{{loop.index}}
+            client{{loop.index}}_link@{ animation: slow }
+
+            api{{loop.index}}@{ icon: "logos:aws-api-gateway", label: "{{ renderLinks('API Gateway (Public)' if api.type == 'REGIONAL' else 'API Gateway (Private)', logViewUrl('api-gw-public') if api.type == 'REGIONAL' else logViewUrl('api-gw-private'), apigwMetricLink(resources.metrics.apigw, 'public') if api.type == 'REGIONAL' else apigwMetricLink(resources.metrics.apigw, 'private')) | safe }}"}
+            api{{loop.index}} api{{loop.index}}_link@--> alb
+            api{{loop.index}}_link@{ animation: slow }
+          {% endfor %}
+
+          frontend@{ icon: "logos:aws-fargate", label: "Frontend client"}
+          frontend frontend_link@--> alb
+          frontend_link@{ animation: slow }
+        {% endif %}
+
+        {% if (entity.subType == 'Frontend' and (environment == 'prod' or environment == 'ext-test' or environment == 'infra-dev')) %}
+          public_alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Public)', logViewUrl('alb-vanity-url')) | safe }}"}
+          public_alb public_alb_link@--> nginx
+          public_alb_link@{ animation: slow }
+        {% endif %}
+
+        alb@{ img: "{{ getAssetPath("src/client/images/application-load-balancer.svg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('ALB (Private)', logViewUrl('alb')) | safe }}"}
+        alb alb_link@--> nginx
+        alb_link@{ animation: slow }
+
+        nginx@{ icon: "logos:nginx", label: "{{ renderLinks('Nginx (Public)' if entity.subType == 'Frontend' else 'Nginx (Protected)', logViewUrl('nginx-public') if entity.subType == 'Frontend' else logViewUrl('nginx-protected')) | safe }}"}
+        nginx nginx_link@--> sslSidecar
+        nginx_link@{ animation: slow }
+
+        subgraph ingress_pod[{{ entity.name }}]
+          sslSidecar@{ icon: "logos:docker-icon", label: "{{ renderLinks('SSL Sidecar', logViewUrl('ssl-sidecar')) | safe }}"}
+          sslSidecar sslSidecar_link@--> service_ingress
+          sslSidecar_link@{ animation: slow }
+
+          service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
+        end
+
+      end
+
+      subgraph egress[Egress - <a href="/documentation/architecture/architectural-overview.md#egress" data-js="open-window">Documentation</a>]
+        direction RL
+
+        subgraph egress_pod[{{ entity.name }}]
+          service_egress@{ icon: "logos:aws-fargate", label: "Service"}
+
+          forwarder@{ icon: "logos:docker-icon", label: "{{ renderLinks('Forwarder Proxy', logViewUrl('forwarder-proxy'), null) | safe }}"}
+        end
+
+        squid@{ img: "{{ getAssetPath("src/client/images/squid.jpeg") }}", h: 48, w: 48, constraint: 'on', label: "{{ renderLinks('Squid proxy', logViewUrl('squid-proxy')) | safe }}"}
+
+        internet@{ img: "{{ getAssetPath("src/client/images/cloud.svg") }}", h: 40, w: 40, constraint: 'on', label: "Internet"}
+
+        service_egress service_egress_link@--> forwarder
+        service_egress_link@{ animation: slow }
+
+        forwarder forwarder_link@--> squid
+        forwarder_link@{ animation: slow }
+
+        squid squid_link@--> internet
+        squid_link@{ animation: slow }
+      end
+
+      ingress ~~~ egress
+    end
+
+    subgraph app[Service / Resources]
+      direction LR
+
+      service@{ icon: "logos:aws-fargate", label: "{{ renderLinks(entity.name, logViewUrl('app'), resources.metrics.service[0].url) | safe }}"}
+
+      {% if entity.subType == 'Backend' %}
+        {% if resources.tenant_config.mongo%}
+          mongo@{ icon: "logos:mongodb-icon", label: "{{ renderLinks('MongoDB', logViewUrl('mongo'), resources.metrics.mongodb[0].url) | safe }}"}
+          service -.- mongo
+        {% endif %}
+
+        {% if resources.tenant_config.sql_database%}
+          postgress@{ icon: "logos:aws-aurora", label: "{{ renderLinks('PostgreSQL') | safe }}"}
+          service -.- postgress
+        {% endif %}
+      {% endif %}
+
+    end
+
+    network ~~~ app
+
+
+  </pre>
