@@ -75,7 +75,7 @@ export default async function (request) {
   )
 
   const resources = transformResources(entity.environments[environment])
-  console.log(resources)
+
   function logViewUrl(type) {
     return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/view/${entity.name}-${type}`
   }
