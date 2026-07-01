@@ -16,7 +16,7 @@
         classes: "govuk-fieldset__legend--m"
       }
     },
-    items: helpers.resolveChecked(helpers.resolveMeta(params.def, 'suggestions'), [params.formValues[params.name]]),
+    items: helpers.resolveChecked(helpers.resolveMeta(params.def, 'suggestions'), params.formValues[params.name]),
     errorMessage: errorMessageHelper(params.formErrors[params.name].message)
   }) }}
 {% endmacro %}

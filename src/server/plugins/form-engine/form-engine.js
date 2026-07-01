@@ -90,7 +90,7 @@ export default {
         const formSchema = await schema(request, h, formValues)
         const resolvedActions = await actions(request, h)
         const action = resolvedActions[actionButton]
-
+        console.log(formValues, expandNested(formValues))
         const validationResult = formSchema.validate(expandNested(formValues), {
           abortEarly: false,
           convert: true,
@@ -192,7 +192,7 @@ function createNested(data = {}) {
   return Object.fromEntries(
     Object.entries(data)
       .map(([key, value]) => {
-        if (typeof value === 'object') {
+        if (typeof value === 'object' && !Array.isArray(value)) {
           return Object.entries(createNested(value)).map(([k, v]) => [
             `${key}.${k}`,
             v
