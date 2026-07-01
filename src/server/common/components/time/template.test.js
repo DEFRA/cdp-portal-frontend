@@ -27,23 +27,23 @@ describe('Time Component', () => {
 
     test('Should contain expected rendered date', () => {
       expect($time('[data-testid="app-time"]').text().trim()).toBe(
-        'Tue 11th Apr 2023 at 16:11'
+        '11th Apr 2023 at 16:11:31'
       )
     })
 
     test('Should have expected datetime attribute', () => {
       expect($time('[data-testid="app-time"]').attr('datetime')).toBe(
-        '2023-04-11T16:11:31.722Z'
+        'Tue 11th Apr 2023 at 16:11'
       )
     })
   })
 
-  describe('With seconds', () => {
+  describe('Without seconds', () => {
     beforeEach(() => {
       $time = renderTestComponent('time', {
         params: {
           datetime: '2023-04-11T16:11:31.722Z',
-          withSeconds: true
+          withoutSeconds: true
         }
       })
     })
@@ -54,13 +54,13 @@ describe('Time Component', () => {
 
     test('Should contain expected rendered date', () => {
       expect($time('[data-testid="app-time"]').text().trim()).toBe(
-        'Tue 11th Apr 2023 at 16:11:31'
+        '11th Apr 2023 at 16:11'
       )
     })
 
     test('Should have expected datetime attribute', () => {
       expect($time('[data-testid="app-time"]').attr('datetime')).toBe(
-        '2023-04-11T16:11:31.722Z'
+        'Tue 11th Apr 2023 at 16:11'
       )
     })
   })
@@ -87,7 +87,7 @@ describe('Time Component', () => {
 
     test('Should have expected datetime attribute', () => {
       expect($time('[data-testid="app-time"]').attr('datetime')).toBe(
-        '2023-04-11T16:11:31.722Z'
+        'Tue 11th Apr 2023 at 16:11'
       )
     })
   })

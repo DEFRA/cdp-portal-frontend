@@ -86,9 +86,9 @@
             {{ "Undeployed" if runningService.status == "undeployed" else "Deployed" }}
           </a>
           {{ appTime({
-            text: runningService.created | formatDistanceToNow,
-            datetime: runningService.created
-          }) }} ago by {{ runningService.user.displayName }}
+            datetime: runningService.created,
+            withoutSeconds: true
+          }) }} by {{ runningService.user.displayName }}
         </div>
       </div>
 
