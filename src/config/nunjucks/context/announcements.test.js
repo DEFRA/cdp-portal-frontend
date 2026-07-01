@@ -77,7 +77,7 @@ describe('#getAnnouncements', () => {
       html: expect.any(String)
     })
     expect(stripHtml(announcements.at(1).html)).toContain(
-      'You have active break glass for the Platform team. From today at 10:10 until today at 12:10'
+      'You have active break glass for the Platform team. From 3rd sep 2025 at 10:10:09 until 3rd sep 2025 at 12:10:09'
     )
   })
 
@@ -111,7 +111,7 @@ describe('#getAnnouncements', () => {
     ])
 
     expect(stripHtml(announcements.at(2).html)).toContain(
-      'You have active break glass for the Platform team. From today at 10:10 until today at 12:10'
+      'You have active break glass for the Platform team. From 3rd sep 2025 at 10:10:09 until 3rd sep 2025 at 12:10:09'
     )
   })
 
@@ -131,7 +131,7 @@ describe('#getAnnouncements', () => {
     expect(announcements).toEqual([{ html: expect.any(String) }])
 
     expect(stripHtml(announcements.at(0).html)).toContain(
-      'You have active break glass for the Platform team. From today at 10:10 until today at 12:10'
+      'You have active break glass for the Platform team. From 3rd sep 2025 at 10:10:09 until 3rd sep 2025 at 12:10:0'
     )
   })
 

@@ -69,7 +69,9 @@ function renderArticleDate(articlePath) {
 
   return renderComponent('time', {
     classes: 'app-blog__date',
-    datetime: articleDate,
+    datetime: new Date(
+      articleDate.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')
+    ),
     formatString: 'EEEE do MMMM yyyy',
     withoutTooltip: true
   })
