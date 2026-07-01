@@ -72,6 +72,7 @@ export default async function (request) {
     createDashboardRows,
     createAlertRows,
     userIsAdmin: request.userIsAdmin(),
+    userIsOwner: request.userIsOwner(entity),
     breadcrumbs: [
       {
         text: 'Services',
