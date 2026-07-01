@@ -1,4 +1,5 @@
 import { scopes } from '@defra/cdp-validation-kit'
+import createDashboardRows from '../../../utils/createDashboardRows.js'
 
 export const options = {
   auth: {
@@ -11,7 +12,6 @@ export const options = {
 
 export default async function (request) {
   const { entity } = request.app
-  const environment = request.params.environment
 
-  return 'Hello'
+  return { entity, createDashboardRows }
 }

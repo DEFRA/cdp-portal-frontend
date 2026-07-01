@@ -9,6 +9,8 @@ import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
+import transformResources from '../utils/transformResources.js'
+import createDashboardRows from '../utils/createDashboardRows.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -46,17 +48,7 @@ export default async function (request) {
     (service) => service.environment === environment
   )
 
-  const resources = Object.fromEntries(
-    Object.entries(entity.environments[environment] ?? {}).map(
-      ([key, value]) => {
-        if (key === 'metrics') {
-          return [key, { ...Object.groupBy(value, (item) => item.type) }]
-        }
-
-        return [key, value]
-      }
-    )
-  )
+  const resources = transformResources(entity.environments[environment])
 
   function logViewUrl(type) {
     return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/view/${entity.name}-${type}`
@@ -104,25 +96,6 @@ function renderLinks(label, logsUrl, metricsUrl) {
 
 function apigwMetricLink(metrics = [], type) {
   return metrics.find(({ scope }) => scope === type)?.url
-}
-
-function createDashboardRows(metrics) {
-  const dashboards = Object.entries(metrics)
-    .flatMap(([_, dashboard]) => dashboard)
-    .map((dashboard) => ({
-      // TODO: // replace with title
-      ...dashboard,
-      name: dashboard.url.split('/').at(-1)
-    }))
-    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
-
-  return dashboards.map(({ name, type, version, url }) => [
-    { text: formatText(type) },
-    {
-      html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
-    },
-    { text: version }
-  ])
 }
 
 function createAlertRows(alerts, environment) {
