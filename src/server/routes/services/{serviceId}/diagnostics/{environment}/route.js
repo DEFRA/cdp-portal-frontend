@@ -116,7 +116,7 @@ function createDashboardRows(metrics) {
     .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
 
   return dashboards.map(({ name, type, version, url }) => [
-    { text: type },
+    { text: formatText(type) },
     {
       html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
     },
@@ -136,7 +136,7 @@ function createAlertRows(alerts, environment) {
         url = `https://metrics.${environment}.cdp-int.defra.cloud/alerting/grafana/${uid}/view`,
         annotations: { runbook_url } = {}
       }) => [
-        { text: type },
+        { text: formatText(type) },
         {
           html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
         },
