@@ -7,7 +7,7 @@ import { transformRunningServices } from './transformers/running-services.js'
 import { fetchAboutServiceData } from './helpers/fetch-about-service-data.js'
 import { transformServiceToSummary } from './transformers/service-to-summary.js'
 import { obtainServiceUrls } from '../../../common/helpers/service-urls/obtain-service-urls.js'
-import { obtainLogsAndMetricsUrls } from '../../../common/helpers/obtain-logs-and-metrics-urls.js'
+import { obtainTelemetryUrls } from '../../../common/helpers/obtain-telemetry-urls.js'
 import { obtainApiHubUrls } from './helpers/obtain-api-hub-urls.js'
 import { isBackendEntity, isFrontendEntity } from '../../helpers/entity-type.js'
 
@@ -55,19 +55,17 @@ async function aboutHandler(request, h) {
     entity
   })
 
-  const { shutteredUrls, serviceUrls, vanityUrls } = obtainServiceUrls(
+  const serviceUrls = obtainServiceUrls(
     request.app.entity.environments,
     availableServiceEnvironments
   )
+  const telemetryUrls = obtainTelemetryUrls(
+    entity,
+    availableServiceEnvironments
+  )
+  const apiHubUrls = obtainApiHubUrls(entity, availableServiceEnvironments)
 
-  const { logsDetails, metricsDetails } = obtainLogsAndMetricsUrls(
-    request.app.entity,
-    availableServiceEnvironments
-  )
-  const apiHubUrls = obtainApiHubUrls(
-    request.app.entity,
-    availableServiceEnvironments
-  )
+  const urls = { ...serviceUrls, ...telemetryUrls, ...apiHubUrls }
 
   const isFrontend = isFrontendEntity(entity)
   const isBackend = isBackendEntity(entity)
@@ -92,12 +90,7 @@ async function aboutHandler(request, h) {
     latestPublishedImageVersions,
     availableMigrations,
     latestMigrations,
-    shutteredUrls,
-    serviceUrls,
-    vanityUrls,
-    logsDetails,
-    metricsDetails,
-    apiHubUrls,
+    urls: transformUrlsUrls(urls),
     breadcrumbs: [
       {
         text: 'Services',
@@ -108,6 +101,48 @@ async function aboutHandler(request, h) {
       }
     ]
   })
+}
+
+const URL_SECTION_CONTENT = {
+  vanityUrls: {
+    heading: 'Vanity Urls',
+    description: 'Custom endpoints that provide access to this service.'
+  },
+  apiUrls: {
+    heading: 'API Gateway Urls',
+    description: 'Endpoints for accessing this service via the API Gateway.'
+  },
+  serviceUrls: {
+    heading: 'Internal Urls',
+    description:
+      'Internal endpoints used to access this service from within the CDP platform.'
+  },
+  apiHubUrls: {
+    heading: 'API Documentation',
+    description: 'Swagger/OpenAPI documentation for your service'
+  },
+  logsUrls: {
+    heading: 'Logs',
+    description:
+      'OpenSearch logs dashboards for monitoring and troubleshooting your service'
+  },
+  metricsUrls: {
+    heading: 'Metrics',
+    description:
+      'Grafana observability metrics dashboards, providing data and graphs for your service'
+  }
+}
+
+function transformUrlsUrls(urls) {
+  return Object.fromEntries(
+    Object.entries(urls).map(([key, value]) => [
+      key,
+      {
+        ...URL_SECTION_CONTENT[key],
+        environments: value
+      }
+    ])
+  )
 }
 
 export { aboutHandler }

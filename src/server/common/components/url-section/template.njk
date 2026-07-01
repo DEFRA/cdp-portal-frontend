@@ -1,0 +1,38 @@
+{% if section and section.environments | length %}
+  <section class="govuk-!-margin-bottom-6">
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
+      {{ section.heading }}
+    </h2>
+
+    <p>{{ section.description }}</p>
+
+    <dl class="app-description-list">
+      {% for env in section.environments %}
+        <dt class="app-description-list__term">
+          {{ env.environment | title }}
+        </dt>
+
+        {% for url in env.urls %}
+          <dd class="app-description-list__details app-description-list__details--slim">
+            {% if beforeLink %}
+              {{ beforeLink(url) }}
+            {% endif %}
+            <a
+              class="app-link"
+              href="{{ url.url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              {% if url.testId %}data-testid="{{ url.testId }}"{% endif %}
+            >
+              {{ url.label or url.url }}
+            </a>
+          </dd>
+        {% else %}
+          <dd class="app-description-list__details">
+            {{ emptyMessage }}
+          </dd>
+        {% endfor %}
+      {% endfor %}
+    </dl>
+  </section>
+{% endif %}

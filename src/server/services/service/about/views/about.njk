@@ -7,8 +7,8 @@
 {% from "summary/macro.njk" import appSummary %}
 {% from "tag/macro.njk" import appTag %}
 {% from "time/macro.njk" import appTime %}
-
-{% from "vanity-url/macro.njk" import appVanityUrl %}
+{% from "url-section/macro.njk" import renderUrlSection %}
+{% from "shuttered/macro.njk" import renderShuttered %}
 
 {% set latestPublishedTableRows = [] %}
 {% for version in latestPublishedImageVersions %}
@@ -257,151 +257,12 @@
 
     <aside class="app-service-container__sidebar">
       <section class="app-grid-service__links">
-
-        {% if vanityUrls | length %}
-          {% set urlText = "URL" | pluralise(vanityUrls | length) %}
-          <section class="govuk-!-margin-bottom-6">
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-              {% if service.isBackend %}
-                API Gateway {{ urlText }}
-              {% else %}
-                Service {{ urlText }}
-              {% endif %}
-            </h2>
-
-            <p>
-              {% if service.isBackend %}
-                Publicly accessible URL for the service
-              {% else %}
-                User-friendly custom {{ urlText }}
-              {% endif %}
-            </p>
-
-            {% if vanityUrls | length == 1 %}
-              {% set firstDetail = vanityUrls | first %}
-
-              <ul class="govuk-list govuk-!-margin-0">
-                <li>
-                  {{ appVanityUrl(firstDetail) }}
-                </li>
-              </ul>
-            {% elseif vanityUrls | length %}
-              <dl class="app-description-list">
-
-                {% for environment, items in vanityUrls | groupby('environment') %}
-                  <dt class="app-description-list__term">{{ environment | title }}</dt>
-
-                  {% for vanityUrl in items %}
-                    <dd class="app-description-list__details app-description-list__details--slim">
-                      {{ appVanityUrl(vanityUrl) }}
-                    </dd>
-                  {% endfor %}
-                {% endfor %}
-
-              </dl>
-            {% endif %}
-          </section>
-        {% endif %}
-
-        <section class="govuk-!-margin-bottom-6">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">CDP Service URLs</h2>
-          <p>
-            {% if service.isBackend %}
-              Internal access URLs for use between CDP services
-            {% else %}
-              Internal access URLs for service
-            {% endif %}
-          </p>
-
-          <dl class="app-description-list">
-            {% for serviceUrl in serviceUrls %}
-              <dt class="app-description-list__term">{{ serviceUrl.environment | title }}</dt>
-              <dd class="app-description-list__details app-description-list__details--slim">
-                <a class="app-link" href="https://{{ serviceUrl.url }}" target="_blank" rel="noopener noreferrer">
-                  https://{{ serviceUrl.url }}
-                </a>
-              </dd>
-            {% else %}
-              <dd class="app-description-list__details">
-                No internal URLs available
-              </dd>
-            {% endfor %}
-          </dl>
-        </section>
-
-        {% if apiHubUrls | length %}
-          <section class="govuk-!-margin-bottom-6">
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">API Hub</h2>
-            <p>
-              Swagger/OpenAPI documentation for this service
-            </p>
-            <dl class="app-description-list">
-              {% for apiHubUrl in apiHubUrls %}
-                <dt class="app-description-list__term">{{ apiHubUrl.environment | title }}</dt>
-                <dd class="app-description-list__details app-description-list__details--slim">
-                  <a class="app-link"
-                     href="{{ apiHubUrl.url }}"
-                     target="_blank" rel="noopener noreferrer">
-                    {{ apiHubUrl.url }}
-                  </a>
-                </dd>
-              {% endfor %}
-            </dl>
-          </section>
-        {% endif %}
-
-        <section class="govuk-!-margin-bottom-6">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Logs</h2>
-          <p>
-            OpenSearch logs dashboards for monitoring and troubleshooting your service
-          </p>
-          <dl class="app-description-list">
-            {% for environment, logs in logsDetails | groupby('environment') %}
-              <dt class="app-description-list__term">{{ environment | title }}</dt>
-
-              {% for logDetail in logs %}
-                <dd class="app-description-list__details app-description-list__details--slim">
-                  <a class="app-link"
-                     href="{{ logDetail.url }}"
-                     target="_blank" rel="noopener noreferrer"
-                     data-testid="app-logs-dashboard-link">
-                    https://logs.{{ environment }}.cdp-int.defra.cloud
-                  </a>
-                </dd>
-              {% else %}
-                <dd class="app-description-list__details">
-                  No log URLs available
-                </dd>
-              {% endfor %}
-            {% endfor %}
-          </dl>
-        </section>
-
-        <section>
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Metrics</h2>
-          <p>
-            Grafana observability metrics dashboards, providing data and graphs for your service
-          </p>
-          <dl class="app-description-list">
-            {% for environment, dashboards in metricsDetails %}
-              <dt class="app-description-list__term">{{ environment | title }}</dt>
-
-              {% for dashboard in dashboards %}
-                <dd class="app-description-list__details app-description-list__details--slim">
-                  <a class="app-link"
-                     href="{{ dashboard.url }}"
-                     target="_blank" rel="noopener noreferrer">
-                    {{ dashboard.type | title }} - https://metrics.{{ environment }}.cdp-int.defra.cloud
-                  </a>
-                </dd>
-              {% else %}
-                <dd class="app-description-list__details">
-                  No metrics URLs available
-                </dd>
-              {% endfor %}
-            {% endfor %}
-          </dl>
-        </section>
+        {{ renderUrlSection(urls.vanityUrls, "No vanity URLs available", renderShuttered) }}
+        {{ renderUrlSection(urls.apiUrls, "No API URLs available", renderShuttered) }}
+        {{ renderUrlSection(urls.serviceUrls, "No service URLs available") }}
+        {{ renderUrlSection(urls.apiHubUrls, "No API Hub URLs available") }}
+        {{ renderUrlSection(urls.logsUrls, "No log URLs available") }}
+        {{ renderUrlSection(urls.metricsUrls, "No metrics URLs available") }}
       </section>
     </aside>
   </div>
