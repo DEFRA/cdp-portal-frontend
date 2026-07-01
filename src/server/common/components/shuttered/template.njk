@@ -1,0 +1,15 @@
+{% from "tool-tip/macro.njk" import appToolTip %}
+{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
+
+{% if url.shuttered %}
+  {% call appToolTip({
+    text: "Shuttered URL",
+    classes: "app-tool-tip--small govuk-!-margin-right-1"
+  }) %}
+    {{ appWarningIcon({
+      classes: "app-icon--tiny",
+      description: "Shuttered URL"
+    }) }}
+  {% endcall %}
+{% endif %}
+

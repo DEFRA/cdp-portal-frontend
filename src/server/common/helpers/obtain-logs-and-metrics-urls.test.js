@@ -1,4 +1,4 @@
-import { obtainLogsAndMetricsUrls } from './obtain-logs-and-metrics-urls.js'
+import { obtainTelemetryUrls } from './obtain-telemetry-urls.js'
 
 describe('#obtainLogsAndMetricsUrls', () => {
   test('#custom metrics have their type replaced using the url data', () => {
@@ -25,29 +25,40 @@ describe('#obtainLogsAndMetricsUrls', () => {
       }
     }
 
-    const result = obtainLogsAndMetricsUrls(entity, ['dev'])
+    const result = obtainTelemetryUrls(entity, ['dev'])
     expect(result).toEqual({
-      logsDetails: [
+      logsUrls: [
         {
-          environment: 'dev'
+          environment: 'dev',
+          urls: [
+            {
+              label: 'https://logs.dev.cdp-int.defra.cloud',
+              testId: 'app-logs-dashboard-link'
+            }
+          ]
         }
       ],
-      metricsDetails: {
-        dev: [
-          {
-            url: 'https://metrics.dev.cdp-int.defra.cloud/d/bevhbxy38eznkc/foo-backend-service',
-            type: 'service',
-            uid: 'bevhbxy38eznkc',
-            version: 1
-          },
-          {
-            url: 'https://metrics.dev.cdp-int.defra.cloud/d/apha-integration-bridge-oracledb/foo-backend-oracledb',
-            type: 'oracledb',
-            uid: 'apha-integration-bridge-oracledb',
-            version: 33
-          }
-        ]
-      }
+      metricsUrls: [
+        {
+          environment: 'dev',
+          urls: [
+            {
+              label: 'Service - https://metrics.dev.cdp-int.defra.cloud',
+              type: 'service',
+              uid: 'bevhbxy38eznkc',
+              url: 'https://metrics.dev.cdp-int.defra.cloud/d/bevhbxy38eznkc/foo-backend-service',
+              version: 1
+            },
+            {
+              label: 'Oracledb - https://metrics.dev.cdp-int.defra.cloud',
+              type: 'oracledb',
+              uid: 'apha-integration-bridge-oracledb',
+              url: 'https://metrics.dev.cdp-int.defra.cloud/d/apha-integration-bridge-oracledb/foo-backend-oracledb',
+              version: 33
+            }
+          ]
+        }
+      ]
     })
   })
 })

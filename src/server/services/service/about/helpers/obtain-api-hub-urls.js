@@ -7,13 +7,19 @@ function obtainApiHubUrls(entity, availableServiceEnvironments) {
     return []
   }
 
-  return availableServiceEnvironments
+  const apiHubUrls = availableServiceEnvironments
     .filter((environment) => Boolean(entity?.environments?.[environment]))
     .map((environment) => ({
       environment,
-      url: `https://cdp-api-hub.${environment}.cdp-int.defra.cloud/hub/internal/${entity.name}`
+      urls: [
+        {
+          url: `https://cdp-api-hub.${environment}.cdp-int.defra.cloud/hub/internal/${entity.name}`
+        }
+      ]
     }))
     .sort(sortKeyByEnv('environment'))
+
+  return { apiHubUrls }
 }
 
 export { obtainApiHubUrls }

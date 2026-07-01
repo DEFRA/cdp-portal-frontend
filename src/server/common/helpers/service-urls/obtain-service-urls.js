@@ -1,37 +1,49 @@
 import { sortKeyByEnv } from '../sort/sort-by-env.js'
 
-function obtainServiceUrls(
-  environmentDetails,
-  availableServiceEnvironments = []
-) {
-  const urls = Object.entries(environmentDetails).flatMap(
-    ([environmentName, details]) =>
-      Object.entries(details.urls).map(([url, value]) => ({
-        url,
-        environment: environmentName,
+function obtainServiceUrls(environmentDetails, availableEnvs = []) {
+  const environmentUrls = Object.entries(environmentDetails).map(
+    ([environment, details]) => ({
+      environment,
+      urls: Object.entries(details.urls ?? {}).map(([url, value]) => ({
+        url: `https://${url}`,
         ...value
       }))
+    })
   )
 
-  const shutteredUrls = urls
-    .filter(({ shuttered }) => shuttered === true)
-    .sort(sortKeyByEnv('environment'))
-
-  const serviceUrls = urls
-    .filter(({ environment }) =>
-      availableServiceEnvironments.includes(environment)
-    )
-    .filter(({ type }) => type === 'internal')
-    .sort(sortKeyByEnv('environment'))
-
-  const vanityUrls = urls
-    .filter(({ type }) => type === 'vanity')
-    .sort(sortKeyByEnv('environment'))
+  const environmentFilter = (item) =>
+    availableEnvs.length === 0 || availableEnvs.includes(item.environment)
 
   return {
-    shutteredUrls,
-    serviceUrls,
-    vanityUrls
+    serviceUrls: environmentUrls
+      .filter(environmentFilter)
+      .map(({ environment, urls }) => ({
+        environment,
+        urls: urls.filter(
+          ({ type, ingress_type }) =>
+            type === 'internal' && ingress_type === 'nginx'
+        )
+      }))
+      // .filter(({ urls }) => urls.length > 0)
+      .sort(sortKeyByEnv('environment')),
+
+    vanityUrls: environmentUrls
+      .filter(environmentFilter)
+      .map(({ environment, urls }) => ({
+        environment,
+        urls: urls.filter(({ type }) => type === 'vanity')
+      }))
+      .filter(({ urls }) => urls.length > 0)
+      .sort(sortKeyByEnv('environment')),
+
+    apiUrls: environmentUrls
+      .filter(environmentFilter)
+      .map(({ environment, urls }) => ({
+        environment,
+        urls: urls.filter(({ ingress_type }) => ingress_type === 'api_gateway')
+      }))
+      .filter(({ urls }) => urls.length > 0)
+      .sort(sortKeyByEnv('environment'))
   }
 }
 

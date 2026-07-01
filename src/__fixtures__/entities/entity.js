@@ -102,7 +102,8 @@ const entitiesResourcesFixture = {
         'example-mock-service-frontend.management.example.mock.clouds.net': {
           type: 'internal',
           enabled: false,
-          shuttered: false
+          shuttered: false,
+          ingress_type: 'nginx'
         }
       },
       ecr_repository: {
@@ -153,7 +154,8 @@ const entitiesResourcesFixture = {
         'example-mock-service-frontend.dev.example.mock.clouds.net': {
           type: 'internal',
           enabled: false,
-          shuttered: true
+          shuttered: true,
+          ingress_type: 'nginx'
         }
       },
       ecr_repository: null,
@@ -200,7 +202,8 @@ const entitiesResourcesFixture = {
         'example-mock-service-frontend.ext-test.example.mock.clouds.net': {
           type: 'internal',
           enabled: false,
-          shuttered: false
+          shuttered: false,
+          ingress_type: 'nginx'
         }
       },
       ecr_repository: null,
@@ -280,7 +283,8 @@ const entitiesResourcesFixture = {
         'example-mock-service-frontend.test.example.mock.clouds.net': {
           type: 'internal',
           enabled: false,
-          shuttered: false
+          shuttered: false,
+          ingress_type: 'nginx'
         }
       },
       ecr_repository: null,
@@ -327,7 +331,8 @@ const entitiesResourcesFixture = {
         'example-mock-service-frontend.perf-test.example.mock.clouds.net': {
           type: 'internal',
           enabled: false,
-          shuttered: false
+          shuttered: false,
+          ingress_type: 'nginx'
         }
       },
       ecr_repository: null,
@@ -380,7 +385,8 @@ const entitiesResourcesFixture = {
         'example-mock-service-frontend.prod.example.mock.clouds.net': {
           type: 'internal',
           enabled: false,
-          shuttered: false
+          shuttered: false,
+          ingress_type: 'nginx'
         }
       },
       ecr_repository: null,
