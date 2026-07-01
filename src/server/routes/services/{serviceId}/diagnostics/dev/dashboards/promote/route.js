@@ -22,7 +22,7 @@ export const options = {
 export default async function (request) {
   const { entity } = request.app
 
-  // TODO: Fetch if dev
+  // TODO: Fetch
   const playground = {
     alerts: [
       {

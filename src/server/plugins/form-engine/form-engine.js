@@ -147,10 +147,7 @@ function resolveConditionalFields(fields) {
 }
 
 function defaultComponent(def) {
-  const type =
-    def.type === 'array' && def.items.length === 1
-      ? def.items[0].type
-      : def.type
+  const type = def.type
 
   return typeToField[type] ?? 'inputField'
 }

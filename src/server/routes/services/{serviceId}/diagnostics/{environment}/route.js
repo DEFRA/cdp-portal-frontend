@@ -11,6 +11,7 @@ import { formatText } from '#config/nunjucks/filters/filters.js'
 import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
 import transformResources from '../utils/transformResources.js'
 import createDashboardRows from '../utils/createDashboardRows.js'
+import createAlertRows from '../utils/createAlertRows.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -123,29 +124,4 @@ function renderLinks(label, logsUrl, metricsUrl) {
 
 function apigwMetricLink(metrics = [], type) {
   return metrics.find(({ scope }) => scope === type)?.url
-}
-
-function createAlertRows(alerts, environment) {
-  return alerts
-    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
-    .map(
-      ({
-        name,
-        type,
-        uid,
-        // TODO: Missing url
-        url = `https://metrics.${environment}.cdp-int.defra.cloud/alerting/grafana/${uid}/view`,
-        annotations: { runbook_url } = {}
-      }) => [
-        { text: formatText(type) },
-        {
-          html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
-        },
-        {
-          html: runbook_url
-            ? `<a href="${runbook_url}" target="_blank" rel="noopener noreferrer">Runbook</a>`
-            : '- - -'
-        }
-      ]
-    )
 }

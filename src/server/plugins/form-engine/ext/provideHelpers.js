@@ -16,14 +16,6 @@ export default {
         return `${def.flags?.label ?? name}${def.flags?.presence === 'optional' ? ' (optional)' : ''}`
       },
 
-      resolveItems(def, values) {
-        return def.items?.map((item) => ({
-          value: item.allow.at(0),
-          text: item.flags?.label,
-          checked: values?.includes(item.allow.at(0))
-        }))
-      },
-
       resolveSummaryRows(def) {
         return Object.entries(def.flags?.default ?? {}).map(([key, value]) => ({
           key: {
