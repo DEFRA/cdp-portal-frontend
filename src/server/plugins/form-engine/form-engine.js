@@ -90,7 +90,7 @@ export default {
         const formSchema = await schema(request, h, formValues)
         const resolvedActions = await actions(request, h)
         const action = resolvedActions[actionButton]
-        console.log(formValues, expandNested(formValues))
+
         const validationResult = formSchema.validate(expandNested(formValues), {
           abortEarly: false,
           convert: true,
