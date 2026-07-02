@@ -147,10 +147,7 @@ function resolveConditionalFields(fields) {
 }
 
 function defaultComponent(def) {
-  const type =
-    def.type === 'array' && def.items.length === 1
-      ? def.items[0].type
-      : def.type
+  const type = def.type
 
   return typeToField[type] ?? 'inputField'
 }
@@ -195,7 +192,7 @@ function createNested(data = {}) {
   return Object.fromEntries(
     Object.entries(data)
       .map(([key, value]) => {
-        if (typeof value === 'object') {
+        if (typeof value === 'object' && !Array.isArray(value)) {
           return Object.entries(createNested(value)).map(([k, v]) => [
             `${key}.${k}`,
             v
