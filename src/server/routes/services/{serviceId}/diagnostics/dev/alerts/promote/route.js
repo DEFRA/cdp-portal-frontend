@@ -66,7 +66,6 @@ export function register(routePath) {
               .label('Alerts')
               .items(Joi.string().required())
               .valid(...alerts)
-              .default(alerts)
               .min(1)
               .required()
               .meta({
