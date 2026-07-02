@@ -31,12 +31,16 @@
 
               {{ trafficFlow(environment, entity, resources, getAssetPath, logViewUrl, renderLinks, apigwMetricLink) }}
 
-              {% if userIsAdmin %}
-                <div class="govuk-grid-row govuk-!-margin-top-8">
-                  {{ dashboards(environment, resources.metrics, playground.dashboards, createDashboardRows, userIsAdmin or userIsOwner) }}
-                  {{ alerts(environment, resources.alerts, playground.alerts, createAlertRows, userIsAdmin or userIsOwner) }}
-                </div>
-              {% endif %}
+              {% block xhrContent %}
+
+                {% if userIsAdmin %}
+                  <div class="govuk-grid-row govuk-!-margin-top-8">
+                    {{ dashboards(environment, resources.metrics, playground.dashboards, createDashboardRows, userIsAdmin or userIsOwner) }}
+                    {{ alerts(environment, resources.alerts, playground.alerts, createAlertRows, userIsAdmin or userIsOwner) }}
+                  </div>
+                {% endif %}
+
+              {% endblock %}
 
           {% else %}
 

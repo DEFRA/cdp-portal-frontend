@@ -13,6 +13,7 @@ import transformResources from '../utils/transformResources.js'
 import createDashboardRows from '../utils/createDashboardRows.js'
 import createAlertRows from '../utils/createAlertRows.js'
 import { getPlayground } from '../PlaygroundService.js'
+import { setTimeout } from 'node:timers/promises'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -46,7 +47,9 @@ export default async function (request) {
 
   const [runningServices, playground] = await Promise.all([
     fetchRunningServices(entity.name),
-    getPlayground(entity.name)
+    environment.endsWith('dev')
+      ? allowPending(getPlayground(entity.name), 300)
+      : {}
   ])
 
   const serviceDeployedInEnvironment = runningServices.some(
@@ -102,4 +105,14 @@ function renderLinks(label, logsUrl, metricsUrl) {
 
 function apigwMetricLink(metrics = [], type) {
   return metrics.find(({ scope }) => scope === type)?.url
+}
+
+function allowPending(promise, timeout) {
+  return Promise.race([
+    promise,
+    setTimeout(timeout, {
+      dashboards: 'PENDING',
+      alerts: 'PENDING'
+    })
+  ])
 }

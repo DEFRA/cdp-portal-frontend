@@ -1,8 +1,16 @@
 {% from "panel/macro.njk" import appPanel %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "info/macro.njk" import appInfo %}
+{% from "loader/macro.njk" import appLoader %}
 
-<div class="govuk-grid-column-one-half">
+<div
+  class="govuk-grid-column-one-half"
+  data-xhr="alerts-playground-load"
+  data-xhr-stop="{{ false if playground == 'PENDING' else true }}" data-js="app-poll"
+  data-poll-url=""
+  data-poll-interval="3000"
+  data-poll-limit="100"
+>
   <h3 class="govuk-heading-l govuk-!-margin-bottom-4" id="alerts">
   Alerts
   </h3>
@@ -41,15 +49,23 @@
 
     {% if environment.endsWith('dev') %}
 
-      {{ govukTable({
-        classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-        head: [
-          { text: "Type" },
-          { text: "Name" },
-          { text: "Runbook" }
-        ],
-        rows: createAlertRows(playground, environment)
-      }) }}
+      {% if playground == 'PENDING' %}
+
+        {{ appLoader({ classes: "app-loader--is-loading govuk-!-margin-bottom-4 govuk-!-margin-top-4" }) }}
+
+      {% else %}
+
+        {{ govukTable({
+          classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+          head: [
+            { text: "Type" },
+            { text: "Name" },
+            { text: "Runbook" }
+          ],
+          rows: createAlertRows(playground, environment)
+        }) }}
+
+      {% endif %}
 
     {% else %}
 

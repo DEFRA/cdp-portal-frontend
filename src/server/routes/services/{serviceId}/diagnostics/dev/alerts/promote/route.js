@@ -61,7 +61,6 @@ export function register(routePath) {
               classes: 'app-button',
               async method(request, h, sanitisedFormValues) {
                 // TODO: call BE
-                console.log(sanitisedFormValues)
 
                 return h.redirect(
                   `/services/${entity.name}/diagnostics/dev#alerts`
