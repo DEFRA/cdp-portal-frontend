@@ -118,7 +118,7 @@
     "filenamify": "7.0.1",
     "globals": "17.7.0",
     "husky": "9.1.7",
-    "jest-environment-jsdom": "30.2.0",
+    "jest-environment-jsdom": "30.4.1",
     "jest-file-snapshot": "0.7.0",
     "neostandard": "0.12.2",
     "nock": "14.0.15",
