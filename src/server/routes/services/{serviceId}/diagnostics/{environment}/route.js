@@ -9,6 +9,11 @@ import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
+import transformResources from '../utils/transformResources.js'
+import createDashboardRows from '../utils/createDashboardRows.js'
+import createAlertRows from '../utils/createAlertRows.js'
+import { getPlayground } from '../PlaygroundService.js'
+import { setTimeout } from 'node:timers/promises'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -40,23 +45,18 @@ export default async function (request) {
   const { entity } = request.app
   const environment = request.params.environment
 
-  const runningServices = await fetchRunningServices(entity.name)
+  const [runningServices, playground] = await Promise.all([
+    fetchRunningServices(entity.name),
+    environment.endsWith('dev')
+      ? allowPending(getPlayground(entity.name), 300)
+      : {}
+  ])
 
   const serviceDeployedInEnvironment = runningServices.some(
     (service) => service.environment === environment
   )
 
-  const resources = Object.fromEntries(
-    Object.entries(entity.environments[environment] ?? {}).map(
-      ([key, value]) => {
-        if (key === 'metrics') {
-          return [key, { ...Object.groupBy(value, (item) => item.type) }]
-        }
-
-        return [key, value]
-      }
-    )
-  )
+  const resources = transformResources(entity.environments[environment])
 
   function logViewUrl(type) {
     return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/view/${entity.name}-${type}`
@@ -66,12 +66,14 @@ export default async function (request) {
     environment,
     serviceDeployedInEnvironment,
     resources,
+    playground,
     renderLinks,
     logViewUrl,
     apigwMetricLink,
     createDashboardRows,
     createAlertRows,
     userIsAdmin: request.userIsAdmin(),
+    userIsOwner: request.userIsOwner(entity),
     breadcrumbs: [
       {
         text: 'Services',
@@ -105,46 +107,12 @@ function apigwMetricLink(metrics = [], type) {
   return metrics.find(({ scope }) => scope === type)?.url
 }
 
-function createDashboardRows(metrics) {
-  const dashboards = Object.entries(metrics)
-    .flatMap(([_, dashboard]) => dashboard)
-    .map((dashboard) => ({
-      // TODO: // replace with title
-      ...dashboard,
-      name: dashboard.url.split('/').at(-1)
-    }))
-    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
-
-  return dashboards.map(({ name, type, version, url }) => [
-    { text: type },
-    {
-      html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
-    },
-    { text: version }
+function allowPending(promise, timeout) {
+  return Promise.race([
+    promise,
+    setTimeout(timeout, {
+      dashboards: 'PENDING',
+      alerts: 'PENDING'
+    })
   ])
-}
-
-function createAlertRows(alerts, environment) {
-  return alerts
-    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
-    .map(
-      ({
-        name,
-        type,
-        uid,
-        // TODO: Missing url
-        url = `https://metrics.${environment}.cdp-int.defra.cloud/alerting/grafana/${uid}/view`,
-        annotations: { runbook_url } = {}
-      }) => [
-        { text: type },
-        {
-          html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
-        },
-        {
-          html: runbook_url
-            ? `<a href="${runbook_url}" target="_blank" rel="noopener noreferrer">Runbook</a>`
-            : '- - -'
-        }
-      ]
-    )
 }
