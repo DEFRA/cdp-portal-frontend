@@ -10,15 +10,15 @@ export default function createAlertRows(alerts, environment) {
         uid,
         // TODO: Missing url
         url = `https://metrics.${environment}.cdp-int.defra.cloud/alerting/grafana/${uid}/view`,
-        annotations: { runbook_url } = {}
+        annotations
       }) => [
         { text: formatText(type) },
         {
           html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
         },
         {
-          html: runbook_url
-            ? `<a href="${runbook_url}" target="_blank" rel="noopener noreferrer">Runbook</a>`
+          html: annotations?.runbook_url
+            ? `<a href="${annotations.runbook_url}" target="_blank" rel="noopener noreferrer">Runbook</a>`
             : '- - -'
         }
       ]
