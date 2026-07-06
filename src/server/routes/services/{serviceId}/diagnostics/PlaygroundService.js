@@ -16,6 +16,10 @@ export async function getPlayground(serviceName) {
 
   return {
     alerts: payload?.alerts ?? [],
-    dashboards: payload?.dashboards ?? []
+    dashboards:
+      payload?.dashboards?.map((dashboard) => ({
+        ...dashboard,
+        url: `https://metrics.dev.cdp-int.defra.cloud${dashboard.url}`
+      })) ?? []
   }
 }
