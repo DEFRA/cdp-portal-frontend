@@ -46,7 +46,7 @@
                       subgraph {{ type }}[{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}]
                         direction LR
                         {% for resource in items %}
-                          {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "<span id='{{ resource.name }}' class='mermaid--label' >{{ resource.name }}</span>{% if resource.resourceRequestId %}<a href='/' data-js='open-window'>Pending request</a>{% endif %}"}
+                          {{ type }}{{ resource.name }}Icon@{ icon: "logos:{{ resource.icon }}", h: 80, label: "<span id='{{ resource.name }}' class='mermaid--label {% if resource.resourceRequestId %}mermaid--icon-disabled{% endif %}' >{{ resource.name }}</span>{% if resource.resourceRequestId %}<a href='/' data-js='open-window'>Pending request</a>{% endif %}"}
                           {{ type }}{{ resource.name }}[<table aria-label="Properties of {{ resource.name }}" {% if resource.resourceRequestId %}style="color: darkGrey"{% endif %}>{% for name, value in resource.properties | dictsort %}
                             {% if name != 'name' and name != 'bucket_name' and name != 'database_name'  %}<tr><th>{{ name | replace("_", " ") | capitalize }}</th><td>{{ resourceValue(value) | trim }}</td></tr>{% endif %}
                           {% endfor %}</table>]
