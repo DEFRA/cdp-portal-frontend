@@ -41,7 +41,7 @@
                       {% endif %}
 
                       {% for resource in service.resources  %}
-                        {{ nodeKey(service, resource) }}@{ icon: "logos:{{ resource.icon }}", label: "{{ resource.name }}"}
+                        {{ nodeKey(service, resource) }}@{ icon: "logos:{{ resource.icon }}", label: "<span class="mermaid--label {% if resource.resourceRequestId %}mermaid--icon-disabled{% endif %}">{{ resource.name }}</span>{% if resource.resourceRequestId %}<a href='/' data-js='open-window'>Pending request</a>{% endif %}"}
                         {{ nodeKey(service) }} -.- {{ nodeKey(service, resource) }}
                       {% endfor %}
                     end
@@ -54,13 +54,15 @@
                 {% for service in services  %}
                     {% for resource in service.resources  %}
                       {% for link in resource.links  %}
-                        {% if link.type == 'subscription' %}
+                        {% if resource.resourceRequestId  %}
+                          {% set arrow = "-.->" %}
+                        {% elseif link.type == 'subscription' %}
                           {% set arrow = "==>" %}
                         {% else %}
                           {% set arrow = "-->" %}
                         {% endif %}
 
-                        {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|{{ link.access | capitalize }}| {{ linkKey(link) }}
+                        {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|<span class="mermaid--label" >{{ link.access | capitalize }}</span>{% if resource.resourceRequestId %}<a href='/' data-js='open-window'>Pending request</a>{% endif %}| {{ linkKey(link) }}
                         {% if link.access == 'subscription' %}
                           {{ nodeKey(service, resource) }}_link{{loop.index0}}@{ animation: slow }
                         {% endif %}

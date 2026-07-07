@@ -48,6 +48,22 @@ export default async function (request) {
 
   if (!topology) throw new Error('Failed to load topology')
 
+  topology[0].resources.push({
+    name: 'decision_notification',
+    type: 'sqs',
+    icon: 'aws-sqs',
+    resourceRequestId: '1234',
+    links: [
+      {
+        service: 'cdp-portal-backend',
+        resource: 'decision_notification',
+        type: 'sns',
+        access: 'subscription',
+        resourceRequestId: '1234'
+      }
+    ]
+  })
+
   const serviceDeployedInEnvironment = runningServices.some(
     (service) => service.environment === environment
   )
