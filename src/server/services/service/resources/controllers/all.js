@@ -25,6 +25,27 @@ export const allResourcesController = {
 
     if (!resourcesPerEnv) throw new Error('Failed to load resources')
 
+    resourcesPerEnv.dev.sqs_queues.push({
+      resource: 'sqs',
+      icon: 'aws-sqs',
+      name: 'decision_notification',
+      resourceRequestId: '1234',
+      properties: {
+        name: 'decision_notification',
+        fifo_queue: true,
+        content_based_deduplication: false,
+        receive_wait_time_seconds: 30,
+        subscriptions: ['decision_notification.fifo']
+      }
+    })
+    resourcesPerEnv['infra-dev'] =
+      resourcesPerEnv['management'] =
+      resourcesPerEnv['test'] =
+      resourcesPerEnv['perf-test'] =
+      resourcesPerEnv['ext-test'] =
+      resourcesPerEnv['prod'] =
+        resourcesPerEnv.dev
+
     const rowsPerResourceType = transformResourcesToRows(
       environments,
       resourcesPerEnv
@@ -104,8 +125,6 @@ function transformResourcesToRows(environments, resourcesPerEnv) {
           resource: resourcesPerEnv?.[env]?.[type]?.find(
             (resource) => resource.name === name
           )
-            ? name
-            : ''
         }))
       }))
     ])

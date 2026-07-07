@@ -21,6 +21,14 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         {% call appSplitPane() %}
+          <section class="govuk-!-margin-bottom-9">
+            <span class="govuk-caption-l">Pending</span>
+
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resource requests</h2>
+            <p class="govuk-!-margin-bottom-2">Resources pending creation for <strong>{{ entity.name }}</strong> </p>
+
+          </section>
+
           <section>
             {{ appResourcesIntro({
               caption: "All",
