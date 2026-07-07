@@ -1,7 +1,7 @@
 import { config } from '#config/config.js'
 import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { Boom } from '@hapi/boom'
+import Boom from '@hapi/boom'
 import { parseISO, subMinutes } from 'date-fns'
 import Joi from 'joi'
 
