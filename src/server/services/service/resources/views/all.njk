@@ -30,6 +30,63 @@
             {% call appPanel({
               classes: "govuk-!-margin-bottom-6"
             }) %}
+              {% if approvalView %}
+
+                {{ govukTable({
+                  classes: "app-table app-table--inverse govuk-!-margin-bottom-1",
+                  head: [
+                    { text: "Request generation workflow" },
+                    { text: "Request" },
+                    { text: "Requester" },
+                    { text: "Date" },
+                    { text: "Cross team approval" },
+                    { text: "Actions" }
+                  ],
+                  rows: [
+                    [{
+                      html: '<a href="">https://github.com/defra/repo/workflow</a>'
+                    },
+                    {
+                      html: '<a href="">https://github.com/defra/repo/pr</a>'
+                    },
+                    {
+                      html: '<a href="">David Beale</a>'
+                    },
+                    {
+                      html: '8th Jun 2026 at 09:19:22'
+                    },
+                    {
+                      html: '<strong class="govuk-tag app-tag govuk-tag--blue" aria-label="Platform proxy rule" style="word-break: break-word;">Not required</strong>'
+                    },
+                    {
+                      html: '<a href="/">View</a>'
+                    }
+                    ],
+
+                    [{
+                      html: '<a href="">https://github.com/defra/repo/workflow</a>'
+                    },
+                    {
+                      html: '<a href="">https://github.com/defra/repo/pr</a>'
+                    },
+                    {
+                      html: '<a href="">Joe Blogs</a>'
+                    },
+                    {
+                      html: '24th Jun 2026 at 12:09:32'
+                    },
+                    {
+                      html: '<strong class="govuk-tag app-tag govuk-tag--yellow" aria-label="Platform proxy rule" style="word-break: break-word;">def-env-team</strong>'
+                    },
+                    {
+                      html: '<a href="/" class="govuk-!-margin-right-2">View</a> <a href="/">Approve</a>'
+                    }
+                    ]
+                  ]
+                }) }}
+
+            {% else %}
+
               {{ govukTable({
                 classes: "app-table app-table--inverse govuk-!-margin-bottom-1",
                 head: [
@@ -37,7 +94,6 @@
                   { text: "Request" },
                   { text: "Requester" },
                   { text: "Date" },
-                  { text: "Cross team approval" },
                   { text: "Actions" }
                 ],
                 rows: [
@@ -52,9 +108,6 @@
                   },
                   {
                     html: '8th Jun 2026 at 09:19:22'
-                  },
-                  {
-                    html: '<strong class="govuk-tag app-tag govuk-tag--blue" aria-label="Platform proxy rule" style="word-break: break-word;">Not required</strong>'
                   },
                   {
                     html: '<a href="/">View</a>'
@@ -74,15 +127,14 @@
                     html: '24th Jun 2026 at 12:09:32'
                   },
                   {
-                    html: '<strong class="govuk-tag app-tag govuk-tag--yellow" aria-label="Platform proxy rule" style="word-break: break-word;">def-env-team</strong>'
-                  },
-                  {
-                    html: '<a href="/" class="govuk-!-margin-right-2">View</a> <a href="/">Approve</a>'
+                    html: '<a href="/" class="govuk-!-margin-right-2">View</a>'
                   }
                   ]
                 ]
               }) }}
-            {% endcall %}
+            {% endif %}
+
+          {% endcall %}
 
           </section>
 

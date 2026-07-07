@@ -75,6 +75,7 @@ export const allResourcesController = {
     )
 
     const debugView = request.query.debug ?? false
+    const approvalView = request.query.approve ?? false
     const template = debugView
       ? 'services/service/resources/views/debug/all'
       : 'services/service/resources/views/all'
@@ -85,6 +86,7 @@ export const allResourcesController = {
       environments,
       tablesPerResourceType,
       hasBuckets,
+      approvalView,
       breadcrumbs: [
         {
           text: 'Services',
