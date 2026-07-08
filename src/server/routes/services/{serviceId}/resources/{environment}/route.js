@@ -30,11 +30,6 @@ export default async function (request) {
     ([_, items]) => items?.length
   )
 
-  const debugView = request.query.debug ?? false
-  const template = debugView
-    ? 'services/service/resources/views/debug/environment'
-    : 'services/service/resources/views/environment'
-
   return {
     pageTitle: `${serviceName} - Resources - ${formattedEnvironment}`,
     entity,

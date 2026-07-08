@@ -70,11 +70,6 @@ export default async function (request) {
       ])
   )
 
-  const debugView = request.query.debug ?? false
-  const template = debugView
-    ? 'services/service/resources/views/debug/all'
-    : 'services/service/resources/views/all'
-
   return {
     pageTitle: `${serviceName} - Resources`,
     entity,
