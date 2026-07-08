@@ -1,9 +1,25 @@
-import { provideEntityExtension } from '#server/common/helpers/ext/extensions.js'
+import {
+  commonServiceExtensions,
+  provideEntityExtension,
+  provideNotFoundIfPrototypeExtension
+} from '#server/common/helpers/ext/extensions.js'
+import { SERVICE } from '#server/common/patterns/entities/tabs/constants.js'
+import { provideSubNav } from '#server/helpers/provide-sub-navigation.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 
-export const ext = [provideEntityExtension]
+export const ext = [
+  ...commonServiceExtensions,
+  provideNotFoundIfPrototypeExtension,
+  {
+    type: 'onPostHandler',
+    method: provideSubNav('resources', SERVICE),
+    options: {
+      sandbox: 'plugin'
+    }
+  }
+]
 
 export const options = {
   auth: {
@@ -14,6 +30,7 @@ export const options = {
   },
   validate: {
     params: Joi.object({
+      serviceId: Joi.string(),
       workflowRunId: Joi.number()
     }),
     failAction: () => Boom.boomify(Boom.notFound())

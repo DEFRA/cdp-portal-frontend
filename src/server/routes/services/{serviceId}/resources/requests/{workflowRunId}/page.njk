@@ -1,0 +1,136 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Resources",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="remove-test-run-heading" style="display: flex; align-items: center;">
+          Resource request {{ appTag({ text: "Pending", classes: "govuk-tag--blue govuk-!-margin-left-3" }) }}
+        </h2>
+        <p class="govuk-!-margin-bottom-2">
+          Requested by <strong>Joe Blogs</strong> on <strong>24th Jun 2026 at 12:09:32</strong>
+        </p>
+
+              <form method="post" data-js="app-form-errors" class="govuk-!-margin-bottom-4">
+                <input type="hidden" name="csrfToken" value="tl17Dx1DgKJs-AJUyp1TJ9sRF3RRiiZxyIQ5oU0ouho">
+
+
+
+                  <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+          <h2 class="govuk-summary-card__title">
+            SQS queues
+          </h2>
+          <div class="govuk-summary-card__actions">
+          </div>
+        </div>
+
+        <div class="govuk-summary-card__content">
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                decision_notification.fifo
+              </dt>
+              <dd class="govuk-summary-list__value">
+                <table class="table--embedded"><tbody><tr>
+                    <th>Service</th>
+                    <td>cdp-portal-backend</td>
+                  </tr><tr>
+                    <th>Visibility timeout</th>
+                    <td>60</td>
+                  </tr><tr>
+                    <th>Fifo</th>
+                    <td>true</td>
+                  </tr><tr>
+                    <th>Content deduplication</th>
+                    <td>false</td>
+                  </tr><tr>
+                    <th>Deduplication scope</th>
+                    <td>queue</td>
+                  </tr><tr>
+                    <th>Fifo throughput limit</th>
+                    <td>perQueue</td>
+                  </tr><tr>
+                    <th>Dlq max receive count</th>
+                    <td>3</td>
+                  </tr><tr>
+                    <th>Redrive allow policy by queue</th>
+                    <td>false</td>
+                  </tr><tr>
+                    <th>Environments</th>
+                    <td>tenants</td>
+                  </tr></tbody></table>
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <ul class="govuk-summary-list__actions-list">
+
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+
+
+                  <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+          <h2 class="govuk-summary-card__title">
+            SQS SNS subscriptions
+          </h2>
+          <div class="govuk-summary-card__actions">
+          </div>
+        </div>
+
+        <div class="govuk-summary-card__content">
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+
+              </dt>
+              <dd class="govuk-summary-list__value">
+                <table class="table--embedded"><tbody><tr>
+                    <th>Queue service</th>
+                    <td>cdp-portal-backend</td>
+                  </tr><tr>
+                    <th>Queue</th>
+                    <td>decision_notification.fifo</td>
+                  </tr><tr>
+                    <th>Topic service</th>
+                    <td>cdp-portal-backend</td>
+                  </tr><tr>
+                    <th>Topic</th>
+                    <td>decision_notification</td>
+                  </tr><tr>
+                    <th>Environments</th>
+                    <td>tenants</td>
+                  </tr></tbody></table>
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <ul class="govuk-summary-list__actions-list">
+
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+
+              </form>
+            </div>
+
+    </div>
+  </section>
+
+{% endblock %}
