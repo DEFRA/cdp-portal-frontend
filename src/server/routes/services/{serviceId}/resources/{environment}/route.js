@@ -1,12 +1,19 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 import { serviceParamsValidation } from '#server/services/helpers/schema/service-params-validation.js'
+import { scopes } from '@defra/cdp-validation-kit'
 import Boom from '@hapi/boom'
 
 export { ext } from '../route.js'
 
 export const options = {
   id: 'services/{serviceId}/resources/{environment}',
+  auth: {
+    mode: 'required',
+    access: {
+      scope: [scopes.tenant, scopes.admin]
+    }
+  },
   validate: {
     params: serviceParamsValidation,
     failAction: () => Boom.boomify(Boom.notFound())

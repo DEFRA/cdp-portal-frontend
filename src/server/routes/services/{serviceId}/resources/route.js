@@ -9,6 +9,7 @@ import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.j
 import Boom from '@hapi/boom'
 import Joi from 'joi'
 import { formatText } from '#config/nunjucks/filters/filters.js'
+import { scopes } from '@defra/cdp-validation-kit'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -24,6 +25,12 @@ export const ext = [
 
 export const options = {
   id: 'services/{serviceId}/resources',
+  auth: {
+    mode: 'required',
+    access: {
+      scope: [scopes.tenant, scopes.admin]
+    }
+  },
   validate: {
     params: Joi.object({
       serviceId: Joi.string().required()
