@@ -16,7 +16,7 @@ export const service = {
         serviceAutomations,
         serviceNotifications,
         serviceProxy,
-        serviceResources,
+        // serviceResources,
         serviceSecrets,
         serviceMaintenance,
         serviceTerminal

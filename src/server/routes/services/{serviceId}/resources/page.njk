@@ -1,0 +1,62 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% from "info/macro.njk" import appInfo %}
+{% from "panel/macro.njk" import appPanel %}
+{% from "services/common/components/resources-intro/macro.njk" import appResourcesIntro %}
+{% from "./components/resource-row/macro.njk" import resourceRow %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Resources",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        {% call appSplitPane() %}
+          <section>
+            {{ appResourcesIntro({
+              caption: "All",
+              heading: "Resources",
+              entity: entity,
+              hasBuckets: hasBuckets
+            }) }}
+
+            {% for type, table in tablesPerResourceType | dictsort %}
+              <h3 class="govuk-heading-m govuk-!-margin-top-5">{{ type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"]) }}</h3>
+              {% call(params) appEntityTable(table) %}
+
+                {{ resourceRow({
+                  entity: entity,
+                  rowClasses: params.rowClasses,
+                  loopIndex: params.loopIndex,
+                  envs: params.row.envs
+                }) | safe }}
+
+              {% endcall %}
+            {% endfor %}
+
+            {% if not tablesPerResourceType | length %}
+
+              {{ appInfo({ html: "There are currently no resources defined for this service" }) }}
+
+            {% endif %}
+
+          </section>
+
+          <p class="govuk-!-margin-top-2">
+            <a href="?debug=true" class="govuk-link app-link app-link--underline">Debug view</a>
+          </p>
+        {% endcall %}
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
