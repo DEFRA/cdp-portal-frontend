@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template">
   <head>
     <meta charset="utf-8">
-    <title>  mock-service-with-resources - Resources - Prod | Core Delivery Platform - Portal
+    <title>  mock-service-with-resources - Resources | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -113,7 +113,7 @@ Documentation
 
               
               <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
-                  <a class="govuk-service-navigation__link" href="/services" aria-current="page" data-testid="nav-services">
+                  <a class="govuk-service-navigation__link" href="/services/all" aria-current="page" data-testid="nav-services">
                                     
                   <strong class="govuk-service-navigation__active-fallback">Services</strong>
 
@@ -202,6 +202,20 @@ Dependency Explorer
 
 
 
+      <ul class="app-navigation__admin">
+          
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/admin" data-testid="nav-admin">
+      Admin
+    </a>
+</li>
+
+
+      </ul>
   </ul>
 </ul>
         </nav>
@@ -238,12 +252,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources"
              data-testid="app-breadcrumbs-link">mock-service-with-resources</a>
         </li>
-        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources/resources"
-             data-testid="app-breadcrumbs-link">Resources</a>
-        </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">Prod</li>
+            data-testid="app-breadcrumbs-list-item">Resources</li>
   </ol>
 </nav>
 
@@ -444,7 +454,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
 
-
 <div class="app-split-pane" data-testid="app-split-pane">
     <div class="app-split-pane__nav"
          data-testid="app-split-pane-nav">
@@ -452,12 +461,32 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
     <ul class="app-subnav__section">
 
-      <li class="app-subnav__section-item"
+      <li class="app-subnav__section-item app-subnav__section-item--current"
           data-testid="app-subnav-item-all">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
            href="/services/mock-service-with-resources/resources"
            data-testid="app-subnav-link-all"
         >All</a>
+      </li>
+    </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item"
+          data-testid="app-subnav-item-infra-dev">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-resources/resources/infra-dev"
+           data-testid="app-subnav-link-infra-dev"
+        >Infra-dev</a>
+      </li>
+    </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item"
+          data-testid="app-subnav-item-management">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-resources/resources/management"
+           data-testid="app-subnav-link-management"
+        >Management</a>
       </li>
     </ul>
     <ul class="app-subnav__section">
@@ -492,7 +521,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </ul>
     <ul class="app-subnav__section">
 
-      <li class="app-subnav__section-item app-subnav__section-item--current"
+      <li class="app-subnav__section-item"
           data-testid="app-subnav-item-prod">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
            href="/services/mock-service-with-resources/resources/prod"
@@ -505,9 +534,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   <div class="app-split-pane__content" data-testid="app-split-pane-content">
 
     <section class="app-content">
-                
+                <section>
+            
 
-<span class="govuk-caption-l">Prod</span>
+<span class="govuk-caption-l">All</span>
 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
 <p class="govuk-!-margin-bottom-2">
@@ -550,25 +580,98 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
+              <h3 class="govuk-heading-m govuk-!-margin-top-5">S3 buckets</h3>
 
-            <pre class="mermaid mermaid--no-label-background mermaid--table-node">
-              flowchart LR
-                  service@{ icon: "logos:aws-fargate", h: 80, label: "mock-service-with-resources"}
 
-                      subgraph s3_buckets[S3 buckets]
-                        direction LR
-                          s3_bucketstest-bucketIcon@{ icon: "logos:aws-s3", h: 80, label: "<span id='test-bucket'>test-bucket</span>"}
-                          s3_bucketstest-bucket[<table aria-label="Properties of test-bucket"><tr><th>Arn</th><td>arn:aws:s3:eu-west-2:333333333:test-bucket</td></tr></table>]
-                          s3_bucketstest-bucketIcon ~~~ s3_bucketstest-bucket
-                      end
-                      service --- s3_buckets
-            </pre>
 
+<article>
+  <table class="app-entity-table" data-testid="app-entity-table">
+    <thead class="app-entity-table__head" data-testid="app-entity-table-head">
+    <tr>
+
+        <th id="infra-dev" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-1"
+width="17%"        >
+            Infra-dev
+        </th>
+
+        <th id="management" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-2"
+width="17%"        >
+            Management
+        </th>
+
+        <th id="dev" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-3"
+width="17%"        >
+            Dev
+        </th>
+
+        <th id="test" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-4"
+width="17%"        >
+            Test
+        </th>
+
+        <th id="perf-test" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-5"
+width="17%"        >
+            Perf-test
+        </th>
+
+        <th id="prod" scope="col"
+            class="app-entity-table__heading  app-entity-table__heading--vertical-text"
+            data-testid="app-entity-table-header-6"
+width="17%"        >
+            Prod
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+        
+                <tr class="app-entity-table__row" data-testid="app-entity-table-row-1">
+    <td headers="infra-dev" class="app-entity-table__cell" data-label="infra-dev">
+        - - -
+    </td>
+    <td headers="management" class="app-entity-table__cell" data-label="management">
+        - - -
+    </td>
+    <td headers="dev" class="app-entity-table__cell" data-label="dev">
+        <a href="/services/mock-service-with-resources/resources/dev#test-bucket" style="word-break: break-word;">test-bucket</a>
+    </td>
+    <td headers="test" class="app-entity-table__cell" data-label="test">
+        <a href="/services/mock-service-with-resources/resources/test#test-bucket" style="word-break: break-word;">test-bucket</a>
+    </td>
+    <td headers="perf-test" class="app-entity-table__cell" data-label="perf-test">
+        - - -
+    </td>
+    <td headers="prod" class="app-entity-table__cell" data-label="prod">
+        - - -
+    </td>
+</tr>
+
+
+
+
+
+    </tbody>
+  </table>
+
+</article>
+
+
+          </section>
 
           <p class="govuk-!-margin-top-2">
-            <a href="?debug=true" class="govuk-link app-link app-link--underline">Debug view</a>
+            <a href="./resources/debug" class="govuk-link app-link app-link--underline">Debug view</a>
           </p>
-
 
     </section>
   </div>
@@ -576,6 +679,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       </div>
     </div>
   </section>
+
 
     </section>
 
@@ -641,8 +745,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </footer>
 
 
-    <script type="module" src="/.public/src/client/javascripts/application.js"></script>
-
-  <script type="module" src="/.public/src/client/javascripts/mermaid.js"></script>
+  <script type="module" src="/.public/src/client/javascripts/application.js"></script>
   </body>
 </html>
