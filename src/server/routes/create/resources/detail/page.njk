@@ -38,11 +38,6 @@
               class="govuk-!-margin-bottom-4">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
-          {{ resourcesRequest({
-            request: serializeBasket(basket)
-          }) }}
-
-          {# TODO: Switch to using resourcesRequest() #}
           {% for type, resources in basket %}
 
             {{ govukSummaryList({
