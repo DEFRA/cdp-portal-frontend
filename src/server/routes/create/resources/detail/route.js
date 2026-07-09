@@ -39,7 +39,8 @@ export default async function (request, h) {
 
   return {
     basket,
-    resourcesToRows: resourcesToRows(userIsAdmin)
+    resourcesToRows: resourcesToRows(userIsAdmin),
+    serializeBasket // TODO: remove
   }
 }
 

@@ -5,10 +5,21 @@
     {{ rows.push(
       {
         key: { text: resource.name },
-        value: { html: 'df' }
+        value: { html: renderObject(resource) }
       }
     )}}
   {% endfor %}
+{% endmacro %}
+
+{% macro renderObject(obj) %}
+  <table class="table--embedded">
+    {% for prop, value in obj %}
+      <tr>
+        <th>{{ prop | formatText }}</th>
+        <td>{{ renderObject(value) if value | isObject else value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
 {% endmacro %}
 
 
@@ -20,7 +31,7 @@
   {{ govukSummaryList({
     card: {
       title: {
-        text: type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
+        text: type | capitalize | replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
       }
     },
     rows: rows

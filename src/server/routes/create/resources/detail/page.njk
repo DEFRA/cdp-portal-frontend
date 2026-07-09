@@ -2,6 +2,8 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
+{% from "../../../requests/components/resources-request/macro.njk" import resourcesRequest %}
+
 {% block content %}
   {{ appStepNavigation({
     "classes":"app-step-navigation--slim",
@@ -36,6 +38,11 @@
               class="govuk-!-margin-bottom-4">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
+          {{ resourcesRequest({
+            request: serializeBasket(basket)
+          }) }}
+
+          {# TODO: Switch to using resourcesRequest() #}
           {% for type, resources in basket %}
 
             {{ govukSummaryList({
