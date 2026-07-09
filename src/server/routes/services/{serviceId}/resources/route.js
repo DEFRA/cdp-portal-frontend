@@ -45,7 +45,30 @@ export default async function (request) {
 
   const environments = getEnvironments(request.auth.credentials?.scope)
 
-  const resourcesPerEnv = await fetchResources(entity.name)
+  const [resourcesPerEnv, pendingResourceRequests] = await Promise.all([
+    fetchResources(entity.name),
+    Promise.resolve([
+      {
+        requestedAt: '2026-07-09T08:43:26.793Z',
+        requestedBy: {
+          id: '',
+          displayName: 'David Beale'
+        },
+        workflow: {
+          workflow_run_id: 123,
+          run_url: '',
+          html_url: 'https://github.com/workflow'
+        },
+        pullRequest: { url: 'https://github.com/pr' },
+        resources: {
+          s3_buckets: [],
+          sqs_queues: [],
+          sns_topics: [],
+          sqs_sns_subscriptions: []
+        }
+      }
+    ])
+  ])
 
   if (!resourcesPerEnv) throw new Error('Failed to load resources')
 
@@ -54,27 +77,18 @@ export default async function (request) {
     resourcesPerEnv
   )
 
+  const pendingResourceRequestsRows = pendingResourceRequests
+    ? transformPendingRequestsToRows(pendingResourceRequests)
+    : undefined
+
   const hasBuckets = rowsPerResourceType.s3_buckets?.length
 
   const supportVerticalHeadings = environments.length >= 5
 
-  const tablesPerResourceType = Object.fromEntries(
-    Object.entries(rowsPerResourceType)
-      .filter(([_, rows]) => rows.length)
-      .map(([type, rows]) => [
-        type,
-        {
-          headers: [
-            ...environments.map((env) => ({
-              ...(supportVerticalHeadings && { verticalText: true }),
-              id: env.toLowerCase(),
-              text: formatText(env),
-              width: Math.round(100 / environments.length)
-            }))
-          ],
-          rows
-        }
-      ])
+  const tablesPerResourceType = transformResourceRowsToTablesPerType(
+    rowsPerResourceType,
+    environments,
+    supportVerticalHeadings
   )
 
   return {
@@ -82,6 +96,7 @@ export default async function (request) {
     entity,
     environments,
     tablesPerResourceType,
+    pendingResourceRequestsRows,
     hasBuckets,
     breadcrumbs: [
       {
@@ -130,4 +145,39 @@ function transformResourcesToRows(environments, resourcesPerEnv) {
   )
 
   return rowsPerResourceType
+}
+
+function transformResourceRowsToTablesPerType(
+  rowsPerResourceType,
+  environments,
+  supportVerticalHeadings
+) {
+  return Object.fromEntries(
+    Object.entries(rowsPerResourceType)
+      .filter(([_, rows]) => rows.length)
+      .map(([type, rows]) => [
+        type,
+        {
+          headers: [
+            ...environments.map((env) => ({
+              ...(supportVerticalHeadings && { verticalText: true }),
+              id: env.toLowerCase(),
+              text: formatText(env),
+              width: Math.round(100 / environments.length)
+            }))
+          ],
+          rows
+        }
+      ])
+  )
+}
+
+function transformPendingRequestsToRows(pendingResourceRequests) {
+  return pendingResourceRequests.map((request) => [
+    { html: request.workflow.html_url },
+    { html: request.pullRequest.url },
+    { html: request.requestedBy.displayName },
+    { html: request.requestedAt },
+    { html: '' }
+  ])
 }
