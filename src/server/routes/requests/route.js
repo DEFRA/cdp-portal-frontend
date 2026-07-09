@@ -32,28 +32,15 @@ export default async function (request) {
     }
   ])
 
-
-  const pendingResourceRequestsRows = pendingResourceRequests
-    ? transformPendingRequestsToRows(pendingResourceRequests)
-    : undefined
+  // TODO: resolve teams here or in the BE
+  // const cdpUser = await fetchCdpUser(userSession.id)
 
   return {
-    pendingResourceRequestsRows,
+    pendingResourceRequests,
     breadcrumbs: [
       {
         text: 'Requests'
       }
     ]
   }
-}
-
-
-
-function transformPendingRequestsToRows(pendingResourceRequests) {
-  return pendingResourceRequests.map((request) => [
-    { html: request.requestedAt },
-    { html: request.requestedBy.displayName },
-    { html: request.workflow.html_url },
-    { html: request.pullRequest.url }
-  ])
 }

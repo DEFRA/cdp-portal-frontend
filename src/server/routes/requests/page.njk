@@ -1,4 +1,35 @@
 {% extends "layouts/page.njk" %}
+{% from "time/macro.njk" import appTime %}
+
+{% macro renderTeams(teams) %}
+  <ul class="app-entity__list">
+    {% for team in teams %}
+      <li><a class="app-link" href="/teams/{{ team.teamId }}" data-testid="app-entity-link">{{ team.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% macro renderExternalLink(url) %}
+  <a href="{{ url }}" target="_blank" rel="noopener nofollow">{{ url }}<a/>
+{% endmacro %}
+
+
+{% set pendingResourceRequestsRows = [] %}
+{% for request in pendingResourceRequests %}
+  {{ pendingResourceRequestsRows.push([
+    { html: appTime({
+      datetime: request.requestedAt
+    }) },
+
+    { text: request.requestedBy.displayName },
+
+    { html: renderTeams([]) },
+
+    { html: renderExternalLink(request.workflow.html_url) },
+
+    { html: renderExternalLink(request.pullRequest.url) }
+  ])}}
+{% endfor %}
 
 {% block content %}
 
@@ -11,7 +42,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
 
-        {% if pendingResourceRequestsRows %}
+        {% if pendingResourceRequests %}
           <section class="govuk-!-margin-bottom-9">
             <span class="govuk-caption-l">Pending</span>
 
@@ -27,8 +58,9 @@
                 head: [
                   { text: "Date" },
                   { text: "Requester" },
-                  { text: "Request generation workflow" },
-                  { text: "Request" }
+                  { text: "Team" },
+                  { text: "Generation workflow" },
+                  { text: "Pull Request" }
                 ],
                 rows: pendingResourceRequestsRows
               }) }}
