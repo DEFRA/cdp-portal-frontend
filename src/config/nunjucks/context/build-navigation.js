@@ -100,6 +100,18 @@ async function buildNavigation(request, userSession) {
         'data-testid': 'nav-teams'
       }
     },
+    ...(userSession?.isTenant || userSession?.isAdmin
+      ? [
+          {
+            text: 'Requests',
+            href: '/requests',
+            current: isActive('requests'),
+            attributes: {
+              'data-testid': 'nav-requests'
+            }
+          }
+        ]
+      : []),
     {
       text: 'Deployments',
       href: request.routeLookup('deployments'),
