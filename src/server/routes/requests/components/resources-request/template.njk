@@ -1,4 +1,21 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% macro renderRows(rows, type, resources) %}
+  {% for resource in resources %}
+    {{ rows.push(
+      {
+        key: { text: resource.name },
+        value: { html: 'df' }
+      }
+    )}}
+  {% endfor %}
+{% endmacro %}
+
+
 {% for type, resources in params.request %}
+
+  {% set rows = [] %}
+  {% set t = renderRows(rows, type, resources) %}
 
   {{ govukSummaryList({
     card: {
@@ -6,7 +23,8 @@
         text: type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
       }
     },
-    rows: []
+    rows: rows
+
   }) }}
 
 {% endfor %}

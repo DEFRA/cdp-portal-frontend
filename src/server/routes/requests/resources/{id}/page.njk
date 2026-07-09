@@ -3,10 +3,17 @@
 
 {% block content %}
 
-  Hello
+Resources request
 
   {{ resourcesRequest({
-    request: {}
+    request: {
+      s3_buckets: [
+        {
+          name: 'testing',
+          service: 'cdp-example-node-backend'
+        }
+      ]
+    }
   }) }}
 
 {% endblock %}
