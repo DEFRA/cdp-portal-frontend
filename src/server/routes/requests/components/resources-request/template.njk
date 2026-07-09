@@ -1,0 +1,12 @@
+{% for type, resources in params.request %}
+
+  {{ govukSummaryList({
+    card: {
+      title: {
+        text: type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
+      }
+    },
+    rows: []
+  }) }}
+
+{% endfor %}

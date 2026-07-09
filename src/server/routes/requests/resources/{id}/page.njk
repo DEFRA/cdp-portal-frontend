@@ -1,0 +1,12 @@
+{% extends "layouts/page.njk" %}
+{% from "../../components/resources-request/macro.njk" import resourcesRequest %}
+
+{% block content %}
+
+  Hello
+
+  {{ resourcesRequest({
+    request: {}
+  }) }}
+
+{% endblock %}
