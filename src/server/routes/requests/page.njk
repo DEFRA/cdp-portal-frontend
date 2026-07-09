@@ -1,0 +1,46 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+
+  {{ appPageHeading({
+    text: "Requests",
+    intro: 'Your teams self-service requests'
+  }) }}
+
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+
+        {% if pendingResourceRequestsRows %}
+          <section class="govuk-!-margin-bottom-9">
+            <span class="govuk-caption-l">Pending</span>
+
+            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resource requests</h2>
+            <p class="govuk-!-margin-bottom-2">Resources pending creation</p>
+
+            {% call appPanel({
+              classes: "govuk-!-margin-bottom-6"
+            }) %}
+
+              {{ govukTable({
+                classes: "app-table app-table--inverse govuk-!-margin-bottom-1",
+                head: [
+                  { text: "Date" },
+                  { text: "Requester" },
+                  { text: "Request generation workflow" },
+                  { text: "Request" }
+                ],
+                rows: pendingResourceRequestsRows
+              }) }}
+
+          {% endcall %}
+
+          </section>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
