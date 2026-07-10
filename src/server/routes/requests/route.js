@@ -13,8 +13,13 @@ export const options = {
 export default async function (request) {
   const pendingResourceRequests = await getPendingResourceRequests()
 
+  const hasGeneratingRequests = pendingResourceRequests.some(
+    (request) => request.status === 'pending'
+  )
+
   return {
     pendingResourceRequests,
+    hasGeneratingRequests,
     breadcrumbs: [
       {
         text: 'Requests'
