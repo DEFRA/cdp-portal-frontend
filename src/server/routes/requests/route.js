@@ -25,7 +25,6 @@ export default async function (request) {
       parseISO(request.requestedAt) < subMinutes(now, 20)
   )
 
-
   return {
     pendingResourceRequests,
     hasGeneratingRequests,
