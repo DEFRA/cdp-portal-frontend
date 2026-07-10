@@ -100,7 +100,7 @@ async function buildNavigation(request, userSession) {
         'data-testid': 'nav-teams'
       }
     },
-    ...(userSession?.isTenant || userSession?.isAdmin
+    .../* userSession?.isTenant || */ (userSession?.isAdmin // TODO: open to tenants
       ? [
           {
             text: 'Requests',
