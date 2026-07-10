@@ -2,6 +2,8 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
+{% from "../../../requests/components/resources-request/macro.njk" import resourcesRequest %}
+
 {% block content %}
   {{ appStepNavigation({
     "classes":"app-step-navigation--slim",

@@ -1,0 +1,21 @@
+{% extends "layouts/page.njk" %}
+{% from "../../components/resources-request/macro.njk" import resourcesRequest %}
+
+{% block content %}
+
+Resources request
+
+  <!--TODO: just stubbed for now-->
+
+  {{ resourcesRequest({
+    request: {
+      s3_buckets: [
+        {
+          name: 'testing',
+          service: 'cdp-example-node-backend'
+        }
+      ]
+    }
+  }) }}
+
+{% endblock %}

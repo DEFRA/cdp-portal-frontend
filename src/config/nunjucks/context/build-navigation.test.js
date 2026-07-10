@@ -7,7 +7,11 @@ const mockRequest = ({ path = '', auth = {} } = {}) => ({
   routeLookup: (value) => (value === 'home' ? '/' : `/${value}`)
 })
 
-const buildPrimaryNav = ({ servicesHref = '/services', path = '' } = {}) => [
+const buildPrimaryNav = ({
+  servicesHref = '/services',
+  path = '',
+  includeRequests = false
+} = {}) => [
   {
     current: path === '/' || path.startsWith('/blog'),
     text: 'Home',
@@ -50,6 +54,16 @@ const buildPrimaryNav = ({ servicesHref = '/services', path = '' } = {}) => [
     href: '/teams',
     attributes: { 'data-testid': 'nav-teams' }
   },
+  ...(includeRequests
+    ? [
+        {
+          current: path.includes('/requests') && !path.includes('admin'),
+          text: 'Requests',
+          href: '/requests',
+          attributes: { 'data-testid': 'nav-requests' }
+        }
+      ]
+    : []),
   {
     current: path.split('/').at(1) === 'deployments',
     text: 'Deployments',
@@ -98,7 +112,7 @@ describe('#buildNavigation', () => {
             attributes: { 'data-testid': 'nav-create' }
           }
         ],
-        primary: buildPrimaryNav(),
+        primary: buildPrimaryNav({ isTenant: true, includeRequests: false }),
         admin: undefined
       })
     })
@@ -121,7 +135,7 @@ describe('#buildNavigation', () => {
             attributes: { 'data-testid': 'nav-create' }
           }
         ],
-        primary: buildPrimaryNav(),
+        primary: buildPrimaryNav({ includeRequests: false }),
         admin: undefined
       })
     })
@@ -144,7 +158,10 @@ describe('#buildNavigation', () => {
             attributes: { 'data-testid': 'nav-create' }
           }
         ],
-        primary: buildPrimaryNav({ servicesHref: '/services/all' }),
+        primary: buildPrimaryNav({
+          servicesHref: '/services/all',
+          includeRequests: true
+        }),
         admin: [
           {
             current: false,
@@ -184,7 +201,7 @@ describe('#buildNavigation', () => {
               attributes: { 'data-testid': 'nav-create' }
             }
           ],
-          primary: buildPrimaryNav()
+          primary: buildPrimaryNav({ includeRequests: false })
         })
       })
     })
@@ -211,7 +228,7 @@ describe('#buildNavigation', () => {
               attributes: { 'data-testid': 'nav-create' }
             }
           ],
-          primary: buildPrimaryNav(),
+          primary: buildPrimaryNav({ includeRequests: false }),
           admin: [
             {
               text: 'Exit Test as Tenant Mode',

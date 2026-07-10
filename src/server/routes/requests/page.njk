@@ -1,0 +1,115 @@
+{% extends "layouts/page.njk" %}
+{% from "time/macro.njk" import appTime %}
+{% from "tag/macro.njk" import appTag %}
+
+{% macro renderTeams(teams) %}
+  <ul class="app-entity__list">
+    {% for team in teams %}
+      <li><a class="app-link" href="/teams/{{ team.teamId }}" data-testid="app-entity-link">{{ team.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% macro renderExternalLink(url) %}
+  <a href="{{ url }}" target="_blank" rel="noopener nofollow">{{ url }}<a/>
+{% endmacro %}
+
+
+{% set pendingResourceRequestsRows = [] %}
+{% for request in pendingResourceRequests %}
+  {{ pendingResourceRequestsRows.push([
+    { html: appTime({
+      datetime: request.requestedAt
+    }) },
+
+    { text: request.requestedBy.displayName },
+
+    { html: renderTeams(request.teams) },
+
+    { html: renderExternalLink(request.workflow.html_url) },
+
+    { html: renderExternalLink(request.pullRequest.url) if request.status == 'requested' else appTag({
+      text: 'Generating',
+      isLoading: true,
+      attributes: {
+        "data-testid": "app-overall-progress"
+      }
+    }) }
+  ])}}
+{% endfor %}
+
+{% block content %}
+
+  {{ appPageHeading({
+    text: "Requests",
+    intro: 'Your teams self-service requests'
+  }) }}
+
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+
+        <section class="govuk-!-margin-bottom-9">
+          <span class="govuk-caption-l">Pending</span>
+
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resource requests</h2>
+          <p class="govuk-!-margin-bottom-2">Resources pending creation</p>
+
+          {% block xhrContent %}
+
+            <div data-xhr="resources-request" data-xhr-stop="{{ not hasGeneratingRequests }}">
+
+              {% if hasGeneratingRequests %}
+                <div data-js="app-poll"
+                data-poll-url=""
+                data-poll-interval="10000"
+                data-poll-limit="500">
+                  {% if hasGeneratingRequestsTakingTooLong %}
+
+                    <div class="govuk-!-margin-bottom-6">
+                      {% set warningHtml %}
+                        It looks like your resource request generation is taking a while, contact the Platform team via Slack
+                        <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+                          rel="noopener noreferrer">#cdp-support</a> for help.
+                      {% endset %}
+                      {{ appWarning({ html: warningHtml }) }}
+                    </div>
+
+                  {% endif %}
+              {% else %}
+                <div>
+              {% endif %}
+
+              {% call appPanel({
+                classes: "govuk-!-margin-bottom-6"
+              }) %}
+
+                {{ govukTable({
+                  classes: "app-table app-table--inverse govuk-!-margin-bottom-1",
+                  head: [
+                    { text: "Date" },
+                    { text: "Requester" },
+                    { text: "Team" },
+                    { text: "Generation workflow" },
+                    { text: "Pull Request" }
+                  ],
+                  rows: pendingResourceRequestsRows
+                }) }}
+
+                {% if pendingResourceRequestsRows.length == 0 %}
+                  <p class="govuk-!-margin-top-4 govuk-!-margin-left-3">Currently you have no pending resource requests.</p>
+                {% endif %}
+
+              {% endcall %}
+
+            </div>
+
+        {% endblock %}
+
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

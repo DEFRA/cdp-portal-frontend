@@ -46,7 +46,6 @@ export default async function (request) {
   const environments = getEnvironments(request.auth.credentials?.scope)
 
   const resourcesPerEnv = await fetchResources(entity.name)
-
   if (!resourcesPerEnv) throw new Error('Failed to load resources')
 
   const rowsPerResourceType = transformResourcesToRows(
@@ -58,23 +57,10 @@ export default async function (request) {
 
   const supportVerticalHeadings = environments.length >= 5
 
-  const tablesPerResourceType = Object.fromEntries(
-    Object.entries(rowsPerResourceType)
-      .filter(([_, rows]) => rows.length)
-      .map(([type, rows]) => [
-        type,
-        {
-          headers: [
-            ...environments.map((env) => ({
-              ...(supportVerticalHeadings && { verticalText: true }),
-              id: env.toLowerCase(),
-              text: formatText(env),
-              width: Math.round(100 / environments.length)
-            }))
-          ],
-          rows
-        }
-      ])
+  const tablesPerResourceType = transformResourceRowsToTablesPerType(
+    rowsPerResourceType,
+    environments,
+    supportVerticalHeadings
   )
 
   return {
@@ -130,4 +116,29 @@ function transformResourcesToRows(environments, resourcesPerEnv) {
   )
 
   return rowsPerResourceType
+}
+
+function transformResourceRowsToTablesPerType(
+  rowsPerResourceType,
+  environments,
+  supportVerticalHeadings
+) {
+  return Object.fromEntries(
+    Object.entries(rowsPerResourceType)
+      .filter(([_, rows]) => rows.length)
+      .map(([type, rows]) => [
+        type,
+        {
+          headers: [
+            ...environments.map((env) => ({
+              ...(supportVerticalHeadings && { verticalText: true }),
+              id: env.toLowerCase(),
+              text: formatText(env),
+              width: Math.round(100 / environments.length)
+            }))
+          ],
+          rows
+        }
+      ])
+  )
 }
