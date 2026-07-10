@@ -68,7 +68,7 @@
 
                     <div class="govuk-!-margin-bottom-6">
                       {% set warningHtml %}
-                        It looks like your resources request generation is taking a while, contact the Platform team via Slack
+                        It looks like your resource request generation is taking a while, contact the Platform team via Slack
                         <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
                           rel="noopener noreferrer">#cdp-support</a> for help.
                       {% endset %}
@@ -95,6 +95,10 @@
                   ],
                   rows: pendingResourceRequestsRows
                 }) }}
+
+                {% if pendingResourceRequestsRows.length == 0 %}
+                  <p class="govuk-!-margin-top-4 govuk-!-margin-left-3">Currently you have no pending resource requests.</p>
+                {% endif %}
 
               {% endcall %}
 
