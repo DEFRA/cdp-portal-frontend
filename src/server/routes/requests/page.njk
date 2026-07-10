@@ -64,13 +64,13 @@
                 data-poll-url=""
                 data-poll-interval="10000"
                 data-poll-limit="500">
-                  {% if isTwentyMinutesOld %}
+                  {% if hasGeneratingRequestsTakingTooLong %}
 
                     <div class="govuk-!-margin-bottom-6">
                       {% set warningHtml %}
                         It looks like your resources request generation is taking a while, contact the Platform team via Slack
                         <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
-                          rel="noopener noreferrer">#cdp-support</a> with this page's url for help
+                          rel="noopener noreferrer">#cdp-support</a> for help.
                       {% endset %}
                       {{ appWarning({ html: warningHtml }) }}
                     </div>
