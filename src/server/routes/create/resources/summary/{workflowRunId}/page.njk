@@ -2,114 +2,50 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% block content %}
+  {{ appStepNavigation(stepNavigation) }}
 
-  {% block xhrContent %}
+  <div class="govuk-main-wrapper app-main-wrapper">
 
-    <div data-xhr="resources-request" data-xhr-stop="{{ true if prUrl else false }}">
+    {{ appStepNavigation({
+      "classes":"app-step-navigation--slim",
+      "width": 100 if prUrl else 50,
+      "steps":[
+        {url:"/create/choose-kind", isComplete:true, isCurrent:false, text: "Create"},
+        {url:"/create/detail", isComplete:true, isCurrent:false, text: "Details"},
+        {isComplete: false, "isCurrent": true, text: "Summary"}
+      ]
+    }) }}
 
-      {{ appStepNavigation({
-        "classes":"app-step-navigation--slim",
-        "width": 100 if prUrl else 50,
-        "steps":[
-          {url:"/create/choose-kind", isComplete:true, isCurrent:false, text:"Create"},
-          {isComplete:true, isCurrent:false, text:"Details"},
-          {isComplete: true if prUrl else false, "isCurrent": true if not prUrl else false, text:"Summary"}
-        ]
-      }) }}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop-wide">
 
-      <div class="govuk-main-wrapper app-main-wrapper">
+        {% if visibilityHelpText %}
+          {{ appInfo({
+            html: visibilityHelpText,
+            classes: "govuk-!-margin-bottom-4"
+          }) }}
+        {% endif %}
 
-        {{ appPageHeading({
-          caption: "Create resources",
-          text: "Summary",
-          intro: 'View the resources creation request'
-        }) }}
+        <form action="{{ action }}" method="post">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="teamId" value="{{ create.teamId }}" />
 
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+          {{ govukSummaryList({
+            classes: "govuk-!-margin-bottom-9",
+            rows: summaryRows,
+            attributes: { 'data-testid': 'govuk-summary-list' }
+          }) }}
 
-            {% if (not prUrl) %}
-              <div data-js="app-poll"
-              data-poll-url=""
-              data-poll-interval="10000"
-              data-poll-limit="500">
-                {% if isTwentyMinutesOld %}
+          {{ appButton({
+            text: 'Submit request',
+            loader: {
+              name: "create-submit-button"
+            }
+          }) }}
 
-                  <div class="govuk-!-margin-bottom-6">
-                    {% set warningHtml %}
-                      It looks like your resources request generation is taking a while, contact the Platform team via Slack
-                      <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
-                         rel="noopener noreferrer">#cdp-support</a> with this page's url for help
-                    {% endset %}
-                    {{ appWarning({ html: warningHtml }) }}
-                  </div>
-
-                {% else %}
-
-                  <div class="govuk-!-margin-bottom-6">
-                    {{ appInfo({ text: "Your resources request is currently being generated"}) }}
-                  </div>
-
-                {% endif %}
-            {% else %}
-              <div>
-            {% endif %}
-
-
-            {% set workflowLink %}
-              <a href="{{ workflow.html_url }}" target="_blank" rel="noopener noreferrer">{{ workflow.html_url }}</a>
-            {% endset %}
-
-            {% set prLink %}
-              {% if prUrl %}
-                <a href="{{ prUrl }}" target="_blank" rel="noopener noreferrer">{{ prUrl }}</a>
-              {% else %}
-                {{ appTag({
-                  text: 'Generating',
-                  isLoading: not prUrl,
-                  attributes: {
-                    "data-testid": "app-overall-progress"
-                  }
-                }) }}
-
-              {% endif %}
-            {% endset %}
-
-            {{ govukSummaryList({
-              classes: "govuk-!-margin-bottom-9",
-              rows: [
-                {
-                  key: {
-                    text: "Resources request generation workflow"
-                  },
-                  value: {
-                    html: workflowLink
-                  }
-                },
-                {
-                  key: {
-                    text: "Resources request"
-                  },
-                  value: {
-                    html: prLink
-                  }
-                }
-              ],
-              attributes: { 'data-testid': 'govuk-summary-list' }
-            }) }}
-
-            </div>
-
-          </div>
-
-          <div class="govuk-grid-column-one-third-from-desktop-wide">
-
-          </div>
-        </div>
+        </form>
       </div>
-
-     </div>
-
-  {% endblock %}
+    </div>
+  </div>
 
 {% endblock %}

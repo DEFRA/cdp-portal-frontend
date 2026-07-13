@@ -1,15 +1,15 @@
 import { sessionNames } from '#server/common/constants/session-names.js'
 import formEngine from '#server/plugins/form-engine/form-engine.js'
 import Joi from 'joi'
-import handleNoBasket from '../../../ext/handleNoBasket.js'
-import provideLayoutContext from '../../../ext/provideLayoutContext.js'
+import handleNoBasket from '../../../../ext/handleNoBasket.js'
+import provideLayoutContext from '../../../../ext/provideLayoutContext.js'
 import {
   formatBasketResource,
   getBasketResource,
   removeBasketResource,
   Resources
-} from '../../../domain/basket.js'
-import { options as parentOptions } from '../../../route.js'
+} from '../../../../domain/basket.js'
+import * as parent from '../../../route.js'
 
 export function register(routePath) {
   return [
@@ -19,7 +19,7 @@ export function register(routePath) {
         route: {
           path: routePath,
           options: {
-            auth: parentOptions.auth
+            auth: parent.options.auth
           }
         },
 
