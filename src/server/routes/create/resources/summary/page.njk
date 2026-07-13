@@ -9,7 +9,7 @@
       "width": 100 if prUrl else 50,
       "steps":[
         {url:"/create/choose-kind", isComplete:true, isCurrent:false, text: "Create"},
-        {url:"/create/detail", isComplete:true, isCurrent:false, text: "Details"},
+        {url:"/create/resources/detail", isComplete:true, isCurrent:false, text: "Details"},
         {isComplete: false, "isCurrent": true, text: "Summary"}
       ]
     }) }}
@@ -37,7 +37,7 @@
           {{ appButton({
             text: 'Submit request',
             loader: {
-              name: "create-submit-button"
+              name: "create-request-button"
             }
           }) }}
 

@@ -64,7 +64,10 @@ export async function POST(request, h) {
     } else {
       request.yar.flash(
         sessionNames.globalValidationFailures,
-        'Failed to submit request: ' + error?.data?.payload?.message ?? error
+        'Failed to submit request: ' +
+          (error?.data?.payload?.message ??
+            error?.output?.payload?.message ??
+            error)
       )
     }
 
