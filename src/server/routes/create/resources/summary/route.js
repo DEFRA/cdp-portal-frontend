@@ -1,12 +1,10 @@
 import { config } from '#config/config.js'
-import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { Boom } from '@hapi/boom'
-import { parseISO, subMinutes } from 'date-fns'
-import Joi from 'joi'
 import { serializeBasket } from '../domain/basket.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import handleNoBasket from '../ext/handleNoBasket.js'
+import { uppercaseMatch } from '#config/nunjucks/filters/filters.js'
+import upperFirst from 'lodash/upperFirst.js'
 
 export const ext = [handleNoBasket]
 
@@ -27,7 +25,7 @@ export default async function (request, h) {
   }
 
   return {
-    basket
+    summaryRows: basketSummaryRows(basket)
   }
 }
 
@@ -73,4 +71,30 @@ export async function POST(request, h) {
 
     return h.redirect('/create/resources/detail')
   }
+}
+
+function basketSummaryRows(basket) {
+  return Object.entries(basket)
+    .filter(([_type, items]) => Object.values(items).length !== 0)
+    .map(([type, items]) => ({
+      key: {
+        text: upperFirst(
+          uppercaseMatch(type.replace('_', ' '), [
+            'sqs',
+            'sns',
+            'sql',
+            'api',
+            'ai'
+          ])
+        )
+      },
+      value: {
+        html: `<ul class="govuk-list">${Object.entries(items)
+          .map(
+            ([_uuid, props]) =>
+              `<li><strong>${props.name}</strong> (${props.service})</li>`
+          )
+          .join('')}</ul>`
+      }
+    }))
 }

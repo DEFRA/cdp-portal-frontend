@@ -43,7 +43,7 @@
             {{ govukSummaryList({
               card: {
                 title: {
-                  text: type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
+                  text: type | capitalize | replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
                 },
                 actions: {
                   items: [
