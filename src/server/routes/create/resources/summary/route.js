@@ -95,6 +95,14 @@ function basketSummaryRows(basket) {
               `<li><strong>${props.name}</strong> (${props.service})</li>`
           )
           .join('')}</ul>`
+      },
+      actions: {
+        items: [
+          {
+            href: '/create/resources/detail/',
+            text: 'Change'
+          }
+        ]
       }
     }))
 }
