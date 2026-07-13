@@ -4,9 +4,9 @@ import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
 import { parseISO, subMinutes } from 'date-fns'
 import Joi from 'joi'
-import { serializeBasket } from '../../domain/basket.js'
+import { serializeBasket } from '../domain/basket.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
-import handleNoBasket from '../../ext/handleNoBasket.js'
+import handleNoBasket from '../ext/handleNoBasket.js'
 
 export const ext = [handleNoBasket]
 
@@ -16,31 +16,18 @@ export const options = {
     access: {
       scope: scopes.admin // TODO: Open to tenants
     }
-  },
-  validate: {
-    params: Joi.object({
-      workflowRunId: Joi.number()
-    }),
-    failAction: () => Boom.boomify(Boom.notFound())
   }
 }
 
-export default async function (request) {
-  const workflowRunId = request.params.workflowRunId
+export default async function (request, h) {
+  const basket = request.yar.get(sessionNames.resourcesBasket)
 
-  const { payload } = await fetchJson(
-    `${config.get('portalBackendUrl')}/resources/requests/${workflowRunId}`
-  )
-
-  const { requestedAt, workflow, pullRequest } = payload
-  const prUrl = pullRequest?.url
-
-  const isTwentyMinutesOld = parseISO(requestedAt) < subMinutes(Date.now(), 20)
+  if (!basket) {
+    return h.redirect('/create/resources/detail')
+  }
 
   return {
-    workflow,
-    prUrl,
-    isTwentyMinutesOld
+    basket
   }
 }
 
@@ -56,7 +43,7 @@ export async function POST(request, h) {
   request.logger.info(`Requested resources: ${JSON.stringify(resourceRequest)}`)
 
   try {
-    const { payload } = await request.authedFetchJson(
+    await request.authedFetchJson(
       `${config.get('portalBackendUrl')}/resources/requests`,
       {
         method: 'post',
@@ -81,6 +68,6 @@ export async function POST(request, h) {
       )
     }
 
-    return h.redirect('/create/resources/summary')
+    return h.redirect('/create/resources/detail')
   }
 }
