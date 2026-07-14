@@ -1,6 +1,7 @@
 import { scopes } from '@defra/cdp-validation-kit'
 import { getPendingResourceRequests } from './ResourcesService.js'
 import { parseISO, subMinutes } from 'date-fns'
+import { fetchCdpUser } from '#server/admin/users/helpers/fetch/fetchers.js'
 
 export const options = {
   auth: {
@@ -12,7 +13,17 @@ export const options = {
 }
 
 export default async function (request) {
-  const pendingResourceRequests = await getPendingResourceRequests()
+  const userIsAdmin = await request.userIsAdmin()
+
+  let cdpUser
+  if (!userIsAdmin) {
+    const userSession = request.auth.credentials
+    cdpUser = await fetchCdpUser(userSession.id)
+  }
+
+  const pendingResourceRequests = await getPendingResourceRequests(
+    userIsAdmin ? [] : cdpUser.teams.map(({ teamId }) => teamId)
+  )
 
   const hasGeneratingRequests = pendingResourceRequests.some(
     (request) => request.status === 'pending'
