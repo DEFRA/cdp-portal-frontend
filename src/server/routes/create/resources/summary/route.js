@@ -1,6 +1,6 @@
 import { config } from '#config/config.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { serializeBasket } from '../domain/basket.js'
+import { formatBasketResource, serializeBasket } from '../domain/basket.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import handleNoBasket from '../ext/handleNoBasket.js'
 import { uppercaseMatch } from '#config/nunjucks/filters/filters.js'
@@ -79,7 +79,7 @@ function basketSummaryRows(basket) {
     .map(([type, items]) => ({
       key: {
         text: upperFirst(
-          uppercaseMatch(type.replace('_', ' '), [
+          uppercaseMatch(type.replaceAll('_', ' '), [
             'sqs',
             'sns',
             'sql',
@@ -90,9 +90,10 @@ function basketSummaryRows(basket) {
       },
       value: {
         html: `<ul class="govuk-list">${Object.entries(items)
+          .map(([uuid, res]) => [uuid, formatBasketResource(res)])
           .map(
             ([_uuid, props]) =>
-              `<li><strong>${props.name}</strong> (${props.service})</li>`
+              `<li><strong>${props.name}</strong> (${props.service ?? `${props.queueService} | ${props.topicService}`})</li>`
           )
           .join('')}</ul>`
       },
