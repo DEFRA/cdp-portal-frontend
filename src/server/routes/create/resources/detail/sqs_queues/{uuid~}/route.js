@@ -9,7 +9,9 @@ import handleNoBasket from '../../../ext/handleNoBasket.js'
 import provideLayoutContext from '../../../ext/provideLayoutContext.js'
 import createEnvironmentOptions from '../../../domain/create-environment-options.js'
 import deduplicationScopeOptions from '../../../domain/deduplication-scope-options.js'
-import fifoThroughputLimitOptions from '../../../domain/fifo-throughput-limit-options.js'
+import fifoThroughputLimitOptions, {
+  validForDeduplicationScope
+} from '../../../domain/fifo-throughput-limit-options.js'
 import {
   Resources,
   getBasketResource,
@@ -109,7 +111,21 @@ export function register(routePath) {
                 .label('Throughput limit')
                 .default(false)
                 .required()
-                .valid(...fifoThroughputLimitOptions.map(({ value }) => value))
+                .when('deduplicationScope', {
+                  is: 'queue',
+                  then: Joi.valid(
+                    ...validForDeduplicationScope['queue']
+                  ).messages({
+                    'any.only':
+                      'Throughput limit must be "perQueue" when Deduplication scope is "Queue"'
+                  }),
+                  otherwise: Joi.valid(
+                    ...validForDeduplicationScope['messageGroup']
+                  ).messages({
+                    'any.only':
+                      'Throughput limit must be "Per message group id" when Deduplication scope is "Message group"'
+                  })
+                })
                 .meta({
                   component: 'selectField',
                   suggestions: fifoThroughputLimitOptions
