@@ -43,7 +43,7 @@
             {{ govukSummaryList({
               card: {
                 title: {
-                  text: type | capitalize| replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
+                  text: type | capitalize | replace("_", " ") | uppercaseMatch(["sqs", "sns", "sql", "api", "ai"])
                 },
                 actions: {
                   items: [
@@ -60,10 +60,7 @@
           {% endfor %}
 
           {{ appButton({
-            text: 'Submit request',
-            loader: {
-              name: "request-button"
-            }
+            text: 'Next'
           }) }}
 
         </form>

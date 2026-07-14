@@ -5,15 +5,15 @@ import { sortByName } from '#server/common/helpers/sort/sort-by-name.js'
 import formEngine from '#server/plugins/form-engine/form-engine.js'
 import { repositoryNameValidation } from '@defra/cdp-validation-kit'
 import Joi from 'joi'
-import handleNoBasket from '../../ext/handleNoBasket.js'
-import provideLayoutContext from '../../ext/provideLayoutContext.js'
-import createEnvironmentOptions from '../../domain/create-environment-options.js'
+import handleNoBasket from '../../../ext/handleNoBasket.js'
+import provideLayoutContext from '../../../ext/provideLayoutContext.js'
+import createEnvironmentOptions from '../../../domain/create-environment-options.js'
 import {
   Resources,
   getBasketResource,
   updateBasketResource
-} from '../../domain/basket.js'
-import { options as parentOptions } from '../../route.js'
+} from '../../../domain/basket.js'
+import * as parent from '../../route.js'
 
 export function register(routePath) {
   return [
@@ -23,7 +23,7 @@ export function register(routePath) {
         route: {
           path: routePath,
           options: {
-            auth: parentOptions.auth
+            auth: parent.options.auth
           }
         },
 

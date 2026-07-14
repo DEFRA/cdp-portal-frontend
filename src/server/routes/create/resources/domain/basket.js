@@ -71,3 +71,10 @@ export function serializeBasket(basket) {
     ])
   )
 }
+
+export function numberOfItemsInBasket(basket = {}) {
+  return Object.entries(basket)
+    .filter(([_, items]) => Object.values(items).length !== 0)
+    .map(([_, items]) => items)
+    .flat().length
+}

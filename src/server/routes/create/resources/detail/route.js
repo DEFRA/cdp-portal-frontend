@@ -5,9 +5,8 @@ import { provideFormContextValues } from '#server/common/helpers/form/provide-fo
 import {
   formatBasketResource,
   initBasket,
-  serializeBasket
-} from './domain/basket.js'
-import { config } from '#config/config.js'
+  numberOfItemsInBasket
+} from '../domain/basket.js'
 
 export const options = {
   auth: {
@@ -50,40 +49,17 @@ export async function POST(request, h) {
     return h.redirect('/create/resources/detail')
   }
 
-  const resourceRequest = serializeBasket(basket)
-
-  request.logger.info(`Requested resources: ${JSON.stringify(resourceRequest)}`)
-
-  try {
-    const { payload } = await request.authedFetchJson(
-      `${config.get('portalBackendUrl')}/resources/requests`,
-      {
-        method: 'post',
-        payload: resourceRequest
-      }
-    )
-
-    return h.redirect(
-      `/create/resources/summary/${payload.workflow.workflow_run_id}`
-    )
-  } catch (error) {
-    request.logger.error(error, 'Resources request failed:')
-
-    if (error?.data?.res.statusCode === 400 && error.data.payload?.errors) {
-      request.yar.flash(sessionNames.validationFailure, {
-        formMessages: error.data.payload.errors.map((msg) => ({
-          text: msg
-        }))
-      })
-    } else {
-      request.yar.flash(
-        sessionNames.globalValidationFailures,
-        'Failed to submit request: ' + error?.data?.payload?.message ?? error
-      )
-    }
+  if (numberOfItemsInBasket(basket) === 0) {
+    request.yar.flash(sessionNames.validationFailure, {
+      formMessages: [
+        { text: 'Please add at least one resource to the request' }
+      ]
+    })
 
     return h.redirect('/create/resources/detail')
   }
+
+  return h.redirect('/create/resources/summary')
 }
 
 function resourcesToRows(userIsAdmin) {

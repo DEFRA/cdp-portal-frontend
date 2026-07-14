@@ -1,0 +1,49 @@
+{% extends "layouts/page.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block content %}
+
+  {{ appStepNavigation({
+    "classes":"app-step-navigation--slim govuk-!-margin-bottom-5",
+    "width": 100 if prUrl else 50,
+    "steps":[
+      {url:"/create/choose-kind", isComplete:true, isCurrent:false, text: "Create"},
+      {url:"/create/resources/detail", isComplete:true, isCurrent:false, text: "Details"},
+      {isComplete: false, "isCurrent": true, text: "Summary"}
+    ]
+  }) }}
+
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half-from-desktop-wide">
+
+        {{ appPageHeading({
+          caption: "Create resources request",
+          text: "Summary",
+          intro: 'The resurces you are about to request'
+        }) }}
+
+        <form action="{{ action }}" method="post">
+          <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+          <input type="hidden" name="teamId" value="{{ create.teamId }}" />
+
+          {{ govukSummaryList({
+            classes: "govuk-!-margin-bottom-9",
+            rows: summaryRows,
+            attributes: { 'data-testid': 'govuk-summary-list' }
+          }) }}
+
+          {{ appButton({
+            text: 'Submit request',
+            loader: {
+              name: "create-request-button"
+            }
+          }) }}
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
