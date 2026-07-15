@@ -1,4 +1,4 @@
-import { scopes } from "@defra/cdp-validation-kit"
+import { scopes } from '@defra/cdp-validation-kit'
 
 export const options = {
   auth: {
