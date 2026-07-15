@@ -12,7 +12,7 @@ export const options = {
   auth: {
     mode: 'required',
     access: {
-      scope: scopes.admin // TODO: Open to tenants
+      scope: [scopes.admin, scopes.tenant]
     }
   }
 }
