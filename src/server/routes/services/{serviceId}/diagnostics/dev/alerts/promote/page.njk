@@ -5,8 +5,8 @@
 
     {{ appPageHeading({
       caption: "Promote",
-      text: "Dashboards",
-      intro: 'Promote your playground dashboards'
+      text: "Alerts",
+      intro: 'Promote your playground alerts'
     }) }}
 
     <div class="govuk-grid-row">
@@ -15,16 +15,16 @@
       <form method="post" data-js="app-form-errors">
         <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
-        <p class="govuk-body govuk-!-margin-top-4">The following dashboards will be promoted to all environments.</p>
+        <p class="govuk-body govuk-!-margin-top-4">The following alerts will be promoted to all environments.</p>
 
         {{ govukTable({
           classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
           head: [
             { text: "Type" },
-            { text: "Dashboard" },
-            { text: "Version" }
+            { text: "Name" },
+            { text: "Runbook" }
           ],
-          rows: dashboardRows
+          rows: alertRows
         }) }}
 
         <div class="govuk-button-group">
@@ -37,7 +37,7 @@
             value: 'submit'
           }) }}
 
-          <a class="app-link" href="/services/{{ entity.name }}/diagnostics/dev#dashboards">Cancel</a>
+          <a class="app-link" href="/services/{{ entity.name }}/diagnostics/dev#alerts">Cancel</a>
         </div>
 
       </form>
