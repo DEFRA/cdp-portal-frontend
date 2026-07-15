@@ -35,7 +35,7 @@
       <h4 class="govuk-heading-m govuk-!-margin-bottom-1 ">
       Alerts playground
       </h4>
-      {% if environment.endsWith('dev') and showPromote and playground.length !== 0 %}
+      {% if environment.endsWith('dev') and showPromote and playground | isArray and playground.length !== 0 %}
         <span class="app-align-right">
           <a href="./dev/alerts/promote" class="app-link app-link--underline">Promote</a>
         </span>
