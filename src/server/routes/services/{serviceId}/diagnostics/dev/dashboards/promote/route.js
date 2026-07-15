@@ -6,7 +6,7 @@ import {
 import formEngine from '#server/plugins/form-engine/form-engine.js'
 import Joi from 'joi'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
-import { getPlayground } from '../../../PlaygroundService.js'
+import { getPlayground, promoteDashboards } from '../../../PlaygroundService.js'
 
 export function register(routePath) {
   return [
@@ -38,9 +38,10 @@ export function register(routePath) {
           const dashboards = playground.dashboards.map(({ uid }) => uid)
 
           return Joi.object({
-            alerts: Joi.array()
+            uids: Joi.array()
               .label('Dashboards')
               .items(Joi.string().required())
+              .single()
               .valid(...dashboards)
               .min(1)
               .required()
@@ -68,7 +69,7 @@ export function register(routePath) {
               text: 'Promote',
               classes: 'app-button',
               async method(request, h, sanitisedFormValues) {
-                // TODO: call BE
+                await promoteDashboards(request, [...sanitisedFormValues.uids])
 
                 return h.redirect(
                   `/services/${entity.name}/diagnostics/dev#dashboards`
