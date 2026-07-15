@@ -27,3 +27,29 @@ export async function getPlayground(serviceName) {
     return { alerts: [], dashboards: [] }
   }
 }
+
+export async function promoteDashboards(request, uids) {
+  const endpoint = `${config.get('portalBackendUrl')}/grafana/promotions`
+
+  return await request.authedFetchJson(endpoint, {
+    method: 'POST',
+    body: {
+      dashboards: uids.map((uid) => ({ dashboard_uid: uid }))
+    }
+  })
+}
+
+export async function promoteAlerts(request, serviceName) {
+  const endpoint = `${config.get('portalBackendUrl')}/grafana/promotions`
+
+  return await request.authedFetchJson(endpoint, {
+    method: 'POST',
+    body: {
+      alerts: [
+        {
+          service_name: serviceName
+        }
+      ]
+    }
+  })
+}
