@@ -10,7 +10,6 @@ import { adminDecommissions } from './decommissions/routes.js'
 import { removeTestAsTenantScopeController } from './permissions/controllers/remove/user/remove-test-as-tenant-permission.js'
 import { adminAudit } from './audit/routes.js'
 import { adminDebug } from './debug/routes.js'
-import { adminCreate } from './create/routes.js'
 
 const admin = {
   plugin: {
@@ -24,8 +23,7 @@ const admin = {
         adminPermissions,
         adminDecommissions,
         adminAudit,
-        adminTags,
-        adminCreate
+        adminTags
       ])
 
       server.route([
