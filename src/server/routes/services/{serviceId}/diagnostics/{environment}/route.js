@@ -13,6 +13,7 @@ import transformResources from '../utils/transformResources.js'
 import createDashboardRows from '../utils/createDashboardRows.js'
 import createAlertRows from '../utils/createAlertRows.js'
 import { getPlayground } from '../PlaygroundService.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -44,10 +45,22 @@ export default async function (request) {
   const { entity } = request.app
   const environment = request.params.environment
 
+
   const [runningServices, playground] = await Promise.all([
     fetchRunningServices(entity.name),
-    environment.endsWith('dev') ? getPlayground(entity.name) : {}
+    environment.endsWith('dev')
+      ? getPlayground(entity.name).catch((error) => {
+          request.logger.error(error, 'Grafana playground load failed:')
+
+          request.yar.flash(
+            sessionNames.globalValidationFailures,
+            'Failed to load playgrounds'
+          )
+          return { alerts: [], dashboards: [] }
+        })
+      : {}
   ])
+
 
   const serviceDeployedInEnvironment = runningServices.some(
     (service) => service.environment === environment
