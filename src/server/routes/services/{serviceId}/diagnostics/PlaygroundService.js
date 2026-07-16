@@ -4,27 +4,23 @@ import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 export async function getPlayground(serviceName) {
   const endpoint = `${config.get('portalBackendUrl')}/entities/${serviceName}/diagnostics/playground`
 
-  try {
-    const { res, payload = {} } = await fetchJson(endpoint)
+  const { res, payload = {} } = await fetchJson(endpoint)
 
-    // BE fetching from queues
-    if (res.statusCode === 202) {
-      return {
-        alerts: 'PENDING',
-        dashboards: 'PENDING'
-      }
-    }
-
+  // BE fetching from queues
+  if (res.statusCode === 202) {
     return {
-      alerts: payload?.alerts ?? [],
-      dashboards:
-        payload?.dashboards?.map((dashboard) => ({
-          ...dashboard,
-          url: `https://metrics.dev.cdp-int.defra.cloud${dashboard.url}`
-        })) ?? []
+      alerts: 'PENDING',
+      dashboards: 'PENDING'
     }
-  } catch (_) {
-    return { alerts: [], dashboards: [] }
+  }
+
+  return {
+    alerts: payload?.alerts ?? [],
+    dashboards:
+      payload?.dashboards?.map((dashboard) => ({
+        ...dashboard,
+        url: `https://metrics.dev.cdp-int.defra.cloud${dashboard.url}`
+      })) ?? []
   }
 }
 
