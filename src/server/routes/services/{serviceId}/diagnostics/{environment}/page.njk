@@ -35,8 +35,8 @@
 
                 {% if userIsAdmin %}
                   <div class="govuk-grid-row govuk-!-margin-top-8">
-                    {{ dashboards(environment, resources.metrics, playground.dashboards, createDashboardRows, userIsAdmin or userIsOwner) }}
-                    {{ alerts(environment, resources.alerts, playground.alerts, createAlertRows, userIsAdmin or userIsOwner) }}
+                    {{ dashboards(environment, resources.metrics, playground, createDashboardRows, userIsAdmin or userIsOwner) }}
+                    {{ alerts(environment, resources.alerts, playground, createAlertRows, userIsAdmin or userIsOwner) }}
                   </div>
                 {% endif %}
 

@@ -6,7 +6,7 @@
 <div
   class="govuk-grid-column-one-half"
   data-xhr="alerts-playground-load"
-  data-xhr-stop="{{ false if playground == 'PENDING' else true }}" data-js="app-poll"
+  data-xhr-stop="{{ false if playground.status == 'LOADING' else true }}" data-js="app-poll"
   data-poll-url=""
   data-poll-interval="3000"
   data-poll-limit="100"
@@ -35,7 +35,7 @@
       <h4 class="govuk-heading-m govuk-!-margin-bottom-1 ">
       Alerts playground
       </h4>
-      {% if environment.endsWith('dev') and showPromote and playground | isArray and playground.length !== 0 %}
+      {% if environment.endsWith('dev') and showPromote and playground.alerts.length !== 0 %}
         <span class="app-align-right">
           <a href="./dev/alerts/promote" class="app-link app-link--underline">Promote</a>
         </span>
@@ -49,7 +49,7 @@
 
     {% if environment.endsWith('dev') %}
 
-      {% if playground == 'PENDING' %}
+      {% if playground.status == 'LOADING' %}
 
         {{ appLoader({ classes: "app-loader--is-loading govuk-!-margin-bottom-4 govuk-!-margin-top-4" }) }}
 
@@ -62,7 +62,7 @@
             { text: "Name" },
             { text: "Runbook" }
           ],
-          rows: createAlertRows(playground, environment)
+          rows: createAlertRows(playground.alerts, environment)
         }) }}
 
       {% endif %}

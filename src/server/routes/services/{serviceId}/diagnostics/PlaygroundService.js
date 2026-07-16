@@ -9,12 +9,14 @@ export async function getPlayground(serviceName) {
   // BE fetching from queues
   if (res.statusCode === 202) {
     return {
-      alerts: 'PENDING',
-      dashboards: 'PENDING'
+      status: 'LOADING',
+      alerts: [],
+      dashboards: []
     }
   }
 
   return {
+    status: 'LOADED',
     alerts: payload?.alerts ?? [],
     dashboards:
       payload?.dashboards?.map((dashboard) => ({
