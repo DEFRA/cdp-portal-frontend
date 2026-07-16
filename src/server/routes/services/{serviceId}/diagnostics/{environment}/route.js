@@ -56,7 +56,7 @@ export default async function (request) {
             sessionNames.globalValidationFailures,
             'Failed to load playgrounds'
           )
-          return { alerts: [], dashboards: [] }
+          return { status: 'FAILED', alerts: [], dashboards: [] }
         })
       : {}
   ])
