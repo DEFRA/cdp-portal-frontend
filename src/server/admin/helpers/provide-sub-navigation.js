@@ -43,13 +43,6 @@ function provideSubNavigation(request, h) {
         }
       },
       {
-        isActive: request.path.startsWith('/admin/create'),
-        url: '/admin/create',
-        label: {
-          text: 'Create resource'
-        }
-      },
-      {
         isActive: request.path.startsWith('/admin/decommissions'),
         url: '/admin/decommissions',
         label: {
