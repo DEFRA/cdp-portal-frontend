@@ -28,13 +28,13 @@ describe('Request resources page', () => {
     expect(result).toMatchFile()
   })
 
-  test('page DOES NOT render for logged in tenant', async () => {
+  test('page renders for logged in tenant', async () => {
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: `/create/resources/detail`,
       isAdmin: false,
       isTenant: true
     })
-    expect(statusCode).toBe(statusCodes.forbidden)
+    expect(statusCode).toBe(statusCodes.ok)
     expect(result).toMatchFile()
   })
 

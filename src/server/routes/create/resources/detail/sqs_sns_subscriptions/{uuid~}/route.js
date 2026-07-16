@@ -35,6 +35,7 @@ export function register(routePath) {
         layout: 'routes/create/resources/detail/layouts/resource.njk',
 
         async schema(request, h, formValues) {
+          const userIsAdmin = await request.userIsAdmin()
           const userSession = request.auth.credentials
 
           const serviceNames = await fetchServiceNames(userSession)
@@ -116,11 +117,10 @@ export function register(routePath) {
               .description('(Admin only)')
               .valid(...createEnvironmentOptions.map(({ value }) => value))
               .meta({
-                component: 'selectField',
+                component: userIsAdmin ? 'selectField' : 'notRenderedField',
                 suggestions: createEnvironmentOptions
               })
               .default('tenants')
-              .required()
           })
         },
 

@@ -112,7 +112,7 @@ describe('#buildNavigation', () => {
             attributes: { 'data-testid': 'nav-create' }
           }
         ],
-        primary: buildPrimaryNav({ isTenant: true, includeRequests: false }),
+        primary: buildPrimaryNav({ isTenant: true, includeRequests: true }),
         admin: undefined
       })
     })
@@ -135,7 +135,7 @@ describe('#buildNavigation', () => {
             attributes: { 'data-testid': 'nav-create' }
           }
         ],
-        primary: buildPrimaryNav({ includeRequests: false }),
+        primary: buildPrimaryNav({ includeRequests: true }),
         admin: undefined
       })
     })
@@ -201,7 +201,7 @@ describe('#buildNavigation', () => {
               attributes: { 'data-testid': 'nav-create' }
             }
           ],
-          primary: buildPrimaryNav({ includeRequests: false })
+          primary: buildPrimaryNav({ includeRequests: true })
         })
       })
     })
@@ -228,7 +228,7 @@ describe('#buildNavigation', () => {
               attributes: { 'data-testid': 'nav-create' }
             }
           ],
-          primary: buildPrimaryNav({ includeRequests: false }),
+          primary: buildPrimaryNav({ includeRequests: true }),
           admin: [
             {
               text: 'Exit Test as Tenant Mode',

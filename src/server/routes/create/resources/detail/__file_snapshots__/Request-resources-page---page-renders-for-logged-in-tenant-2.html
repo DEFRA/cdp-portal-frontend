@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template">
   <head>
     <meta charset="utf-8">
-    <title>  Add Team Member | Core Delivery Platform - Portal
+    <title>   | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -144,11 +144,10 @@ Utilities
               </li>
 
               
-              <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
-                  <a class="govuk-service-navigation__link" href="/teams" aria-current="page" data-testid="nav-teams">
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/teams" data-testid="nav-teams">
                                     
-                  <strong class="govuk-service-navigation__active-fallback">Teams</strong>
-
+Teams
                   </a>
               </li>
 
@@ -202,9 +201,11 @@ Dependency Explorer
 
 
 <li
-  class="govuk-service-navigation__item">
-    <a class="govuk-service-navigation__link" href="/create" data-testid="nav-create">
-      Create
+  class="govuk-service-navigation__item    govuk-service-navigation__item--active">
+    <a class="govuk-service-navigation__link" href="/create" aria-current="page" data-testid="nav-create">
+          <strong
+      class="govuk-service-navigation__active-fallback">Create</strong>
+
     </a>
 </li>
 
@@ -235,175 +236,236 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-    
-<nav class="app-breadcrumbs" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
-  <ol class="app-breadcrumbs__list">
-        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/teams"
-             data-testid="app-breadcrumbs-link">Teams</a>
-        </li>
-        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/teams/mock-team-id"
-             data-testid="app-breadcrumbs-link">Mock Team</a>
-        </li>
-        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">Add</li>
-  </ol>
+        <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
+  
+<style>
+  .app-step-navigation:after {
+    width: 50%;
+  }
+</style>
+
+<nav class="app-step-navigation-container app-step-navigation--slim"
+     aria-label="Multi-step Form" data-testid="app-step-navigation__container">
+  <ul class="app-step-navigation" data-testid="app-step-navigation">
+      <li class="app-step-navigation__item"
+          aria-labelledby="step-1">
+
+
+          <a href="/create/choose-kind" class="app-step-navigation__item-link">
+                      <span
+            class="app-step-navigation__point app-step-navigation__point--complete"
+            data-testid="app-step-navigation__marker">
+
+              <svg class="app-icon app-complete-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+     viewBox="0 -960 960 960"
+     role="img" aria-label="Step complete">
+  <path d="M378-225 133-470l66-66 179 180 382-382 66 65-448 448Z"/>
+</svg>
+
+          </span>
+          <p class="app-step-navigation__heading" id="step-1"
+             data-testid="app-step-navigation__text">
+            Create
+          </p>
+
+          </a>
+      </li>
+      <li class="app-step-navigation__item app-step-navigation__item--current"
+ aria-current="step"           aria-labelledby="step-2">
+
+
+                    <span
+            class="app-step-navigation__point app-step-navigation__point--current"
+            data-testid="app-step-navigation__marker">
+
+              <span class="app-step-navigation__icon" aria-hidden="true">2</span>
+          </span>
+          <p class="app-step-navigation__heading" id="step-2"
+             data-testid="app-step-navigation__text">
+            Details
+          </p>
+
+      </li>
+      <li class="app-step-navigation__item"
+          aria-labelledby="step-3">
+
+
+                    <span
+            class="app-step-navigation__point"
+            data-testid="app-step-navigation__marker">
+
+              <span class="app-step-navigation__icon" aria-hidden="true">3</span>
+          </span>
+          <p class="app-step-navigation__heading" id="step-3"
+             data-testid="app-step-navigation__text">
+            Summary
+          </p>
+
+      </li>
+  </ul>
 </nav>
 
-        <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
-    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Add Member to Team</span>
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+      <span class="govuk-caption-l" data-testid="app-page-heading-caption">Create</span>
 
 <div class="app-page-heading">
-  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">Mock Team</h1>
+  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">Resources</h1>
 
-
-</div>
-
-
-  <hr class="app-section-break app-section-break--slim">
-
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third-from-desktop">
-
-      <h2 class="govuk-heading-m">Search for CDP users</h2>
-
-      
-
-
-<div
-  class="app-info govuk-!-margin-bottom-4"
-  tabindex="-1"
-  role="alert"
-  data-testid="app-info">
-
-  <svg class="app-icon app-info-icon app-icon--small"
-     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
-     role="img" aria-label="Info">
-  <path fill-rule="nonzero"
-        d="M24.138363 35.9288256c.6244365 0 1.1513167-.2180783 1.5806406-.6542349.4293238-.4361565.6439857-.9772716.6439857-1.6233451v-9.6797154c0-.6092526-.2156109-1.1315776-.6468327-1.566975-.4308422-.435777-.9527877-.6536655-1.5658363-.6536655-.6130487 0-1.1471412.2178885-1.6022776.6536655-.455516.4353974-.683274.9577224-.683274 1.566975v9.6797154c0 .6460735.2228232 1.1871886.6684697 1.6233451.4456465.4361566.9806881.6542349 1.6051246.6542349Zm-.1679715-17.4234875c.7789323 0 1.4198813-.2448399 1.9228469-.7345196.5029656-.4896797.7544484-1.1144958.7544484-1.8744484 0-.8780071-.2501542-1.5546382-.7504626-2.0298932-.5003084-.4756347-1.1386002-.713452-1.9148754-.713452-.8613049 0-1.5244603.234401-1.9894662.7032029-.465006.4688019-.6975089 1.1230367-.6975089 1.9627046 0 .8077817.2511032 1.4574614.7533096 1.9490391.5022064.4915777 1.1427758.7373666 1.9217082.7373666ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.95231317-5.45954922 5.13651245-7.64412811 2.18419929-2.18457888 4.73224202-3.90225385 7.64412812-5.15302491C17.5521708.62538553 20.6595492 0 23.9624199 0c3.3165362 0 6.4394781.62367734 9.3688257 1.87103203 2.9293475 1.24735468 5.4802372 2.9602847 7.652669 5.13879003 2.1724318 2.17888494 3.8847924 4.73205224 5.1370818 7.65950174C47.3736655 17.5963938 48 20.7214235 48 24.0444128c0 3.3199526-.6253855 6.4303677-1.8761566 9.3312456-1.250771 2.9004982-2.968446 5.4396204-5.1530249 7.6173665-2.1845789 2.1777462-4.7358482 3.889917-7.6538078 5.1365125C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
-</svg>
-
-
-  <span class="app-info__content" data-testid="app-info-content">
-      Can't find a user? Have they been set up with a CDP user account? Contact the Platform team via Slack <a
-  class="app-link" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
-  rel="noopener noreferrer">#cdp-support</a> to set one up.
-
-  </span>
+    <p class="app-page-heading--intro" data-testid="app-page-heading-intro">
+      Request resources to be created
+    </p>
 
 </div>
 
 
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
 
-      <form action="/teams/mock-team-id/add-member"
-            method="post"
-            data-js="auto-submit app-form-errors">
-        <input type="hidden" name="csrfToken" value="test-token" />
 
-<fieldset class="govuk-fieldset">
+        <form method="post" data-js="app-form-errors"
+              class="govuk-!-margin-bottom-4">
+          <input type="hidden" name="csrfToken" value="test-token"/>
 
+
+            <div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      S3 buckets
+    </h2>
+    <div class="govuk-summary-card__actions">
+      <a class="govuk-link" href="/create/resources/detail/s3_buckets">Add<span class="govuk-visually-hidden"> (S3 buckets)</span></a>
+    </div>
+  </div>
+
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          - - -
+        </dt>
+        <dd class="govuk-summary-list__value">
           
-
-<div class="govuk-form-group app-form-group"
-     data-js="app-form-group"
-     data-testid="app-search-group">
-
-  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
-    <label class="govuk-label app-label" for="cdpUserQuery" data-testid="app-search-label">
-      CDP users name or email
-    </label>
-
-      <div class="govuk-hint app-hint" data-testid="app-search-hint">
-  Enter the users name or the users Defra provided email
-</div>
-
-  </h2>
-
-
-
-  <div class="app-search"
-       data-js="app-search"
-       data-testid="app-search"
->
-
-    <div class="app-search__control">
-      <svg xmlns="http://www.w3.org/2000/svg"
-     class="app-icon app-search-icon"
-     width="40" height="40"
-     viewBox="0 -960 960 960"
-     role="img" aria-label="Search for CDP user"     data-testid="app-icon"
->
-  <path
-    d="M793.974-120.001 535.872-378.104q-30.566 25.533-72.907 39.228-42.341 13.695-84.647 13.695-109.724 0-184.777-75.014-75.052-75.014-75.052-183.512t75.014-183.574q75.014-75.077 183.325-75.077 108.311 0 183.703 75.033 75.391 75.032 75.391 183.563 0 43.3-13.552 83.839-13.551 40.538-39.705 73.025l259.513 258.436-48.204 48.461ZM377.282-392.769q80.74 0 135.896-55.156 55.156-55.156 55.156-135.844 0-80.688-55.097-135.845-55.098-55.156-135.896-55.156-81.14 0-136.202 55.156-55.062 55.157-55.062 135.845t55.062 135.844q55.062 55.156 136.143 55.156Z" />
-</svg>
-
-      <input type="text"
-             name="cdpUserQuery"
-             id="cdpUserQuery"
-             value=""
-             class="govuk-input app-search__input"
-             autocapitalize="none"
-             autocomplete="off"
-             role="combobox"
-             aria-owns="app-suggestions-cdpUserQuery"
-             aria-autocomplete="list"
-             aria-expanded="false"
-             data-js="app-search-input"
-             data-testid="app-search-input"
-             data-1p-ignore 
-      />
-      <button class="app-search__clear-button"
-              type="button"
-              aria-hidden="true"
-              tabindex="-1"
-              data-js="app-search-clear-button"
-              data-testid="app-search-clear-button"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
-     width="48"
-     height="48"
-     viewBox="0 -960 960 960"
-  role="img" aria-label="Reset input">
-  <path
-    d="m338-290 142-142 142 142 48-48-142-142 142-142-48-48-142 142-142-142-48 48 142 142-142 142 48 48ZM479.679-59q-86.319 0-163.646-32.604-77.328-32.603-134.577-89.852-57.249-57.249-89.852-134.57Q59-393.346 59-479.862q0-87.41 32.662-164.275 32.663-76.865 90.042-134.438 57.378-57.574 134.411-90.499Q393.147-902 479.336-902q87.55 0 164.839 32.848 77.288 32.849 134.569 90.303 57.281 57.454 90.269 134.523Q902-567.257 902-479.458q0 86.734-32.926 163.544-32.925 76.809-90.499 134.199-57.573 57.39-134.447 90.053Q567.255-59 479.679-59Z" />
-</svg>
-
-      </button>
-    </div>
+        </dd>
+      </div>
+    </dl>
   </div>
 </div>
 
 
 
-</fieldset>
+            <div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      SNS topics
+    </h2>
+    <div class="govuk-summary-card__actions">
+      <a class="govuk-link" href="/create/resources/detail/sns_topics">Add<span class="govuk-visually-hidden"> (SNS topics)</span></a>
+    </div>
+  </div>
 
-        <button type="submit" value="search" name="button" class="govuk-button app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden" data-module="govuk-button" data-js="app-no-js-submit-button">
-  Search
-</button>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          - - -
+        </dt>
+        <dd class="govuk-summary-list__value">
+          
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
 
 
-          <article class="app-scrollable-window" data-xhr="add-users" data-children-can-submit="true">
+
+            <div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      SQS queues
+    </h2>
+    <div class="govuk-summary-card__actions">
+      <a class="govuk-link" href="/create/resources/detail/sqs_queues">Add<span class="govuk-visually-hidden"> (SQS queues)</span></a>
+    </div>
+  </div>
+
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          - - -
+        </dt>
+        <dd class="govuk-summary-list__value">
+          
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
 
 
 
+            <div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">
+      SQS SNS subscriptions
+    </h2>
+    <div class="govuk-summary-card__actions">
+      <a class="govuk-link" href="/create/resources/detail/sqs_sns_subscriptions">Add<span class="govuk-visually-hidden"> (SQS SNS subscriptions)</span></a>
+    </div>
+  </div>
+
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          - - -
+        </dt>
+        <dd class="govuk-summary-list__value">
+          
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
 
 
-          </article>
 
-
-        <div class="govuk-body govuk-button-group">
           <button type="submit" class="govuk-button app-button" data-module="govuk-button">
-  Add
+  Next
 </button>
 
-          <a class="app-link" href="/teams/mock-team-id">Cancel</a>
-        </div>
-      </form>
+        </form>
+      </div>
+
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+
+<div class="app-panel" >
+            <section>
+            <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-3">Resources request</h2>
+
+            <p class="govuk-!-margin-bottom-2">
+              Add the resources you want created on the CDP Platform.
+            </p>
+
+            <h3 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-3">Self-service process</h3>
+            <p class="govuk-!-margin-bottom-2">
+              <ol class="govuk-list govuk-list--number govuk-list--spaced">
+                <li>Submit your request</li>
+                <li>A Github PR will be automatically raised modifying CDP infrastructure</li>
+                <li>The CDP team will review and merge the PR</li>
+                <li>The resources are automatically created</li>
+                <li>You can follow progress via the <a href="/requests">Requests</a> page</li>
+              </ol>
+            </p>
+          </section>
+
+</div>
+      </div>
     </div>
   </div>
-
         </main>
       </div>
 
