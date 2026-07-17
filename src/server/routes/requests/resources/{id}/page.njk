@@ -4,7 +4,7 @@
 {% block content %}
 
   {{ appPageHeading({
-    text: "Respurce request",
+    text: "Resources request",
     intro: "Requested at " + resourceRequest.requestedAt
   }) }}
 
@@ -12,7 +12,9 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
 
-      {{ resourcesRequest(resourceRequest) }}
+      {{ resourcesRequest({
+        request: resourceRequest.resources
+      }) }}
 
       </div>
     </div>
