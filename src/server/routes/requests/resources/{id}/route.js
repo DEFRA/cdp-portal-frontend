@@ -1,4 +1,5 @@
 import { scopes } from '@defra/cdp-validation-kit'
+import { getResourceRequest } from '../../ResourcesService.js'
 
 export const options = {
   auth: {
@@ -9,6 +10,23 @@ export const options = {
   }
 }
 
-export default function () {
-  return {}
+export default async function (request) {
+  const { id } = request.params
+
+  const resourceRequest = await getResourceRequest(id)
+
+  return {
+    resourceRequest,
+    breadcrumbs: [
+      {
+        text: 'Requests'
+      },
+      {
+        text: 'Resources'
+      },
+      {
+        text: resourceRequest.requestedAt
+      }
+    ]
+  }
 }

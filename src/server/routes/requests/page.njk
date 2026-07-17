@@ -5,13 +5,19 @@
 {% macro renderTeams(teams) %}
   <ul class="app-entity__list">
     {% for team in teams %}
-      <li><a class="app-link" href="/teams/{{ team.teamId }}" data-testid="app-entity-link">{{ team.name }}</a></li>
+      <li><a class="app-link" href="/teams/{{ team.teamId }}">{{ team.name }}</a></li>
     {% endfor %}
   </ul>
 {% endmacro %}
 
 {% macro renderExternalLink(url) %}
   <a href="{{ url }}" target="_blank" rel="noopener nofollow">{{ url }}<a/>
+{% endmacro %}
+
+{% macro renderActions(request) %}
+  <ul class="app-entity__list">
+      <li><a class="app-link" href="/requests/resources/{{ request.id }}">View</a></li>
+  </ul>
 {% endmacro %}
 
 
@@ -43,7 +49,9 @@
           "data-testid": "app-overall-progress"
         }
       })
-    }
+    },
+
+    { html: renderActions(request) }
   ])}}
 {% endfor %}
 
