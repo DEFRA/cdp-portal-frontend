@@ -15,9 +15,9 @@
 {% endmacro %}
 
 
-{% set pendingResourceRequestsRows = [] %}
-{% for request in pendingResourceRequests %}
-  {{ pendingResourceRequestsRows.push([
+{% set pendingOrRecentResourceRequestsRows = [] %}
+{% for request in pendingOrRecentResourceRequests %}
+  {{ pendingOrRecentResourceRequestsRows.push([
     { html: appTime({
       datetime: request.requestedAt
     }) },
@@ -28,13 +28,22 @@
 
     { html: renderExternalLink(request.workflow.html_url) },
 
-    { html: renderExternalLink(request.pullRequest.url) if request.status == 'requested' else appTag({
-      text: 'Generating',
-      isLoading: true,
-      attributes: {
-        "data-testid": "app-overall-progress"
-      }
-    }) }
+    { html: appTag({
+        text: 'Generating',
+        isLoading: true,
+        attributes: {
+          "data-testid": "app-overall-progress"
+        }
+    }) if request.status == 'pending' else renderExternalLink(request.pullRequest.url) },
+
+    { html: appTag({
+        text: formatStatus(request.status),
+        classes: statusTagColour(request.status),
+        attributes: {
+          "data-testid": "app-overall-progress"
+        }
+      })
+    }
   ])}}
 {% endfor %}
 
@@ -76,6 +85,19 @@
                     </div>
 
                   {% endif %}
+
+                  {% if hasGeneratingRequestsFailed %}
+
+                    <div class="govuk-!-margin-bottom-6">
+                      {% set warningHtml %}
+                        It looks like your resource request generation has failed, contact the Platform team via Slack
+                        <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+                          rel="noopener noreferrer">#cdp-support</a> for help.
+                      {% endset %}
+                      {{ appWarning({ html: warningHtml }) }}
+                    </div>
+
+                  {% endif %}
               {% else %}
                 <div>
               {% endif %}
@@ -91,12 +113,13 @@
                     { text: "Requester" },
                     { text: "Team" },
                     { text: "Generation workflow" },
-                    { text: "Pull Request" }
+                    { text: "Pull Request" },
+                    { text: "Status" }
                   ],
-                  rows: pendingResourceRequestsRows
+                  rows: pendingOrRecentResourceRequestsRows
                 }) }}
 
-                {% if pendingResourceRequestsRows.length == 0 %}
+                {% if pendingOrRecentResourceRequestsRows.length == 0 %}
                   <p class="govuk-!-margin-top-4 govuk-!-margin-left-3">Currently you have no pending resource requests.</p>
                 {% endif %}
 
