@@ -26,14 +26,14 @@ export default async function (request) {
     cdpUser = await fetchCdpUser(userSession.id)
   }
 
+  const teamsFilter = userIsAdmin
+    ? []
+    : cdpUser.teams.map(({ teamId }) => teamId)
+
   const [pendingResourceRequests, recentNonPendingResourceRequests] =
     await Promise.all([
-      getPendingResourceRequests(
-        userIsAdmin ? [] : cdpUser.teams.map(({ teamId }) => teamId)
-      ),
-      getRecentNonPendingResourceRequests(
-        userIsAdmin ? [] : cdpUser.teams.map(({ teamId }) => teamId)
-      )
+      getPendingResourceRequests(teamsFilter),
+      getRecentNonPendingResourceRequests(teamsFilter)
     ])
 
   const hasGeneratingRequests = pendingResourceRequests.some(
