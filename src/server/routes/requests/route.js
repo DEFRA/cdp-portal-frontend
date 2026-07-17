@@ -55,7 +55,7 @@ export default async function (request) {
     pendingOrRecentResourceRequests: [
       ...pendingResourceRequests,
       ...recentNonPendingResourceRequests
-    ],
+    ].toSorted((a, b) => new Date(a.requestedAt) - new Date(b.requestedAt)),
     hasGeneratingRequests,
     hasGeneratingRequestsTakingTooLong,
     hasGeneratingRequestsFailed,
