@@ -7,7 +7,6 @@ import { parseISO, subMinutes } from 'date-fns'
 import { fetchCdpUser } from '#server/admin/users/helpers/fetch/fetchers.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 
-
 export const options = {
   auth: {
     mode: 'required',
