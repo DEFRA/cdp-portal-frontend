@@ -20,6 +20,10 @@
   .icon-shape:has(.mermaid--icon-disabled) svg {
     opacity: 0.3;
   }
+
+  .icon-shape:has(.mermaid--icon-disabled) span.nodeLabel span {
+    color: darkgrey !important;
+  }
 }
 
 .mermaid--with-border {
