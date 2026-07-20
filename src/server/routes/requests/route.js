@@ -5,7 +5,7 @@ import {
 } from './ResourcesService.js'
 import { parseISO, subMinutes } from 'date-fns'
 import { fetchCdpUser } from '#server/admin/users/helpers/fetch/fetchers.js'
-import { formatText } from '#config/nunjucks/filters/filters.js'
+import { formatStatus, statusTagColour } from './utils.js'
 
 export const options = {
   auth: {
@@ -66,19 +66,4 @@ export default async function (request) {
       }
     ]
   }
-}
-
-function formatStatus(status) {
-  if (status === 'closed') return 'Cancelled'
-  if (status === 'merged') return 'Provisioning'
-
-  return formatText(status)
-}
-
-function statusTagColour(status) {
-  if (status === 'closed') return 'govuk-tag--grey'
-  if (status === 'failed') return 'govuk-tag--red'
-  if (status === 'merged') return 'govuk-tag--green'
-
-  return ''
 }

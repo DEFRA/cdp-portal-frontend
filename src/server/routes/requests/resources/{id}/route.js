@@ -1,6 +1,7 @@
 import { scopes } from '@defra/cdp-validation-kit'
 import { getResourceRequest } from '../../ResourcesService.js'
 import { formatDate } from 'date-fns'
+import { formatStatus, statusTagColour } from '../../utils.js'
 
 export const options = {
   auth: {
@@ -18,6 +19,8 @@ export default async function (request) {
 
   return {
     resourceRequest,
+    formatStatus,
+    statusTagColour,
     breadcrumbs: [
       {
         text: 'Requests',
