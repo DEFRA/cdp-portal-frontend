@@ -5,13 +5,19 @@
 {% macro renderTeams(teams) %}
   <ul class="app-entity__list">
     {% for team in teams %}
-      <li><a class="app-link" href="/teams/{{ team.teamId }}" data-testid="app-entity-link">{{ team.name }}</a></li>
+      <li><a class="app-link" href="/teams/{{ team.teamId }}">{{ team.name }}</a></li>
     {% endfor %}
   </ul>
 {% endmacro %}
 
 {% macro renderExternalLink(url) %}
   <a href="{{ url }}" target="_blank" rel="noopener nofollow">{{ url }}<a/>
+{% endmacro %}
+
+{% macro renderActions(request) %}
+  <ul class="app-entity__list">
+      <li><a class="app-link" href="/requests/resources/{{ request.id }}">View</a></li>
+  </ul>
 {% endmacro %}
 
 
@@ -30,20 +36,16 @@
 
     { html: appTag({
         text: 'Generating',
-        isLoading: true,
-        attributes: {
-          "data-testid": "app-overall-progress"
-        }
+        isLoading: true
     }) if request.status == 'pending' else renderExternalLink(request.pullRequest.url) },
 
     { html: appTag({
         text: formatStatus(request.status),
-        classes: statusTagColour(request.status),
-        attributes: {
-          "data-testid": "app-overall-progress"
-        }
+        classes: statusTagColour(request.status)
       })
-    }
+    },
+
+    { html: renderActions(request) }
   ])}}
 {% endfor %}
 
@@ -114,7 +116,8 @@
                     { text: "Team" },
                     { text: "Generation workflow" },
                     { text: "Pull Request" },
-                    { text: "Status" }
+                    { text: "Status" },
+                    { text: "Actions" }
                   ],
                   rows: pendingOrRecentResourceRequestsRows
                 }) }}

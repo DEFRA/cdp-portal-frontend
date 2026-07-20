@@ -20,3 +20,11 @@ export async function getRecentNonPendingResourceRequests(teamIds = []) {
 
   return payload
 }
+
+export async function getResourceRequest(id) {
+  const endpoint = `${config.get('portalBackendUrl')}/resources/requests/${id}`
+
+  const { payload = {} } = await fetchJson(endpoint)
+
+  return payload
+}
