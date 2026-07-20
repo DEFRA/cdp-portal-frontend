@@ -16,6 +16,10 @@
   .image-shape g path[fill='none'] {
     pointer-events: none;
   }
+
+  .icon-shape:has(.mermaid--icon-disabled) svg {
+    opacity: 0.3;
+  }
 }
 
 .mermaid--with-border {
