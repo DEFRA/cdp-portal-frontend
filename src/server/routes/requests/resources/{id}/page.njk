@@ -4,12 +4,12 @@
 
 {% block content %}
 
-  {{ appPageHeading({
-    text: "Resources request" + appTag({
-      text: resourceRequest.status | formatText
-    }),
-    intro: "Requested by <strong>" + resourceRequest.requestedBy.displayName + " </strong> on <strong>" + resourceRequest.requestedAt | formatDate("do MMM yyyy 'at' HH:mm:ss") + "</strong>"
-  }) }}
+  <h1 class="app-page-heading--title govuk-!-margin-bottom-2" style="display: flex; align-items: center;">
+    Resource request {{ appTag({ text: resourceRequest.status | formatText, classes: "govuk-tag--blue govuk-!-margin-left-4" }) }}
+  </h1>
+  <p class="govuk-!-margin-bottom-2">
+    Requested by <strong>{{ resourceRequest.requestedBy.displayName }}</strong> on <strong>{{ resourceRequest.requestedAt | formatDate("do MMM yyyy 'at' HH:mm:ss") }}</strong>
+  </p>
 
   <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
