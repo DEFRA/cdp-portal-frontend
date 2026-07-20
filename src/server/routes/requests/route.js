@@ -2,7 +2,7 @@ import { scopes } from '@defra/cdp-validation-kit'
 import {
   getPendingResourceRequests,
   getRecentNonPendingResourceRequests
-} from './ResourcesService.js'
+} from './ResourceRequestsService.js'
 import { parseISO, subMinutes } from 'date-fns'
 import { fetchCdpUser } from '#server/admin/users/helpers/fetch/fetchers.js'
 import { formatStatus, statusTagColour } from './utils.js'

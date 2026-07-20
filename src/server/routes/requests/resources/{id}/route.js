@@ -1,5 +1,5 @@
 import { scopes } from '@defra/cdp-validation-kit'
-import { getResourceRequest } from '../../ResourcesService.js'
+import { getResourceRequest } from '../../ResourceRequestsService.js'
 import { formatDate } from 'date-fns'
 import { formatStatus, statusTagColour } from '../../utils.js'
 
