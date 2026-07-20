@@ -36,18 +36,12 @@
 
     { html: appTag({
         text: 'Generating',
-        isLoading: true,
-        attributes: {
-          "data-testid": "app-overall-progress"
-        }
+        isLoading: true
     }) if request.status == 'pending' else renderExternalLink(request.pullRequest.url) },
 
     { html: appTag({
         text: formatStatus(request.status),
-        classes: statusTagColour(request.status),
-        attributes: {
-          "data-testid": "app-overall-progress"
-        }
+        classes: statusTagColour(request.status)
       })
     },
 
@@ -122,7 +116,8 @@
                     { text: "Team" },
                     { text: "Generation workflow" },
                     { text: "Pull Request" },
-                    { text: "Status" }
+                    { text: "Status" },
+                    { text: "Actions" }
                   ],
                   rows: pendingOrRecentResourceRequestsRows
                 }) }}

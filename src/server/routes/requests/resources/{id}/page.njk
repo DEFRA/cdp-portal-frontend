@@ -1,11 +1,14 @@
 {% extends "layouts/page.njk" %}
+{% from "tag/macro.njk" import appTag %}
 {% from "../../components/resources-request/macro.njk" import resourcesRequest %}
 
 {% block content %}
 
   {{ appPageHeading({
-    text: "Resources request",
-    intro: "Requested at " + resourceRequest.requestedAt
+    text: "Resources request" + appTag({
+      text: resourceRequest.status | formatText
+    }),
+    intro: "Requested by <strong>" + resourceRequest.requestedBy.displayName + " </strong> on <strong>" + resourceRequest.requestedAt | formatDate("do MMM yyyy 'at' HH:mm:ss") + "</strong>"
   }) }}
 
   <section class="govuk-!-margin-top-6">

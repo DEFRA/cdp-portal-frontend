@@ -1,5 +1,6 @@
 import { scopes } from '@defra/cdp-validation-kit'
 import { getResourceRequest } from '../../ResourcesService.js'
+import { formatDate } from 'date-fns'
 
 export const options = {
   auth: {
@@ -19,13 +20,17 @@ export default async function (request) {
     resourceRequest,
     breadcrumbs: [
       {
-        text: 'Requests'
+        text: 'Requests',
+        href: '/requests'
       },
       {
         text: 'Resources'
       },
       {
-        text: resourceRequest.requestedAt
+        text: formatDate(
+          resourceRequest.requestedAt,
+          "do MMM yyyy 'at' HH:mm:ss"
+        )
       }
     ]
   }
