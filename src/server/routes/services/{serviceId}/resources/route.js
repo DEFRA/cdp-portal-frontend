@@ -63,21 +63,6 @@ export default async function (request) {
     })
   }
 
-  // resourcesPerEnv.dev.sqs_queues.push({
-  //   resource: 'sqs',
-  //   icon: 'aws-sqs',
-  //   name: 'decision_notification',
-  //   resourceRequestId: '1234',
-  //   properties: {
-  //     name: 'decision_notification',
-  //     fifo_queue: true,
-  //     content_based_deduplication: false,
-  //     receive_wait_time_seconds: 30,
-  //     subscriptions: ['decision_notification.fifo']
-  //   }
-  // })
-
-
   const rowsPerResourceType = transformResourcesToRows(
     environments,
     resourcesPerEnv

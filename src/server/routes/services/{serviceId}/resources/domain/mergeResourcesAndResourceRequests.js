@@ -68,7 +68,6 @@ export function mergeResourcesAndResourceRequests(
   return result
 }
 
-
 function expandName(type, name, environment) {
   if (type === 's3_buckets') {
     return `${environment}-${name}-${bucketSuffix[environment]}`
