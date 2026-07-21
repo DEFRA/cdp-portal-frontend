@@ -2,6 +2,7 @@ import { config } from '#config/config.js'
 import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 
 export async function getPlayground(serviceName) {
+  // TODO: /grafana/
   const endpoint = `${config.get('portalBackendUrl')}/entities/${serviceName}/diagnostics/playground`
 
   const { res, payload = {} } = await fetchJson(endpoint)

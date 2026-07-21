@@ -9,7 +9,8 @@ const sessionNames = {
   referrer: 'referrer',
   validationFailure: 'validationFailure',
   resourcesBasket: 'resourcesBasket',
-  xhrRefresh: 'xhrRefresh'
+  xhrRefresh: 'xhrRefresh',
+  grafanaPlayground: 'grafanaPlayground'
 }
 
 export { sessionNames }

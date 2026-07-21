@@ -41,10 +41,9 @@ export const options = {
   }
 }
 
-export default async function (request) {
+export default async function (request, h) {
   const { entity } = request.app
   const environment = request.params.environment
-
 
   const [runningServices, playground] = await Promise.all([
     fetchRunningServices(entity.name),
@@ -61,6 +60,10 @@ export default async function (request) {
       : {}
   ])
 
+  if (playground.status === 'LOADED') {
+    request.yar.set(sessionNames.grafanaPlayground, playground)
+    await request.yar.commit(h)
+  }
 
   const serviceDeployedInEnvironment = runningServices.some(
     (service) => service.environment === environment
