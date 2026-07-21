@@ -1,8 +1,10 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
+import { getActiveResourceRequestsByEntity } from '#server/routes/requests/ResourceRequestsService.js'
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 import { serviceParamsValidation } from '#server/services/helpers/schema/service-params-validation.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import Boom from '@hapi/boom'
+import { mergeResourcesAndResourceRequests } from '../domain/mergeResourcesAndResourceRequests.js'
 
 export { ext } from '../route.js'
 
@@ -29,23 +31,20 @@ export default async function (request) {
   const teamId = team?.teamId
   const formattedEnvironment = formatText(environment)
 
-  const resources = await fetchResources(entity.name, environment)
+  let [resources, resourceRequests] = await Promise.all([
+    fetchResources(entity.name, environment),
+    getActiveResourceRequestsByEntity([entity.name])
+  ])
 
   if (!resources) throw new Error('Failed to load resources')
 
-  resources.sqs_queues.push({
-    resource: 'sqs',
-    icon: 'aws-sqs',
-    name: 'decision_notification',
-    resourceRequestId: '1234',
-    properties: {
-      name: 'decision_notification',
-      fifo_queue: true,
-      content_based_deduplication: false,
-      receive_wait_time_seconds: 30,
-      subscriptions: ['decision_notification.fifo']
-    }
-  })
+  if (resourceRequests?.length && (await request.userIsAdmin())) {
+    resources = mergeResourcesAndResourceRequests(
+      resources,
+      resourceRequests,
+      environment
+    )
+  }
 
   const hasNoResources = !Object.entries(resources).some(
     ([_, items]) => items?.length
