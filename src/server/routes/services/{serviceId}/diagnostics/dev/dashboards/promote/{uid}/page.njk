@@ -1,0 +1,49 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  <div class="govuk-main-wrapper app-main-wrapper">
+
+    {{ appPageHeading({
+      caption: "Promote",
+      text: "Dashboard",
+      intro: 'Promote your playground dashboard'
+    }) }}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop-wide">
+
+      <form method="post" data-js="app-form-errors">
+        <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+
+        <p class="govuk-body govuk-!-margin-top-4">The following dashboard will be promoted to all environments.</p>
+
+        {{ govukTable({
+          classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
+          head: [
+            { text: "Type" },
+            { text: "Name" },
+            { text: "Version" }
+          ],
+          rows: dashboardRows
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ appButton({
+            text: 'Promote',
+            loader: {
+              name: "action-button"
+            },
+            name: 'actionButton',
+            value: 'submit'
+          }) }}
+
+          <a class="app-link" href="/services/{{ entity.name }}/diagnostics/dev#dashboards">Cancel</a>
+        </div>
+
+      </form>
+
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
