@@ -3,8 +3,8 @@ import {
   commonServiceExtensions,
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
-import { getPlayground } from '../../../../PlaygroundService.js'
 import createDashboardRows from '../../../../utils/createDashboardRows.js'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -24,9 +24,9 @@ export default async function (request, h) {
   const { entity } = request.app
   const { uid } = request.params
 
-  const playground = await getPlayground(entity.name)
+  const playground = request.yar.get(sessionNames.grafanaPlayground)
 
-  if (playground.status === 'LOADING') {
+  if (!playground) {
     return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
   }
 
