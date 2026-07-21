@@ -39,6 +39,10 @@ export function mergeResourcesAndResourceRequests(
         const { name, ...properties } = resource
         const fullName = expandName(type, name, environment)
 
+        if (resources[type]?.some(({ name }) => name === fullName)) {
+          continue
+        }
+
         provisioningResources.push([
           type,
           {
@@ -51,7 +55,6 @@ export function mergeResourcesAndResourceRequests(
       }
     }
   }
-  console.log(provisioningResources)
 
   const result = {}
   for (const [type, resourceList] of Object.entries(resources ?? {})) {
