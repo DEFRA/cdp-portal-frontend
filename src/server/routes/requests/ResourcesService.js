@@ -14,7 +14,7 @@ export async function getPendingResourceRequests(teamIds = []) {
 export async function getRecentNonPendingResourceRequests(teamIds = []) {
   const teamFilters = teamIds.map((teamId) => `&teamIds=${teamId}`).join('')
   const OneDayOld = addDays(new Date(), -1).toISOString()
-  const endpoint = `${config.get('portalBackendUrl')}/resources/requests?modifiedAfter=${OneDayOld}&status=created&status=closed&status=failed${teamFilters}`
+  const endpoint = `${config.get('portalBackendUrl')}/resources/requests?modifiedAfter=${OneDayOld}&status=merged&status=closed&status=failed${teamFilters}`
 
   const { payload = {} } = await fetchJson(endpoint)
 
