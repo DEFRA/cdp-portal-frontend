@@ -3,8 +3,8 @@ import {
   commonServiceExtensions,
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
-import { getPlayground } from '../../../PlaygroundService.js'
-import createAlertRows from '../../../utils/createAlertRows.js'
+import { getPlayground } from '../../../../PlaygroundService.js'
+import createDashboardRows from '../../../../utils/createDashboardRows.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -22,12 +22,18 @@ export const options = {
 
 export default async function (request, h) {
   const { entity } = request.app
+  const { uid } = request.params
 
   const playground = await getPlayground(entity.name)
 
   if (playground.status === 'LOADING') {
-    return h.redirect(`/services/${entity.name}/diagnostics/dev#alerts`)
+    return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
   }
 
-  return { entity, alertRows: createAlertRows(playground.alerts) }
+  return {
+    entity,
+    dashboardRows: createDashboardRows(
+      playground.dashboards.filter((dashboard) => dashboard.uid === uid)
+    )
+  }
 }

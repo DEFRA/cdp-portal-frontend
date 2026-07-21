@@ -32,16 +32,7 @@
   {% endcall %}
 
   {% call appPanel() %}
-    <div class="app-flex-center govuk-!-margin-bottom-3">
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">
-      Dashboards playground
-      </h3>
-      {% if environment.endsWith('dev') and showPromote and playground.dashboards.length !== 0 %}
-        <span class="app-align-right">
-          <a href="./dev/dashboards/promote" class="app-link app-link--underline">Promote</a>
-        </span>
-      {% endif %}
-    </div>
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Dashboards playground</h3>
 
     <p class="govuk-!-margin-bottom-3">
       Custom dashboards are managed in the the playground and promoted up to the other environments.  View the <a href="/documentation/how-to/monitoring.md#creating-custom-dashboards" target="_blank" rel="noopener noreferrer">CDP documentation</a>.
@@ -60,9 +51,10 @@
           head: [
             { text: "Type" },
             { text: "Dashboard" },
-            { text: "Version" }
+            { text: "Version" },
+            { text: "Action" } if environment.endsWith('dev') and showPromote and playground.dashboards.length !== 0 else null
           ],
-          rows: createDashboardRows(playground.dashboards)
+          rows: createDashboardRows(playground.dashboards, environment.endsWith('dev') and showPromote)
         }) }}
 
       {% endif %}
