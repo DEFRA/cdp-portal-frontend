@@ -21,6 +21,16 @@ export async function getRecentNonPendingResourceRequests(teamIds = []) {
   return payload
 }
 
+export async function getActiveResourceRequestsByEntity(entities = []) {
+  const nameFilters = entities.map((entity) => `&name=${entity}`).join('')
+  const OneDayOld = addDays(new Date(), -1).toISOString()
+  const endpoint = `${config.get('portalBackendUrl')}/resources/requests?includeResources=true&modifiedAfter=${OneDayOld}&status=merged&status=pending&status=requested${nameFilters}`
+
+  const { payload = {} } = await fetchJson(endpoint)
+
+  return payload
+}
+
 export async function getResourceRequest(id) {
   const endpoint = `${config.get('portalBackendUrl')}/resources/requests/${id}`
 

@@ -10,6 +10,8 @@ import Boom from '@hapi/boom'
 import Joi from 'joi'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { scopes } from '@defra/cdp-validation-kit'
+import { getActiveResourceRequestsByEntity } from '#server/routes/requests/ResourceRequestsService.js'
+import { mergeResourcesAndResourceRequests } from './domain/mergeResourcesAndResourceRequests.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -45,29 +47,36 @@ export default async function (request) {
 
   const environments = getEnvironments(request.auth.credentials?.scope)
 
-  const resourcesPerEnv = await fetchResources(entity.name)
+  const [resourcesPerEnv, resourceRequests] = await Promise.all([
+    fetchResources(entity.name),
+    getActiveResourceRequestsByEntity([entity.name])
+  ])
   if (!resourcesPerEnv) throw new Error('Failed to load resources')
 
-  resourcesPerEnv.dev.sqs_queues.push({
-    resource: 'sqs',
-    icon: 'aws-sqs',
-    name: 'decision_notification',
-    resourceRequestId: '1234',
-    properties: {
-      name: 'decision_notification',
-      fifo_queue: true,
-      content_based_deduplication: false,
-      receive_wait_time_seconds: 30,
-      subscriptions: ['decision_notification.fifo']
-    }
-  })
-  resourcesPerEnv['infra-dev'] =
-    resourcesPerEnv['management'] =
-    resourcesPerEnv['test'] =
-    resourcesPerEnv['perf-test'] =
-    resourcesPerEnv['ext-test'] =
-    resourcesPerEnv['prod'] =
-      resourcesPerEnv.dev
+  if (resourceRequests?.length && (await request.userIsAdmin())) {
+    Object.keys(resourcesPerEnv).forEach((env) => {
+      resourcesPerEnv[env] = mergeResourcesAndResourceRequests(
+        resourcesPerEnv[env],
+        resourceRequests,
+        env
+      )
+    })
+  }
+
+  // resourcesPerEnv.dev.sqs_queues.push({
+  //   resource: 'sqs',
+  //   icon: 'aws-sqs',
+  //   name: 'decision_notification',
+  //   resourceRequestId: '1234',
+  //   properties: {
+  //     name: 'decision_notification',
+  //     fifo_queue: true,
+  //     content_based_deduplication: false,
+  //     receive_wait_time_seconds: 30,
+  //     subscriptions: ['decision_notification.fifo']
+  //   }
+  // })
+
 
   const rowsPerResourceType = transformResourcesToRows(
     environments,
