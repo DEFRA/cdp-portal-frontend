@@ -553,7 +553,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
 <p class="govuk-!-margin-bottom-2">
-  View resources for mock-service-with-resources in all CDP environments. To set up new resources read the
+  View resources for <strong>mock-service-with-resources</strong> in all CDP environments. To set up new resources read the
   <a href="/documentation/how-to/buckets.md" class="govuk-link app-link app-link--underline"
      target="_blank" rel="noopener noreferrer">S3 buckets</a>,
   <a href="/documentation/how-to/sqs-sns.md" class="govuk-link app-link app-link--underline"
@@ -601,8 +601,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
                       subgraph s3_buckets[S3 buckets]
                         direction LR
-                          s3_bucketstest-bucketIcon@{ icon: "logos:aws-s3", h: 80, label: "<span id='test-bucket'>test-bucket</span>"}
-                          s3_bucketstest-bucket[<table aria-label="Properties of test-bucket"><tr><th>Arn</th><td>arn:aws:s3:eu-west-2:333333333:test-bucket</td></tr></table>]
+                        s3_bucketstest-bucketIcon@{ icon: "logos:aws-s3", h: 80, label: "<span id='test-bucket' class='mermaid--label ' >test-bucket</span>"}
+                        s3_bucketstest-bucket[<table aria-label="Properties of test-bucket" ><tr><th>Arn</th><td>arn:aws:s3:eu-west-2:333333333:test-bucket</td></tr></table>]
                           s3_bucketstest-bucketIcon ~~~ s3_bucketstest-bucket
                       end
                       service --- s3_buckets
