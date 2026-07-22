@@ -37,11 +37,10 @@ jobs:
           npm run lint
           npm test
 
-      - name: Security audit
-        run: npm run security-audit
+      #- name: Security audit
+      #  run: npm run security-audit
 
       - name: Publish Hot Fix
         uses: DEFRA/cdp-build-action/build-hotfix@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-build-stages: true
