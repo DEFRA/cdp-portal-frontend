@@ -42,7 +42,8 @@ export default async function (request) {
     resources = mergeResourcesAndResourceRequests(
       resources,
       resourceRequests,
-      environment
+      environment,
+      [entity.name]
     )
   }
 
