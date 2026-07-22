@@ -21,8 +21,9 @@
     opacity: 0.3;
   }
 
+  // stylelint-disable-next-line
   .icon-shape:has(.mermaid--icon-disabled) span.nodeLabel span {
-    color: darkgrey !important;
+    color: darkgrey !important; /* stylelint-disable-line */
   }
 }
 
