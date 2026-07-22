@@ -3,7 +3,7 @@ import {
   commonServiceExtensions,
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
-import createAlertRows from '../../../utils/createAlertRows.js'
+import createDashboardRows from '../../../../utils/createDashboardRows.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 
 export const ext = [
@@ -22,12 +22,18 @@ export const options = {
 
 export default async function (request, h) {
   const { entity } = request.app
+  const { uid } = request.params
 
   const playground = request.yar.get(sessionNames.grafanaPlayground)
 
   if (!playground) {
-    return h.redirect(`/services/${entity.name}/diagnostics/dev#alerts`)
+    return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
   }
 
-  return { entity, alertRows: createAlertRows(playground.alerts) }
+  return {
+    entity,
+    dashboardRows: createDashboardRows(
+      playground.dashboards.filter((dashboard) => dashboard.uid === uid)
+    )
+  }
 }
