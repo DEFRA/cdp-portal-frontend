@@ -27,20 +27,32 @@ const bucketSuffix = {
 export function mergeResourcesAndResourceRequests(
   resources,
   resourcesRequests,
-  environment
+  environment,
+  services
 ) {
   const provisioningResources = []
 
   for (const request of resourcesRequests) {
-    for (const [type, resources] of Object.entries(request.resources ?? {})) {
+    for (const [type, requestedResources] of Object.entries(
+      request.resources ?? {}
+    )) {
       const common = resourceTypeProps[type]
 
-      for (const resource of resources) {
-        const { name, ...properties } = resource
+      for (const resource of requestedResources) {
+        const { name, service, ...properties } = resource
         const fullName = expandName(type, name, environment)
 
-        if (resources[type]?.some(({ name }) => name === fullName)) {
+        if (
+          !(
+            services.includes(service) ||
+            services.includes(resource.queueService)
+          )
+        ) {
           continue
+        }
+
+        if (resources[type]?.some(({ name }) => name === fullName)) {
+          continue // Resource already exists
         }
 
         provisioningResources.push([

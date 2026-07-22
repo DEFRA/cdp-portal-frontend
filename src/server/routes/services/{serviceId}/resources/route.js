@@ -58,7 +58,8 @@ export default async function (request) {
       resourcesPerEnv[env] = mergeResourcesAndResourceRequests(
         resourcesPerEnv[env],
         resourceRequests,
-        env
+        env,
+        [entity.name]
       )
     })
   }
