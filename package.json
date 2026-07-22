@@ -54,7 +54,7 @@
     "@defra/cdp-auditing": "0.6.1",
     "@defra/cdp-metrics": "0.2.0",
     "@defra/cdp-validation-kit": "0.63.0",
-    "@defra/hapi-auth-oidc": "0.5.2",
+    "@defra/hapi-auth-oidc": "0.5.6",
     "@defra/hapi-tracing": "1.30.0",
     "@elastic/ecs-pino-format": "1.5.0",
     "@hapi/boom": "10.0.1",
