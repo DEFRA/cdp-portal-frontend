@@ -57,7 +57,7 @@ export function register(routePath) {
             name: Joi.string()
               .label('Topic name')
               .description(
-                'When requesting a FIFO topic <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
+                'When requesting a FIFO topic <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="/documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
               )
               .min(3)
               .max(75)
@@ -67,7 +67,7 @@ export function register(routePath) {
             fifo: Joi.boolean()
               .label('Fifo topic')
               .description(
-                'See <a href="documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
+                'See <a href="/documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>'
               )
               .default(false)
               .required(),
