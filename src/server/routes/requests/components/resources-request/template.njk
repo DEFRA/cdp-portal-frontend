@@ -1,11 +1,12 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% macro renderRows(rows, type, resources) %}
+{% macro renderRows(rows, type, resources, formatBasketResource) %}
   {% for resource in resources %}
+    {% set formattedResource = formatBasketResource(resource) %}
     {{ rows.push(
       {
-        key: { text: resource.name },
-        value: { html: renderObject(resource) }
+        key: { text: formattedResource.name },
+        value: { html: renderObject(formattedResource) }
       }
     )}}
   {% endfor %}
@@ -15,7 +16,7 @@
   <table class="table--embedded">
     {% for prop, value in obj %}
       <tr>
-        <th>{{ prop | formatText }}</th>
+        <th>{{ prop | formatText | replace('-', ' ') }}</th>
         <td>{{ renderObject(value) if value | isObject else value }}</td>
       </tr>
     {% endfor %}
@@ -28,7 +29,7 @@
   {% if resources.length %}
 
     {% set rows = [] %}
-    {% set t = renderRows(rows, type, resources) %}
+    {% set t = renderRows(rows, type, resources, params.formatBasketResource) %}
 
     {{ govukSummaryList({
       card: {

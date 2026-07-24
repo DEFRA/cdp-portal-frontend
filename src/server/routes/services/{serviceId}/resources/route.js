@@ -46,6 +46,7 @@ export default async function (request) {
   const environments = getEnvironments(request.auth.credentials?.scope)
 
   const resourcesPerEnv = await fetchResources(entity.name)
+
   if (!resourcesPerEnv) throw new Error('Failed to load resources')
 
   const rowsPerResourceType = transformResourcesToRows(
@@ -108,8 +109,6 @@ function transformResourcesToRows(environments, resourcesPerEnv) {
           resource: resourcesPerEnv?.[env]?.[type]?.find(
             (resource) => resource.name === name
           )
-            ? name
-            : ''
         }))
       }))
     ])

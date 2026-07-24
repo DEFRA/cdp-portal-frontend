@@ -16,6 +16,15 @@
   .image-shape g path[fill='none'] {
     pointer-events: none;
   }
+
+  .icon-shape:has(.mermaid--icon-disabled) svg {
+    opacity: 0.3;
+  }
+
+  // stylelint-disable-next-line
+  .icon-shape:has(.mermaid--icon-disabled) span.nodeLabel span {
+    color: darkgrey !important; /* stylelint-disable-line */
+  }
 }
 
 .mermaid--with-border {
