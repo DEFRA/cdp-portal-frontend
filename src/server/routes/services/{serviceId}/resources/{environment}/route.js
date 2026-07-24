@@ -1,10 +1,8 @@
 import { formatText } from '#config/nunjucks/filters/filters.js'
-import { getActiveResourceRequestsByEntity } from '#server/routes/requests/ResourceRequestsService.js'
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
 import { serviceParamsValidation } from '#server/services/helpers/schema/service-params-validation.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import Boom from '@hapi/boom'
-import { mergeResourcesAndResourceRequests } from '../domain/mergeResourcesAndResourceRequests.js'
 
 export { ext } from '../route.js'
 
@@ -31,21 +29,9 @@ export default async function (request) {
   const teamId = team?.teamId
   const formattedEnvironment = formatText(environment)
 
-  let [resources, resourceRequests] = await Promise.all([
-    fetchResources(entity.name, environment),
-    getActiveResourceRequestsByEntity([entity.name])
-  ])
+  const resources = await fetchResources(entity.name, environment)
 
   if (!resources) throw new Error('Failed to load resources')
-
-  if (resourceRequests?.length && (await request.userIsAdmin())) {
-    resources = mergeResourcesAndResourceRequests(
-      resources,
-      resourceRequests,
-      environment,
-      [entity.name]
-    )
-  }
 
   const hasNoResources = !Object.entries(resources).some(
     ([_, items]) => items?.length
