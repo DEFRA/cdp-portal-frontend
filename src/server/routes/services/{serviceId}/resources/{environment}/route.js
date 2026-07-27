@@ -3,6 +3,7 @@ import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.j
 import { serviceParamsValidation } from '#server/services/helpers/schema/service-params-validation.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import Boom from '@hapi/boom'
+import resourcesHasResourceRequests from '../utils/resourceshasResourceRequests.js'
 
 export { ext } from '../route.js'
 
@@ -37,6 +38,8 @@ export default async function (request) {
     ([_, items]) => items?.length
   )
 
+  const hasResourceRequests = resourcesHasResourceRequests(resources)
+
   return {
     pageTitle: `${serviceName} - Resources - ${formattedEnvironment}`,
     entity,
@@ -44,6 +47,7 @@ export default async function (request) {
     environment,
     resources,
     hasNoResources,
+    hasResourceRequests,
     breadcrumbs: [
       {
         text: 'Services',
