@@ -33,6 +33,20 @@ export default async function (request) {
 
   if (!resources) throw new Error('Failed to load resources')
 
+  resources.sqs_queues.push({
+    resource: 'sqs',
+    icon: 'aws-sqs',
+    name: 'decision_notification',
+    resourceRequestId: '1234',
+    properties: {
+      name: 'decision_notification',
+      fifo_queue: true,
+      content_based_deduplication: false,
+      receive_wait_time_seconds: 30,
+      subscriptions: ['decision_notification.fifo']
+    }
+  })
+
   const hasNoResources = !Object.entries(resources).some(
     ([_, items]) => items?.length
   )
