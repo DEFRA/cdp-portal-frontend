@@ -8,6 +8,7 @@ const shutteringUrlsFixture = (serviceName) => [
     waf: 'external_public',
     internal: false,
     status: 'Active',
+    requestedShuttered: null,
     lastActionedBy: null,
     lastActionedAt: null,
     delegated: true
@@ -19,6 +20,7 @@ const shutteringUrlsFixture = (serviceName) => [
     waf: 'internal_public',
     internal: true,
     status: 'Active',
+    requestedShuttered: null,
     lastActionedBy: null,
     lastActionedAt: null,
     delegated: true
@@ -30,6 +32,7 @@ const shutteringUrlsFixture = (serviceName) => [
     waf: 'internal_public',
     internal: true,
     status: 'Shuttered',
+    requestedShuttered: null,
     lastActionedBy: null,
     lastActionedAt: null,
     delegated: false
