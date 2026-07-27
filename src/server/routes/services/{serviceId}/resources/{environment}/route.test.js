@@ -5,13 +5,10 @@ import {
 } from '#test-helpers/common-page-rendering.js'
 import { entitySubTypes, statusCodes } from '@defra/cdp-validation-kit'
 import { fetchResources } from '#server/services/helpers/fetch/fetch-resources.js'
-import { getActiveResourceRequestsByEntity } from '#server/routes/requests/ResourceRequestsService.js'
-
 vi.mock('#server/common/helpers/fetch/fetch-entities.js')
 vi.mock('#server/common/helpers/auth/get-user-session.js')
 vi.mock('#server/services/helpers/fetch/fetch-shuttering-urls.js')
 vi.mock('#server/services/helpers/fetch/fetch-resources.js')
-vi.mock('#server/routes/requests/ResourceRequestsService.js')
 
 const serviceName = 'mock-service-with-resources'
 
@@ -36,7 +33,6 @@ describe('Service resources page', () => {
           }
         ]
       })
-      getActiveResourceRequestsByEntity.mockResolvedValue([])
 
       server = await initialiseServer()
     })
