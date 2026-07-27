@@ -28,7 +28,8 @@
             caption: environment | title,
             heading: "Resources",
             entity: entity,
-            hasBuckets: resources.s3_buckets | length
+            hasBuckets: resources.s3_buckets | length,
+            hasResourceRequests: hasResourceRequests
           }) }}
 
           {% if hasNoResources %}

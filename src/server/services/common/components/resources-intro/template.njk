@@ -7,6 +7,11 @@
      rel="noopener noreferrer">See Bucket Naming documentation</a> for more details
 {% endset %}
 
+{% set resourceRequestsInfoHtml %}
+  Resources which are in active resource <a class="app-link app-link--underline" href="/requests">Requests</a> are shown "grayed out".
+{% endset %}
+
+
 <span class="govuk-caption-l">{{ params.caption }}</span>
 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">{{ params.heading }}</h2>
@@ -23,5 +28,9 @@
 </p>
 
 {% if (params.hasBuckets) %}
-  {{ appInfo({ html: bucketInfoHtml, classes: "govuk-!-margin-0" }) }}
+  <div>{{ appInfo({ html: bucketInfoHtml}) }}</div>
+{% endif %}
+
+{% if (params.hasResourceRequests) %}
+  <div>{{ appInfo({ html: resourceRequestsInfoHtml, classes: "" }) }}</div>
 {% endif %}

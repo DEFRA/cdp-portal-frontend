@@ -10,6 +10,7 @@ import Boom from '@hapi/boom'
 import Joi from 'joi'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { scopes } from '@defra/cdp-validation-kit'
+import resourcesHasResourceRequests from './utils/resourceshasResourceRequests.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -55,6 +56,7 @@ export default async function (request) {
   )
 
   const hasBuckets = rowsPerResourceType.s3_buckets?.length
+  const hasResourceRequests = resourcesHasResourceRequests(resourcesPerEnv)
 
   const supportVerticalHeadings = environments.length >= 5
 
@@ -70,6 +72,7 @@ export default async function (request) {
     environments,
     tablesPerResourceType,
     hasBuckets,
+    hasResourceRequests,
     breadcrumbs: [
       {
         text: 'Services',
