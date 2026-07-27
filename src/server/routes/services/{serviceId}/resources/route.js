@@ -10,8 +10,6 @@ import Boom from '@hapi/boom'
 import Joi from 'joi'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { getActiveResourceRequestsByEntity } from '#server/routes/requests/ResourceRequestsService.js'
-import { mergeResourcesAndResourceRequests } from './domain/mergeResourcesAndResourceRequests.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -50,17 +48,6 @@ export default async function (request) {
   const resourcesPerEnv = await fetchResources(entity.name)
 
   if (!resourcesPerEnv) throw new Error('Failed to load resources')
-
-  if (resourceRequests?.length && (await request.userIsAdmin())) {
-    Object.keys(resourcesPerEnv).forEach((env) => {
-      resourcesPerEnv[env] = mergeResourcesAndResourceRequests(
-        resourcesPerEnv[env],
-        resourceRequests,
-        env,
-        [entity.name]
-      )
-    })
-  }
 
   const rowsPerResourceType = transformResourcesToRows(
     environments,
