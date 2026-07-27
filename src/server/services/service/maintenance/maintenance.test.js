@@ -5,6 +5,7 @@ import {
   mockServicesAdditionalCalls
 } from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
+import { fetchShutteringUrls } from '../../helpers/fetch/fetch-shuttering-urls.js'
 
 vi.mock('../../../common/helpers/fetch/fetch-running-services.js')
 vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
@@ -72,6 +73,35 @@ describe('Services', () => {
         isTenant: false
       })
       expect(statusCode).toBe(statusCodes.unauthorized)
+      expect(result).toMatchFile()
+    })
+
+    test('shows timed out shutter request mismatch message', async () => {
+      fetchShutteringUrls.mockResolvedValueOnce([
+        {
+          environment: 'prod',
+          serviceName: 'mock-service',
+          url: 'portal.defra.gov',
+          waf: 'external_public',
+          internal: false,
+          status: 'Active',
+          requestedShuttered: true,
+          lastActionedBy: {
+            id: '00000000-0000-0000-0000-000000000001',
+            displayName: 'B. A. Baracus'
+          },
+          lastActionedAt: '2025-05-10T13:45:00.000Z',
+          delegated: true
+        }
+      ])
+
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: '/services/mock-service/maintenance',
+        isAdmin: true,
+        isTenant: true
+      })
+
+      expect(statusCode).toBe(statusCodes.ok)
       expect(result).toMatchFile()
     })
   })
