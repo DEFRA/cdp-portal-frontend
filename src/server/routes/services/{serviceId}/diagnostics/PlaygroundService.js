@@ -26,8 +26,8 @@ export async function getPlayground(serviceName) {
   }
 }
 
-export async function promoteDashboards(request, serviceName, uid) {
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${serviceName}/grafana/promotions/dashboards/${uid}`
+export async function promoteDashboard(request, serviceName, uid) {
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${serviceName}/grafana/playground/promotions/dashboards/${uid}`
 
   return await request.authedFetchJson(endpoint, {
     method: 'POST'
@@ -35,7 +35,7 @@ export async function promoteDashboards(request, serviceName, uid) {
 }
 
 export async function promoteAlerts(request, serviceName) {
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${serviceName}/grafana/promotions/alerts`
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${serviceName}/grafana/playground/promotions/alerts`
 
   return await request.authedFetchJson(endpoint, {
     method: 'POST'

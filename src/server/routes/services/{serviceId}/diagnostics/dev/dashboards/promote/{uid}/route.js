@@ -5,6 +5,7 @@ import {
 } from '#server/common/helpers/ext/extensions.js'
 import createDashboardRows from '../../../../utils/createDashboardRows.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
+import { promoteDashboard } from '../../../../PlaygroundService.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -36,4 +37,20 @@ export default async function (request, h) {
       playground.dashboards.filter((dashboard) => dashboard.uid === uid)
     )
   }
+}
+
+export async function POST(request, h) {
+  const { entity } = request.app
+  const { uid } = request.params
+
+  const playground = request.yar.get(sessionNames.grafanaPlayground)
+
+  if (!playground) {
+    return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
+  }
+
+  // TODO: error handling
+  await promoteDashboard(request, entity.name, uid)
+
+  return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
 }
