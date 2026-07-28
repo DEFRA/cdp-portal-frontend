@@ -18,7 +18,7 @@ function getEnvironmentValuesForEntitySubType(subType) {
   return Object.values(environments)
 }
 
-function getEnvironments(userScopes, entitySubType) {
+export function getEnvironments(userScopes, entitySubType) {
   return getEnvironmentValuesForEntitySubType(entitySubType)
     .filter(({ scope }) => {
       if (scope == null) {
@@ -31,14 +31,12 @@ function getEnvironments(userScopes, entitySubType) {
     .sort(sortByEnv)
 }
 
-function getEnvironmentsThatNeed(userScopes) {
+export function getEnvironmentsThatNeed(userScopes) {
   return Object.values(environments)
     .filter(({ scope }) => userScopes.includes(scope))
     .map(({ kebabName }) => kebabName)
 }
 
-function getAllEnvironmentKebabNames() {
+export function getAllEnvironmentKebabNames() {
   return Object.values(environments).map(({ kebabName }) => kebabName)
 }
-
-export { getEnvironments, getEnvironmentsThatNeed, getAllEnvironmentKebabNames }

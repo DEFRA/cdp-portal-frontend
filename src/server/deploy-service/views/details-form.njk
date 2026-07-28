@@ -84,7 +84,7 @@
               value: formValues.version,
               dataJs: "deploy-version",
               subscribeTo: eventName.autocompleteUpdate + "-version",
-              noSuggestionsMessage: "choose Image name",
+              noSuggestionsMessage: "Choose Image Name",
               errorMessage: errorMessageHelper(formErrors.version.message),
               suggestions: availableVersionOptions,
               loader: {
@@ -104,22 +104,23 @@
 
             {% endcall %}
 
-            {{ govukSelect({
+            {{ appAutocomplete({
               id: "environment",
               name: "environment",
-              classes: 'app-select',
               label: {
                 text: "Environment",
                 classes: "app-label"
               },
               hint: {
-                text: "The environment to deploy to",
-                classes: "app-hint"
+                text: "The environment to deploy to"
               },
               value: formValues.environment,
               dataJs: "deploy-environment",
+              subscribeTo: eventName.autocompleteUpdate + "-version",
+              noSuggestionsMessage: "Choose Environment",
               errorMessage: errorMessageHelper(formErrors.environment.message),
-              items: environmentOptions,
+              suggestions: environmentOptions,
+              allowReselection: true,
               loader: {
                 name: "deploy-environment-loader"
               }
@@ -141,7 +142,8 @@
           {% call appXhrSubscriber({
             id: "deploy-data",
             subscribeTo: eventName.autocompleteUpdate + "-version",
-            xhrUrl: "/deploy-service/details"
+            xhrUrl: "/deploy-service/details",
+            requiredNonEmptyParams: "imageName"
           }) %}
 
             {% call appPanel() %}

@@ -1,4 +1,4 @@
-async function fetchVersions(value) {
+export async function fetchVersions(value) {
   const response = await fetch(
     `${location.origin}/deploy-service/available-versions?serviceName=${value}`,
     { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
@@ -11,5 +11,3 @@ async function fetchVersions(value) {
 
   throw new Error(json.message)
 }
-
-export { fetchVersions }

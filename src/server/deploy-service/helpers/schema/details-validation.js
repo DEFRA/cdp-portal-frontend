@@ -3,14 +3,16 @@ import Boom from '@hapi/boom'
 
 import { fetchAvailableVersions } from '../fetch/fetch-available-versions.js'
 
-async function detailsValidation(queryValues, options) {
+export async function detailsValidation(queryValues, options) {
   const isAuthenticated = options?.context?.auth?.isAuthenticated ?? false
 
   if (!isAuthenticated) {
     throw Boom.boomify(Boom.unauthorized())
   }
 
-  const availableVersions = await fetchAvailableVersions(queryValues?.imageName)
+  const availableVersions = queryValues?.imageName
+    ? await fetchAvailableVersions(queryValues?.imageName)
+    : []
   const validationResult = Joi.object({
     imageName: Joi.string().allow(''),
     version: Joi.string().valid(
@@ -25,5 +27,3 @@ async function detailsValidation(queryValues, options) {
 
   return validationResult.value
 }
-
-export { detailsValidation }

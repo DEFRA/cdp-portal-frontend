@@ -3,6 +3,8 @@ import Joi from 'joi'
 import { config } from '#config/config.js'
 import { sessionNames } from '../../../common/constants/session-names.js'
 import { provideStepData } from '../../../plugins/multistep-form/provide-step-data.js'
+import { fetchEntity } from '#server/common/helpers/fetch/fetch-entities.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 
 const deployController = {
   options: {
@@ -18,6 +20,26 @@ const deployController = {
     const multiStepFormId = request.app.multiStepFormId
     const deployServiceEndpointUrl =
       config.get('selfServiceOpsUrl') + '/deploy-service'
+
+    const userSession = request?.auth?.credentials
+    const userScopes = userSession?.scope
+
+    const redirectWithError = (message) => {
+      request.yar.flash(sessionNames.globalValidationFailures, message)
+      return h.redirect(`/deploy-service/summary/${multiStepFormId}`)
+    }
+
+    const entity = await fetchEntity(stepData.imageName)
+
+    if (!entity) {
+      return redirectWithError('Service could not be found')
+    }
+    const environments = getEnvironments(userScopes, entity?.subType)
+
+    const isValidEnvironment = environments.includes(stepData.environment)
+    if (!isValidEnvironment) {
+      return redirectWithError('Cannot deploy service to environment')
+    }
 
     try {
       const { payload } = await request.authedFetchJson(
@@ -56,9 +78,7 @@ const deployController = {
 
       return h.redirect(`/deployments/${stepData.environment}/${deploymentId}`)
     } catch (error) {
-      request.yar.flash(sessionNames.globalValidationFailures, error.message)
-
-      return h.redirect(`/deploy-service/summary/${multiStepFormId}`)
+      return redirectWithError(error.message)
     }
   }
 }
