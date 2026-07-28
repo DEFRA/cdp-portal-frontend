@@ -28,9 +28,9 @@ export default function createDashboardRows(metrics, showPromote) {
         ? [
             {
               html: promoted
-                ? 'Current'
+                ? '<strong class="govuk-tag app-tag">Current</span></strong>'
                 : promotion_request
-                  ? 'Promoting'
+                  ? '<strong class="govuk-tag app-tag app-tag--with-loader">Promoting<span class="app-loader govuk-!-margin-left-1 app-loader--small  app-loader--is-loading" data-testid="app-loader"></span></strong>'
                   : `<a href="./dev/dashboards/promote/${uid}">Promote</a>`
             }
           ]

@@ -15,8 +15,12 @@ export async function getPlayground(serviceName) {
     }
   }
 
+  const isPromoting = payload?.dashboards?.some(
+    (dashboard) => dashboard.promotion_request
+  )
+
   return {
-    status: 'LOADED',
+    status: isPromoting ? 'PROMOTING' : 'LOADED',
     alerts: payload?.alerts ?? [],
     dashboards:
       payload?.dashboards?.map((dashboard) => ({
