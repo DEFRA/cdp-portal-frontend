@@ -6,14 +6,15 @@ import { entityTypes } from '@defra/cdp-validation-kit'
 import { entityStatuses } from '@defra/cdp-validation-kit/src/constants/entities.js'
 
 const portalBackendUrl = config.get('portalBackendUrl')
-async function fetchEntity(entityName) {
+
+export async function fetchEntity(entityName) {
   const endpoint = `${portalBackendUrl}/entities/${entityName}`
 
   const { payload } = await fetchJson(endpoint)
   return payload
 }
 
-async function fetchEntities(queryParams = {}) {
+export async function fetchEntities(queryParams = {}) {
   const endpoint = `${portalBackendUrl}/entities${qs.stringify(queryParams, {
     arrayFormat: 'repeat',
     addQueryPrefix: true
@@ -23,7 +24,7 @@ async function fetchEntities(queryParams = {}) {
   return payload ?? []
 }
 
-function fetchTestSuites(queryParams) {
+export function fetchTestSuites(queryParams) {
   return fetchEntities({
     type: entityTypes.testSuite,
     status: [entityStatuses.created, entityStatuses.creating],
@@ -31,7 +32,7 @@ function fetchTestSuites(queryParams) {
   })
 }
 
-function fetchServices(queryParams) {
+export function fetchServices(queryParams) {
   return fetchEntities({
     type: entityTypes.microservice,
     status: [entityStatuses.created, entityStatuses.creating],
@@ -39,7 +40,7 @@ function fetchServices(queryParams) {
   })
 }
 
-async function fetchServiceNames(userSession) {
+export async function fetchServiceNames(userSession) {
   const teamIds = userSession?.isAdmin
     ? []
     : userSession.scope
@@ -50,7 +51,7 @@ async function fetchServiceNames(userSession) {
   return services.map((service) => service.name)
 }
 
-async function fetchDecommissions(queryParams) {
+export async function fetchDecommissions(queryParams) {
   const entities = await fetchEntities({
     status: [entityStatuses.decommissioned, entityStatuses.decommissioning],
     ...queryParams
@@ -59,13 +60,4 @@ async function fetchDecommissions(queryParams) {
   return entities.toSorted((a, b) =>
     b.decommissioned.started.localeCompare(a.decommissioned.started)
   )
-}
-
-export {
-  fetchServices,
-  fetchServiceNames,
-  fetchTestSuites,
-  fetchEntities,
-  fetchEntity,
-  fetchDecommissions
 }

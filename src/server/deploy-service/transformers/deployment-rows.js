@@ -12,19 +12,20 @@ function buildRow(multiStepDataSessionId) {
     return {
       key: { text, classes: 'app-summary__heading' },
       value: { html: value },
-      ...(!hideActions && {
-        actions: {
-          classes: 'app-summary__action',
-          items: [
-            {
-              href: `/deploy-service/${stepPath}/${multiStepDataSessionId}${queryString}`,
-              text: 'Change',
-              classes: 'app-link',
-              visuallyHiddenText: text
-            }
-          ]
-        }
-      })
+      ...(hideActions && { classes: 'app-summary__row--no-actions' }),
+      actions: {
+        classes: 'app-summary__action',
+        items: hideActions
+          ? []
+          : [
+              {
+                href: `/deploy-service/${stepPath}/${multiStepDataSessionId}${queryString}`,
+                text: 'Change',
+                classes: 'app-link',
+                visuallyHiddenText: text
+              }
+            ]
+      }
     }
   }
 }

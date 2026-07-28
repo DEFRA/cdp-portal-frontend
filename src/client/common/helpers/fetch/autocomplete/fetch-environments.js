@@ -1,4 +1,4 @@
-async function fetchEnvironments(value) {
+export async function fetchEnvironments(value) {
   const response = await fetch(
     `${location.origin}/deploy-service/available-environments?serviceName=${value}`,
     { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
@@ -11,5 +11,3 @@ async function fetchEnvironments(value) {
 
   throw new Error(json.message)
 }
-
-export { fetchEnvironments }

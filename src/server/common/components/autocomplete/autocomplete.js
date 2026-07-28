@@ -38,6 +38,7 @@ class Autocomplete {
     this.$select = this.$module.querySelector(
       `[data-js*="app-progressive-input"]`
     )
+    this.allowReselection = this.$select.dataset.allowReselection === 'true'
     this.name = this.$select.name
 
     this.enhanceSelectWithAutocomplete()
@@ -160,7 +161,9 @@ class Autocomplete {
         const suggestion = this.getSuggestionByValue($select.value)
         $autocomplete.value = suggestion.text
 
-        this.showCloseButton()
+        if (!this.allowReselection) {
+          this.showCloseButton()
+        }
         const matchIndex = this.getSuggestionIndex(suggestion.text)
 
         this.populateSuggestions({
@@ -408,7 +411,6 @@ class Autocomplete {
 
     if (match?.value) {
       // Autocomplete input value exact matches a suggestion
-
       const filterExactMatch = this.filterExactMatch(textValueTrimmed)
       return this.getSuggestionsMarkup()
         .filter(filterExactMatch)
@@ -417,7 +419,6 @@ class Autocomplete {
         )
     } else if (textValueTrimmed) {
       // Partial match
-
       const filterPartialMatch = this.filterPartialMatch(textValueTrimmed)
       return this.getSuggestionsMarkup()
         .filter(filterPartialMatch)
@@ -426,7 +427,6 @@ class Autocomplete {
         )
     } else {
       // Reset suggestions
-
       return this.getSuggestionsMarkup().map(
         this.dressSuggestion({ textValue: textValueTrimmed, suggestionIndex })
       )
@@ -705,7 +705,9 @@ class Autocomplete {
     const textValue = event?.target?.value
 
     if (textValue) {
-      this.showCloseButton()
+      if (!this.allowReselection) {
+        this.showCloseButton()
+      }
     } else {
       this.hideCloseButton()
       this.$suggestionsContainer.scrollTop = 0 // Move suggestions window scroll bar to top
@@ -714,6 +716,11 @@ class Autocomplete {
 
     if (this.dataFetcher.isEnabled) {
       this.callDataFetcher(textValue)
+    }
+
+    if (this.allowReselection) {
+      const matchIndex = this.getSuggestionIndex(textValue)
+      this.suggestionIndex = matchIndex > -1 ? matchIndex : null
     }
 
     this.populateSuggestions({
@@ -776,12 +783,15 @@ class Autocomplete {
           const text = suggestion?.text ?? queryParamValue
           const value = suggestion?.value ?? queryParamValue
           this.updateInputValue({ text, value, withPublish: false })
-
-          this.showCloseButton()
+          if (!this.allowReselection) {
+            this.showCloseButton()
+          }
         }
 
         if (this.$autocomplete.value) {
-          this.showCloseButton()
+          if (!this.allowReselection) {
+            this.showCloseButton()
+          }
           const matchIndex = this.getSuggestionIndex(this.$autocomplete.value)
 
           this.populateSuggestions({
@@ -803,7 +813,7 @@ class Autocomplete {
       event.stopPropagation()
 
       this.populateSuggestions({
-        textValue: this.$autocomplete.value,
+        textValue: !this.allowReselection ? this.$autocomplete.value : null,
         suggestionIndex: this.suggestionIndex
       })
 
@@ -842,7 +852,9 @@ class Autocomplete {
       const textValue = event?.target?.value
 
       if (textValue) {
-        this.showCloseButton()
+        if (!this.allowReselection) {
+          this.showCloseButton()
+        }
       } else {
         this.hideCloseButton()
       }
@@ -1039,7 +1051,9 @@ class Autocomplete {
 
         if (this.$autocomplete.value) {
           this.closeSuggestions()
-          this.showCloseButton()
+          if (!this.allowReselection) {
+            this.showCloseButton()
+          }
         } else {
           this.openSuggestions()
           this.hideCloseButton()
@@ -1070,7 +1084,9 @@ class Autocomplete {
         })
 
         this.closeSuggestions()
-        this.showCloseButton()
+        if (!this.allowReselection) {
+          this.showCloseButton()
+        }
       }
     })
   }
