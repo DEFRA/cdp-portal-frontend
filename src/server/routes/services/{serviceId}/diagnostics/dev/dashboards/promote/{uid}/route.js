@@ -52,7 +52,10 @@ export async function POST(request, h) {
   try {
     await promoteDashboard(request, entity.name, uid)
 
-    request.yar.flash(sessionNames.notifications, 'Dashboard promoted')
+    request.yar.flash(sessionNames.notifications, {
+      text: 'Dashboard promoted',
+      type: 'success'
+    })
   } catch (error) {
     request.logger.error(error, `Failed to promote dashboard ${uid}:`)
 
