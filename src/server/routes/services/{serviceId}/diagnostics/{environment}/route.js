@@ -13,7 +13,7 @@ import transformResources from '../utils/transformResources.js'
 import createDashboardRows from '../utils/createDashboardRows.js'
 import createAlertRows from '../utils/createAlertRows.js'
 import { getPlayground } from '../PlaygroundService.js'
-import { setTimeout } from 'node:timers/promises'
+import { sessionNames } from '#server/common/constants/session-names.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -41,16 +41,29 @@ export const options = {
   }
 }
 
-export default async function (request) {
+export default async function (request, h) {
   const { entity } = request.app
   const environment = request.params.environment
 
   const [runningServices, playground] = await Promise.all([
     fetchRunningServices(entity.name),
     environment.endsWith('dev')
-      ? allowPending(getPlayground(entity.name), 300)
+      ? getPlayground(entity.name).catch((error) => {
+          request.logger.error(error, 'Grafana playground load failed:')
+
+          request.yar.flash(
+            sessionNames.globalValidationFailures,
+            'Failed to load playgrounds'
+          )
+          return { status: 'FAILED', alerts: [], dashboards: [] }
+        })
       : {}
   ])
+
+  if (playground.status === 'LOADED') {
+    request.yar.set(sessionNames.grafanaPlayground, playground)
+    await request.yar.commit(h)
+  }
 
   const serviceDeployedInEnvironment = runningServices.some(
     (service) => service.environment === environment
@@ -105,14 +118,4 @@ function renderLinks(label, logsUrl, metricsUrl) {
 
 function apigwMetricLink(metrics = [], type) {
   return metrics.find(({ scope }) => scope === type)?.url
-}
-
-function allowPending(promise, timeout) {
-  return Promise.race([
-    promise,
-    setTimeout(timeout, {
-      dashboards: 'PENDING',
-      alerts: 'PENDING'
-    })
-  ])
 }
