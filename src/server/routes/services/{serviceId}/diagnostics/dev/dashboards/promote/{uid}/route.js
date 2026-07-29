@@ -49,8 +49,21 @@ export async function POST(request, h) {
     return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
   }
 
-  // TODO: error handling
-  await promoteDashboard(request, entity.name, uid)
+  try {
+    await promoteDashboard(request, entity.name, uid)
+
+    request.yar.flash(sessionNames.notifications, 'Dashboard promoted')
+  } catch (error) {
+    request.logger.error(error, `Failed to promote dashboard ${uid}:`)
+
+    request.yar.flash(
+      sessionNames.globalValidationFailures,
+      'Failed to promote dashboard: ' +
+        (error?.data?.payload?.message ??
+          error?.output?.payload?.message ??
+          error)
+    )
+  }
 
   return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
 }
