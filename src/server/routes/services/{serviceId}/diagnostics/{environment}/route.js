@@ -136,12 +136,12 @@ function apigwMetricLink(metrics = [], type) {
 function getPromotionsTakingTooLong(playground) {
   if (playground.status !== 'LOADED') return false
 
-  const { dashboards = [], alerts = [] } = playground
+  const { dashboards = [] /*, alerts = [] */ } = playground
 
   const pendingDashboards = dashboards.filter(
     (dashboard) => !dashboard.promoted && dashboard.promotion_request
   )
-  const pendingAlerts = [] // TODO
+  // const pendingAlerts = [] // TODO
 
   const now = Date.now()
   const takingTooLong = pendingDashboards.some(
