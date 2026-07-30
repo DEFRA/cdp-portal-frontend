@@ -14,6 +14,7 @@ import createDashboardRows from '../utils/createDashboardRows.js'
 import createAlertRows from '../utils/createAlertRows.js'
 import { getPlayground } from '../PlaygroundService.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
+import { fetchEntity } from '#server/common/helpers/fetch/fetch-entities.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -42,13 +43,13 @@ export const options = {
 }
 
 export default async function (request, h) {
-  const { entity } = request.app
+  const entityName = request.params?.serviceId ?? request.params?.entityName
   const environment = request.params.environment
 
   const [runningServices, playground] = await Promise.all([
-    fetchRunningServices(entity.name),
+    fetchRunningServices(entityName),
     environment.endsWith('dev')
-      ? getPlayground(entity.name).catch((error) => {
+      ? getPlayground(entityName).catch((error) => {
           request.logger.error(error, 'Grafana playground load failed:')
 
           request.yar.flash(
@@ -59,6 +60,11 @@ export default async function (request, h) {
         })
       : {}
   ])
+
+  // Explicitly fetch entity after the playgrounds, to prevent stale data on promotion state change
+  const entity = environment.endsWith('dev')
+    ? await fetchEntity(entityName)
+    : request.app.entity
 
   if (playground.status === 'LOADED') {
     request.yar.set(sessionNames.grafanaPlayground, playground)
