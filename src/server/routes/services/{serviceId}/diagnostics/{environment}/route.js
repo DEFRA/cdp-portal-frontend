@@ -15,6 +15,9 @@ import createAlertRows from '../utils/createAlertRows.js'
 import { getPlayground } from '../PlaygroundService.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { fetchEntity } from '#server/common/helpers/fetch/fetch-entities.js'
+import { parseISO, subMinutes } from 'date-fns'
+
+const PENDING_TOO_LONG_MINUTES = 20
 
 export const ext = [
   ...commonServiceExtensions,
@@ -71,6 +74,9 @@ export default async function (request, h) {
     await request.yar.commit(h)
   }
 
+  const hasPendingPromotionTakingTooLong =
+    getPromotionsTakingTooLong(playground)
+
   const serviceDeployedInEnvironment = runningServices.some(
     (service) => service.environment === environment
   )
@@ -91,6 +97,7 @@ export default async function (request, h) {
     apigwMetricLink,
     createDashboardRows,
     createAlertRows,
+    hasPendingPromotionTakingTooLong,
     userIsAdmin: request.userIsAdmin(),
     userIsOwner: request.userIsOwner(entity),
     breadcrumbs: [
@@ -124,4 +131,23 @@ function renderLinks(label, logsUrl, metricsUrl) {
 
 function apigwMetricLink(metrics = [], type) {
   return metrics.find(({ scope }) => scope === type)?.url
+}
+
+function getPromotionsTakingTooLong(playground) {
+  if (playground.status !== 'LOADED') return false
+
+  const { dashboards = [], alerts = [] } = playground
+
+  const pendingDashboards = dashboards.filter(
+    (dashboard) => !dashboard.promoted && dashboard.promotion_request
+  )
+  const pendingAlerts = [] // TODO
+
+  const now = Date.now()
+  const takingTooLong = pendingDashboards.some(
+    ({ updated }) =>
+      parseISO(updated) < subMinutes(now, PENDING_TOO_LONG_MINUTES)
+  )
+
+  return takingTooLong
 }

@@ -28,7 +28,7 @@ export default async function (request, h) {
   const playground = request.yar.get(sessionNames.grafanaPlayground)
 
   if (!playground) {
-    return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
+    return h.redirect(`/services/${entity.name}/diagnostics/dev`)
   }
 
   return {
@@ -46,7 +46,7 @@ export async function POST(request, h) {
   const playground = request.yar.get(sessionNames.grafanaPlayground)
 
   if (!playground) {
-    return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
+    return h.redirect(`/services/${entity.name}/diagnostics/dev`)
   }
 
   try {
@@ -68,5 +68,5 @@ export async function POST(request, h) {
     )
   }
 
-  return h.redirect(`/services/${entity.name}/diagnostics/dev#dashboards`)
+  return h.redirect(`/services/${entity.name}/diagnostics/dev`)
 }

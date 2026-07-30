@@ -27,7 +27,7 @@ export default async function (request, h) {
   const playground = request.yar.get(sessionNames.grafanaPlayground)
 
   if (!playground) {
-    return h.redirect(`/services/${entity.name}/diagnostics/dev#alerts`)
+    return h.redirect(`/services/${entity.name}/diagnostics/dev`)
   }
 
   return { entity, alertRows: createAlertRows(playground.alerts) }
@@ -39,11 +39,11 @@ export async function POST(request, h) {
   const playground = request.yar.get(sessionNames.grafanaPlayground)
 
   if (!playground) {
-    return h.redirect(`/services/${entity.name}/diagnostics/dev#alerts`)
+    return h.redirect(`/services/${entity.name}/diagnostics/de`)
   }
 
   // TODO: error handling
   await promoteAlerts(request, entity.name)
 
-  return h.redirect(`/services/${entity.name}/diagnostics/dev#alerts`)
+  return h.redirect(`/services/${entity.name}/diagnostics/dev`)
 }
