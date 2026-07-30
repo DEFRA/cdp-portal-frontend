@@ -7,6 +7,8 @@ import { parseISO, subMinutes } from 'date-fns'
 import { fetchCdpUser } from '#server/admin/users/helpers/fetch/fetchers.js'
 import { formatStatus, statusTagColour } from './utils.js'
 
+const PENDING_TOO_LONG_MINUTES = 20
+
 export const options = {
   auth: {
     mode: 'required',
@@ -43,7 +45,7 @@ export default async function (request) {
   const hasGeneratingRequestsTakingTooLong = pendingResourceRequests.some(
     (request) =>
       request.status === 'pending' &&
-      parseISO(request.requestedAt) < subMinutes(now, 20)
+      parseISO(request.requestedAt) < subMinutes(now, PENDING_TOO_LONG_MINUTES)
   )
 
   const hasGeneratingRequestsFailed = recentNonPendingResourceRequests.some(
