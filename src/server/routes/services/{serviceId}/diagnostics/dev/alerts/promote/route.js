@@ -42,8 +42,24 @@ export async function POST(request, h) {
     return h.redirect(`/services/${entity.name}/diagnostics/de`)
   }
 
-  // TODO: error handling
-  await promoteAlerts(request, entity.name)
+  try {
+    await promoteAlerts(request, entity.name)
+
+    request.yar.flash(sessionNames.notifications, {
+      text: 'Alerts promoted',
+      type: 'success'
+    })
+  } catch (error) {
+    request.logger.error(error, `Failed to promote alerts:`)
+
+    request.yar.flash(
+      sessionNames.globalValidationFailures,
+      'Failed to promote alerts: ' +
+        (error?.data?.payload?.message ??
+          error?.output?.payload?.message ??
+          error)
+    )
+  }
 
   return h.redirect(`/services/${entity.name}/diagnostics/dev`)
 }
