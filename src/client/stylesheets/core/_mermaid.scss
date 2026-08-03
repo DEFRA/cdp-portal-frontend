@@ -22,7 +22,7 @@
   }
 
   // stylelint-disable-next-line
-  .icon-shape:has(.mermaid--icon-disabled) span.nodeLabel span {
+  .icon-shape:has(.mermaid--icon-disabled) span.nodeLabel span, .mermaid--icon-disabled {
     color: darkgrey !important; /* stylelint-disable-line */
   }
 }
