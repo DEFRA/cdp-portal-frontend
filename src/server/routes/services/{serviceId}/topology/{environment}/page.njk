@@ -54,7 +54,7 @@
                 {% for service in services  %}
                     {% for resource in service.resources  %}
                       {% for link in resource.links  %}
-                        {% if resource.resourceRequestId  %}
+                        {% if link.resourceRequestId  %}
                           {% set arrow = "-.->" %}
                         {% elseif link.type == 'subscription' %}
                           {% set arrow = "==>" %}
@@ -62,7 +62,7 @@
                           {% set arrow = "-->" %}
                         {% endif %}
 
-                        {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|<span class="mermaid--label {% if resource.resourceRequestId %}mermaid--icon-disabled{% endif %}" >{{ link.access | capitalize }}</span>{% if resource.resourceRequestId %}<a href='/requests/resources/{{ resource.resourceRequestId }}' data-js='open-window'>Pending request</a>{% endif %}| {{ linkKey(link) }}
+                        {{ nodeKey(service, resource) }} {{ nodeKey(service, resource)}}_link{{loop.index0}}@{{ arrow }}|<span class="mermaid--label {% if link.resourceRequestId %}mermaid--icon-disabled{% endif %}" >{{ link.access | capitalize }}</span>{% if resource.resourceRequestId %}<a href='/requests/resources/{{ resource.resourceRequestId }}' data-js='open-window'>Pending request</a>{% endif %}| {{ linkKey(link) }}
                         {% if link.access == 'subscription' %}
                           {{ nodeKey(service, resource) }}_link{{loop.index0}}@{ animation: slow }
                         {% endif %}
