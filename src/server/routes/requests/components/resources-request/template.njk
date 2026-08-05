@@ -17,7 +17,11 @@
     {% for prop, value in obj %}
       <tr>
         <th>{{ prop | formatText | replace('-', ' ') }}</th>
-        <td>{{ renderObject(value) if value | isObject else value }}</td>
+        {% if prop == 'service' or prop == 'queueService' or prop == 'topicService' %}
+          <td><a href="/services/{{value}}/resources">{{ value }}<a/></td>
+        {% else %}
+          <td>{{ renderObject(value) if value | isObject else value }}</td>
+        {% endif %}
       </tr>
     {% endfor %}
   </table>
