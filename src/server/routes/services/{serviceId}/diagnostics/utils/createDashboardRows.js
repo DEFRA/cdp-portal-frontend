@@ -10,20 +10,11 @@ export default function createDashboardRows(metrics, showPromote) {
     .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
 
   return dashboards.map(
-    ({
-      name,
-      type = 'custom',
-      version,
-      url,
-      uid,
-      promoted,
-      promotion_request
-    }) => [
+    ({ name, type = 'custom', url, uid, promoted, promotion_request }) => [
       { text: formatText(type) },
       {
         html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
       },
-      { text: version },
       ...(showPromote
         ? [
             {

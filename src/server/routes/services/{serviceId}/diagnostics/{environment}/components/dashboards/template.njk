@@ -18,8 +18,7 @@
       classes: "app-table app-table--inverse govuk-!-margin-top-3 govuk-!-margin-bottom-3",
       head: [
         { text: "Type" },
-        { text: "Name" },
-        { text: "Version" }
+        { text: "Name" }
       ],
       rows: createDashboardRows(metrics)
     }) }}
@@ -46,7 +45,6 @@
           head: [
             { text: "Type" },
             { text: "Dashboard" },
-            { text: "Version" },
             { text: "Action" } if environment.endsWith('dev') and showPromote and playground.dashboards.length !== 0 else null
           ],
           rows: createDashboardRows(playground.dashboards, environment.endsWith('dev') and showPromote)
