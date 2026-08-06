@@ -95,16 +95,6 @@ export function transformDeploymentToSummary(deployment) {
       })
     )
 
-  const topics = deployment?.topics?.map((topic) =>
-    renderTag({
-      text: topic,
-      url: `https://github.com/search?q=topic%3Acdp+org%3ADEFRA+topic%3A${topic}&type=repositories`,
-      newWindow: true,
-      link: { classes: 'app-link--without-underline' },
-      attributes: { 'data-testid': 'govuk-tag' }
-    })
-  )
-
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
     attributes: {
@@ -167,12 +157,6 @@ export function transformDeploymentToSummary(deployment) {
           html: buildLink({
             href: `https://${deployment.service}.${deployment.environment}.cdp-int.defra.cloud`
           })
-        }
-      },
-      {
-        key: { text: 'Topics' },
-        value: {
-          html: topics?.length ? topics.join(' ') : noValue
         }
       },
       {

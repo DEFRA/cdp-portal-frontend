@@ -5,12 +5,20 @@ import {
 import { deploymentFixture } from '../../../__fixtures__/deployments/deployment.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
 import { fetchDeployment } from '../helpers/fetch/fetch-deployment.js'
-import { fetchRepository } from '../../common/helpers/fetch/fetch-repository.js'
-import { repositoryFixture } from '../../../__fixtures__/repository.js'
+import { fetchEntity } from '../../common/helpers/fetch/fetch-entities.js'
 
 vi.mock('../../common/helpers/auth/get-user-session.js')
 vi.mock('../helpers/fetch/fetch-deployment.js')
-vi.mock('../../common/helpers/fetch/fetch-repository.js')
+vi.mock('../../common/helpers/fetch/fetch-entities.js')
+
+const entityFixture = {
+  teams: [
+    {
+      teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+      name: 'Platform'
+    }
+  ]
+}
 
 describe('Microservice deployment page', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -19,7 +27,7 @@ describe('Microservice deployment page', () => {
 
   beforeAll(async () => {
     fetchDeployment.mockResolvedValue(deploymentFixture)
-    fetchRepository.mockResolvedValue(repositoryFixture)
+    fetchEntity.mockResolvedValue(entityFixture)
     server = await initialiseServer()
 
     vi.useFakeTimers({ advanceTimers: true })

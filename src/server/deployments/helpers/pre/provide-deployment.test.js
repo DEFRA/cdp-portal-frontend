@@ -2,11 +2,23 @@ import { provideDeployment } from './provide-deployment.js'
 import { fetchDeployment } from '../fetch/fetch-deployment.js'
 import { deploymentInProgressFixture } from '../../../../__fixtures__/deployments/deployment-in-progress.js'
 import { deploymentSuccessFixture } from '../../../../__fixtures__/deployments/deployment-success.js'
-import { repositoryFixture } from '../../../../__fixtures__/repository.js'
-import { fetchRepository } from '../../../common/helpers/fetch/fetch-repository.js'
+import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
 
 vi.mock('../fetch/fetch-deployment')
-vi.mock('../../../common/helpers/fetch/fetch-repository.js')
+vi.mock('../../../common/helpers/fetch/fetch-entities.js')
+
+const entityFixture = {
+  teams: [
+    {
+      teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+      name: 'Platform'
+    },
+    {
+      teamId: null,
+      name: 'NoTeamId'
+    }
+  ]
+}
 
 describe('#provideDeployment', () => {
   const mockIsXhr = vi.fn()
@@ -22,17 +34,15 @@ describe('#provideDeployment', () => {
   describe('With an in-progress deployment', () => {
     beforeEach(() => {
       fetchDeployment.mockResolvedValue(deploymentInProgressFixture)
-      fetchRepository.mockResolvedValue(repositoryFixture)
+      fetchEntity.mockResolvedValue(entityFixture)
       mockIsXhr.mockReturnValue(false)
     })
 
     test('Should provide expected deployment', async () => {
       expect(await provideDeployment.method(mockRequest)).toEqual({
         ...deploymentInProgressFixture,
-        ...repositoryFixture,
-        statusClass: 'app-tag--purple',
-        isBackend: false,
-        isFrontend: true
+        teams: [entityFixture.teams[0]],
+        statusClass: 'app-tag--purple'
       })
     })
   })
@@ -40,17 +50,31 @@ describe('#provideDeployment', () => {
   describe('With a successful deployment', () => {
     beforeEach(() => {
       fetchDeployment.mockResolvedValue(deploymentSuccessFixture)
-      fetchRepository.mockResolvedValue(repositoryFixture)
+      fetchEntity.mockResolvedValue(entityFixture)
       mockIsXhr.mockReturnValue(false)
     })
 
     test('Should provide expected deployment', async () => {
       expect(await provideDeployment.method(mockRequest)).toEqual({
         ...deploymentSuccessFixture,
-        ...repositoryFixture,
-        statusClass: 'govuk-tag--green',
-        isBackend: false,
-        isFrontend: true
+        teams: [entityFixture.teams[0]],
+        statusClass: 'govuk-tag--green'
+      })
+    })
+  })
+
+  describe('With a missing entity', () => {
+    beforeEach(() => {
+      fetchDeployment.mockResolvedValue(deploymentSuccessFixture)
+      fetchEntity.mockResolvedValue(null)
+      mockIsXhr.mockReturnValue(false)
+    })
+
+    test('Should provide deployment with empty teams', async () => {
+      expect(await provideDeployment.method(mockRequest)).toEqual({
+        ...deploymentSuccessFixture,
+        teams: [],
+        statusClass: 'govuk-tag--green'
       })
     })
   })
