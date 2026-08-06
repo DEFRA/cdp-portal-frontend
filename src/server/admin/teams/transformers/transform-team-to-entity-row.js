@@ -38,19 +38,10 @@ function transformTeamToEntityRow(team) {
         }
       },
       {
-        headers: 'alert-emails',
+        headers: 'delivery-group',
         entity: {
-          kind: 'html',
-          value: team.alertEmailAddresses?.join('<br>')
-        }
-      },
-      {
-        headers: 'alert-environments',
-        entity: {
-          kind: 'html',
-          value: team.alertEnvironments?.length
-            ? team.alertEnvironments?.join(', ')
-            : noValue
+          kind: 'text',
+          value: team.deliveryGroupId ?? noValue
         }
       },
       {

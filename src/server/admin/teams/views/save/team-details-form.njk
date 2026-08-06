@@ -68,6 +68,28 @@
 
       {{ govukInput({
         label: {
+          text: "Delivery Group Id (optional)",
+          classes: "app-label"
+        },
+        id: "deliveryGroupId",
+        name: "deliveryGroupId",
+        hint: {
+          text: "The Delivery Group is accountable for this team and its services",
+          classes: "app-hint"
+        },
+        classes: "app-input app-input--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.deliveryGroupId,
+        errorMessage: errorMessageHelper(formErrors.deliveryGroupId.message)
+      }) }}
+
+      {{ govukInput({
+        label: {
           text: "Alert Emails (optional)",
           classes: "app-label"
         },

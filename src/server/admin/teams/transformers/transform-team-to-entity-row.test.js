@@ -38,17 +38,10 @@ describe('#transformCdpTeamToEntityRow', () => {
         },
         {
           entity: {
-            kind: 'html',
-            value: 'alerts@cdp.com'
+            kind: 'text',
+            value: 'delivery-group-id'
           },
-          headers: 'alert-emails'
-        },
-        {
-          entity: {
-            kind: 'html',
-            value: 'infra-dev, management'
-          },
-          headers: 'alert-environments'
+          headers: 'delivery-group'
         },
         {
           entity: {

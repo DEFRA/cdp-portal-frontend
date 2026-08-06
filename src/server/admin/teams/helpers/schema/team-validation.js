@@ -27,6 +27,7 @@ const teamValidation = (environments) =>
         'string.max': validation.exactLetters(3),
         'string.pattern.base': 'Provide 3 uppercase letters'
       }),
+    deliveryGroupId: Joi.string().optional(),
     alertEmailAddresses: Joi.array().items(Joi.string().email()).optional(),
     alertEnvironments: Joi.array()
       .items(Joi.string().valid(...environments))

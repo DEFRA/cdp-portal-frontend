@@ -17,8 +17,7 @@ const teamsListController = {
           { id: 'description', text: 'Description', width: '15' },
           { id: 'github-team', text: 'GitHub Team', width: '10' },
           { id: 'service-codes', text: 'Service Codes', width: '5' },
-          { id: 'alert-emails', text: 'Alert Emails', width: '15' },
-          { id: 'alert-environments', text: 'Alert Environments', width: '15' },
+          { id: 'delivery-group', text: 'Delivery Group', width: '10' },
           { id: 'members', text: 'Members', width: '6' },
           { id: 'last-updated', text: 'Last Updated', width: '13' },
           { id: 'created', text: 'Created', width: '13' }

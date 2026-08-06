@@ -20,14 +20,17 @@ function editTeam(request, teamId, payload) {
 
   return request.authedFetchJson(endpoint, {
     method: 'patch',
-    payload: removeNil({
-      name: payload.name,
-      description: payload.description,
-      serviceCodes: payload.serviceCodes,
-      alertEmailAddresses: payload.alertEmailAddresses,
-      alertEnvironments: payload.alertEnvironments,
-      github: payload.github
-    })
+    payload: {
+      ...removeNil({
+        name: payload.name,
+        serviceCodes: payload.serviceCodes,
+        alertEmailAddresses: payload.alertEmailAddresses,
+        alertEnvironments: payload.alertEnvironments
+      }),
+      description: payload.description ?? null,
+      github: payload.github ?? null,
+      deliveryGroupId: payload.deliveryGroupId ?? null
+    }
   })
 }
 

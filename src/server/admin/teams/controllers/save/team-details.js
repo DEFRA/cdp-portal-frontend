@@ -12,6 +12,7 @@ const teamDetailsController = {
 
     const name = payload.name
     const description = payload.description || undefined
+    const deliveryGroupId = payload.deliveryGroupId || undefined
     const serviceCode = payload.serviceCode || undefined
     const alertEmailAddresses = payload.alertEmailAddresses
       ? payload.alertEmailAddresses.split(/\s*,\s*/)
@@ -25,6 +26,7 @@ const teamDetailsController = {
       name,
       description,
       serviceCode,
+      deliveryGroupId,
       alertEmailAddresses,
       alertEnvironments
     }

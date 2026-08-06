@@ -15,6 +15,7 @@ const createTeamController = {
           description: cdpTeam.description,
           github: cdpTeam.github,
           serviceCodes: cdpTeam.serviceCode ? [cdpTeam.serviceCode] : [],
+          deliveryGroupId: cdpTeam.deliveryGroupId,
           alertEmailAddresses: cdpTeam.alertEmailAddresses,
           alertEnvironments: cdpTeam.alertEnvironments
         })
@@ -27,6 +28,7 @@ const createTeamController = {
 
       return h.redirect('/admin/teams')
     } catch (error) {
+      request.logger.error(error, 'Failed to save team')
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
 
       return h.redirect(`/admin/teams/summary`)
