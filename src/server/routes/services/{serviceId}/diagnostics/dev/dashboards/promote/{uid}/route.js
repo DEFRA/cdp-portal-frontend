@@ -16,7 +16,7 @@ export const options = {
   auth: {
     mode: 'required',
     access: {
-      scope: [scopes.admin] // TODO: open to owners
+      scope: [scopes.admin, scopes.serviceOwner]
     }
   }
 }
