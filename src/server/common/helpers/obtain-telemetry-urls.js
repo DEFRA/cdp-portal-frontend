@@ -1,6 +1,6 @@
 import { sortKeyByEnv } from './sort/sort-by-env.js'
 import { basename } from 'node:path'
-import startCase from 'lodash/startCase.js'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 
 function obtainTelemetryUrls(entity, availableServiceEnvironments) {
   const environmentDetails = entity.environments
@@ -29,7 +29,7 @@ function obtainTelemetryUrls(entity, availableServiceEnvironments) {
       urls: details.metrics?.map((m) => {
         const metrics = replaceCustomType(entity.name, m)
         return {
-          label: `${startCase(metrics.type)} - https://metrics.${environment}.cdp-int.defra.cloud`,
+          label: `${formatText(metrics.type)} - ${metrics.title ?? `https://metrics.${environment}.cdp-int.defra.cloud`}`,
           ...metrics
         }
       })

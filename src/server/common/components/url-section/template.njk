@@ -4,7 +4,7 @@
       {{ section.heading }}
     </h2>
 
-    <p>{{ section.description }}</p>
+    <p>{{ section.description | safe }}</p>
 
     <dl class="app-description-list">
       {% for env in section.environments %}

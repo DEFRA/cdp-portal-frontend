@@ -7,23 +7,18 @@ export default function createDashboardRows(metrics, showPromote) {
       ...dashboard,
       name: dashboard.title ?? dashboard.url.split('/').at(-1)
     }))
-    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
+    .sort(
+      (a, b) =>
+        orderCustomLast(a).localeCompare(orderCustomLast(b), 'en-GB') ||
+        a.name.localeCompare(b.name, 'en-GB')
+    )
 
   return dashboards.map(
-    ({
-      name,
-      type = 'custom',
-      version,
-      url,
-      uid,
-      promoted,
-      promotion_request
-    }) => [
+    ({ name, type = 'custom', url, uid, promoted, promotion_request }) => [
       { text: formatText(type) },
       {
         html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
       },
-      { text: version },
       ...(showPromote
         ? [
             {
@@ -37,4 +32,8 @@ export default function createDashboardRows(metrics, showPromote) {
         : [])
     ]
   )
+}
+
+function orderCustomLast(dashboard) {
+  return dashboard.type === 'custom' ? 'ZZZ' : dashboard.type
 }
