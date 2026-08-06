@@ -90,7 +90,7 @@ async function aboutHandler(request, h) {
     latestPublishedImageVersions,
     availableMigrations,
     latestMigrations,
-    urls: transformUrlsUrls(urls),
+    urls: transformUrlsUrls(entity, urls),
     breadcrumbs: [
       {
         text: 'Services',
@@ -103,7 +103,7 @@ async function aboutHandler(request, h) {
   })
 }
 
-const URL_SECTION_CONTENT = {
+const urlContentSection = (entity) => ({
   vanityUrls: {
     heading: 'Vanity Urls',
     description: 'Custom endpoints that provide access to this service.'
@@ -128,12 +128,14 @@ const URL_SECTION_CONTENT = {
   },
   metricsUrls: {
     heading: 'Metrics',
-    description:
-      'Grafana observability metrics dashboards, providing data and graphs for your service'
+    description: `<p>Grafana observability metrics dashboards, providing data and graphs for your service.</p>
+      <p>View in <a href="/services/${entity.name}/diagnostics/dev#dashboards">Diagnostics</a> for playground dashboards and promotion.</p>`
   }
-}
+})
 
-function transformUrlsUrls(urls) {
+function transformUrlsUrls(entity, urls) {
+  const URL_SECTION_CONTENT = urlContentSection(entity)
+
   return Object.fromEntries(
     Object.entries(urls).map(([key, value]) => [
       key,
