@@ -2,7 +2,11 @@ import { formatText } from '#config/nunjucks/filters/filters.js'
 
 export default function createAlertRows(alerts, environment) {
   return alerts
-    .sort((a, b) => a.name.localeCompare(b.name, 'en-GB'))
+    .sort(
+      (a, b) =>
+        orderCustomLast(a).localeCompare(orderCustomLast(b), 'en-GB') ||
+        a.name.localeCompare(b.name, 'en-GB')
+    )
     .map(
       ({
         name,
@@ -23,4 +27,8 @@ export default function createAlertRows(alerts, environment) {
         }
       ]
     )
+}
+
+function orderCustomLast(alert) {
+  return alert.type === 'custom' ? 'ZZZ' : alert.type
 }
