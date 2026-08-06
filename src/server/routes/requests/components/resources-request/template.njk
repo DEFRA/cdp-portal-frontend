@@ -15,6 +15,7 @@
 {% macro renderObject(obj) %}
   <table class="table--embedded">
     {% for prop, value in obj %}
+      {% if prop != 'name' %}
       <tr>
         <th>{{ prop | formatText | replace('-', ' ') }}</th>
         {% if prop == 'service' or prop == 'queueService' or prop == 'topicService' %}
@@ -23,6 +24,7 @@
           <td>{{ renderObject(value) if value | isObject else value }}</td>
         {% endif %}
       </tr>
+      {% endif %}
     {% endfor %}
   </table>
 {% endmacro %}
