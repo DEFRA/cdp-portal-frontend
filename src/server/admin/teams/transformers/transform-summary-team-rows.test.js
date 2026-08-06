@@ -72,6 +72,26 @@ describe('#transformSummaryTeamRows', () => {
               classes: 'app-link',
               href: '/admin/teams/team-details?redirectLocation=summary',
               text: 'Change',
+              visuallyHiddenText: 'Delivery Group Id'
+            }
+          ]
+        },
+        key: {
+          classes: 'app-summary__heading',
+          text: 'Delivery Group Id'
+        },
+        value: {
+          html: '<span data-testid="delivery-group-id">- - -</span>'
+        }
+      },
+      {
+        actions: {
+          classes: 'app-summary__action',
+          items: [
+            {
+              classes: 'app-link',
+              href: '/admin/teams/team-details?redirectLocation=summary',
+              text: 'Change',
               visuallyHiddenText: 'Service Code'
             }
           ]
@@ -101,7 +121,7 @@ describe('#transformSummaryTeamRows', () => {
           text: 'Alert Emails'
         },
         value: {
-          html: null
+          html: '<span data-testid="alert-emails">- - -</span>'
         }
       },
       {
@@ -121,7 +141,7 @@ describe('#transformSummaryTeamRows', () => {
           text: 'Alert Environments'
         },
         value: {
-          html: null
+          html: '<span data-testid="alert-environments">- - -</span>'
         }
       }
     ])

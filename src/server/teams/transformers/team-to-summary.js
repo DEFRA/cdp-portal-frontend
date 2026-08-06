@@ -46,6 +46,14 @@ function transformTeamToSummary({ team, withActions = false }) {
             : noValue
         }
       },
+      ...(team.deliveryGroupId
+        ? [
+            {
+              key: { text: 'Delivery Group' },
+              value: { text: team.deliveryGroupId }
+            }
+          ]
+        : []),
       {
         key: { text: 'Service Codes' },
         value: {

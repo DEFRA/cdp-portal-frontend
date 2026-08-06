@@ -29,7 +29,7 @@ describe('Entity Table Component', () => {
             { id: 'description', text: 'Description', width: '15' },
             { id: 'github-team', text: 'GitHub Team', width: '15' },
             { id: 'service-codes', text: 'Service Codes', width: '5' },
-            { id: 'alert-emails', text: 'Alert Emails', width: '20' },
+            { id: 'delivery-group', text: 'Delivery Group', width: '20' },
             { id: 'members', text: 'Members', width: '10' },
             { id: 'last-updated', text: 'Last Updated', width: '10' },
             { id: 'created', text: 'Created', width: '10' }
@@ -49,7 +49,7 @@ describe('Entity Table Component', () => {
       expect(getHeader(2).text().trim()).toBe('Description')
       expect(getHeader(3).text().trim()).toBe('GitHub Team')
       expect(getHeader(4).text().trim()).toBe('Service Codes')
-      expect(getHeader(5).text().trim()).toBe('Alert Emails')
+      expect(getHeader(5).text().trim()).toBe('Delivery Group')
       expect(getHeader(6).text().trim()).toBe('Members')
       expect(getHeader(7).text().trim()).toBe('Last Updated')
       expect(getHeader(8).text().trim()).toBe('Created')
@@ -85,19 +85,16 @@ describe('Entity Table Component', () => {
       expect(getEntity(4).html()).toContain('FO')
 
       expect(getEntity(5)).toHaveLength(1)
-      expect(getEntity(5).html()).toContain('robocop@robocop.com')
+      expect(getEntity(5).html()).toContain('- - -')
 
       expect(getEntity(6)).toHaveLength(1)
-      expect(getEntity(6).html()).toContain('- - -')
+      expect(getEntity(6).html()).toContain('2')
 
       expect(getEntity(7)).toHaveLength(1)
-      expect(getEntity(7).html()).toContain('2')
+      expect(getEntity(7).html()).toContain('Wed 30th Aug 2023 at 08:08')
 
       expect(getEntity(8)).toHaveLength(1)
-      expect(getEntity(8).html()).toContain('Wed 30th Aug 2023 at 08:08')
-
-      expect(getEntity(9)).toHaveLength(1)
-      expect(getEntity(9).html()).toContain('Thu 24th Aug 2023 at 14:20')
+      expect(getEntity(8).html()).toContain('Thu 24th Aug 2023 at 14:20')
     })
   })
 
@@ -110,7 +107,7 @@ describe('Entity Table Component', () => {
             { id: 'description', text: 'Description', width: '15' },
             { id: 'github-team', text: 'GitHub Team', width: '15' },
             { id: 'service-codes', text: 'Service Codes', width: '5' },
-            { id: 'alert-emails', text: 'Alert Emails', width: '20' },
+            { id: 'delivery-group', text: 'Delivery Group', width: '20' },
             { id: 'members', text: 'Members', width: '10' },
             { id: 'last-updated', text: 'Last Updated', width: '10' },
             { id: 'created', text: 'Created', width: '10' }

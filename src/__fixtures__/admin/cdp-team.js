@@ -20,7 +20,8 @@ const cdpTeamFixture = {
       id: '1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
       name: 'RoboCop'
     }
-  ]
+  ],
+  deliveryGroupId: 'delivery-group-id'
 }
 
 const cdpTeamBeesFixture = {

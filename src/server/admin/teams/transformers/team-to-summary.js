@@ -48,6 +48,11 @@ function transformTeamToSummary(team, withActions = true) {
         actions
       },
       {
+        key: { text: 'Delivery Group' },
+        value: { text: team.deliveryGroupId || noValue },
+        actions
+      },
+      {
         key: { text: 'Service Codes' },
         value: {
           html: team.serviceCodes?.length

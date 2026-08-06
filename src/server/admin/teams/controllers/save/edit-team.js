@@ -10,6 +10,7 @@ const editTeamController = {
         description: cdpTeam.description,
         github: cdpTeam.github,
         serviceCodes: cdpTeam.serviceCode ? [cdpTeam.serviceCode] : [],
+        deliveryGroupId: cdpTeam.deliveryGroupId,
         alertEmailAddresses: cdpTeam.alertEmailAddresses,
         alertEnvironments: cdpTeam.alertEnvironments
       })

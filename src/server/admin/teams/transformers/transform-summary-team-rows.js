@@ -51,17 +51,30 @@ function transformSummaryTeamRows(cdpTeam) {
 
   return [
     buildRow('Name', teamDetails.name, teamDetailsPath),
-    buildRow('Description', teamDetails.description, teamDetailsPath),
+    buildRow(
+      'Description',
+      teamDetails.description || noValue,
+      teamDetailsPath
+    ),
     buildRow('GitHub team', githubTeamUiValue, 'find-github-team'),
-    buildRow('Service Code', teamDetails.serviceCode, teamDetailsPath),
+    buildRow(
+      'Delivery Group Id',
+      teamDetails.deliveryGroupId || noValue,
+      teamDetailsPath
+    ),
+    buildRow(
+      'Service Code',
+      teamDetails.serviceCode || noValue,
+      teamDetailsPath
+    ),
     buildRow(
       'Alert Emails',
-      teamDetails.alertEmailAddresses?.join('<br>'),
+      teamDetails.alertEmailAddresses?.join('<br>') || noValue,
       teamDetailsPath
     ),
     buildRow(
       'Alert Environments',
-      teamDetails.alertEnvironments?.join(', '),
+      teamDetails.alertEnvironments?.join(', ').trim() || noValue,
       teamDetailsPath
     )
   ]

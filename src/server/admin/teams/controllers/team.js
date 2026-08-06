@@ -6,7 +6,7 @@ import { transformTeamToSummary } from '../transformers/team-to-summary.js'
 import { transformTeamUsersToTaskList } from '../transformers/team-users-to-task-list.js'
 import { transformTeamScopesToTaskList } from '../transformers/team-scopes-to-task-list.js'
 
-const teamController = {
+export const teamController = {
   options: {
     id: 'admin/teams/{teamId}',
     validate: {
@@ -41,5 +41,3 @@ const teamController = {
     })
   }
 }
-
-export { teamController }
