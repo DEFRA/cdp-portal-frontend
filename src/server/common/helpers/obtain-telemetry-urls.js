@@ -1,6 +1,5 @@
 import { sortKeyByEnv } from './sort/sort-by-env.js'
 import { basename } from 'node:path'
-import startCase from 'lodash/startCase.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 
 function obtainTelemetryUrls(entity, availableServiceEnvironments) {
