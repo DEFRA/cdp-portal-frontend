@@ -6,8 +6,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'JavaScript',
       url: 'https://github.com/DEFRA/cdp-libraries',
       isArchived: false,
-      isTemplate: false,
-      isPrivate: false,
       createdAt: '2025-06-11T15:04:55+00:00',
       teams: [
         {
@@ -26,8 +24,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'C#',
       url: 'https://github.com/DEFRA/cdp-portal-backend',
       isArchived: false,
-      isTemplate: false,
-      isPrivate: false,
       createdAt: '2023-08-21T11:12:06+00:00',
       teams: [
         {
@@ -45,8 +41,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'HTML',
       url: 'https://github.com/DEFRA/cdp-portal-frontend',
       isArchived: false,
-      isTemplate: false,
-      isPrivate: false,
       createdAt: '2023-04-12T17:16:48+00:00',
       teams: [
         {
@@ -64,8 +58,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'JavaScript',
       url: 'https://github.com/DEFRA/cdp-self-service-ops',
       isArchived: false,
-      isTemplate: false,
-      isPrivate: false,
       createdAt: '2023-05-12T13:33:54+00:00',
       teams: [
         {
@@ -82,8 +74,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'JavaScript',
       url: 'https://github.com/DEFRA/cdp-uploader',
       isArchived: false,
-      isTemplate: false,
-      isPrivate: false,
       createdAt: '2024-03-14T15:28:20+00:00',
       teams: [
         {
@@ -100,8 +90,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'JavaScript',
       url: 'https://github.com/DEFRA/cdp-user-service-backend',
       isArchived: false,
-      isTemplate: false,
-      isPrivate: false,
       createdAt: '2023-08-08T08:40:23+00:00',
       teams: [
         {
@@ -121,8 +109,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'C#',
       url: 'https://github.com/DEFRA/cdp-dotnet-backend-template',
       isArchived: false,
-      isTemplate: true,
-      isPrivate: false,
       createdAt: '2023-08-24T07:08:56+00:00',
       teams: [
         {
@@ -139,8 +125,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'JavaScript',
       url: 'https://github.com/DEFRA/cdp-node-backend-template',
       isArchived: false,
-      isTemplate: true,
-      isPrivate: false,
       createdAt: '2023-06-20T12:10:50+00:00',
       teams: [
         {
@@ -157,8 +141,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'JavaScript',
       url: 'https://github.com/DEFRA/cdp-node-frontend-template',
       isArchived: false,
-      isTemplate: true,
-      isPrivate: false,
       createdAt: '2023-04-26T15:27:09+00:00',
       teams: [
         {
@@ -175,8 +157,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'JavaScript',
       url: 'https://github.com/DEFRA/cdp-node-journey-test-suite-template',
       isArchived: false,
-      isTemplate: true,
-      isPrivate: false,
       createdAt: '2024-01-24T14:49:52+00:00',
       teams: [
         {
@@ -193,8 +173,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'Dockerfile',
       url: 'https://github.com/DEFRA/cdp-node-prototype-template',
       isArchived: false,
-      isTemplate: true,
-      isPrivate: false,
       createdAt: '2025-07-18T12:04:13+00:00',
       teams: [
         {
@@ -211,8 +189,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'Shell',
       url: 'https://github.com/DEFRA/cdp-perf-test-suite-template',
       isArchived: false,
-      isTemplate: true,
-      isPrivate: false,
       createdAt: '2024-04-17T12:10:51+00:00',
       teams: [
         {
@@ -231,8 +207,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'JavaScript',
       url: 'https://github.com/DEFRA/cdp-portal-journey-tests',
       isArchived: false,
-      isTemplate: false,
-      isPrivate: false,
       createdAt: '2024-11-27T18:19:23+00:00',
       teams: [
         {
@@ -249,8 +223,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'Shell',
       url: 'https://github.com/DEFRA/cdp-uploader-perf-tests',
       isArchived: false,
-      isTemplate: false,
-      isPrivate: false,
       createdAt: '2024-05-21T16:07:26+00:00',
       teams: [
         {
@@ -267,8 +239,6 @@ export const teamRepositoriesFixture = {
       primaryLanguage: 'JavaScript',
       url: 'https://github.com/DEFRA/cdp-uploader-smoke-tests',
       isArchived: false,
-      isTemplate: false,
-      isPrivate: false,
       createdAt: '2024-05-09T13:00:12+00:00',
       teams: [
         {

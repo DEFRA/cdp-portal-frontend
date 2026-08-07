@@ -9,8 +9,6 @@ const repositoryFixture = {
   primaryLanguage: 'JavaScript',
   url: `https://github.com/${githubOrg}/cdp-portal-frontend`,
   isArchived: false,
-  isTemplate: false,
-  isPrivate: true,
   createdAt: '2023-04-12T17:16:48+00:00',
   teams: [
     {
@@ -29,8 +27,6 @@ const repositoryTestSuiteFixture = {
   primaryLanguage: 'JavaScript',
   url: `https://github.com/${githubOrg}/cdp-bc-journey-test-suite`,
   isArchived: false,
-  isTemplate: false,
-  isPrivate: false,
   createdAt: '2024-12-18T14:40:13+00:00',
   teams: [
     {
