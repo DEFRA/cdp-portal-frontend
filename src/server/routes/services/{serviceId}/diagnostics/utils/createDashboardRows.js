@@ -9,8 +9,8 @@ export default function createDashboardRows(metrics, showPromote) {
     }))
     .sort(
       (a, b) =>
-        orderCustomLast(a).localeCompare(orderCustomLast(b), 'en-GB') ||
-        a.name.localeCompare(b.name, 'en-GB')
+        orderCustomLast(a)?.localeCompare(orderCustomLast(b), 'en-GB') ||
+        a.name?.localeCompare(b.name, 'en-GB')
     )
 
   return dashboards.map(
