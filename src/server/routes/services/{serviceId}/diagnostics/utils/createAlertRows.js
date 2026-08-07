@@ -4,8 +4,8 @@ export default function createAlertRows(alerts, environment) {
   return alerts
     .sort(
       (a, b) =>
-        orderCustomLast(a).localeCompare(orderCustomLast(b), 'en-GB') ||
-        a.name.localeCompare(b.name, 'en-GB')
+        orderCustomLast(a)?.localeCompare(orderCustomLast(b), 'en-GB') ||
+        a.name?.localeCompare(b.name, 'en-GB')
     )
     .map(
       ({
