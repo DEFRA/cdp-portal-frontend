@@ -1,7 +1,7 @@
 export default function topologyHasResourceRequests(topology) {
   const hasResourceRequest = topology
     .flatMap((service) => service.resources)
-    .flatMap((resource) => resource.resourceRequestID)
+    .some((resource) => resource.resourceRequestId)
 
   if (hasResourceRequest) {
     return true
@@ -10,7 +10,7 @@ export default function topologyHasResourceRequests(topology) {
   const hasResourceRequestInLink = topology
     .flatMap((service) => service.resources)
     .flatMap((resource) => resource.links)
-    .some((link) => link.resourceRequestID)
+    .some((link) => link.resourceRequestId)
 
   return hasResourceRequestInLink
 }
