@@ -23,6 +23,13 @@
 
           {% if serviceDeployedInEnvironment %}
 
+            {% if hasResourceRequests %}
+              {% set resourceRequestsInfoHtml %}
+                Resources which are in active resource <a class="app-link app-link--underline" href="/requests">Requests</a> are shown "grayed out".
+              {% endset %}
+              <div>{{ appInfo({ html: resourceRequestsInfoHtml, classes: "" }) }}</div>
+            {% endif %}
+
             <pre class="mermaid mermaid--pan-zoom  mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">
               flowchart TD
               {% for teamKey, services in servicesPerTeam  %}
