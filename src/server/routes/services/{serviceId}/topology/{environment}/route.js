@@ -10,6 +10,7 @@ import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
+import topologyHasResourceRequests from '../../resources/utils/topologyhasResourceRequests.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -68,6 +69,8 @@ export default async function (request) {
     ]
   }
 
+  const hasResourceRequests = topologyHasResourceRequests(topology)
+
   const servicesPerTeam = Object.groupBy(
     [...topology, ...(cdpResources ? [cdpResources] : [])],
     ({ teams }) => teams.map(({ teamId }) => teamId).join('_')
@@ -86,6 +89,7 @@ export default async function (request) {
     serviceDeployedInEnvironment,
     servicesPerTeam,
     environment,
+    hasResourceRequests,
     nodeKey,
     linkKey,
     breadcrumbs: [
