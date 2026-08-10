@@ -6,8 +6,6 @@ const librariesFixture = [
     primaryLanguage: 'JavaScript',
     url: 'https://github.com/DEFRA/hapi-tracing',
     isArchived: false,
-    isTemplate: false,
-    isPrivate: false,
     createdAt: '2024-12-09T13:08:51+00:00',
     teams: [
       {
@@ -24,8 +22,6 @@ const librariesFixture = [
     primaryLanguage: 'JavaScript',
     url: 'https://github.com/DEFRA/useful-util',
     isArchived: false,
-    isTemplate: false,
-    isPrivate: false,
     createdAt: '2025-04-09T11:10:52+00:00',
     teams: [
       {

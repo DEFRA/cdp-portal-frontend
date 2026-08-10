@@ -7,8 +7,6 @@ const templatesFixture = [
     primaryLanguage: 'C#',
     url: 'https://github.com/DEFRA/cdp-dotnet-backend-template',
     isArchived: false,
-    isTemplate: true,
-    isPrivate: false,
     createdAt: '2023-08-24T07:08:56+00:00',
     teams: [
       {
@@ -25,8 +23,6 @@ const templatesFixture = [
     primaryLanguage: 'JavaScript',
     url: 'https://github.com/DEFRA/cdp-node-backend-template',
     isArchived: false,
-    isTemplate: true,
-    isPrivate: false,
     createdAt: '2023-06-20T12:10:50+00:00',
     teams: [
       {
@@ -43,8 +39,6 @@ const templatesFixture = [
     primaryLanguage: 'JavaScript',
     url: 'https://github.com/DEFRA/cdp-node-frontend-template',
     isArchived: false,
-    isTemplate: true,
-    isPrivate: false,
     createdAt: '2023-04-26T15:27:09+00:00',
     teams: [
       {
@@ -61,8 +55,6 @@ const templatesFixture = [
     primaryLanguage: 'JavaScript',
     url: 'https://github.com/DEFRA/cdp-node-journey-test-suite-template',
     isArchived: false,
-    isTemplate: true,
-    isPrivate: false,
     createdAt: '2024-01-24T14:49:52+00:00',
     teams: [
       {
@@ -79,8 +71,6 @@ const templatesFixture = [
     primaryLanguage: 'Shell',
     url: 'https://github.com/DEFRA/cdp-perf-test-suite-template',
     isArchived: false,
-    isTemplate: true,
-    isPrivate: false,
     createdAt: '2024-04-17T12:10:51+00:00',
     teams: [
       {
