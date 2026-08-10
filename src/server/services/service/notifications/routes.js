@@ -26,7 +26,6 @@ const serviceNotifications = {
     register: (server) => {
       server.ext([
         ...commonServiceExtensions,
-        provideNotFoundIfPrototypeExtension,
         {
           type: 'onPostHandler',
           method: provideFormContextValues(),
