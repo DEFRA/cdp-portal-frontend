@@ -39,7 +39,7 @@ const findGithubTeamFormController = {
           text: `${githubTeam.name} - @${githubTeam.github}`,
           value: githubTeam.github
         })),
-        false
+        true
       ),
       splitPaneBreadcrumbs: [
         {
