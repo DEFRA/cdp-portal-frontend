@@ -73,6 +73,13 @@ async function searchGithubTeams(query) {
   return payload
 }
 
+async function fetchAllGithubTeams() {
+  const endpoint = `${userServiceBackendUrl}/github-teams`
+
+  const { payload } = await fetchJson(endpoint)
+  return payload
+}
+
 export {
   editTeam,
   fetchCdpTeams,
@@ -82,3 +89,4 @@ export {
   addMemberToTeam,
   removeMemberFromTeam
 }
+export default fetchAllGithubTeams

@@ -27,67 +27,18 @@
 
             {% call govukFieldset() %}
 
-              {{ appSearch({
-                iconDescription: "Search for DEFRA GitHub team",
+              {{ appAutocomplete({
+                id: "github",
+                name: "github",
                 label: {
                   text: "GitHub team"
                 },
-                id: "githubSearch",
-                name: "githubSearch",
-                hint: {
-                  html: searchHintHtml
-                },
-                value: formValues.githubSearch,
-                errorMessage: errorMessageHelper(formErrors.githubSearch.message),
-                hasSearchResultError: formErrors.github.message and true or false
+                suggestions: githubTeams
               }) }}
 
             {% endcall %}
 
-            {{ govukButton({
-              classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
-              text: "Search",
-              name: "button",
-              value: "search",
-              attributes: {
-                "data-js": "app-no-js-submit-button"
-              }
-            }) }}
-
-            {% block xhrContent %}
-
-              <article class="app-scrollable-window" data-xhr="github-teams">
-                {% if githubTeams | length %}
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Search results</h2>
-                {% endif %}
-
-                {% if githubTeams | length or formErrors.github.message %}
-                  {{ govukRadios({
-                    name: "github",
-                    classes: "govuk-radios--small app-radios",
-                    fieldset: {
-                      legend: {
-                        text: "Choose a GitHub team (optional)"
-                      }
-                    } if githubTeams | length,
-                    items: githubTeams,
-                    value: formValues.github,
-                    formGroup: {
-                      classes: "app-form-group app-form-group-js"
-                    },
-                    errorMessage: errorMessageHelper(formErrors.github.message)
-                  }) }}
-                {% endif %}
-
-                {% if formValues.githubSearch and not githubTeams | length %}
-                  <p class="govuk-hint">No teams/s found</p>
-                {% endif %}
-
-              </article>
-
-            {% endblock %}
-
-            <div class="govuk-button-group">
+             <div class="govuk-button-group">
               {{ govukButton({
                 classes: "app-button",
                 text: formButtonText,

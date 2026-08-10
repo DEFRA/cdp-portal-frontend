@@ -59,23 +59,16 @@ const teamDetailsController = {
     }
 
     if (!validationResult.error) {
-      const cdpTeam = await request.app.saveStepData(
+      await request.app.saveStepData(
         {
           ...sanitisedPayload
         },
         h
       )
 
-      const queryString = qs.stringify(
-        {
-          ...(cdpTeam?.github && { githubSearch: cdpTeam?.github ?? '' })
-        },
-        { addQueryPrefix: true }
-      )
-
       const redirectTo = redirectLocation
         ? `/admin/teams/${redirectLocation}`
-        : `/admin/teams/find-github-team${queryString}`
+        : `/admin/teams/find-github-team`
 
       return h.redirect(redirectTo)
     }

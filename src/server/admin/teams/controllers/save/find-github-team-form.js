@@ -2,13 +2,12 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
-import { searchGithubTeams } from '../../helpers/fetch/fetchers.js'
+import fetchAllGithubTeams from '../../helpers/fetch/fetchers.js'
 
 const findGithubTeamFormController = {
   options: {
     validate: {
       query: Joi.object({
-        githubSearch: Joi.string().allow(''),
         github: Joi.string().allow(''),
         redirectLocation: Joi.string().valid('summary').allow('')
       }),
@@ -23,9 +22,7 @@ const findGithubTeamFormController = {
     const github = query?.github
     const redirectLocation = query?.redirectLocation
 
-    const searchGithubTeamsResponse = githubSearch
-      ? await searchGithubTeams(githubSearch)
-      : null
+    const searchGithubTeamsResponse = await fetchAllGithubTeams()
     const githubTeams = searchGithubTeamsResponse ?? []
 
     const isEdit = cdpTeam?.isEdit
