@@ -1,7 +1,4 @@
-import {
-  commonServiceExtensions,
-  provideNotFoundIfPrototypeExtension
-} from '#server/common/helpers/ext/extensions.js'
+import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
 import { serviceOwnerOrAdminUserScope } from '#server/common/constants/scopes.js'
 import { makeNotificationControllers } from '#server/common/helpers/notifications/make-notification-controllers.js'
