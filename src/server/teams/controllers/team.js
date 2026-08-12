@@ -4,9 +4,6 @@ import { scopes, teamIdValidation } from '@defra/cdp-validation-kit'
 
 import { transformTeamToSummary } from '../transformers/team-to-summary.js'
 import { entitiesToDetailedList } from '../transformers/entities-to-detailed-list.js'
-import { librariesToDetailedList } from '../transformers/libraries-to-detailed-list.js'
-import { templatesToDetailedList } from '../transformers/templates-to-detailed-list.js'
-import { fetchTeamRepositories } from '../helpers/fetch/fetchers.js'
 import { fetchEntities } from '../../common/helpers/fetch/fetch-entities.js'
 import { transformTeamUsersToRows } from '../transformers/team-users-to-rows.js'
 import { fetchCdpTeam } from '../../admin/teams/helpers/fetch/fetchers.js'
@@ -42,12 +39,6 @@ const teamController = {
       fetchEntities({ type: 'TestSuite', teamIds: teamId })
     ])
 
-    const hasGitHub = Boolean(team?.github)
-
-    const { libraries, templates } = hasGitHub
-      ? await fetchTeamRepositories(teamId)
-      : {}
-
     return h.view('teams/views/team', {
       pageTitle: `${team.name} Team`,
       summaryList: transformTeamToSummary({
@@ -61,8 +52,6 @@ const teamController = {
       }),
       services: entitiesToDetailedList('services', teamsServices),
       testSuites: entitiesToDetailedList('test-suites', teamTestSuites),
-      libraries: librariesToDetailedList(libraries),
-      templates: templatesToDetailedList(templates),
       team,
       userIsServiceOwner,
       isServiceOwnerOrAdmin,

@@ -11,7 +11,6 @@ import {
 import { cdpUserFixture } from '../../__fixtures__/admin/cdp-user.js'
 
 vi.mock('./helpers/fetch/fetch-cdp-teams.js')
-vi.mock('./helpers/fetch/fetchers.js')
 vi.mock('../common/helpers/auth/get-user-session.js')
 vi.mock('../common/helpers/fetch/fetch-entities.js')
 vi.mock('../admin/users/helpers/fetch/fetchers.js')

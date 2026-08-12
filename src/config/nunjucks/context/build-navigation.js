@@ -84,14 +84,6 @@ async function buildNavigation(request, userSession) {
       }
     },
     {
-      text: 'Utilities',
-      href: request.routeLookup('utilities/templates'),
-      current: request?.path?.includes('/utilities'),
-      attributes: {
-        'data-testid': 'nav-utilities'
-      }
-    },
-    {
       text: 'Teams',
       href: request.routeLookup('teams'),
       current:
