@@ -1,5 +1,4 @@
 import { config } from '#config/config.js'
-import { removeNil } from '#server/common/helpers/remove-nil.js'
 import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 
 const userServiceBackendUrl = config.get('userServiceBackendUrl')

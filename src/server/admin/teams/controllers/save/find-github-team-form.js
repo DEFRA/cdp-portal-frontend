@@ -25,9 +25,7 @@ const findGithubTeamFormController = {
     const searchGithubTeamsResponse = await fetchAllGithubTeams()
     const githubTeams = searchGithubTeamsResponse ?? []
 
-    const isEdit = cdpTeam?.isEdit
     const heading = 'Find Defra GitHub Team'
-    const updateOrCreate = isEdit ? 'Edit' : 'Create'
 
     return h.view('admin/teams/views/save/github-team-form', {
       pageTitle: heading,
@@ -51,7 +49,7 @@ const findGithubTeamFormController = {
           href: '/admin/teams'
         },
         {
-          text: updateOrCreate
+          text: 'Create'
         }
       ]
     })

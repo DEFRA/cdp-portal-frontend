@@ -8,9 +8,6 @@ const teamDetailsFormController = {
     const redirectLocation = query?.redirectLocation
 
     const cdpTeam = request.app.getStepData()
-    const isEdit = cdpTeam?.isEdit
-
-    const updateOrCreate = isEdit ? 'Edit' : 'Create'
 
     const alertEnvironmentsCheckboxes = getEnvironments(
       request.auth.credentials?.scope
@@ -20,16 +17,16 @@ const teamDetailsFormController = {
         text: formatText(env),
         checked:
           cdpTeam.alertEnvironments?.includes(env) === true ||
-          (env === environments.prod.kebabName && !isEdit) // prod checked by default when creating new team
+          env === environments.prod.kebabName // prod checked by default when creating new team
       }
     })
 
     return h.view('admin/teams/views/save/team-details-form', {
-      pageTitle: `${updateOrCreate} Team`,
+      pageTitle: 'Create Team',
       formButtonText: redirectLocation ? 'Save' : 'Next',
       redirectLocation,
       pageHeading: {
-        text: isEdit ? 'Edit' : 'Create New'
+        text: 'Create New'
       },
       alertEnvironmentsCheckboxes,
       splitPaneBreadcrumbs: [
@@ -42,7 +39,7 @@ const teamDetailsFormController = {
           href: '/admin/teams'
         },
         {
-          text: updateOrCreate
+          text: 'Create'
         }
       ]
     })
