@@ -32,7 +32,7 @@
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
           <p class="govuk-!-margin-bottom-2">
-            Team information and the services, test-suites, templates and libraries they own
+            Team information and the services and test-suites they own
           </p>
 
           {{ govukSummaryList(summaryList) }}
@@ -69,7 +69,7 @@
   </div>
 
   <div class="govuk-grid-row app-grid-row--stretch govuk-!-margin-top-2 govuk-!-margin-bottom-6">
-    <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
+    <div class="govuk-grid-column-one-half-from-desktop-wide govuk-grid-column--slim">
       {% call appPanel() %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
@@ -93,7 +93,7 @@
       {% endcall %}
     </div>
 
-    <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
+    <div class="govuk-grid-column-one-half-from-desktop-wide govuk-grid-column--slim">
       {% call appPanel() %}
         <section>
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
@@ -117,37 +117,6 @@
       {% endcall %}
     </div>
 
-    <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
-      {% call appPanel() %}
-        <section>
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-            {{ "Template" | pluralise(templates.items | length) }}
-          </h2>
-
-          {% if templates.items | length %}
-            {{ appDetailedList(templates) }}
-          {% else %}
-            <p>This team has no templates</p>
-          {% endif %}
-        </section>
-      {% endcall %}
-    </div>
-
-    <div class="govuk-grid-column-one-quarter-from-desktop-wide govuk-grid-column--slim">
-      {% call appPanel() %}
-        <section>
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">
-            {{ "Library" | pluralise(libraries.items | length) }}
-          </h2>
-
-          {% if libraries.items | length %}
-            {{ appDetailedList(libraries) }}
-          {% else %}
-            <p>This team has no libraries</p>
-          {% endif %}
-        </section>
-      {% endcall %}
-    </div>
   </div>
 
 {% endblock %}

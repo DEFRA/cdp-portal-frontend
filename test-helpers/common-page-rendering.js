@@ -25,10 +25,8 @@ import {
   cdpTeamBeesFixture,
   cdpTeamFixture
 } from '../src/__fixtures__/admin/cdp-team.js'
-import { fetchTeamRepositories } from '#server/teams/helpers/fetch/fetchers.js'
 import { teamMicroserviceEntitiesFixture } from '../src/__fixtures__/teams/micro-services.js'
 import { teamTestSuitesEntitiesFixture } from '../src/__fixtures__/teams/test-suites.js'
-import { teamRepositoriesFixture } from '../src/__fixtures__/teams/repositories.js'
 import { fetchCdpUser } from '#server/admin/users/helpers/fetch/fetchers.js'
 import { cdpUserFixture } from '../src/__fixtures__/admin/cdp-user.js'
 import { fetchCdpTeam } from '#server/admin/teams/helpers/fetch/fetchers.js'
@@ -123,7 +121,6 @@ export function mockCommonTeamCalls() {
     }
   })
 
-  fetchTeamRepositories.mockResolvedValue?.(teamRepositoriesFixture)
 }
 
 function mockTestSuiteEntityCall(repositoryName, status) {

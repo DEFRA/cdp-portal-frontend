@@ -43,12 +43,6 @@ const buildPrimaryNav = ({
     attributes: { 'data-testid': 'nav-test-suites' }
   },
   {
-    current: path.includes('/utilities'),
-    text: 'Utilities',
-    href: '/utilities/templates',
-    attributes: { 'data-testid': 'nav-utilities' }
-  },
-  {
     current: path.includes('/teams') && !path.includes('admin'),
     text: 'Teams',
     href: '/teams',
@@ -201,7 +195,8 @@ describe('#buildNavigation', () => {
               attributes: { 'data-testid': 'nav-create' }
             }
           ],
-          primary: buildPrimaryNav({ includeRequests: true })
+          primary: buildPrimaryNav({ includeRequests: true }),
+          admin: undefined
         })
       })
     })

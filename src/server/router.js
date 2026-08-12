@@ -17,7 +17,6 @@ import { serveStaticFiles } from './plugins/serve-static-files.js'
 import { services } from './services/routes.js'
 import { teams } from './teams/routes.js'
 import { testSuites } from './test-suites/routes.js'
-import { utilities } from './utilities/routes.js'
 import { repositories } from './repositories/routes.js'
 import { userProfile } from './user-profile/routes.js'
 import { styleGuide } from './style-guide/routes.js'
@@ -47,7 +46,6 @@ export const router = {
         teams,
         testSuites,
         userProfile,
-        utilities,
         styleGuide
       ])
 
