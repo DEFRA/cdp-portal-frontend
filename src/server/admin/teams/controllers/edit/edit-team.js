@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { editTeam } from '../../helpers/fetch/fetchers.js'
+import { editTeam } from '#server/admin/teams/helpers/fetch/fetchers.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import Boom from '@hapi/boom'
 import { teamIdValidation } from '@defra/cdp-validation-kit'
@@ -42,10 +42,8 @@ const editTeamController = {
       })
     }
 
-    console.log(payload, sanitisedPayload)
     try {
-      const resp = await editTeam(request, teamId, sanitisedPayload)
-      console.log(resp.payload)
+      await editTeam(request, teamId, sanitisedPayload)
 
       request.yar.flash(sessionNames.notifications, {
         text: 'Team updated',
