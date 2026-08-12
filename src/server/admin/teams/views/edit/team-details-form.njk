@@ -1,0 +1,149 @@
+{% extends "admin/teams/layouts/team-details.njk" %}
+
+{% block formContent %}
+
+  <form action="/admin/teams/{{teamId}}/edit"  method="post" data-js="app-form-errors">
+    <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+    <input type="hidden" name="redirectLocation" value="{{ redirectLocation }}"/>
+
+    {% call govukFieldset() %}
+
+      {{ govukInput({
+        label: {
+          text: "Team name",
+          classes: "app-label"
+        },
+        id: "name",
+        name: "name",
+        classes: "app-input app-input--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.name,
+        errorMessage: errorMessageHelper(formErrors.name.message)
+      }) }}
+
+      {{ govukTextarea({
+        label: {
+          text: "Description (optional)",
+          classes: "app-label"
+        },
+        id: "description",
+        name: "description",
+        classes: "app-textarea app-textarea--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.description,
+        errorMessage: errorMessageHelper(formErrors.description.message)
+      }) }}
+
+      {{ appAutocomplete({
+        id: "github",
+        name: "github",
+        label: {
+          text: "GitHub team",
+          classes: "app-label"
+        },
+        suggestions: githubTeams,
+        value: formValues.github
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Service Code (optional)",
+          classes: "app-label"
+        },
+        id: "serviceCode",
+        name: "serviceCode",
+        hint: {
+          text: "A service code consists of 3 uppercase letters",
+          classes: "app-hint"
+        },
+        classes: "app-input app-input--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.serviceCode,
+        errorMessage: errorMessageHelper(formErrors.serviceCode.message)
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Delivery Group Id (optional)",
+          classes: "app-label"
+        },
+        id: "deliveryGroupId",
+        name: "deliveryGroupId",
+        hint: {
+          text: "The Delivery Group is accountable for this team and its services",
+          classes: "app-hint"
+        },
+        classes: "app-input app-input--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.deliveryGroupId,
+        errorMessage: errorMessageHelper(formErrors.deliveryGroupId.message)
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Alert Emails (optional)",
+          classes: "app-label"
+        },
+        id: "alertEmailAddresses",
+        name: "alertEmailAddresses",
+        hint: {
+          text: "Comma seperated list of email addresses",
+          classes: "app-hint"
+        },
+        classes: "app-input app-input--wide",
+        formGroup: {
+          classes: "app-form-group app-form-group-js"
+        },
+        attributes: {
+          "data-1p-ignore": ""
+        },
+        value: formValues.alertEmailAddresses,
+        errorMessage: errorMessageHelper(formErrors.alertEmailAddresses.message)
+      }) }}
+
+      {{ govukCheckboxes({
+        name: "alertEnvironments",
+        classes: "govuk-checkboxes--small",
+        fieldset: {
+          legend: {
+            text: "Alert Environments (optional)",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: alertEnvironmentsCheckboxes
+      }) }}
+
+
+
+    {% endcall %}
+
+    <div class="govuk-button-group">
+      {{ govukButton({
+        classes: "app-button",
+        text: formButtonText
+      }) }}
+    </div>
+  </form>
+
+{% endblock %}

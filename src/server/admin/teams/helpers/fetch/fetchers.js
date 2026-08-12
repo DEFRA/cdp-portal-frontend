@@ -17,20 +17,9 @@ async function addMemberToTeam(request, teamId, userId) {
 
 function editTeam(request, teamId, payload) {
   const endpoint = `${userServiceBackendUrl}/teams/${teamId}`
-
   return request.authedFetchJson(endpoint, {
     method: 'patch',
-    payload: {
-      ...removeNil({
-        name: payload.name,
-        serviceCodes: payload.serviceCodes,
-        alertEmailAddresses: payload.alertEmailAddresses,
-        alertEnvironments: payload.alertEnvironments
-      }),
-      description: payload.description ?? null,
-      github: payload.github ?? null,
-      deliveryGroupId: payload.deliveryGroupId ?? null
-    }
+    payload
   })
 }
 
