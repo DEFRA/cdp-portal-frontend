@@ -120,7 +120,6 @@ export function mockCommonTeamCalls() {
       return teamTestSuitesEntitiesFixture
     }
   })
-
 }
 
 function mockTestSuiteEntityCall(repositoryName, status) {
