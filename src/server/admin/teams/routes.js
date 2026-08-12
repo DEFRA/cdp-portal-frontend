@@ -8,7 +8,7 @@ import { removeMemberController } from './controllers/remove/remove-member.js'
 import { confirmRemoveMemberController } from './controllers/remove/confirm-remove-member.js'
 import { addMemberController } from './controllers/add/add-member.js'
 import { addMemberFormController } from './controllers/add/add-member-form.js'
-import { editTeamController } from './controllers/save/edit-team.js'
+import { editTeamController } from './controllers/edit/edit-team.js'
 import { startCreateTeamController } from './controllers/save/start-create-team.js'
 import { createTeamController } from './controllers/save/create-team.js'
 import { findGithubTeamController } from './controllers/save/find-github-team.js'
@@ -22,7 +22,7 @@ import { confirmDeleteTeamController } from './controllers/delete/confirm-delete
 import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
 import { formSteps, urlTemplates } from './helpers/form/steps.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
-import { startEditTeamController } from './controllers/save/start-edit-team.js'
+import { editTeamFormController } from '#server/admin/teams/controllers/edit/edit-team-form.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -81,19 +81,9 @@ const adminTeams = {
               ...teamSummaryController
             },
             {
-              method: 'POST',
-              path: '/admin/teams/edit',
-              ...editTeamController
-            },
-            {
               method: 'GET',
               path: '/admin/teams/create',
               ...startCreateTeamController
-            },
-            {
-              method: 'GET',
-              path: '/admin/teams/{teamId}/edit',
-              ...startEditTeamController
             }
           ].map(adminScope)
         }
@@ -140,6 +130,16 @@ const adminTeams = {
             method: 'GET',
             path: '/admin/teams/{teamId}',
             ...teamController
+          },
+          {
+            method: 'GET',
+            path: '/admin/teams/{teamId}/edit',
+            ...editTeamFormController
+          },
+          {
+            method: 'POST',
+            path: '/admin/teams/{teamId}/edit',
+            ...editTeamController
           }
         ].map(adminScope)
       )
