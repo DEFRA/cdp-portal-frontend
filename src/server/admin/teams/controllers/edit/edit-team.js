@@ -21,7 +21,7 @@ const editTeamController = {
     const name = payload.name
     const description = payload.description || undefined
     const deliveryGroupId = payload.deliveryGroupId || undefined
-    const serviceCodes = [payload.serviceCode] || undefined
+    const serviceCodes = payload.serviceCode ? [payload.serviceCode] : undefined
     const github = payload.github || undefined
     const alertEmailAddresses = payload.alertEmailAddresses
       ? payload.alertEmailAddresses.split(/\s*,\s*/)
