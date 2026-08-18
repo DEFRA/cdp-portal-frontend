@@ -51,10 +51,7 @@
   list-style: none;
 }
 
-// The last actions item no longer picks up the standard item spacing from
-// `.govuk-service-navigation__item:not(:last-child)` since it's now the
-// last child of its own list, so add the gap back before the admin block.
-// (Harmless trailing space when there's no admin block to follow.)
+// Trailing space when there's admin block to separate it.
 .app-navigation__actions {
   @include govuk-responsive-margin(3, $direction: right);
 }
