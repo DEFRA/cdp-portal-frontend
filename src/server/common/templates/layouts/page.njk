@@ -65,11 +65,18 @@
 
 {% set mainClasses = "app-main-wrapper" %}
 
+{% set navigationStart %}
+  <div class="app-navigation__primary">
+{% endset %}
+
 {% set navigationEnd %}
-  <ul class="app-navigation__actions">
-    {% for item in navigation.actions %}
-      {{ appServiceNavLi(item) }}
-    {% endfor %}
+  </div>
+  <div class="app-navigation__end">
+    <ul class="app-navigation__actions">
+      {% for item in navigation.actions %}
+        {{ appServiceNavLi(item) }}
+      {% endfor %}
+    </ul>
 
     {% if navigation.admin | length %}
       <ul class="app-navigation__admin">
@@ -78,7 +85,7 @@
         {% endfor %}
       </ul>
     {% endif %}
-  </ul>
+  </div>
 {% endset %}
 
 {% block headIcons %}
@@ -129,6 +136,7 @@
     navigationClasses: "app-navigation",
     navigation: navigation.primary,
     slots: {
+      navigationStart: navigationStart,
       navigationEnd: navigationEnd
     }
   }) }}
