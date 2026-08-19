@@ -42,12 +42,31 @@
   }
 }
 
+.app-navigation__primary,
+.app-navigation__end,
 .app-navigation__actions,
 .app-navigation__admin {
   padding: 0;
   margin: 0;
   list-style: none;
-  display: contents;
+}
+
+// Trailing space when there's admin block to separate it.
+.app-navigation__actions {
+  @include govuk-responsive-margin(3, $direction: right);
+}
+
+// Matches the breakpoint GOV.UK's own service navigation styles use to
+// switch .govuk-service-navigation__list from a stacked mobile menu to a
+// horizontal, wrapping flex row.
+@include govuk-media-query($from: tablet) {
+  .app-navigation__primary,
+  .app-navigation__end,
+  .app-navigation__actions,
+  .app-navigation__admin {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 @include govuk-media-query($from: desktop-big) {
@@ -56,19 +75,12 @@
     width: 100%;
 
     .govuk-service-navigation__list {
-      flex-wrap: nowrap;
       width: 100%;
+      justify-content: space-between;
     }
   }
 
-  .app-navigation__actions {
-    display: flex;
-    margin-left: auto;
-    list-style: none;
-  }
-
   .app-navigation__admin {
-    display: inline-block;
     position: relative;
     padding-left: govuk-spacing(3);
     padding-right: govuk-spacing(1);
