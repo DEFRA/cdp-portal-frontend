@@ -26,15 +26,28 @@
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-quarter">
 
-              <ul class="govuk-list govuk-list--bullet">
-                <li><a href="./">/</a></li>
+              {% call appPanel({ isInverse: true }) %}
 
-                <li>
-                  <ul class="govuk-list govuk-list--bullet">
-                    <li><a href="./migrations">migrations</a></li>
-                  </ul>
-                </li>
-              </ul>
+                <ul class="govuk-list govuk-list--bullet" style="height: 28rem;">
+                  <li style="list-style-type: disclosure-open;">
+                    <span style="display: flex; gap: 5px;">{{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<a href="./">/</a></span>
+
+                    <ul class="govuk-list govuk-list--bullet">
+                      <li style="list-style-type: disclosure-open;">
+                        <span style="display: flex; gap: 5px;">{{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<strong><a href="./migrations">migrations</a></strong></span>
+
+                        <ul class="govuk-list govuk-list--bullet">
+                          <li style="list-style-type: disclosure-closed;">
+                            <span style="display: flex; gap: 5px;">{{ appFolderIcon({ classes: "app-icon--small" }) }}<a href="./migrations/batch-one">batch-one</a></span>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+
+                  </li>
+                </ul>
+
+              {% endcall %}
 
             </div>
 
@@ -51,20 +64,33 @@
                   ],
                   rows: [
                     [ { html: "<span style='display: flex; gap: 5px;'>" + appOpenFolderIcon({ classes: "app-icon--small" }) + "<a href='/'>..</a>" + "</span>", colspan: 5 } ],
-                    [ { html: "<span style='display: flex; gap: 5px;'>" + appFolderIcon({ classes: "app-icon--small" }) + "<a href='/'>batch-one</a>" + "</span>", colspan: 4 }, { html: '' } ],
-                    [ { html: "<span style='display: flex; gap: 5px;'>" + appFileIcon({ classes: "app-icon--small" }) + "my-file.json" + "</span>" }, { text: '12.5K' }, { text: '2026-07-04:10:35:43' }, { text: '2026-07-08:13:42:42' }, { html: '' } ]
+                    [ { html: "<span style='display: flex; gap: 5px;'>" + appFolderIcon({ classes: "app-icon--small" }) + "<a href='/'>batch-one</a>" + "</span>", colspan: 4 }, { html: '<a class="app-link app-link--underline" href="/">Rename</a>&nbsp;&nbsp;<a class="app-link app-link--underline" href="/">Move</a>&nbsp;&nbsp;<a class="app-link app-link--underline" href="/">Delete</a>' } ],
+                    [ { html: "<span style='display: flex; gap: 5px;'>" + appFileIcon({ classes: "app-icon--small" }) + "my-file.json" + "</span>" }, { text: '12.5K' }, { text: '2026-07-04:10:35:43' }, { text: '2026-07-08:13:42:42' }, { html: '<a class="app-link app-link--underline" href="/">Download</a>&nbsp;&nbsp;<a class="app-link app-link--underline" href="/">Rename</a>&nbsp;&nbsp;<a class="app-link app-link--underline" href="/">Move</a>&nbsp;&nbsp;<a class="app-link app-link--underline" href="/">Delete</a>' } ]
                   ]
                 }) }}
 
-                {{ govukFileUpload({
-                  id: "file-upload-1",
-                  name: "fileUpload1",
-                  label: {
-                    html: "Upload files to <strong>/migrations</strong>"
-                  },
-                  javascript: true,
-                  multiple: true
-                }) }}
+                <form action="/upload" method="post">
+                  <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+                  <input type="hidden" name="teamId" value="{{ create.teamId }}" />
+
+                  {{ govukFileUpload({
+                    id: "file-upload-1",
+                    name: "fileUpload1",
+                    label: {
+                      html: "Upload files to <strong>/migrations</strong>"
+                    },
+                    javascript: true,
+                    multiple: true
+                  }) }}
+
+                  {{ appButton({
+                    text: "Upload",
+                    loader: {
+                      name: "upload-button"
+                    }
+                  }) }}
+
+                </form>
 
             </div>
           </div>
