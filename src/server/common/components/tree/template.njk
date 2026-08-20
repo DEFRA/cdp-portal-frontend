@@ -1,0 +1,52 @@
+{% from "panel/macro.njk" import appPanel %}
+
+{% macro renderNode(node) %}
+  {% set hasChildNodes = node.nodes and node.nodes.length != 0 %}
+  {% set content = node.html | safe if node.html else node.text %}
+
+  <li style="list-style-type: {{ 'disclosure-open' if hasChildNodes else 'disclosure-closed' }};">
+   {{ content }}
+
+   {% if hasChildNodes %}
+    {{ renderNodes(node.nodes) }}
+   {% endif %}
+  </li>
+{% endmacro %}
+
+{% macro renderNodes(nodes) %}
+  <ul class="govuk-list govuk-list--bullet">
+    {% for node in nodes %}
+      {{ renderNode(node) }}
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% call appPanel({ isInverse: true }) %}
+
+  {{ renderNodes(params.nodes) }}
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li style="list-style-type: disclosure-open;">
+      <span style="display: flex; gap: 5px;"><a href="./">/</a></span>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li style="list-style-type: disclosure-open;">
+          <span style="display: flex; gap: 5px;"><a href="./exports">exports</a></span>
+        </li>
+
+        <li style="list-style-type: disclosure-open;">
+          <span style="display: flex; gap: 5px;"><strong><a href="./imports">imports</a></strong></span>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li style="list-style-type: disclosure-closed;">
+              <span style="display: flex; gap: 5px;"><a href="./imports/batch-one">batch-one</a></span>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+
+    </li>
+  </ul>
+
+{% endcall %}
