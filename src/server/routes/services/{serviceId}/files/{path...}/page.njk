@@ -29,7 +29,7 @@
 
               {% call appPanel({ isInverse: true }) %}
 
-                <ul class="govuk-list govuk-list--bullet" style="height: 32rem;">
+                <ul class="govuk-list govuk-list--bullet" style="height: 27rem;">
                   <li style="list-style-type: disclosure-open;">
                     <span style="display: flex; gap: 5px;">{{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<a href="./">/</a></span>
 
@@ -74,7 +74,7 @@
                   ]
                 }) }}
 
-                <!--<form action="/upload" method="post">
+                <form action="/upload" method="post">
                   <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
                   <input type="hidden" name="teamId" value="{{ create.teamId }}" />
 
@@ -82,7 +82,7 @@
                     id: "file-upload-1",
                     name: "fileUpload1",
                     label: {
-                      html: "Upload files to <strong>/migrations</strong>"
+                      html: "Upload files to <strong>/imports</strong>"
                     },
                     javascript: true,
                     multiple: true
@@ -95,9 +95,9 @@
                     }
                   }) }}
 
-                </form>-->
+                </form>
 
-                {% call appPanel({ withHighlight: true }) %}
+                <!--{% call appPanel({ withHighlight: true }) %}
 
                   <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Uploading 2 files</h3>
 
@@ -134,7 +134,7 @@
                     ]
                   }) }}
 
-                {% endcall %}
+                {% endcall %}-->
 
             </div>
           </div>
