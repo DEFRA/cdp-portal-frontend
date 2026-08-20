@@ -1,7 +1,5 @@
 import { config } from '#config/config.js'
-import {
-  ListObjectsV2Command
-} from '@aws-sdk/client-s3'
+import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 
 // TODO: Use real bucket / call BE
 const bucket = config.get('documentation.bucket')
@@ -19,7 +17,9 @@ export async function listPathContents(request, path) {
 
     if (!name.includes('/')) {
       acc[name] = {
-        ...obj,
+        path: obj.Key,
+        size: obj.Size,
+        modifiedDate: obj.LastModified,
         name,
         isFolder: false
       }
@@ -28,32 +28,24 @@ export async function listPathContents(request, path) {
     const folder = name.split('/').at(0)
 
     if (acc[folder]) {
-      acc[folder].size += obj.size
-      if (obj.LastModified > acc[folder].LastModified) {
-        acc[folder].LastModified = obj.LastModified
+      acc[folder].size += obj.Size
+      if (obj.LastModified > acc[folder].modifiedDate) {
+        acc[folder].modifiedDate = obj.LastModified
       }
     } else {
       acc[folder] = {
-        ...obj,
+        path: `${path}${folder}`,
+        size: obj.Size,
+        modifiedDate: obj.LastModified,
         name: folder,
         isFolder: true
       }
     }
 
-
-
     return acc
   }, {})
 
-  const result = Object.values(aggregatedFolders).map((obj) => {
-    return {
-      path: obj.Key,
-      name: obj.name,
-      size: obj.Size,
-      modifiedDate: obj.LastModified,
-      isFolder: obj.isFolder
-    }
-  })
-
-  return result
+  return Object.values(aggregatedFolders).sort(
+    (a, b) => b.isFolder - a.isFolder || a.name.localeCompare(b.name, 'en-GB')
+  )
 }
