@@ -45,16 +45,22 @@ export default async function (request, h) {
       },
       {
         text: 'Files',
-        href: path === '' ? undefined : `/services/${entity.name}/files`
+        href: path === '/' ? undefined : `/services/${entity.name}/files`
       },
-      ...buildFsBreadcrumbs(entity, relativePathParts)
+      ...buildFsBreadcrumbs(entity, path, relativePathParts)
     ]
   }
 }
 
-function buildFsBreadcrumbs(entity, relativePathParts) {
-  return relativePathParts.map((path) => ({
-    text: path,
-    href: `/services/${entity.name}/files/${relativePathParts.join('/')}`
-  }))
+function buildFsBreadcrumbs(entity, path, relativePathParts) {
+  return relativePathParts.map((part, index) => {
+    const partPath = '/' + relativePathParts.slice(0, index + 1).join('/')
+    return {
+      text: part,
+      href:
+        partPath === path
+          ? undefined
+          : `/services/${entity.name}/files${partPath}`
+    }
+  })
 }
