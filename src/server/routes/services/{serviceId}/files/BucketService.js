@@ -8,14 +8,12 @@ const bucket = config.get('documentation.bucket')
 export async function listPathContents(request, path) {
   const command = new ListObjectsV2Command({
     Bucket: bucket,
-    Prefix: path !== '/' ? path : undefined
+    Prefix: path.replace('/', '')
   })
   const response = await request.s3Client.send(command)
 
-  console.table(response.Contents)
-
   const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
-    const name = path !== '' ? obj.Key.replace(`${path}/`, '') : obj.Key
+    const name = path !== '/' ? obj.Key.replace(`${path.replace('/', '')}/`, '') : obj.Key
 
     if (!name.includes('/')) {
       acc[name] = {
@@ -35,7 +33,7 @@ export async function listPathContents(request, path) {
         }
       } else {
         acc[folder] = {
-          path: path !== '/' ? `/${path}/${folder}` : `/${folder}`,
+          path: path !== '/' ? `${path}/${folder}` : `/${folder}`,
           size: obj.Size,
           modifiedDate: obj.LastModified,
           name: folder,
