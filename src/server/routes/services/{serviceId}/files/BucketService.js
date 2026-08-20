@@ -14,14 +14,46 @@ export async function listPathContents(request, path) {
   })
   const response = await request.s3Client.send(command)
 
-  return (response.Contents ?? []).map((obj) => {
+  const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
     const name = obj.Key.replace(path, '')
 
+    if (!name.includes('/')) {
+      acc[name] = {
+        ...obj,
+        name,
+        isFolder: false
+      }
+    }
+
+    const folder = name.split('/').at(0)
+
+    if (acc[folder]) {
+      acc[folder].size += obj.size
+      if (obj.LastModified > acc[folder].LastModified) {
+        acc[folder].LastModified = obj.LastModified
+      }
+    } else {
+      acc[folder] = {
+        ...obj,
+        name: folder,
+        isFolder: true
+      }
+    }
+
+
+
+    return acc
+  }, {})
+
+  const result = Object.values(aggregatedFolders).map((obj) => {
     return {
       path: obj.Key,
-      name,
+      name: obj.name,
       size: obj.Size,
-      modifiedDate: obj.LastModified.toUTCString()
+      modifiedDate: obj.LastModified,
+      isFolder: obj.isFolder
     }
   })
+
+  return result
 }
