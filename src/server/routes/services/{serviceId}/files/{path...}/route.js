@@ -1,8 +1,13 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import Boom from '@hapi/boom'
-import { join, sep } from 'node:path/posix'
 import { listPathContents } from '../BucketService.js'
+
+const byteValueNumberFormatter = Intl.NumberFormat('en', {
+  notation: 'compact',
+  style: 'unit',
+  unit: 'byte',
+  unitDisplay: 'narrow'
+})
 
 export const ext = [...commonServiceExtensions]
 
@@ -16,30 +21,21 @@ export const options = {
   }
 }
 
-
 export default async function (request, h) {
-  const { path = '' } = request.params
+  const { path = '/' } = request.params
   const entity = request.app.entity
 
-  const serviceBasePath = '' // join('/uploads', entity.name) // TODO: Use actual S3 path
-  const fsPath = join(serviceBasePath, path, sep)
+  const contents = await listPathContents(request, path)
 
-  // Protect against path traversal attack
-  if (!fsPath.startsWith(serviceBasePath)) {
-    return Boom.boomify(Boom.badRequest('Invalid path'))
-  }
-
-  const contents = await listPathContents(request, fsPath)
-
-  console.log(fsPath)
+  console.log(path)
   console.log(contents)
 
   const contentsRows = contents.map((obj) => [
     {
-      html: obj.isFolder ? `<a href="${obj.path}">${obj.name}</a>` : obj.name
+      html: obj.isFolder ? `<a href="/services/${entity.name}/files${obj.path}">${obj.name}</a>` : obj.name
     },
     {
-      text: obj.size
+      text: byteValueNumberFormatter.format(obj.size)
     },
     {
       text: obj.modifiedDate
@@ -49,16 +45,9 @@ export default async function (request, h) {
     }
   ])
 
-  const relativePathParts = [
-    '/',
-    ...fsPath
-      .replace(serviceBasePath, '')
-      .split('/')
-      .filter((seg) => seg !== '')
-  ]
+  const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
 
   console.log(relativePathParts)
-
 
   // rows: [
   //   [ { html: "<span style='display: flex; gap: 5px;'>" + appOpenFolderIcon({ classes: "app-icon--small" }) + "<a href='/'>..</a>" + "</span>" }, { text: '- - -' }, { text: '2026-07-08:13:42:42' }, { html: '<a class="app-link app-link--underline" href="/">New Folder</a>'} ],
@@ -79,6 +68,10 @@ export default async function (request, h) {
         text: entity.name,
         href: `/services/${entity.name}`
       },
+      {
+        text: 'Files',
+        href: path === '' ? undefined : `/services/${entity.name}/files`
+      },
       ...buildFsBreadcrumbs(entity, relativePathParts)
     ]
   }
@@ -86,7 +79,7 @@ export default async function (request, h) {
 
 function buildFsBreadcrumbs(entity, relativePathParts) {
   return relativePathParts.map((path) => ({
-    text: path === '/' ? 'Files' : path,
-    href: `/services/${entity.name}${relativePathParts.join('/')}`
+    text: path,
+    href: `/services/${entity.name}/files/${relativePathParts.join('/')}`
   }))
 }
