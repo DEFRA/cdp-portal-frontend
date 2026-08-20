@@ -6,6 +6,7 @@
 {% from "progress/macro.njk" import appProgress %}
 {% from "time/macro.njk" import appTime %}
 {% from "tag/macro.njk" import appTag %}
+{% from "tree/macro.njk" import appTree %}
 
 {% macro renderRows(rows, content) %}
   {% for obj in content %}
@@ -87,33 +88,14 @@
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-quarter">
 
-              {% call appPanel({ isInverse: true }) %}
-
-                <ul class="govuk-list govuk-list--bullet" style="height: 27rem;">
-                  <li style="list-style-type: disclosure-open;">
-                    <span style="display: flex; gap: 5px;">{{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<a href="./">/</a></span>
-
-                    <ul class="govuk-list govuk-list--bullet">
-                      <li style="list-style-type: disclosure-open;">
-                        <span style="display: flex; gap: 5px;">{{ appFolderIcon({ classes: "app-icon--small" }) }}<a href="./exports">exports</a></span>
-                      </li>
-
-                      <li style="list-style-type: disclosure-open;">
-                        <span style="display: flex; gap: 5px;">{{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<strong><a href="./imports">imports</a></strong></span>
-
-                        <ul class="govuk-list govuk-list--bullet">
-                          <li style="list-style-type: disclosure-closed;">
-                            <span style="display: flex; gap: 5px;">{{ appFolderIcon({ classes: "app-icon--small" }) }}<a href="./imports/batch-one">batch-one</a></span>
-                          </li>
-                        </ul>
-                      </li>
-
-                    </ul>
-
-                  </li>
-                </ul>
-
-              {% endcall %}
+              {{ appTree({ nodes: [
+                { html: '/', nodes: [
+                  { html: 'exports', nodes: [] },
+                  { html: 'imports', nodes: [
+                    { html: 'batch-one' }
+                  ] }
+                ] }
+              ] }) }}
 
             </div>
 
