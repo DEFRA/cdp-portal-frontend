@@ -4,18 +4,22 @@
 {% from "icons/folder-icon/macro.njk" import appFolderIcon %}
 {% from "icons/open-folder-icon/macro.njk" import appOpenFolderIcon %}
 {% from "progress/macro.njk" import appProgress %}
+{% from "time/macro.njk" import appTime %}
+{% from "tag/macro.njk" import appTag %}
 
 {% macro renderRows(rows, content) %}
   {% for obj in content %}
     {{ rows.push([
       {
-        html: '<a href="/services/{{ entity.name }}/files{{ obj.path }}">{{ obj.name }}</a>'
+        html: renderName(obj)
       },
       {
         text: sizeFormat(obj.size)
       },
       {
-        html: ''
+        html: appTime({
+          datetime: obj.modifiedDate
+        })
       },
       {
         html: ''
@@ -23,6 +27,19 @@
     ])}}
   {% endfor %}
 {% endmacro %}
+
+{% macro renderName(obj) %}
+  <span style='display: flex; gap: 5px;'>
+    {% if obj.isFolder %}
+      {{ appFolderIcon({ classes: "app-icon--small" }) }}
+      <a href="/services/{{ entity.name }}/files{{ obj.path }}">{{ obj.name }}</a>
+    {% else %}
+      {{ appFileIcon({ classes: "app-icon--small" }) }}
+      {{ obj.name }}
+    {% endif %}
+  </span>
+{% endmacro %}
+
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -79,7 +96,7 @@
             <div class="govuk-grid-column-three-quarters">
 
                 {% set contentsRows = [] %}
-                {% set t = renderRows(contentsRows, contents) %}
+                {% set t = renderRows(contentsRows, folderContents) %}
 
                 {{ govukTable({
                   classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
