@@ -58,7 +58,8 @@ export default async function (request, h) {
   return {
     entity,
     relativePathParts,
-    contentsRows,
+    contents,
+    sizeFormat: byteValueNumberFormatter.format,
     breadcrumbs: [
       {
         text: 'Services',

@@ -5,6 +5,25 @@
 {% from "icons/open-folder-icon/macro.njk" import appOpenFolderIcon %}
 {% from "progress/macro.njk" import appProgress %}
 
+{% macro renderRows(rows, content) %}
+  {% for obj in content %}
+    {{ rows.push([
+      {
+        html: '<a href="/services/{{ entity.name }}/files{{ obj.path }}">{{ obj.name }}</a>'
+      },
+      {
+        text: sizeFormat(obj.size)
+      },
+      {
+        html: ''
+      },
+      {
+        html: ''
+      }
+    ])}}
+  {% endfor %}
+{% endmacro %}
+
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Files",
@@ -58,6 +77,9 @@
             </div>
 
             <div class="govuk-grid-column-three-quarters">
+
+                {% set contentsRows = [] %}
+                {% set t = renderRows(contentsRows, contents) %}
 
                 {{ govukTable({
                   classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
