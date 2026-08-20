@@ -12,6 +12,8 @@ export async function listPathContents(request, path) {
   })
   const response = await request.s3Client.send(command)
 
+  console.table(response.Contents)
+
   const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
     const name = path !== '' ? obj.Key.replace(`${path}/`, '') : obj.Key
 
@@ -23,22 +25,22 @@ export async function listPathContents(request, path) {
         name,
         isFolder: false
       }
-    }
-
-    const folder = name.split('/').at(0)
-
-    if (acc[folder]) {
-      acc[folder].size += obj.Size
-      if (obj.LastModified > acc[folder].modifiedDate) {
-        acc[folder].modifiedDate = obj.LastModified
-      }
     } else {
-      acc[folder] = {
-        path: path !== '/' ? `/${path}/${folder}` : `/${folder}`,
-        size: obj.Size,
-        modifiedDate: obj.LastModified,
-        name: folder,
-        isFolder: true
+      const folder = name.split('/').at(0)
+
+      if (acc[folder]) {
+        acc[folder].size += obj.Size
+        if (obj.LastModified > acc[folder].modifiedDate) {
+          acc[folder].modifiedDate = obj.LastModified
+        }
+      } else {
+        acc[folder] = {
+          path: path !== '/' ? `/${path}/${folder}` : `/${folder}`,
+          size: obj.Size,
+          modifiedDate: obj.LastModified,
+          name: folder,
+          isFolder: true
+        }
       }
     }
 
