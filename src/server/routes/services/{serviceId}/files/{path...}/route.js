@@ -25,29 +25,10 @@ export default async function (request, h) {
   const { path = '/' } = request.params
   const entity = request.app.entity
 
-  const contents = await listPathContents(request, path)
+  const folderContents = await listPathContents(request, path)
 
-  console.log(path)
-  console.log(contents)
-
-  const contentsRows = contents.map((obj) => [
-    {
-      html: obj.isFolder ? `<a href="/services/${entity.name}/files${obj.path}">${obj.name}</a>` : obj.name
-    },
-    {
-      text: byteValueNumberFormatter.format(obj.size)
-    },
-    {
-      text: obj.modifiedDate
-    },
-    {
-      html: ''
-    }
-  ])
 
   const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
-
-  console.log(relativePathParts)
 
   // rows: [
   //   [ { html: "<span style='display: flex; gap: 5px;'>" + appOpenFolderIcon({ classes: "app-icon--small" }) + "<a href='/'>..</a>" + "</span>" }, { text: '- - -' }, { text: '2026-07-08:13:42:42' }, { html: '<a class="app-link app-link--underline" href="/">New Folder</a>'} ],
@@ -58,7 +39,7 @@ export default async function (request, h) {
   return {
     entity,
     relativePathParts,
-    contents,
+    folderContents,
     sizeFormat: byteValueNumberFormatter.format,
     breadcrumbs: [
       {
