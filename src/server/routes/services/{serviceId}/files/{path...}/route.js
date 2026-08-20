@@ -38,6 +38,7 @@ export default async function (request, h) {
 
   return {
     entity,
+    path,
     relativePathParts,
     folderContents,
     sizeFormat: byteValueNumberFormatter.format,

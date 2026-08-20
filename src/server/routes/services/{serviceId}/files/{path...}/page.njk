@@ -28,6 +28,23 @@
   {% endfor %}
 {% endmacro %}
 
+{% macro renderParentRow(rows, path) %}
+    {{ rows.push([
+      {
+        html: renderParentName(path)
+      },
+      {
+        text: '- - -'
+      },
+      {
+        text: '- - -'
+      },
+      {
+        html: ''
+      }
+    ]) }}
+{% endmacro %}
+
 {% macro renderName(obj) %}
   <span style='display: flex; gap: 5px;'>
     {% if obj.isFolder %}
@@ -37,6 +54,13 @@
       {{ appFileIcon({ classes: "app-icon--small" }) }}
       {{ obj.name }}
     {% endif %}
+  </span>
+{% endmacro %}
+
+{% macro renderParentName(path) %}
+  <span style='display: flex; gap: 5px;'>
+    {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
+    <a href="/services/{{ entity.name }}/files/{{ path }}">..</a>
   </span>
 {% endmacro %}
 
@@ -96,6 +120,7 @@
             <div class="govuk-grid-column-three-quarters">
 
                 {% set contentsRows = [] %}
+                {% set t = renderParentRow(contentsRows, path) %}
                 {% set t = renderRows(contentsRows, folderContents) %}
 
                 {{ govukTable({
@@ -117,7 +142,7 @@
                     id: "file-upload-1",
                     name: "fileUpload1",
                     label: {
-                      html: "Upload files to <strong>/imports</strong>"
+                      html: "Upload files to <strong>" + path + "</strong>"
                     },
                     javascript: true,
                     multiple: true
