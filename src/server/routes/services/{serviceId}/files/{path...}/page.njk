@@ -60,7 +60,7 @@
 {% macro renderParentName(path) %}
   <span style='display: flex; gap: 5px;'>
     {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
-    <a href="/services/{{ entity.name }}/files/{{ path }}">..</a>
+    <a href="/services/{{ entity.name }}/files{{ path }}">..</a>
   </span>
 {% endmacro %}
 
