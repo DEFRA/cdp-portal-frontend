@@ -36,7 +36,7 @@ export default async function (request, h) {
 
   const contentsRows = contents.map((obj) => [
     {
-      html: obj.name
+      html: obj.isFolder ? `<a href="${obj.path}">${obj.name}</a>` : obj.name
     },
     {
       text: obj.size
