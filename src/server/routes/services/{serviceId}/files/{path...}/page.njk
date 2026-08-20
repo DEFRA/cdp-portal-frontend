@@ -28,10 +28,10 @@
   {% endfor %}
 {% endmacro %}
 
-{% macro renderParentRow(rows, path) %}
+{% macro renderParentRow(rows, relativePathParts) %}
     {{ rows.push([
       {
-        html: renderParentName(path)
+        html: renderParentName(relativePathParts)
       },
       {
         text: '- - -'
@@ -57,10 +57,10 @@
   </span>
 {% endmacro %}
 
-{% macro renderParentName(path) %}
+{% macro renderParentName(relativePathParts) %}
   <span style='display: flex; gap: 5px;'>
     {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
-    <a href="/services/{{ entity.name }}/files{{ path }}">..</a>
+    <a href="/services/{{ entity.name }}/files/{{ relativePathParts.slice(0, -1) | join('/') }}">..</a>
   </span>
 {% endmacro %}
 
@@ -120,7 +120,9 @@
             <div class="govuk-grid-column-three-quarters">
 
                 {% set contentsRows = [] %}
-                {% set t = renderParentRow(contentsRows, path) %}
+                {% if path !== '/' %}
+                  {% set t = renderParentRow(contentsRows, relativePathParts) %}
+                {% endif %}
                 {% set t = renderRows(contentsRows, folderContents) %}
 
                 {{ govukTable({
