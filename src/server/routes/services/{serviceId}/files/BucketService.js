@@ -101,7 +101,7 @@ export async function getFileUrl(request, path) {
   const command = new GetObjectCommand({
     Bucket: bucket,
     Key: path.replace('/', ''),
-    ResponseContentDisposition: 'attachment'
+    ResponseContentDisposition: 'attachment' // NOTE: does not work on local with mock AWS
   })
 
   const url = await getSignedUrl(request.s3Client, command, {

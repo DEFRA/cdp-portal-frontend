@@ -23,7 +23,7 @@
         })
       },
       {
-        html: ''
+        html: renderActions(obj)
       }
     ])}}
   {% endfor %}
@@ -41,9 +41,17 @@
         text: '- - -'
       },
       {
-        html: ''
+        html: '- - -'
       }
     ]) }}
+{% endmacro %}
+
+{% macro renderActions(obj) %}
+  {% if obj.isFolder %}
+    - - -
+  {% else %}
+    <a href="/services/{{ entity.name }}/files-download/{{ obj.path }}" target="_blank">Download</a>
+  {% endif %}
 {% endmacro %}
 
 {% macro renderName(obj) %}
@@ -53,7 +61,7 @@
       <a href="/services/{{ entity.name }}/files{{ obj.path }}">{{ obj.name }}</a>
     {% else %}
       {{ appFileIcon({ classes: "app-icon--small" }) }}
-      <a href="/services/{{ entity.name }}/files-download/{{ obj.path }}" target="_blank">{{ obj.name }}</a>
+      {{ obj.name }}
     {% endif %}
   </span>
 {% endmacro %}
