@@ -1,7 +1,13 @@
 .app-tree--open {
-  list-style-type: disclosure-open
+  list-style-type: disclosure-open;
 }
 
 .app-tree--closed {
-  list-style-type: disclosure-closed
+  list-style-type: disclosure-closed;
+}
+
+.app-tree--label {
+  display: flex;
+  gap: 5px;
+  align-items: flex-end;
 }
