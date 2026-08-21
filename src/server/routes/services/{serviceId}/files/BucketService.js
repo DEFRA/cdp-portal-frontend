@@ -66,11 +66,17 @@ export async function folderTreeForPath(request, path) {
       const currentPath = `/${folderParts.slice(0, index).join('/')}`
 
       if (path.includes(currentPath)) {
+        const folderPath = currentPath === '/' ? `/${part}` : `${currentPath}/${part}`
+
         if (!nested[part]) {
-          nested[part] = {}
+          nested[part] = {
+            path: folderPath,
+            subFolders: {},
+            isCurrent: path === folderPath
+          }
         }
 
-        nested = nested[part]
+        nested = nested[part].subFolders
 
       }
     })
