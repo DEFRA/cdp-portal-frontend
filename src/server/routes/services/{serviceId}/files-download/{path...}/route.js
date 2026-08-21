@@ -1,6 +1,6 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes, statusCodes } from '@defra/cdp-validation-kit'
-import { getFile } from '../../files/BucketService.js'
+import { getFile, getFileUrl } from '../../files/BucketService.js'
 
 export const ext = [...commonServiceExtensions]
 
@@ -16,10 +16,14 @@ export const options = {
 export default async function (request, h) {
   const path = `/${request.params.path ?? ''}`
 
-  const s3File = await getFile(request, path)
+  // const s3File = await getFile(request, path)
 
-  return h
-    .response(s3File.Body)
-    .header('Content-Type', s3File.ContentType)
-    .code(statusCodes.ok)
+  // return h
+  //   .response(s3File.Body)
+  //   .header('Content-Type', s3File.ContentType)
+  //   .code(statusCodes.ok)
+  //
+  const url = await getFileUrl(request, path)
+
+  return h.redirect(url)
 }
