@@ -25,28 +25,4 @@
 
   {{ renderNodes(params.nodes) }}
 
-  <ul class="govuk-list govuk-list--bullet">
-    <li style="list-style-type: disclosure-open;">
-      <span style="display: flex; gap: 5px;"><a href="./">/</a></span>
-
-      <ul class="govuk-list govuk-list--bullet">
-        <li style="list-style-type: disclosure-open;">
-          <span style="display: flex; gap: 5px;"><a href="./exports">exports</a></span>
-        </li>
-
-        <li style="list-style-type: disclosure-open;">
-          <span style="display: flex; gap: 5px;"><strong><a href="./imports">imports</a></strong></span>
-
-          <ul class="govuk-list govuk-list--bullet">
-            <li style="list-style-type: disclosure-closed;">
-              <span style="display: flex; gap: 5px;"><a href="./imports/batch-one">batch-one</a></span>
-            </li>
-          </ul>
-        </li>
-
-      </ul>
-
-    </li>
-  </ul>
-
 {% endcall %}
