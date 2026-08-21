@@ -65,15 +65,21 @@
   </span>
 {% endmacro %}
 
-{% macro renderFolderNodeHtml(label) %}
-  <span style="display: flex; gap: 5px;">{{ appFolderIcon({ classes: "app-icon--small" }) }}<a href="./exports">{{ label }}</a></span>
+{% macro renderFolderNodeHtml(label, path, isCurrent) %}
+  <span style="display: flex; gap: 5px;">
+    {% if isCurrent %}
+      {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<strong>{{ label }}</strong>
+    {% else %}
+      {{ appFolderIcon({ classes: "app-icon--small" }) }}<a href="/services/{{ entity.name }}/files{{ path }}">{{ label }}</a>
+    {% endif %}
+  </span>
 {% endmacro %}
 
 {% macro renderFolderNodes(nodes, folderTree) %}
-  {% for folder, subFolders in folderTree %}
+  {% for folderName, folder in folderTree %}
     {% set subNodes = [] %}
-    {% set t = renderFolderNodes(subNodes, subFolders) %}
-    {{ nodes.push({ html: renderFolderNodeHtml(folder), nodes: subNodes }) }}
+    {% set t = renderFolderNodes(subNodes, folder.subFolders) %}
+    {{ nodes.push({ html: renderFolderNodeHtml(folderName, folder.path, folder.isCurrent), nodes: subNodes }) }}
   {% endfor %}
 {% endmacro %}
 
@@ -101,7 +107,9 @@
             <div class="govuk-grid-column-one-quarter">
 
               {% set folderNodes = [] %}
-              {% set t = renderFolderNodes(folderNodes, folderTree) %}
+              {% set t = renderFolderNodes(folderNodes, {
+                '/': { path: '/', subFolders: folderTree, isCurrent: path == '/' }
+              }) %}
               {{ appTree({ nodes: folderNodes }) }}
 
             </div>
