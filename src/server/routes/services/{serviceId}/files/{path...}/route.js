@@ -21,7 +21,7 @@ export const options = {
   }
 }
 
-export default async function (request, h) {
+export default async function (request) {
   const path = `/${request.params.path ?? ''}`
   const entity = request.app.entity
 
