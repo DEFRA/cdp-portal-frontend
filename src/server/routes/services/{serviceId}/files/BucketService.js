@@ -62,13 +62,18 @@ export async function folderTreeForPath(request, path) {
     const folderParts = obj.Key.split('/').slice(0, -1)
 
     let nested = acc
-    for (const part of folderParts) {
-      if (!nested[part]) {
-        nested[part] = {}
-      }
+    folderParts.forEach((part, index) => {
+      const currentPath = `/${folderParts.slice(0, index).join('/')}`
 
-      nested = nested[part]
-    }
+      if (path.includes(currentPath)) {
+        if (!nested[part]) {
+          nested[part] = {}
+        }
+
+        nested = nested[part]
+
+      }
+    })
 
     return acc
   }, {})
