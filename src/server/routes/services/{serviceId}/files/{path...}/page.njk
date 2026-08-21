@@ -65,8 +65,16 @@
   </span>
 {% endmacro %}
 
-{% macro renderNode() %}
-  <span style="display: flex; gap: 5px;">{{ appFolderIcon({ classes: "app-icon--small" }) }}<a href="./exports">/</a></span>
+{% macro renderFolderNodeHtml(label) %}
+  <span style="display: flex; gap: 5px;">{{ appFolderIcon({ classes: "app-icon--small" }) }}<a href="./exports">{{ label }}</a></span>
+{% endmacro %}
+
+{% macro renderFolderNodes(nodes, folderTree) %}
+  {% for folder, subFolders in folderTree %}
+    {% set subNodes = [] %}
+    {% set t = renderFolderNodes(subNodes, subFolders) %}
+    {{ nodes.push({ html: renderFolderNodeHtml(folder), nodes: subNodes }) }}
+  {% endfor %}
 {% endmacro %}
 
 
@@ -92,14 +100,9 @@
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-quarter">
 
-              {{ appTree({ nodes: [
-                { html: renderNode(), nodes: [
-                  { html: 'exports', nodes: [] },
-                  { html: 'imports', nodes: [
-                    { html: 'batch-one' }
-                  ] }
-                ] }
-              ] }) }}
+              {% set folderNodes = [] %}
+              {% set t = renderFolderNodes(folderNodes, folderTree) %}
+              {{ appTree({ nodes: folderNodes }) }}
 
             </div>
 
