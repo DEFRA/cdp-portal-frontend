@@ -65,12 +65,18 @@
   </span>
 {% endmacro %}
 
-{% macro renderFolderNodeHtml(label, path, isCurrent) %}
+{% macro renderFolderNodeHtml(label, path, isCurrent, isOpen) %}
   <span style="display: flex; gap: 5px;">
     {% if isCurrent %}
       {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<strong>{{ label }}</strong>
     {% else %}
-      {{ appFolderIcon({ classes: "app-icon--small" }) }}<a href="/services/{{ entity.name }}/files{{ path }}">{{ label }}</a>
+      {% if isOpen %}
+        {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
+      {% else %}
+        {{ appFolderIcon({ classes: "app-icon--small" }) }}
+      {% endif %}
+
+      <a href="/services/{{ entity.name }}/files{{ path }}">{{ label }}</a>
     {% endif %}
   </span>
 {% endmacro %}
@@ -79,7 +85,7 @@
   {% for folderName, folder in folderTree %}
     {% set subNodes = [] %}
     {% set t = renderFolderNodes(subNodes, folder.subFolders) %}
-    {{ nodes.push({ html: renderFolderNodeHtml(folderName, folder.path, folder.isCurrent), nodes: subNodes }) }}
+    {{ nodes.push({ html: renderFolderNodeHtml(folderName, folder.path, folder.isCurrent, folder.subFolders | length), nodes: subNodes }) }}
   {% endfor %}
 {% endmacro %}
 

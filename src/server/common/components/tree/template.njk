@@ -4,7 +4,7 @@
   {% set hasChildNodes = node.nodes and node.nodes.length != 0 %}
   {% set content = node.html | safe if node.html else node.text %}
 
-  <li style="list-style-type: {{ 'disclosure-open' if hasChildNodes else 'disclosure-closed' }};">
+  <li class="{{ 'app-tree--open' if hasChildNodes else 'app-tree--closed' }}">
    {{ content }}
 
    {% if hasChildNodes %}
