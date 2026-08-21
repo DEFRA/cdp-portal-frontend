@@ -53,7 +53,7 @@
       <a href="/services/{{ entity.name }}/files{{ obj.path }}">{{ obj.name }}</a>
     {% else %}
       {{ appFileIcon({ classes: "app-icon--small" }) }}
-      {{ obj.name }}
+      <a href="/services/{{ entity.name }}/files-download/{{ obj.path }}" target="_blank">{{ obj.name }}</a>
     {% endif %}
   </span>
 {% endmacro %}

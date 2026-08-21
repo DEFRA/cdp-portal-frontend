@@ -1,5 +1,5 @@
 import { config } from '#config/config.js'
-import { ListObjectsV2Command } from '@aws-sdk/client-s3'
+import { GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3'
 
 // TODO: Use real bucket / call BE
 const bucket = config.get('documentation.bucket')
@@ -85,4 +85,13 @@ export async function folderTreeForPath(request, path) {
   }, {})
 
   return aggregatedFolders
+}
+
+export async function getFile(request, path) {
+  const command = new GetObjectCommand({
+    Bucket: bucket,
+    Key: path.replace('/', '')
+  })
+
+  return request.s3Client.send(command)
 }
