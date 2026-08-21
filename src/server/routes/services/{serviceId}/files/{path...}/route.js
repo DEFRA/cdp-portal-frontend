@@ -39,6 +39,7 @@ export default async function (request, h) {
     path,
     relativePathParts,
     folderContents,
+    folderTree,
     sizeFormat: byteValueNumberFormatter.format,
     breadcrumbs: [
       {
