@@ -1,6 +1,6 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { listPathContents } from '../BucketService.js'
+import { folderTreeForPath, listPathContents } from '../BucketService.js'
 
 const byteValueNumberFormatter = Intl.NumberFormat('en', {
   notation: 'compact',
@@ -25,8 +25,14 @@ export default async function (request, h) {
   const path = `/${request.params.path ?? ''}`
   const entity = request.app.entity
 
-  const folderContents = await listPathContents(request, path)
+  const [folderContents, folderTree] = await Promise.all([
+    listPathContents(request, path),
+    folderTreeForPath(request, path)
+  ])
+
   const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
+
+  console.log(folderTree)
 
   return {
     entity,
