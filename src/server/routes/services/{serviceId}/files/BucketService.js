@@ -13,7 +13,8 @@ export async function listPathContents(request, path) {
   const response = await request.s3Client.send(command)
 
   const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
-    const name = path !== '/' ? obj.Key.replace(`${path.replace('/', '')}/`, '') : obj.Key
+    const name =
+      path !== '/' ? obj.Key.replace(`${path.replace('/', '')}/`, '') : obj.Key
 
     if (!name.includes('/')) {
       acc[name] = {
@@ -48,4 +49,29 @@ export async function listPathContents(request, path) {
   return Object.values(aggregatedFolders).sort(
     (a, b) => b.isFolder - a.isFolder || a.name.localeCompare(b.name, 'en-GB')
   )
+}
+
+// TODO: handle pagination
+export async function folderTreeForPath(request, path) {
+  const command = new ListObjectsV2Command({
+    Bucket: bucket
+  })
+  const response = await request.s3Client.send(command)
+
+  const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
+    const folderParts = obj.Key.split('/').slice(0, -1)
+
+    let nested = acc
+    for (const part of folderParts) {
+      if (!nested[part]) {
+        nested[part] = {}
+      }
+
+      nested = nested[part]
+    }
+
+    return acc
+  }, {})
+
+  return aggregatedFolders
 }

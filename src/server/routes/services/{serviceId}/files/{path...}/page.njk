@@ -65,6 +65,10 @@
   </span>
 {% endmacro %}
 
+{% macro renderNode() %}
+  <span style="display: flex; gap: 5px;">{{ appFolderIcon({ classes: "app-icon--small" }) }}<a href="./exports">/</a></span>
+{% endmacro %}
+
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -89,7 +93,7 @@
             <div class="govuk-grid-column-one-quarter">
 
               {{ appTree({ nodes: [
-                { html: '/', nodes: [
+                { html: renderNode(), nodes: [
                   { html: 'exports', nodes: [] },
                   { html: 'imports', nodes: [
                     { html: 'batch-one' }
