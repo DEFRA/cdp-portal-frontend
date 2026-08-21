@@ -1,5 +1,6 @@
 import { config } from '#config/config.js'
 import { GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3'
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
 // TODO: Use real bucket / call BE
 const bucket = config.get('documentation.bucket')
@@ -66,7 +67,8 @@ export async function folderTreeForPath(request, path) {
       const currentPath = `/${folderParts.slice(0, index).join('/')}`
 
       if (path.includes(currentPath)) {
-        const folderPath = currentPath === '/' ? `/${part}` : `${currentPath}/${part}`
+        const folderPath =
+          currentPath === '/' ? `/${part}` : `${currentPath}/${part}`
 
         if (!nested[part]) {
           nested[part] = {
@@ -77,7 +79,6 @@ export async function folderTreeForPath(request, path) {
         }
 
         nested = nested[part].subFolders
-
       }
     })
 
@@ -94,4 +95,19 @@ export async function getFile(request, path) {
   })
 
   return request.s3Client.send(command)
+}
+
+export async function getFileUrl(request, path) {
+  const command = new GetObjectCommand({
+    Bucket: bucket,
+    Key: path.replace('/', ''),
+    ResponseContentDisposition: 'attachment'
+  })
+
+  const url = await getSignedUrl(request.s3Client, command, {
+    expiresIn: 10,
+    unsignableHeaders: new Set(['content-disposition'])
+  })
+
+  return url
 }
