@@ -47,7 +47,7 @@
 {% endmacro %}
 
 {% macro renderName(obj) %}
-  <span style='display: flex; gap: 5px;'>
+  <span class="app-tree--label">
     {% if obj.isFolder %}
       {{ appFolderIcon({ classes: "app-icon--small" }) }}
       <a href="/services/{{ entity.name }}/files{{ obj.path }}">{{ obj.name }}</a>
@@ -59,14 +59,14 @@
 {% endmacro %}
 
 {% macro renderParentName(relativePathParts) %}
-  <span style='display: flex; gap: 5px;'>
+  <span class="app-tree--label">
     {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
     <a href="/services/{{ entity.name }}/files/{{ relativePathParts.slice(0, -1) | join('/') }}">..</a>
   </span>
 {% endmacro %}
 
 {% macro renderFolderNodeHtml(label, path, isCurrent, isOpen) %}
-  <span style="display: flex; gap: 5px;">
+  <span class="app-tree--label">
     {% if isCurrent %}
       {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<strong>{{ label }}</strong>
     {% else %}
