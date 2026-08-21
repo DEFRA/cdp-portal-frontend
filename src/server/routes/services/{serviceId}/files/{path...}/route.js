@@ -32,8 +32,6 @@ export default async function (request, h) {
 
   const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
 
-  console.log(folderTree)
-
   return {
     entity,
     path,
