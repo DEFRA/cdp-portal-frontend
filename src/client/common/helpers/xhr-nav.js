@@ -18,7 +18,7 @@ export default async function xhrNav($module) {
 
 async function nav(event) {
   if (
-    (!event.target) instanceof HTMLAnchorElement ||
+    !(event.target instanceof HTMLAnchorElement) ||
     !event.target.href ||
     event.target.dataset?.noXhrLink
   ) {
