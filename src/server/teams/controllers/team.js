@@ -4,7 +4,10 @@ import { scopes, teamIdValidation } from '@defra/cdp-validation-kit'
 
 import { transformTeamToSummary } from '../transformers/team-to-summary.js'
 import { entitiesToDetailedList } from '../transformers/entities-to-detailed-list.js'
-import { fetchEntities } from '../../common/helpers/fetch/fetch-entities.js'
+import {
+  fetchServices,
+  fetchTestSuites
+} from '../../common/helpers/fetch/fetch-entities.js'
 import { transformTeamUsersToRows } from '../transformers/team-users-to-rows.js'
 import { fetchCdpTeam } from '../../admin/teams/helpers/fetch/fetchers.js'
 
@@ -35,8 +38,12 @@ const teamController = {
 
     const [team, teamsServices, teamTestSuites] = await Promise.all([
       fetchCdpTeam(teamId),
-      fetchEntities({ type: 'Microservice', teamIds: teamId }),
-      fetchEntities({ type: 'TestSuite', teamIds: teamId })
+      fetchServices({
+        teamIds: teamId
+      }),
+      fetchTestSuites({
+        teamIds: teamId
+      })
     ])
 
     return h.view('teams/views/team', {
