@@ -65,7 +65,7 @@ function buildFsBreadcrumbs(entity, path, relativePathParts) {
       href:
         partPath === path
           ? undefined
-          : `/services/${entity.name}/files${partPath}`
+          : `/services/${entity.name}/files${encodeURI(partPath)}`
     }
   })
 }

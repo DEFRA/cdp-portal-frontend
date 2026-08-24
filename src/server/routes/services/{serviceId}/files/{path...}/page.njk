@@ -50,7 +50,7 @@
   {% if obj.isFolder %}
     - - -
   {% else %}
-    <a href="/services/{{ entity.name }}/files-download/{{ obj.path }}" target="_blank">Download</a>
+    <a href="/services/{{ entity.name }}/files-download/{{ obj.path | urlencode }}" target="_blank">Download</a>
   {% endif %}
 {% endmacro %}
 
@@ -58,7 +58,7 @@
   <span class="app-tree--label">
     {% if obj.isFolder %}
       {{ appFolderIcon({ classes: "app-icon--small" }) }}
-      <a href="/services/{{ entity.name }}/files/{{ obj.path }}">{{ obj.name }}</a>
+      <a href="/services/{{ entity.name }}/files/{{ obj.path | urlencode }}">{{ obj.name }}</a>
     {% else %}
       {{ appFileIcon({ classes: "app-icon--small" }) }}
       {{ obj.name }}
@@ -69,7 +69,7 @@
 {% macro renderParentName(relativePathParts) %}
   <span class="app-tree--label">
     {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
-    <a href="/services/{{ entity.name }}/files/{{ relativePathParts.slice(0, -1) | join('/') }}">..</a>
+    <a href="/services/{{ entity.name }}/files/{{ relativePathParts.slice(0, -1) | join('/') | urlencode }}">..</a>
   </span>
 {% endmacro %}
 
@@ -84,7 +84,7 @@
         {{ appFolderIcon({ classes: "app-icon--small" }) }}
       {% endif %}
 
-      <a href="/services/{{ entity.name }}/files/{{ path }}">{{ label }}</a>
+      <a href="/services/{{ entity.name }}/files/{{ path | urlencode }}">{{ label }}</a>
     {% endif %}
   </span>
 {% endmacro %}

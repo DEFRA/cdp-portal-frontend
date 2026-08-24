@@ -7,15 +7,16 @@ const bucket = config.get('documentation.bucket')
 
 // TODO: handle pagination
 export async function listPathContents(request, path) {
+  const s3Path = formatAsS3Path(path, true)
+
   const command = new ListObjectsV2Command({
     Bucket: bucket,
-    Prefix: path === '' ? undefined : formatAsS3Path(path, true)
+    Prefix: s3Path === '/' ? undefined : s3Path
   })
   const response = await request.s3Client.send(command)
 
   const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
-    const name =
-      path !== '' ? obj.Key.replace(`${path.replace('/', '')}/`, '') : obj.Key
+    const name = s3Path === '/' ? obj.Key : obj.Key.replace(s3Path, '')
 
     if (!name.includes('/')) {
       acc[name] = {
