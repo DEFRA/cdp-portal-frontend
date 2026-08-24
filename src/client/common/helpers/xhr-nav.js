@@ -8,16 +8,20 @@ import { xhrRequest } from './xhr.js'
  * Add `data-no-xhr-link="true"` to a link to opt out
  */
 
-export default async function xhrNav($link) {
-  if (!($link instanceof HTMLElement)) {
+export default async function xhrNav($module) {
+  if (!($module instanceof HTMLElement)) {
     return
   }
 
-  $link.addEventListener('click', nav)
+  $module.addEventListener('click', nav)
 }
 
 async function nav(event) {
-  if (event.target.dataset?.noXhrLink) {
+  if (
+    (!event.target) instanceof HTMLAnchorElement ||
+    !event.target.href ||
+    event.target.dataset?.noXhrLink
+  ) {
     return
   }
 
