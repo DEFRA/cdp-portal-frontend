@@ -50,7 +50,7 @@
   {% if obj.isFolder %}
     - - -
   {% else %}
-    <a href="/services/{{ entity.name }}/files-download/{{ obj.path | urlencode }}" target="_blank">Download</a>
+    <a href="/services/{{ entity.name }}/files-download/{{ obj.path | urlencode }}" data-no-xhr-link="true" target="_blank">Download</a>
   {% endif %}
 {% endmacro %}
 
@@ -110,45 +110,49 @@
 {% block tabContent %}
   <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
+      <div class="govuk-grid-column-full" data-js="xhr-nav" >
 
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Files</h2>
           <p class="govuk-!-margin-bottom-6">
             Manage data files assosiated with <strong>{{entity.name}}</strong>, including uploading and downloading.
           </p>
 
-          <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-quarter">
+          {% block xhrContent %}
 
-              {% set folderNodes = [] %}
-              {% set t = renderFolderNodes(folderNodes, {
-                '/': { path: '', subFolders: folderTree, isCurrent: path == '' }
-              }) %}
-              {{ appTree({ nodes: folderNodes }) }}
+            <div class="govuk-grid-row">
+              <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
 
+                {% set folderNodes = [] %}
+                {% set t = renderFolderNodes(folderNodes, {
+                  '/': { path: '', subFolders: folderTree, isCurrent: path == '' }
+                }) %}
+                {{ appTree({ nodes: folderNodes }) }}
+
+              </div>
+
+              <div data-xhr="folder-contents" class="govuk-grid-column-three-quarters">
+
+                  {% set contentsRows = [] %}
+                  {% if path !== '/' %}
+                    {% set t = renderParentRow(contentsRows, relativePathParts) %}
+                  {% endif %}
+                  {% set t = renderRows(contentsRows, folderContents) %}
+
+                  {{ govukTable({
+                    classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
+                    head: [
+                      { text: "Name" },
+                      { text: "Size" },
+                      { text: "Modified" },
+                      { text: "Actions" }
+                    ],
+                    rows: contentsRows
+                  }) }}
+
+              </div>
             </div>
 
-            <div class="govuk-grid-column-three-quarters">
-
-                {% set contentsRows = [] %}
-                {% if path !== '/' %}
-                  {% set t = renderParentRow(contentsRows, relativePathParts) %}
-                {% endif %}
-                {% set t = renderRows(contentsRows, folderContents) %}
-
-                {{ govukTable({
-                  classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
-                  head: [
-                    { text: "Name" },
-                    { text: "Size" },
-                    { text: "Modified" },
-                    { text: "Actions" }
-                  ],
-                  rows: contentsRows
-                }) }}
-
-            </div>
-          </div>
+          {% endblock %}
 
       </div>
     </div>
