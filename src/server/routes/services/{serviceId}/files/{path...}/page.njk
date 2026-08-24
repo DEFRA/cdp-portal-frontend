@@ -58,7 +58,7 @@
   <span class="app-tree--label">
     {% if obj.isFolder %}
       {{ appFolderIcon({ classes: "app-icon--small" }) }}
-      <a href="/services/{{ entity.name }}/files{{ obj.path }}">{{ obj.name }}</a>
+      <a href="/services/{{ entity.name }}/files/{{ obj.path }}">{{ obj.name }}</a>
     {% else %}
       {{ appFileIcon({ classes: "app-icon--small" }) }}
       {{ obj.name }}

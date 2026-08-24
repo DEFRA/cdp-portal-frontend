@@ -22,7 +22,7 @@ export const options = {
 }
 
 export default async function (request) {
-  const path = `/${request.params.path ?? ''}`
+  const { path = '' } = request.params
   const entity = request.app.entity
 
   const [folderContents, folderTree] = await Promise.all([

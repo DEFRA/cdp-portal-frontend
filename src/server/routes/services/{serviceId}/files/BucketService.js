@@ -9,13 +9,13 @@ const bucket = config.get('documentation.bucket')
 export async function listPathContents(request, path) {
   const command = new ListObjectsV2Command({
     Bucket: bucket,
-    Prefix: path.replace('/', '')
+    Prefix: path === '' ? undefined : formatAsS3Path(path, true)
   })
   const response = await request.s3Client.send(command)
 
   const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
     const name =
-      path !== '/' ? obj.Key.replace(`${path.replace('/', '')}/`, '') : obj.Key
+      path !== '' ? obj.Key.replace(`${path.replace('/', '')}/`, '') : obj.Key
 
     if (!name.includes('/')) {
       acc[name] = {
@@ -35,7 +35,7 @@ export async function listPathContents(request, path) {
         }
       } else {
         acc[folder] = {
-          path: path !== '/' ? `${path}/${folder}` : `/${folder}`,
+          path: formatAsS3Path(path !== '' ? `${path}/${folder}` : folder),
           size: obj.Size,
           modifiedDate: obj.LastModified,
           name: folder,
@@ -102,11 +102,15 @@ export async function getFileUrl(request, path) {
   return url
 }
 
-function formatAsS3Path(path = '') {
+function formatAsS3Path(path = '', withTrailingSlash) {
   let result = path
 
   if (result.startsWith('/')) {
-    result = result.repace('/')
+    result = result.replace('/')
+  }
+
+  if (withTrailingSlash && !result.endsWith('/')) {
+    result = `${result}/`
   }
 
   return result
