@@ -50,23 +50,8 @@ export default async function (request) {
         href: `/services/${entity.name}`
       },
       {
-        text: 'Files',
-        href: path === '/' ? undefined : `/services/${entity.name}/files`
-      },
-      ...buildFsBreadcrumbs(entity, path, relativePathParts)
+        text: 'Files'
+      }
     ]
   }
-}
-
-function buildFsBreadcrumbs(entity, path, relativePathParts) {
-  return relativePathParts.map((part, index) => {
-    const partPath = '/' + relativePathParts.slice(0, index + 1).join('/')
-    return {
-      text: part,
-      href:
-        partPath === path
-          ? undefined
-          : `/services/${entity.name}/files${encodeURI(partPath)}`
-    }
-  })
 }
