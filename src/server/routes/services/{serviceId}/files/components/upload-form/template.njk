@@ -1,0 +1,22 @@
+<form action="/upload" method="post">
+  <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+  <input type="hidden" name="teamId" value="{{ create.teamId }}" />
+
+  {{ govukFileUpload({
+    id: "file-upload-1",
+    name: "fileUpload1",
+    label: {
+      html: "Upload files to <strong>" + path + "</strong>"
+    },
+    javascript: true,
+    multiple: true
+  }) }}
+
+  {{ appButton({
+    text: "Upload",
+    loader: {
+      name: "upload-button"
+    }
+  }) }}
+
+</form>
