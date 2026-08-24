@@ -55,6 +55,8 @@ export async function listPathContents(request, path) {
 
 // TODO: handle pagination
 export async function folderTreeForPath(request, path) {
+  const s3Path = formatAsS3Path(path, true)
+
   const command = new ListObjectsV2Command({
     Bucket: bucket
   })
@@ -65,16 +67,22 @@ export async function folderTreeForPath(request, path) {
 
     let nested = acc
     folderParts.forEach((part, index) => {
-      const currentPath = formatAsS3Path(folderParts.slice(0, index).join('/'))
+      const currentPath = formatAsS3Path(
+        folderParts.slice(0, index).join('/'),
+        true
+      )
 
-      if (path.includes(currentPath)) {
-        const folderPath = currentPath === '' ? part : `${currentPath}/${part}`
+      if (s3Path.includes(currentPath)) {
+        const folderPath = formatAsS3Path(
+          currentPath === '/' ? part : `${currentPath}${part}`,
+          true
+        )
 
         if (!nested[part]) {
           nested[part] = {
             path: folderPath,
             subFolders: {},
-            isCurrent: path === folderPath
+            isCurrent: s3Path === folderPath
           }
         }
 

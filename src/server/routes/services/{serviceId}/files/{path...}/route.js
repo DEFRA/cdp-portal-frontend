@@ -39,6 +39,7 @@ export default async function (request) {
     folderContents,
     folderTree,
     sizeFormat: byteValueNumberFormatter.format,
+    pageTile: 'Files',
     breadcrumbs: [
       {
         text: 'Services',
