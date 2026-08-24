@@ -9,7 +9,6 @@ import { xhrRequest } from './xhr.js'
  */
 
 export default async function xhrNav($link) {
-
   if (!($link instanceof HTMLElement)) {
     return
   }
@@ -21,7 +20,6 @@ async function nav(event) {
   if (event.target.dataset?.noXhrLink) {
     return
   }
-
 
   event.preventDefault()
 
