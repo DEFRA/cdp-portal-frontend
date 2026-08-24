@@ -133,7 +133,7 @@
               <div data-xhr="folder-contents" class="govuk-grid-column-three-quarters">
 
                   {% set contentsRows = [] %}
-                  {% if path !== '/' %}
+                  {% if path !== '' %}
                     {% set t = renderParentRow(contentsRows, relativePathParts) %}
                   {% endif %}
                   {% set t = renderRows(contentsRows, folderContents) %}
