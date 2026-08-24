@@ -14,7 +14,7 @@ export const options = {
 }
 
 export default async function (request, h) {
-  const path = `/${request.params.path ?? ''}`
+  const { path } = request.params
 
   const url = await getFileUrl(request, path)
 

@@ -64,11 +64,10 @@ export async function folderTreeForPath(request, path) {
 
     let nested = acc
     folderParts.forEach((part, index) => {
-      const currentPath = `/${folderParts.slice(0, index).join('/')}`
+      const currentPath = formatAsS3Path(folderParts.slice(0, index).join('/'))
 
       if (path.includes(currentPath)) {
-        const folderPath =
-          currentPath === '/' ? `/${part}` : `${currentPath}/${part}`
+        const folderPath = currentPath === '' ? part : `${currentPath}/${part}`
 
         if (!nested[part]) {
           nested[part] = {
@@ -88,19 +87,10 @@ export async function folderTreeForPath(request, path) {
   return aggregatedFolders
 }
 
-export async function getFile(request, path) {
-  const command = new GetObjectCommand({
-    Bucket: bucket,
-    Key: path.replace('/', '')
-  })
-
-  return request.s3Client.send(command)
-}
-
 export async function getFileUrl(request, path) {
   const command = new GetObjectCommand({
     Bucket: bucket,
-    Key: path.replace('/', ''),
+    Key: formatAsS3Path(path),
     ResponseContentDisposition: 'attachment' // NOTE: does not work on local with mock AWS
   })
 
@@ -110,4 +100,14 @@ export async function getFileUrl(request, path) {
   })
 
   return url
+}
+
+function formatAsS3Path(path = '') {
+  let result = path
+
+  if (result.startsWith('/')) {
+    result = result.repace('/')
+  }
+
+  return result
 }
