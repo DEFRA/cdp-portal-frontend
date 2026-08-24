@@ -2,7 +2,7 @@
 @use 'variables/border-radius' as *;
 
 .app-progress {
-  max-width: 300px;
+  max-width: 500px;
   margin-bottom: govuk-spacing(2);
   display: flex;
   align-items: center;
@@ -37,4 +37,5 @@
   flex: govuk-spacing(2);
   margin-left: govuk-spacing(1);
   color: govuk-colour('black', $variant: 'tint-25');
+  text-wrap-mode: nowrap;
 }

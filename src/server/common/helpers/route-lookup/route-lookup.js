@@ -1,6 +1,7 @@
 import qs from 'qs'
 
-import { removeOptionalParam } from './remove-optional-param.js'
+import removeOptionalParam from './remove-optional-param.js'
+import removeWildcardParam from './remove-wildcard-param.js'
 
 function routeLookup(server, id, options = {}) {
   const params = options?.params ?? {}
@@ -17,7 +18,7 @@ function routeLookup(server, id, options = {}) {
       const regex = new RegExp(`{${key}\\??}`, 'gi')
       return pathWithParams.replace(regex, encodeURI(value))
     },
-    removeOptionalParam(path, params)
+    removeWildcardParam(removeOptionalParam(path, params), params)
   )
 
   return (

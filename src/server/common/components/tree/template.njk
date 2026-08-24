@@ -1,0 +1,28 @@
+{% from "panel/macro.njk" import appPanel %}
+
+{% macro renderNode(node) %}
+  {% set hasChildNodes = node.nodes and node.nodes.length != 0 %}
+  {% set content = node.html | safe if node.html else node.text %}
+
+  <li class="{{ 'app-tree--open' if hasChildNodes else 'app-tree--closed' }}">
+   {{ content }}
+
+   {% if hasChildNodes %}
+    {{ renderNodes(node.nodes) }}
+   {% endif %}
+  </li>
+{% endmacro %}
+
+{% macro renderNodes(nodes) %}
+  <ul class="govuk-list govuk-list--bullet">
+    {% for node in nodes %}
+      {{ renderNode(node) }}
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% call appPanel({ isInverse: true }) %}
+
+  {{ renderNodes(params.nodes) }}
+
+{% endcall %}

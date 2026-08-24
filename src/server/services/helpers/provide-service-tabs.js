@@ -65,6 +65,11 @@ async function provideServiceTabs(request, h) {
 
       if (isTestSuite || isFrontend || isBackend) {
         buildTab(response, request, 'services', 'terminal', entityName)
+
+        // TODO: Open to serviceOwners
+        if (isAdmin) {
+          buildTab(response, request, 'services', 'files', entityName)
+        }
       }
     }
 
