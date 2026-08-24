@@ -50,7 +50,7 @@
   {% if obj.isFolder %}
     - - -
   {% else %}
-    <a href="/services/{{ entity.name }}/files-download/{{ obj.path | urlencode }}" target="_blank">Download</a>
+    <a href="/services/{{ entity.name }}/files-download/{{ obj.path | urlencode }}" data-no-xhr-link="true" target="_blank">Download</a>
   {% endif %}
 {% endmacro %}
 
@@ -110,107 +110,49 @@
 {% block tabContent %}
   <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
+      <div class="govuk-grid-column-full" data-js="xhr-nav" >
 
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Files</h2>
           <p class="govuk-!-margin-bottom-6">
             Manage data files assosiated with <strong>{{entity.name}}</strong>, including uploading and downloading.
           </p>
 
-          <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-quarter">
+          {% block xhrContent %}
 
-              {% set folderNodes = [] %}
-              {% set t = renderFolderNodes(folderNodes, {
-                '/': { path: '', subFolders: folderTree, isCurrent: path == '' }
-              }) %}
-              {{ appTree({ nodes: folderNodes }) }}
+            <div class="govuk-grid-row">
+              <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
 
-            </div>
+                {% set folderNodes = [] %}
+                {% set t = renderFolderNodes(folderNodes, {
+                  '/': { path: '', subFolders: folderTree, isCurrent: path == '' }
+                }) %}
+                {{ appTree({ nodes: folderNodes }) }}
 
-            <div class="govuk-grid-column-three-quarters">
+              </div>
 
-                {% set contentsRows = [] %}
-                {% if path !== '/' %}
-                  {% set t = renderParentRow(contentsRows, relativePathParts) %}
-                {% endif %}
-                {% set t = renderRows(contentsRows, folderContents) %}
+              <div data-xhr="folder-contents" class="govuk-grid-column-three-quarters">
 
-                {{ govukTable({
-                  classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
-                  head: [
-                    { text: "Name" },
-                    { text: "Size" },
-                    { text: "Modified" },
-                    { text: "Actions" }
-                  ],
-                  rows: contentsRows
-                }) }}
-
-                <!--<form action="/upload" method="post">
-                  <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-                  <input type="hidden" name="teamId" value="{{ create.teamId }}" />
-
-                  {{ govukFileUpload({
-                    id: "file-upload-1",
-                    name: "fileUpload1",
-                    label: {
-                      html: "Upload files to <strong>" + path + "</strong>"
-                    },
-                    javascript: true,
-                    multiple: true
-                  }) }}
-
-                  {{ appButton({
-                    text: "Upload",
-                    loader: {
-                      name: "upload-button"
-                    }
-                  }) }}
-
-                </form>-->
-
-                <!--{% call appPanel({ withHighlight: true }) %}
-
-                  <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Uploading 2 files</h3>
-
-                  {% call appWarning({
-                    classes: "govuk-!-margin-bottom-5 app-warning--inverse"
-                  }) %}
-                    Do not navigate away from this page while uploading.
-                  {% endcall %}
+                  {% set contentsRows = [] %}
+                  {% if path !== '' %}
+                    {% set t = renderParentRow(contentsRows, relativePathParts) %}
+                  {% endif %}
+                  {% set t = renderRows(contentsRows, folderContents) %}
 
                   {{ govukTable({
-                    classes: "app-table app-table--inverse govuk-!-margin-bottom-3",
+                    classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
                     head: [
                       { text: "Name" },
-                      { text: "Progress" },
+                      { text: "Size" },
+                      { text: "Modified" },
                       { text: "Actions" }
                     ],
-                    rows: [
-                      [
-                        { text: 'big-data-file.sql.gz'},
-                        { html: appProgress({
-                          progress: 45, complete: "450 MB", total: "1000 MB"
-                          })
-                        },
-                        { html: appButton({ text: 'Cancel', classes: 'app-button--small govuk-button--warning' }) }
-                      ],
-                      [
-                        { text: 'small-data-file.sql.gz'},
-                        { html: appProgress({
-                          progress: 100, complete: "100 MB", total: "100 MB"
-                          })
-                        },
-                        { html: appTag({ text: 'Complete', classes: "govuk-tag--green" }) }
-                      ]
-                    ]
+                    rows: contentsRows
                   }) }}
 
-                {% endcall %}-->
-
+              </div>
             </div>
-          </div>
+
+          {% endblock %}
 
       </div>
     </div>

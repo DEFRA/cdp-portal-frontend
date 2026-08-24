@@ -32,6 +32,7 @@ import { initClass, initModules, initModule } from '../common/helpers/init.js'
 import { fetchEnvironments } from '../common/helpers/fetch/autocomplete/fetch-environments.js'
 import autoRefresh from '../common/helpers/auto-refresh.js'
 import searchDependencyName from '../common/helpers/fetch/autocomplete/fetch-search-dependency-name.js'
+import xhrNav from '../common/helpers/xhr-nav.js'
 
 initAll()
 
@@ -104,3 +105,6 @@ initModules('app-tabs', tabs)
 
 // Auto Refresh
 initModules('auto-refresh', autoRefresh, '*=')
+
+// Xhr page navigation
+initModules('xhr-nav', xhrNav)
