@@ -56,10 +56,13 @@ function updateSecretController(entityKind) {
           formErrors: errorDetails
         })
       } else {
-        const selfServiceOpsAddSecretEndpointUrl = `${config.get('selfServiceOpsUrl')}/secrets/add/${serviceId}/${environment}`
+        const useSyncApi = config.get('secrets.useSyncApi')
+        const secretAddEndpointUrl = useSyncApi
+          ? `${config.get('portalBackendUrl')}/secrets/${serviceId}/${environment}/add`
+          : `${config.get('selfServiceOpsUrl')}/secrets/add/${serviceId}/${environment}`
 
         try {
-          await request.authedFetchJson(selfServiceOpsAddSecretEndpointUrl, {
+          await request.authedFetchJson(secretAddEndpointUrl, {
             method: 'post',
             payload: omit(sanitisedPayload, ['button'])
           })
