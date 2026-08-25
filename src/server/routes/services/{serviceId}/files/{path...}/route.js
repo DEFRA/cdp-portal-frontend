@@ -39,6 +39,7 @@ export default async function (request) {
     folderContents,
     folderTree,
     sizeFormat: byteValueNumberFormatter.format,
+    encodePathSegments,
     pageTile: 'Files',
     breadcrumbs: [
       {
@@ -54,4 +55,10 @@ export default async function (request) {
       }
     ]
   }
+}
+
+function encodePathSegments(path) {
+  const parts = path.split('/')
+  const encoded = parts.map((part) => encodeURI(part))
+  return encoded.join('/')
 }
