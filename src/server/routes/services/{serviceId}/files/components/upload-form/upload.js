@@ -32,10 +32,37 @@ async function onSubmit(event) {
   const { ok } = await xhrPostRequest(location.href, payload)
 
   if (ok) {
-    $form.style.display = 'none'
+    startUpload()
   } else {
     clientNotification('Loading failed, please refresh the page')
   }
 
   $form.dataset.isSubmitting = 'false'
 }
+
+const fileSize = 129456
+
+function startUpload() {
+  let progress = 0
+  let bytes = 0
+
+  const interval = setInterval(() => {
+    bytes += 10
+    progress = Math.round((bytes / fileSize) * 100)
+
+    const $progress = document.getElementById(
+      'upload-progress-59112_292802ecca29e95423e18627cf2759da.jpg'
+    )
+    $progress.querySelector('.app-progress__indicator').style.width =
+      `${progress}%`
+
+    $progress.querySelector('.app-progress__readout').textContent =
+      `${bytes} / ${fileSize}`
+
+    if (progress >= 100) {
+      clearInterval(interval)
+    }
+  }, 1)
+}
+
+window.startTest = startUpload
