@@ -27,9 +27,16 @@ function getRefererAsRelativeURL(referer, defaultPath) {
     }
   }
 
+  // A path beginning `//` is a protocol-relative URL, so redirecting to it
+  // would send the user off-site. Backslashes normalise to slashes, so `/\evil`
+  // arrives here as `//evil` and is caught too.
+  if (relative.startsWith('//')) {
+    return defaultPath
+  }
+
   // Don't redirect back to the auth callback page as the content can only be processed once.
   if (relative.startsWith(callbackPath)) {
-    relative = defaultPath
+    return defaultPath
   }
 
   return relative
