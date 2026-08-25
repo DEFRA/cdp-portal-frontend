@@ -80,7 +80,7 @@ function createSecretController(entityKind) {
             type: 'success'
           })
         } catch (error) {
-          request.logger.error({ error }, 'Create secret call failed')
+          request.logger.error(error, 'Create secret call failed')
           request.yar.flash(
             sessionNames.globalValidationFailures,
             error.message
