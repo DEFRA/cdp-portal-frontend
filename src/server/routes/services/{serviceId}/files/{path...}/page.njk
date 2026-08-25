@@ -1,5 +1,4 @@
 {% extends "layouts/tabbed-page.njk" %}
-{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "icons/file-icon/macro.njk" import appFileIcon %}
 {% from "icons/folder-icon/macro.njk" import appFolderIcon %}
 {% from "icons/open-folder-icon/macro.njk" import appOpenFolderIcon %}
@@ -7,6 +6,7 @@
 {% from "time/macro.njk" import appTime %}
 {% from "tag/macro.njk" import appTag %}
 {% from "tree/macro.njk" import appTree %}
+{% from "../components/upload-form/macro.njk" import uploadForm %}
 
 {% macro renderRows(rows, content) %}
   {% for obj in content %}
@@ -50,7 +50,7 @@
   {% if obj.isFolder %}
     - - -
   {% else %}
-    <a href="/services/{{ entity.name }}/files-download/{{ obj.path | urlencode }}" data-no-xhr-link="true" target="_blank">Download</a>
+    <a href="/services/{{ entity.name }}/files-download/{{ encodePathSegments(obj.path) }}" data-no-xhr-link="true" target="_blank">Download</a>
   {% endif %}
 {% endmacro %}
 
@@ -58,7 +58,7 @@
   <span class="app-tree--label">
     {% if obj.isFolder %}
       {{ appFolderIcon({ classes: "app-icon--small" }) }}
-      <a href="/services/{{ entity.name }}/files/{{ obj.path | urlencode }}">{{ obj.name }}</a>
+      <a href="/services/{{ entity.name }}/files/{{ encodePathSegments(obj.path) }}">{{ obj.name }}</a>
     {% else %}
       {{ appFileIcon({ classes: "app-icon--small" }) }}
       {{ obj.name }}
@@ -69,7 +69,7 @@
 {% macro renderParentName(relativePathParts) %}
   <span class="app-tree--label">
     {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
-    <a href="/services/{{ entity.name }}/files/{{ relativePathParts.slice(0, -1) | join('/') | urlencode }}">..</a>
+    <a href="/services/{{ entity.name }}/files/{{ encodePathSegments(relativePathParts.slice(0, -1) | join('/')) }}/">..</a>
   </span>
 {% endmacro %}
 
@@ -84,7 +84,7 @@
         {{ appFolderIcon({ classes: "app-icon--small" }) }}
       {% endif %}
 
-      <a href="/services/{{ entity.name }}/files/{{ path | urlencode }}">{{ label }}</a>
+      <a href="/services/{{ entity.name }}/files/{{ encodePathSegments(path) }}">{{ label }}</a>
     {% endif %}
   </span>
 {% endmacro %}
@@ -148,6 +148,12 @@
                     ],
                     rows: contentsRows
                   }) }}
+
+
+                  {{ uploadForm({
+                    path: path
+                  }) }}
+
 
               </div>
             </div>
