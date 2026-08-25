@@ -33,6 +33,7 @@ import { fetchEnvironments } from '../common/helpers/fetch/autocomplete/fetch-en
 import autoRefresh from '../common/helpers/auto-refresh.js'
 import searchDependencyName from '../common/helpers/fetch/autocomplete/fetch-search-dependency-name.js'
 // import xhrNav from '../common/helpers/xhr-nav.js'
+import upload from '#server/routes/services/{serviceId}/files/components/upload-form/upload.js'
 
 initAll()
 
@@ -109,3 +110,6 @@ initModules('auto-refresh', autoRefresh, '*=')
 // Xhr page navigation
 // TODO: Disabled for now as need to figure out non-standard use of history in current xhr code
 // initModules('xhr-nav', xhrNav)
+
+// File upload
+initModules('file-upload', upload)

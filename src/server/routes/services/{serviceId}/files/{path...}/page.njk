@@ -7,6 +7,8 @@
 {% from "tag/macro.njk" import appTag %}
 {% from "tree/macro.njk" import appTree %}
 {% from "../components/upload-form/macro.njk" import uploadForm %}
+{% from "../components/upload-progress/macro.njk" import uploadProgress %}
+
 
 {% macro renderRows(rows, content) %}
   {% for obj in content %}
@@ -130,8 +132,9 @@
 
               </div>
 
-              <div data-xhr="folder-contents" class="govuk-grid-column-three-quarters">
+              <div class="govuk-grid-column-three-quarters">
 
+                <div data-xhr="folder-contents">
                   {% set contentsRows = [] %}
                   {% if path !== '' %}
                     {% set t = renderParentRow(contentsRows, relativePathParts) %}
@@ -148,13 +151,20 @@
                     ],
                     rows: contentsRows
                   }) }}
+                </div>
 
-
-                  {{ uploadForm({
-                    path: path,
-                    csrfToken: csrfToken
-                  }) }}
-
+                <div data-xhr="file-upload">
+                  {% if filesMeta %}
+                    {{ uploadProgress({
+                      filesMeta: filesMeta
+                    }) }}
+                  {% else %}
+                    {{ uploadForm({
+                      path: path,
+                      csrfToken: csrfToken
+                    }) }}
+                  {% endif %}
+                </div>
 
               </div>
             </div>
