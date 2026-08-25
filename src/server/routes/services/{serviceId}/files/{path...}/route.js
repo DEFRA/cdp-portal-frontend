@@ -62,3 +62,9 @@ function encodePathSegments(path) {
   const encoded = parts.map((part) => encodeURI(part))
   return encoded.join('/')
 }
+
+export async function POST(request, h) {
+  // TODO: Server-side only upload if no client-side JS enabled
+
+  return h.redirect(request.url)
+}
