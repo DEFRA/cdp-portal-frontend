@@ -1,9 +1,25 @@
 {% from "panel/macro.njk" import appPanel %}
 {% from "warning/macro.njk" import appWarning %}
 {% from "progress/macro.njk" import appProgress %}
-{% from "button/macro.njk" import appButton %}
 {% from "tag/macro.njk" import appTag %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro renderRows(rows, filesMeta, sizeFormat) %}
+  {% for file in filesMeta %}
+    {{ rows.push([
+      { text: file.name },
+      { html: appProgress({
+          id: 'upload-progress-' + file.name,
+          progress: 0,
+          complete: sizeFormat(0),
+          total: sizeFormat(file.size)
+        })
+      },
+      { html: govukButton({ text: 'Cancel', classes: 'app-button--small govuk-button--warning govuk-!-margin-bottom-0' }) }
+    ]) }}
+  {% endfor %}
+{% endmacro %}
 
 {% call appPanel({ withHighlight: true }) %}
 
@@ -15,6 +31,8 @@
     Do not navigate away from this page while uploading.
   {% endcall %}
 
+  {% set rows = [] %}
+  {% set t = renderRows(rows, params.filesMeta, params.sizeFormat) %}
   {{ govukTable({
     classes: "app-table app-table--inverse govuk-!-margin-bottom-3",
     head: [
@@ -22,24 +40,7 @@
       { text: "Progress" },
       { text: "Actions" }
     ],
-    rows: [
-      [
-        { text: 'big-data-file.sql.gz'},
-        { html: appProgress({
-          progress: 45, complete: "450 MB", total: "1000 MB"
-          })
-        },
-        { html: appButton({ text: 'Cancel', classes: 'app-button--small govuk-button--warning' }) }
-      ],
-      [
-        { text: 'small-data-file.sql.gz'},
-        { html: appProgress({
-          progress: 100, complete: "100 MB", total: "100 MB"
-          })
-        },
-        { html: appTag({ text: 'Complete', classes: "govuk-tag--green" }) }
-      ]
-    ]
+    rows: rows
   }) }}
 
 {% endcall %}

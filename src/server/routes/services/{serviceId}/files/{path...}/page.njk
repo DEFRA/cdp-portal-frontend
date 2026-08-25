@@ -156,7 +156,8 @@
                 <div data-xhr="file-upload">
                   {% if filesMeta %}
                     {{ uploadProgress({
-                      filesMeta: filesMeta
+                      filesMeta: filesMeta,
+                      sizeFormat: sizeFormat
                     }) }}
                   {% else %}
                     {{ uploadForm({
