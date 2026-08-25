@@ -82,7 +82,7 @@ function updateSecretController(entityKind) {
             )
           )
         } catch (error) {
-          request.logger.error({ error }, 'Update secret call failed')
+          request.logger.error(error, 'Update secret call failed')
           request.yar.flash(
             sessionNames.globalValidationFailures,
             error.message
