@@ -54,10 +54,13 @@ function removeSecretController(entityKind) {
           'Error whilst removing secret'
         )
       } else {
-        const selfServiceOpsAddSecretEndpointUrl = `${config.get('selfServiceOpsUrl')}/secrets/remove/${serviceId}/${environment}`
+        const useSyncApi = config.get('secrets.useSyncApi')
+        const secretRemoveEndpointUrl = useSyncApi
+          ? `${config.get('portalBackendUrl')}/secrets/${serviceId}/${environment}/remove`
+          : `${config.get('selfServiceOpsUrl')}/secrets/remove/${serviceId}/${environment}`
 
         try {
-          await request.authedFetchJson(selfServiceOpsAddSecretEndpointUrl, {
+          await request.authedFetchJson(secretRemoveEndpointUrl, {
             method: 'post',
             payload: sanitisedPayload
           })

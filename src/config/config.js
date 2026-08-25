@@ -102,6 +102,14 @@ const config = convict({
     default: 'http://localhost:3009',
     env: 'SELF_SERVICE_OPS_URL'
   },
+  secrets: {
+    useSyncApi: {
+      doc: 'Use sync portal-backend secret mutations instead of SSOps async flow',
+      format: Boolean,
+      default: false,
+      env: 'SECRETS_USE_SYNC_API'
+    }
+  },
   userServiceBackendUrl: {
     doc: 'User Service Backend API url',
     format: String,
