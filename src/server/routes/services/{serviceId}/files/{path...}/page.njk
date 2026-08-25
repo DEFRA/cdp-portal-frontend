@@ -114,7 +114,7 @@
 
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Files</h2>
           <p class="govuk-!-margin-bottom-6">
-            Manage data files assosiated with <strong>{{entity.name}}</strong>, including uploading and downloading.
+            Manage data files associated with <strong>{{entity.name}}</strong>, including uploading and downloading.
           </p>
 
           {% block xhrContent %}
@@ -151,7 +151,8 @@
 
 
                   {{ uploadForm({
-                    path: path
+                    path: path,
+                    csrfToken: csrfToken
                   }) }}
 
 
