@@ -7,7 +7,9 @@ const servicesPath = '/services'
 
 export const authCompleteController = {
   handler: (request, h) => {
-    const returnPath = request.yar.flash(sessionNames.referrer).at(0) ?? '/'
+    // Flash entries concatenate until read, so an abandoned sign in leaves a
+    // stale referrer in front of this one.
+    const returnPath = request.yar.flash(sessionNames.referrer).at(-1) ?? '/'
     const redirect =
       returnPath === servicesPath && request.auth.credentials?.isAdmin
         ? allServicesPath

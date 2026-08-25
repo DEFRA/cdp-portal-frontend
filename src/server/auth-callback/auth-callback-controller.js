@@ -31,9 +31,8 @@ export const authCallbackController = {
     })
 
     // Under response_mode=form_post the provider returns here as a cross-site
-    // POST, so the browser sends no SameSite=Lax cookie and the session holding
-    // the return path is unreachable. Reading it here would also mint a fresh
-    // session and orphan the original, so hand off to a same-site GET instead.
+    // POST with no SameSite cookies, so the session holding the return path is
+    // only reachable from a same-site GET.
     return redirectWithRefresh(h, authCompletePath)
   }
 }

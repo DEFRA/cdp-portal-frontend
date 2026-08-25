@@ -40,16 +40,18 @@ const cookie = (response, name) =>
 describe('#authFlow', () => {
   let server
 
-  const signIn = (referer) =>
+  const signIn = (referer, sessionCookie) =>
     server.inject({
       method: 'GET',
       url: '/login',
-      ...(referer ? { headers: { referer } } : {})
+      headers: {
+        ...(referer ? { referer } : {}),
+        ...(sessionCookie ? { cookie: sessionCookie } : {})
+      }
     })
 
-  // Production uses response_mode=form_post, so the provider returns here as a
-  // cross-site POST and the browser withholds every SameSite=Lax cookie. Sending
-  // no cookies at all is what that looks like on the wire.
+  // response_mode=form_post makes this a cross-site POST, so the browser
+  // withholds every SameSite=Lax cookie. Sending none is what that looks like.
   const returnFromProvider = () =>
     server.inject({
       method: 'POST',
@@ -148,6 +150,10 @@ describe('#authFlow', () => {
       'the referer path is protocol relative via backslashes',
       String.raw`http://localhost:3000/\malicious.example.com/`
     ],
+    [
+      'the referer is a relative path made protocol relative by backslashes',
+      String.raw`/\malicious.example.com/`
+    ],
     ['the referer is not a usable url', 'malicious.example.com']
   ])('should return the user home when %s', async ([, referer]) => {
     const signInResponse = await signIn(referer)
@@ -162,6 +168,29 @@ describe('#authFlow', () => {
     ])
 
     expect(finishResponse.headers.location).toBe('/')
+  })
+
+  test('should return the user to the page they last signed in from when an earlier sign in was abandoned', async () => {
+    const abandonedResponse = await signIn('/abandoned-sign-in')
+
+    const signInResponse = await signIn(
+      '/services/cdp-portal-frontend',
+      cookie(abandonedResponse, 'session')
+    )
+    const sessionCookie =
+      cookie(signInResponse, 'session') ?? cookie(abandonedResponse, 'session')
+
+    const providerResponse = await returnFromProvider()
+    const userSessionCookie = cookie(providerResponse, 'userSessionCookie')
+
+    const finishResponse = await finishSignIn([
+      sessionCookie,
+      userSessionCookie
+    ])
+
+    expect(finishResponse.headers.location).toBe(
+      '/services/cdp-portal-frontend'
+    )
   })
 
   test('should return the user home when they reach the completion page directly', async () => {
