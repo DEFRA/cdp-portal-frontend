@@ -1,8 +1,31 @@
 import { defineConfig } from 'vite'
 import { NodePackageImporter } from 'sass-embedded'
+import nunjucks from 'nunjucks'
 
 export default defineConfig({
   base: '/public',
+  plugins: [
+    {
+      name: 'nunjucks-precompile',
+      transform: {
+        filter: {
+          id: /\.(njk)$/
+        },
+        handler(src, id) {
+          const compiled = nunjucks.precompileString(src, {
+            name: id
+          })
+
+          return {
+            code: `${compiled}
+              export default '${id}';
+            `,
+            map: null
+          }
+        }
+      }
+    }
+  ],
   build: {
     outDir: '.public',
     manifest: true,
