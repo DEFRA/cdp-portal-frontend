@@ -1,9 +1,8 @@
 {% from "panel/macro.njk" import appPanel %}
 {% from "warning/macro.njk" import appWarning %}
 {% from "progress/macro.njk" import appProgress %}
-{% from "tag/macro.njk" import appTag %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../upload-actions/macro.njk" import uploadActions %}
 
 {% macro renderRows(rows, filesMeta, sizeFormat) %}
   {% for file in filesMeta %}
@@ -16,7 +15,7 @@
           total: sizeFormat(file.size)
         })
       },
-      { html: govukButton({ text: 'Cancel', classes: 'app-button--small govuk-button--warning govuk-!-margin-bottom-0' }) }
+      { html: uploadActions({ }) }
     ]) }}
   {% endfor %}
 {% endmacro %}

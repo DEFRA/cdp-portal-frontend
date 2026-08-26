@@ -1,0 +1,9 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{# {% from "tag/macro.njk" import appTag %} #}
+
+{% if params.status == 'complete' %}
+  {# {{ appTag({ text: 'Complete', classes: "govuk-tag--green" }) }} #}
+  Complete
+{% else %}
+  {{ govukButton({ text: 'Cancel', classes: 'app-button--small govuk-button--warning govuk-!-margin-bottom-0' }) }}
+{% endif %}
