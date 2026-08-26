@@ -19,7 +19,7 @@
       <tr>
         <th>{{ prop | formatText | replace('-', ' ') }}</th>
         {% if prop == 'service' or prop == 'queueService' or prop == 'topicService' %}
-          <td><a href="/services/{{value}}/resources">{{ value }}<a/></td>
+          <td><a href="/services/{{value}}/resources">{{ value }}</a></td>
         {% else %}
           <td>{{ renderObject(value) if value | isObject else value }}</td>
         {% endif %}
