@@ -35,6 +35,8 @@ import searchDependencyName from '../common/helpers/fetch/autocomplete/fetch-sea
 // import xhrNav from '../common/helpers/xhr-nav.js'
 import upload from '#server/routes/services/{serviceId}/files/components/upload-form/upload.js'
 
+import './web-components.js'
+
 initAll()
 
 // ClientSide CDP namespace
