@@ -1,21 +1,13 @@
-import nunjucks from 'nunjucks/browser/nunjucks-slim.js'
 import './template.js'
+import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 
-export default class Progress extends HTMLElement {
-  #connected = false
-
+export default class Progress extends NunjucksComponent {
   static get observedAttributes() {
     return ['data-progress', 'data-complete', 'data-total']
   }
 
-  connectedCallback() {
-    this.#connected = true
-  }
-
-  attributeChangedCallback() {
-    if (!this.#connected) return
-
-    this.innerHTML = nunjucks.render('template.njk', { params: this.dataset })
+  constructor() {
+    super('template.njk')
   }
 }
 
