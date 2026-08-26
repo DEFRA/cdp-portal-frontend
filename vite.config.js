@@ -5,7 +5,13 @@ import nunjucksPrecompile from './src/build/nunjucks-precompile-vite-plugin.js'
 export default defineConfig({
   base: '/public',
   plugins: [
-    nunjucksPrecompile()
+    nunjucksPrecompile({
+      paths: [
+        'node_modules/govuk-frontend/dist',
+        'src/server/common/components',
+        'src/server'
+      ]
+    })
   ],
   build: {
     outDir: '.public',
