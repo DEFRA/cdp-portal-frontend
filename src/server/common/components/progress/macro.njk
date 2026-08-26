@@ -1,5 +1,6 @@
 {% macro appProgress(params) %}
   <app-progress
+    {% if params.id %}id={{ params.id }}{% endif %}
     data-progress="{{ params.progress }}"
     data-complete="{{ params.complete }}"
     data-total="{{ params.total }}"
