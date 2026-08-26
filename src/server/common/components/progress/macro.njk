@@ -1,3 +1,9 @@
 {% macro appProgress(params) %}
-  {%- include "./template.njk" -%}
+  <app-progress
+    data-progress="{{ params.progress }}"
+    data-complete="{{ params.complete }}"
+    data-total="{{ params.total }}"
+  >
+    {%- include "./template.njk" -%}
+  </app-progress>
 {% endmacro %}
