@@ -1,4 +1,5 @@
-import './template.js'
+import template from './template.js'
+// import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 
 export default class Progress extends NunjucksComponent {
@@ -7,7 +8,7 @@ export default class Progress extends NunjucksComponent {
   }
 
   constructor() {
-    super('template.njk')
+    super(template)
   }
 }
 
