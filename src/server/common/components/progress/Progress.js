@@ -1,4 +1,3 @@
-// import template from './template.js'
 import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 
