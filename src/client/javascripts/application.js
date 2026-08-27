@@ -34,8 +34,6 @@ import autoRefresh from '../common/helpers/auto-refresh.js'
 import searchDependencyName from '../common/helpers/fetch/autocomplete/fetch-search-dependency-name.js'
 // import xhrNav from '../common/helpers/xhr-nav.js'
 
-import './web-components.js'
-
 initAll()
 
 // ClientSide CDP namespace
