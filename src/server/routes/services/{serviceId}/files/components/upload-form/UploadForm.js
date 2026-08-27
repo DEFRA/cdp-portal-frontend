@@ -1,7 +1,10 @@
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 import { xhrPostRequest } from '#client/common/helpers/xhr.js'
 import { clientNotification } from '#client/common/helpers/client-notification.js'
+import UploadManager from './UploadManager.js'
 
+window.cdp = window.cdp ?? {}
+window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
 
 export default class UploadForm extends NunjucksComponent {
   static get observedAttributes() {
@@ -34,14 +37,15 @@ export default class UploadForm extends NunjucksComponent {
 
     this.#form.dataset.isSubmitting = 'true'
 
-    // TODO: Store in UploadManager
-    window.cdp.uploadeFiles =
+     const files =
       this.#form.querySelector('input[name="files"]')?.files ?? []
+
+    window.cdp.uploadManager.startUpload(files)
 
     const payload = {
       csrfToken: this.#form.querySelector('input[name="csrfToken"]').value,
       filesMeta: JSON.stringify(
-        Array.from(window.cdp.uploadeFiles).map(({ name, size }) => ({
+        Array.from(files).map(({ name, size }) => ({
           name,
           size
         }))
