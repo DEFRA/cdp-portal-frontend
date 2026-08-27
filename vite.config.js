@@ -18,9 +18,9 @@ export default defineConfig({
       globals: {
         Buffer: false,
         global: false,
-        process: true,
+        process: true
       }
-    }),
+    })
   ],
   resolve: {
     alias: {
