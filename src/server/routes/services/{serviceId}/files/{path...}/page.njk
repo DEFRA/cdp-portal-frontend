@@ -6,8 +6,7 @@
 {% from "time/macro.njk" import appTime %}
 {% from "tag/macro.njk" import appTag %}
 {% from "tree/macro.njk" import appTree %}
-{% from "../components/upload-form/macro.njk" import uploadForm %}
-{% from "../components/upload-progress/macro.njk" import uploadProgress %}
+{% from "../components/file-upload/macro.njk" import fileUpload %}
 
 
 {% macro renderRows(rows, content) %}
@@ -154,17 +153,12 @@
                 </div>
 
                 <div data-xhr="file-upload">
-                  {% if filesMeta %}
-                    {{ uploadProgress({
-                      filesMeta: filesMeta,
-                      sizeFormat: sizeFormat
-                    }) }}
-                  {% else %}
-                    {{ uploadForm({
-                      path: path,
-                      csrfToken: csrfToken
-                    }) }}
-                  {% endif %}
+                  {{ fileUpload({
+                    filesMeta: filesMeta,
+                    path: path,
+                    csrfToken: csrfToken,
+                    sizeFormat: sizeFormat
+                  }) }}
                 </div>
 
               </div>
