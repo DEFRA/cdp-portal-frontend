@@ -1,26 +1,25 @@
 
-const fileSize = 129456
-
 export default class UploadManager {
   startUpload(files) {
-    let progress = 0
-    let bytes = 0
-
     const interval = setInterval(() => {
-      bytes += 10
-      progress = Math.round((bytes / fileSize) * 100)
 
-      const $progress = document.getElementById(
-        'upload-progress-58961_57dc36b325be5001a5710653b34efa1d.jpg'
-      )
+      for (const file of files) {
+        file.bytesDownloaded = file.bytesDownloaded ?? 0
+        file.bytesDownloaded += 100
 
-      $progress.setAttribute('data-progress', progress)
-      $progress.setAttribute('data-complete', bytes)
+        if (file.bytesDownloaded >= file.size) continue
 
+        const progress = Math.round((file.bytesDownloaded / file.size) * 100)
 
-      if (progress >= 100) {
-        clearInterval(interval)
+        const $progress = document.getElementById(
+          `upload-progress-${file.name}`
+        )
+
+        if ($progress) {
+          $progress.setAttribute('data-progress', progress)
+          $progress.setAttribute('data-complete', file.bytesDownloaded)
+        }
       }
-    }, 1)
+    }, 10)
   }
 }

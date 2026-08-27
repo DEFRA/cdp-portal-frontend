@@ -37,8 +37,7 @@ export default class UploadForm extends NunjucksComponent {
 
     this.#form.dataset.isSubmitting = 'true'
 
-     const files =
-      this.#form.querySelector('input[name="files"]')?.files ?? []
+    const files = this.#form.querySelector('input[name="files"]')?.files ?? []
 
     window.cdp.uploadManager.startUpload(files)
 
