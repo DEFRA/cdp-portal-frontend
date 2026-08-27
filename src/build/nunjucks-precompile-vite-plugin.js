@@ -3,6 +3,12 @@ import { resolve, relative, dirname } from 'node:path'
 import fs from 'node:fs'
 import esquery from 'esquery'
 
+/**
+ * Precompiles nunjucks templates imported from JS as `import 'my-template.njk'`
+ *
+ * Resolves imported and included sub templates using `paths` option
+ */
+
 export default function nunjucksPrecompile({ env, paths }) {
   const absolutePaths = paths.map((path) =>
     resolve(import.meta.dirname, '..', '..', path)
