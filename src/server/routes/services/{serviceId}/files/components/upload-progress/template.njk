@@ -15,7 +15,7 @@
           total: sizeFormat(file.size)
         })
       },
-      { html: uploadActions({ }) }
+      { html: uploadActions({ status: 'uploading' }) }
     ]) }}
   {% endfor %}
 {% endmacro %}
