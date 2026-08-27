@@ -1,5 +1,7 @@
 import nunjucks from 'nunjucks'
-import { resolve, relative } from 'node:path'
+import { resolve, relative, dirname } from 'node:path'
+import fs from 'node:fs'
+import esquery from 'esquery'
 
 export default function nunjucksPrecompile({ env, paths }) {
   const absolutePaths = paths.map((path) =>
@@ -21,8 +23,26 @@ export default function nunjucksPrecompile({ env, paths }) {
           name: relativeId
         })
 
+        const ast = this.parse(compiled)
+        const importUsages = esquery(
+          ast,
+          'CallExpression[callee.type="MemberExpression"]:has([object.name="env"][property.name="getTemplate"])'
+        )
+        const importPaths = importUsages
+          .map((usage) => usage.arguments[0].value)
+          .filter((path) => path !== undefined)
+          .map((path) =>
+            path.startsWith('.')
+              ? resolve(dirname(id), path)
+              : searchPaths(paths, path)
+          )
+
+        const importStatements = importPaths.map((path) => `import '${path}';`)
+
         return {
-          code: `${compiled}
+          code: `
+            ${importStatements.join('\n')}
+            ${compiled}
             export default '${relativeId}';
           `,
           map: null
@@ -30,4 +50,15 @@ export default function nunjucksPrecompile({ env, paths }) {
       }
     }
   }
+}
+
+function searchPaths(paths, path) {
+  for (const searchPath of paths) {
+    const resolved = resolve(searchPath, path)
+    if (fs.existsSync(resolved)) return resolved
+  }
+
+  throw new Error(
+    `Unable to find template ${path} in paths [${paths.join(',')}]`
+  )
 }
