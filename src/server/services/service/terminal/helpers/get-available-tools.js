@@ -2,13 +2,16 @@ import { scopes } from '@defra/cdp-validation-kit'
 
 export function getAvailableTools(entity, userScopes) {
   const isAdmin = userScopes.includes(scopes.admin)
+  const hasPostgres = Object.values(entity.environments).some(
+    (env) => env.sql_database?.arn
+  )
 
   const tools = [{ text: 'Terminal', value: 'terminal' }]
   if (isAdmin) {
     tools.push({ text: 'Terminal (latest)', value: 'terminal_latest' })
   }
 
-  if (hasPostgres(entity)) {
+  if (hasPostgres) {
     tools.push({ text: 'Postgres Web UI', value: 'pgweb' })
     if (isAdmin) {
       tools.push({ text: 'Postgres Web UI (latest)', value: 'pgweb_latest' })
@@ -16,11 +19,4 @@ export function getAvailableTools(entity, userScopes) {
   }
 
   return tools
-}
-
-function hasPostgres(entity) {
-  return (
-    Object.values(entity.environments).find((env) => env.sql_database?.arn) !==
-    undefined
-  )
 }
