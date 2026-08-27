@@ -469,6 +469,11 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     Launch a secure terminal, as your service in an environment.
   </p>
   
+            <form method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
+              <input type="hidden" name="csrfToken" value="test-token" />
+
+                <input name="tool" type="hidden" value="terminal"/>
+
               <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4" data-testid="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
@@ -479,56 +484,40 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">Dev</td>
-      <td class="govuk-table__cell">    <form method="post" action="/services/mock-service-with-terminal/terminal/dev" target="_blank">
-      <input type="hidden" name="csrfToken" value="test-token" />
-
-
-      <button type="submit" class="govuk-button app-button app-button--primary app-button--small" data-module="govuk-button">
+      <td class="govuk-table__cell">
+    <button type="submit" value="dev" name="environment" class="govuk-button app-button app-button--primary app-button--small" data-module="govuk-button">
   Launch
 </button>
-    </form>
 </td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">Test</td>
-      <td class="govuk-table__cell">    <form method="post" action="/services/mock-service-with-terminal/terminal/test" target="_blank">
-      <input type="hidden" name="csrfToken" value="test-token" />
-
-
-      <button type="submit" class="govuk-button app-button app-button--primary app-button--small" data-module="govuk-button">
+      <td class="govuk-table__cell">
+    <button type="submit" value="test" name="environment" class="govuk-button app-button app-button--primary app-button--small" data-module="govuk-button">
   Launch
 </button>
-    </form>
 </td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">Perf-test</td>
-      <td class="govuk-table__cell">    <form method="post" action="/services/mock-service-with-terminal/terminal/perf-test" target="_blank">
-      <input type="hidden" name="csrfToken" value="test-token" />
-
-
-      <button type="submit" class="govuk-button app-button app-button--primary app-button--small" data-module="govuk-button">
+      <td class="govuk-table__cell">
+    <button type="submit" value="perf-test" name="environment" class="govuk-button app-button app-button--primary app-button--small" data-module="govuk-button">
   Launch
 </button>
-    </form>
 </td>
     </tr>
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">Prod</td>
-      <td class="govuk-table__cell">    <form method="post" action="/services/mock-service-with-terminal/terminal/prod" target="_blank">
-      <input type="hidden" name="csrfToken" value="test-token" />
-
-
-      <button type="submit" class="govuk-button app-button app-button--primary app-button--small app-button--significant" data-module="govuk-button">
+      <td class="govuk-table__cell">
+    <button type="submit" value="prod" name="environment" class="govuk-button app-button app-button--primary app-button--small app-button--significant" data-module="govuk-button">
   Launch
 </button>
-    </form>
 </td>
     </tr>
   </tbody>
 </table>
 
-
+            </form>
 
 </section>
         </article>
