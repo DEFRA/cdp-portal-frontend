@@ -2,19 +2,24 @@ import Boom from '@hapi/boom'
 
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { deployTerminal } from '../helpers/fetch/deploy-terminal.js'
-import { launchTerminalParamsValidation } from '../helpers/schema/terminal-params-validation.js'
+import {
+  launchTerminalParamsValidation,
+  launchTerminalPayloadValidation
+} from '../helpers/schema/terminal-params-validation.js'
 import { fetchActiveBreakGlass } from '#server/admin/permissions/helpers/fetchers.js'
 
 const launchTerminalController = {
   options: {
     validate: {
       params: launchTerminalParamsValidation,
+      payload: launchTerminalPayloadValidation,
       failAction: () => Boom.boomify(Boom.forbidden())
     }
   },
   handler: async (request, h) => {
     const serviceId = request.params.serviceId
-    const environment = request.params.environment
+    const environment = request.payload.environment
+    const tool = request.payload.tool
 
     const { activeBreakGlass } = await fetchActiveBreakGlass(request)
 
@@ -23,6 +28,7 @@ const launchTerminalController = {
         request,
         serviceId,
         environment,
+        tool,
         teamIds: request.app.entity.teams.map(({ teamId }) => teamId),
         expiresAt: activeBreakGlass?.endAt
       })
