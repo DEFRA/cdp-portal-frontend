@@ -40,7 +40,7 @@ const serviceTerminal = {
           },
           {
             method: 'POST',
-            path: '/services/{serviceId}/terminal/{environment}',
+            path: '/services/{serviceId}/terminal/launch',
             ...launchTerminalController
           },
           {

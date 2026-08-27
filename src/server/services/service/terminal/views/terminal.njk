@@ -19,19 +19,17 @@
 
 {% for terminalEnv in terminalEnvs %}
   {% set launchFormHtml %}
-    <form method="post" action="/services/{{ serviceName }}/terminal/{{ terminalEnv }}" target="_blank">
-      <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+    {% set classes = [
+      "app-button app-button--primary app-button--small",
+      "app-button--significant" if terminalEnv == "prod"
+    ] | join(" ") | trim %}
 
-      {% set classes = [
-        "app-button app-button--primary app-button--small",
-        "app-button--significant" if terminalEnv == "prod"
-      ] | join(" ") | trim %}
-
-      {{ govukButton({
-        classes: classes,
-        text: "Launch"
-      }) }}
-    </form>
+    {{ govukButton({
+      classes: classes,
+      name: 'environment',
+      text: "Launch",
+      value: terminalEnv
+    }) }}
   {% endset %}
 
   {{ terminalTableRows.push([
@@ -88,6 +86,28 @@
           }) %}
 
             {% if canLaunchTerminal %}
+            <form method="post" action="/services/{{ serviceName }}/terminal/launch" target="_blank">
+              <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+
+              {%  if tools | length > 1 %}
+                {{ govukSelect({
+                  id: "tool",
+                  name: "tool",
+                  label: {
+                    text: "Tool",
+                    classes: "app-label"
+                  },
+                  classes: "app-select",
+                  value: formValues.eventType,
+                  items: tools,
+                  formGroup: {
+                    classes: "app-form-group app-form-group-js"
+                  }
+                }) }}
+              {% else %}
+                <input name="tool" type="hidden" value="{{ tools[0].value }}"/>
+              {%  endif %}
+
               {{ govukTable({
                 classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
                 attributes: {
@@ -96,11 +116,10 @@
                 head: [{ text: "Environment" }, { text: "Action" }],
                 rows: terminalTableRows
               }) }}
-
+            </form>
             {% else %}
               <p class="govuk-!-margin-bottom-2">
-                {{ serviceName if serviceName else "Your service" }} has not been deployed to an
-                environment.
+                {{ serviceName if serviceName else "Your service" }} does not exist in any environment.
               </p>
             {% endif %}
           {% endcall %}

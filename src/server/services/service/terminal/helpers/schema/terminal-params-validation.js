@@ -8,13 +8,17 @@ const getAllowedEnvironments = (options) =>
     teams: options.context.app?.request?.entity.teams
   })
 
-function launchTerminalParamsValidation(params, options) {
+export const launchTerminalParamsValidation = Joi.object({
+  serviceId: Joi.string().required()
+})
+
+export function launchTerminalPayloadValidation(params, options) {
   const allowedEnvironments = getAllowedEnvironments(options)
   const validationResult = Joi.object({
-    serviceId: Joi.string().required(),
     environment: Joi.string()
       .valid(...allowedEnvironments)
-      .required()
+      .required(),
+    tool: Joi.string()
   }).validate(params, options)
 
   if (validationResult?.error) {
@@ -24,7 +28,7 @@ function launchTerminalParamsValidation(params, options) {
   return validationResult.value
 }
 
-function terminalBrowserParamsValidation(params, options) {
+export function terminalBrowserParamsValidation(params, options) {
   const allowedEnvironments = getAllowedEnvironments(options)
   const validationResult = Joi.object({
     serviceId: Joi.string().required(),
@@ -40,5 +44,3 @@ function terminalBrowserParamsValidation(params, options) {
 
   return validationResult.value
 }
-
-export { terminalBrowserParamsValidation, launchTerminalParamsValidation }

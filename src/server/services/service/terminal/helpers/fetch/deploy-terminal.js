@@ -4,6 +4,7 @@ function deployTerminal({
   request,
   serviceId,
   environment,
+  tool,
   teamIds,
   expiresAt
 }) {
@@ -15,6 +16,7 @@ function deployTerminal({
     payload: {
       service: serviceId,
       environment,
+      tool,
       teamIds,
       expiresAt
     }
