@@ -1,8 +1,6 @@
-
 export default class UploadManager {
   startUpload(files) {
-    const interval = setInterval(() => {
-
+    setInterval(() => {
       for (const file of files) {
         file.bytesDownloaded = file.bytesDownloaded ?? 0
         file.bytesDownloaded += 100
