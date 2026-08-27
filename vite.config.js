@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import { NodePackageImporter } from 'sass-embedded'
 import nunjucksPrecompile from './src/build/nunjucks-precompile-vite-plugin.js'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 export default defineConfig({
   base: '/public',
@@ -11,8 +12,21 @@ export default defineConfig({
         'src/server/common/components',
         'src/server'
       ]
-    })
+    }),
+    nodePolyfills({
+      include: ['path'],
+      globals: {
+        Buffer: false,
+        global: false,
+        process: true,
+      }
+    }),
   ],
+  resolve: {
+    alias: {
+      path: 'path-browserify'
+    }
+  },
   build: {
     outDir: '.public',
     manifest: true,
