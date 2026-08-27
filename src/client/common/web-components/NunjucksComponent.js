@@ -24,6 +24,14 @@ export default class NunjucksComponent extends HTMLElement {
 
   connectedCallback() {
     this.#connected = true
+
+    this.mounted()
+  }
+
+  disconnectedCallback() {
+    this.#connected = false
+
+    this.dismounted()
   }
 
   attributeChangedCallback() {
@@ -31,6 +39,12 @@ export default class NunjucksComponent extends HTMLElement {
 
     this.innerHTML = this.render(this.dataset)
   }
+
+  // Protected methods for optional override
+
+  mounted() {}
+
+  dismounted() {}
 
   render(props) {
     return nunjucks.render(this.#template, { params: props })
