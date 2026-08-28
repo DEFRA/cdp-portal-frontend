@@ -1,8 +1,32 @@
 import { defineConfig } from 'vite'
 import { NodePackageImporter } from 'sass-embedded'
+import nunjucksPrecompile from './src/build/nunjucks-precompile-vite-plugin.js'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 export default defineConfig({
   base: '/public',
+  plugins: [
+    nunjucksPrecompile({
+      paths: [
+        'node_modules/govuk-frontend/dist',
+        'src/server/common/components',
+        'src/server'
+      ]
+    }),
+    nodePolyfills({
+      include: ['path'],
+      globals: {
+        Buffer: false,
+        global: false,
+        process: true
+      }
+    })
+  ],
+  resolve: {
+    alias: {
+      path: 'path-browserify'
+    }
+  },
   build: {
     outDir: '.public',
     manifest: true,
@@ -11,7 +35,8 @@ export default defineConfig({
         htmlAssets: 'src/client/assets.html',
         application: 'src/client/javascripts/application.js',
         applicationCss: 'src/client/stylesheets/application.scss',
-        mermaid: 'src/client/javascripts/mermaid.js'
+        mermaid: 'src/client/javascripts/mermaid.js',
+        webComponents: 'src/client/javascripts/web-components.js'
       }
     },
     sourcemap: true

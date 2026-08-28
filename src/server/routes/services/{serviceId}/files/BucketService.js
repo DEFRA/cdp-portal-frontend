@@ -36,7 +36,9 @@ export async function listPathContents(request, path) {
         }
       } else {
         acc[folder] = {
-          path: formatAsS3Path(path !== '' ? `${path}/${folder}` : folder),
+          path: formatAsS3Path(
+            path !== '' ? `${path}/${folder}/` : `${folder}/`
+          ),
           size: obj.Size,
           modifiedDate: obj.LastModified,
           name: folder,

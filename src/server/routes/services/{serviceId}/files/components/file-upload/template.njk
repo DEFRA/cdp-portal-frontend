@@ -1,0 +1,13 @@
+{% from "../upload-form/macro.njk" import uploadForm %}
+{% from "../upload-progress/macro.njk" import uploadProgress %}
+
+{% if params.filesMeta %}
+  {{ uploadProgress({
+    filesMeta: params.filesMeta
+  }) }}
+{% else %}
+  {{ uploadForm({
+    path: params.path,
+    csrfToken: params.csrfToken
+  }) }}
+{% endif %}

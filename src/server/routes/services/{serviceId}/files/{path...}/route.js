@@ -2,13 +2,6 @@ import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.j
 import { scopes } from '@defra/cdp-validation-kit'
 import { folderTreeForPath, listPathContents } from '../BucketService.js'
 
-const byteValueNumberFormatter = Intl.NumberFormat('en', {
-  notation: 'compact',
-  style: 'unit',
-  unit: 'byte',
-  unitDisplay: 'narrow'
-})
-
 export const ext = [...commonServiceExtensions]
 
 export const options = {
@@ -38,8 +31,8 @@ export default async function (request) {
     relativePathParts,
     folderContents,
     folderTree,
-    sizeFormat: byteValueNumberFormatter.format,
-    pageTile: 'Files',
+    encodePathSegments,
+    pageTitle: 'Files',
     breadcrumbs: [
       {
         text: 'Services',
@@ -54,4 +47,19 @@ export default async function (request) {
       }
     ]
   }
+}
+
+function encodePathSegments(path) {
+  const parts = path.split('/')
+  const encoded = parts.map((part) => encodeURI(part))
+  return encoded.join('/')
+}
+
+export async function POST(request, h) {
+  const { files } = request.payload
+
+  if (files) {
+    // TODO: Handle Server-side only upload if no client-side JS enabled
+  }
+  return h.redirect(request.url)
 }

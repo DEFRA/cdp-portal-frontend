@@ -24,6 +24,14 @@ const numberFormatter = new Intl.NumberFormat('en-GB', {
 })
 const formatNumber = (value) => numberFormatter.format(value)
 
+const byteValueNumberFormatter = Intl.NumberFormat('en', {
+  notation: 'compact',
+  style: 'unit',
+  unit: 'byte',
+  unitDisplay: 'narrow'
+})
+const formatFileSize = byteValueNumberFormatter.format
+
 function uppercaseMatch(value, matches = []) {
   return value
     .split(' ')
@@ -51,5 +59,6 @@ export {
   union,
   pickBy,
   uppercaseMatch,
-  isObject
+  isObject,
+  formatFileSize
 }

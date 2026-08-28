@@ -1,5 +1,4 @@
 {% extends "layouts/tabbed-page.njk" %}
-{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "icons/file-icon/macro.njk" import appFileIcon %}
 {% from "icons/folder-icon/macro.njk" import appFolderIcon %}
 {% from "icons/open-folder-icon/macro.njk" import appOpenFolderIcon %}
@@ -7,6 +6,8 @@
 {% from "time/macro.njk" import appTime %}
 {% from "tag/macro.njk" import appTag %}
 {% from "tree/macro.njk" import appTree %}
+{% from "../components/file-upload/macro.njk" import fileUpload %}
+
 
 {% macro renderRows(rows, content) %}
   {% for obj in content %}
@@ -15,7 +16,7 @@
         html: renderName(obj)
       },
       {
-        text: sizeFormat(obj.size)
+        text: obj.size | formatFileSize
       },
       {
         html: appTime({
@@ -50,7 +51,7 @@
   {% if obj.isFolder %}
     - - -
   {% else %}
-    <a href="/services/{{ entity.name }}/files-download/{{ obj.path | urlencode }}" data-no-xhr-link="true" target="_blank">Download</a>
+    <a href="/services/{{ entity.name }}/files-download/{{ encodePathSegments(obj.path) }}" data-no-xhr-link="true" target="_blank">Download</a>
   {% endif %}
 {% endmacro %}
 
@@ -58,7 +59,7 @@
   <span class="app-tree--label">
     {% if obj.isFolder %}
       {{ appFolderIcon({ classes: "app-icon--small" }) }}
-      <a href="/services/{{ entity.name }}/files/{{ obj.path | urlencode }}">{{ obj.name }}</a>
+      <a href="/services/{{ entity.name }}/files/{{ encodePathSegments(obj.path) }}">{{ obj.name }}</a>
     {% else %}
       {{ appFileIcon({ classes: "app-icon--small" }) }}
       {{ obj.name }}
@@ -69,7 +70,7 @@
 {% macro renderParentName(relativePathParts) %}
   <span class="app-tree--label">
     {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
-    <a href="/services/{{ entity.name }}/files/{{ relativePathParts.slice(0, -1) | join('/') | urlencode }}">..</a>
+    <a href="/services/{{ entity.name }}/files/{{ encodePathSegments(relativePathParts.slice(0, -1) | join('/')) }}">..</a>
   </span>
 {% endmacro %}
 
@@ -84,7 +85,7 @@
         {{ appFolderIcon({ classes: "app-icon--small" }) }}
       {% endif %}
 
-      <a href="/services/{{ entity.name }}/files/{{ path | urlencode }}">{{ label }}</a>
+      <a href="/services/{{ entity.name }}/files/{{ encodePathSegments(path) }}">{{ label }}</a>
     {% endif %}
   </span>
 {% endmacro %}
@@ -114,7 +115,7 @@
 
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Files</h2>
           <p class="govuk-!-margin-bottom-6">
-            Manage data files assosiated with <strong>{{entity.name}}</strong>, including uploading and downloading.
+            Manage data files associated with <strong>{{entity.name}}</strong>, including uploading and downloading.
           </p>
 
           {% block xhrContent %}
@@ -130,8 +131,9 @@
 
               </div>
 
-              <div data-xhr="folder-contents" class="govuk-grid-column-three-quarters">
+              <div class="govuk-grid-column-three-quarters">
 
+                <div data-xhr="folder-contents">
                   {% set contentsRows = [] %}
                   {% if path !== '' %}
                     {% set t = renderParentRow(contentsRows, relativePathParts) %}
@@ -148,6 +150,15 @@
                     ],
                     rows: contentsRows
                   }) }}
+                </div>
+
+                <div data-xhr="file-upload">
+                  {{ fileUpload({
+                    filesMeta: filesMeta,
+                    path: path,
+                    csrfToken: csrfToken
+                  }) }}
+                </div>
 
               </div>
             </div>

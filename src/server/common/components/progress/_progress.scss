@@ -2,19 +2,20 @@
 @use 'variables/border-radius' as *;
 
 .app-progress {
-  max-width: 500px;
   margin-bottom: govuk-spacing(2);
   display: flex;
   align-items: center;
 }
 
 .app-progress__bar {
+  width: 200px;
   flex: 4;
   height: govuk-spacing(2);
   position: relative;
   background: govuk-colour('black', $variant: 'tint-95');
   border-radius: $app-border-radius;
   padding: 3px;
+  margin-right: 1rem;
 }
 
 .app-progress__indicator {
@@ -33,7 +34,7 @@
 
 .app-progress__readout {
   @include govuk-font($size: 19);
-
+  min-width: 150px;
   flex: govuk-spacing(2);
   margin-left: govuk-spacing(1);
   color: govuk-colour('black', $variant: 'tint-25');
