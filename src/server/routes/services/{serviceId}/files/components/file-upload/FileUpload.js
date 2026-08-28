@@ -10,6 +10,7 @@ export default class FileUpload extends NunjucksComponent {
   #onSubmitHandler
   #onProgressHandler
   #onCompleteHandler
+  #onFailedHandler
 
   constructor() {
     super(template)
@@ -17,6 +18,7 @@ export default class FileUpload extends NunjucksComponent {
     this.#onSubmitHandler = this.#onSubmit.bind(this)
     this.#onProgressHandler = this.#onProgress.bind(this)
     this.#onCompleteHandler = this.#onComplete.bind(this)
+    this.#onFailedHandler = this.#onFailed.bind(this)
   }
 
   mounted() {
@@ -30,6 +32,7 @@ export default class FileUpload extends NunjucksComponent {
       'complete',
       this.#onCompleteHandler
     )
+    window.cdp.uploadManager.addEventListener('failed', this.#onFailedHandler)
   }
 
   dismounted() {
@@ -42,6 +45,10 @@ export default class FileUpload extends NunjucksComponent {
     window.cdp.uploadManager.removeEventListener(
       'complete',
       this.#onCompleteHandler
+    )
+    window.cdp.uploadManager.removeEventListener(
+      'failed',
+      this.#onFailedHandler
     )
   }
 
@@ -106,6 +113,18 @@ export default class FileUpload extends NunjucksComponent {
 
     if (filesMeta.every((file) => file.status === 'complete')) {
       window.location.reload()
+    }
+  }
+
+  #onFailed(event) {
+    const file = event.detail
+
+    const $button = document.getElementById(
+      `upload-button-${encodeURI(file.name)}`
+    )
+
+    if ($button) {
+      $button.setAttribute('data-status', 'failed')
     }
   }
 }

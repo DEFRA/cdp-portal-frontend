@@ -62,25 +62,54 @@ export default class UploadManager extends EventTarget {
   }
 
   async #uploadFile(service, path, file, csrfToken) {
-    const response = await fetch(`/services/${service}/files-api/put-url`, {
-      method: 'POST',
-      cache: 'no-store',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Cache-Control': 'no-cache, no-store, max-age=0',
-        Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
-        Pragma: 'no-cache',
-        'X-CSRF-Token': csrfToken
-      },
-      body: JSON.stringify({
-        path
+    try {
+
+      const urlRequest = await fetch(`/services/${service}/files-api/put-url`, {
+        method: 'POST',
+        cache: 'no-store',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Cache-Control': 'no-cache, no-store, max-age=0',
+          Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+          Pragma: 'no-cache',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          path
+        })
       })
-    })
 
-    const { url } = await response.json()
+      if (!urlRequest.ok) {
+        throw new Error('Url fetch failed')
+      }
 
-    console.log(url)
-    // upload
+      const { url } = await urlRequest.json()
+
+      const uploadResponse = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/octet-stream'
+        },
+        body: file.stream(), // .pipeThrough(progressTrackingStream),
+        duplex: 'half'
+      })
+
+      if (!uploadResponse.ok) {
+        throw new Error('Upload failed')
+      }
+
+    } catch (error) {
+      this.dispatchEvent(
+        new CustomEvent('failed', {
+          detail: {
+            name: file.name,
+            size: file.size,
+            bytesUploaded: file.size,
+            status: 'failed'
+          }
+        })
+      )
+    }
   }
 
   async #uploadLargeFile(service, path, file, csrfToken) {
