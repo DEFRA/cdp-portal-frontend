@@ -1,9 +1,13 @@
 import nunjucks from 'nunjucks/browser/nunjucks-slim.js'
 import path from 'path'
-import { formatFileSize } from '#config/nunjucks/filters/filters.js'
+import * as filters from '#config/nunjucks/filters/filters.js'
 
-const env = nunjucks.configure()
-env.addFilter('formatFileSize', formatFileSize)
+const nunjucksEnvironment = nunjucks.configure()
+nunjucksEnvironment.addGlobal('govukRebrand', true)
+
+for (const filter of Object.keys(filters)) {
+  nunjucksEnvironment.addFilter(filter, filters[filter])
+}
 
 /*
  * Patch loader due to missing `path` reference
@@ -44,13 +48,18 @@ export default class NunjucksComponent extends HTMLElement {
     this.render(this.dataset)
   }
 
-  // Protected methods for optional override
 
-  mounted() {}
+  /* --- Methods for optional override --- */
 
-  dismounted() {}
+  mounted() {
+    // setup, such as adding listeners to the component
+  }
+
+  dismounted() {
+    // clean up, such as removing listeners from the component
+  }
 
   render(props) {
-    this.innerHTML = env.render(this.#template, { params: props })
+    this.innerHTML = nunjucksEnvironment.render(this.#template, { params: props })
   }
 }

@@ -8,10 +8,8 @@ window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
 
 
 export default class FileUpload extends NunjucksComponent {
-  #form
   #onSubmitHandler
   #onProgressHandler
-
 
   constructor() {
     super(template)
@@ -21,8 +19,7 @@ export default class FileUpload extends NunjucksComponent {
   }
 
   mounted() {
-    this.#form = this.querySelector('form')
-    this.#form.addEventListener('submit', this.#onSubmitHandler)
+    this.addEventListener('submit', this.#onSubmitHandler)
 
     window.cdp.uploadManager.addEventListener(
       'progress',
@@ -31,7 +28,7 @@ export default class FileUpload extends NunjucksComponent {
   }
 
   dismounted() {
-    this.#form.addEventListener('submit', this.#onSubmitHandler)
+    this.addEventListener('submit', this.#onSubmitHandler)
 
     window.cdp.uploadManager.removeEventListener(
       'progress',
@@ -42,7 +39,8 @@ export default class FileUpload extends NunjucksComponent {
   #onSubmit(event) {
     event.preventDefault()
 
-    const files = this.#form.querySelector('input[name="files"]')?.files ?? []
+    const $form = this.querySelector('form')
+    const files = $form.querySelector('input[name="files"]')?.files ?? []
 
     window.cdp.uploadManager.startUpload(files)
 
