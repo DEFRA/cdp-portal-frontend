@@ -1,5 +1,6 @@
 import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
+import { formatFileSize } from '#config/nunjucks/filters/filters.js'
 
 export default class FileUpload extends NunjucksComponent {
   #onProgressHandler
@@ -26,14 +27,17 @@ export default class FileUpload extends NunjucksComponent {
 
   #onProgress(event) {
     const file = event.detail
-    console.log(file)
+
     // const filesMeta = window.cdp.uploadManager.getFilesMeta()
 
     const $progress = document.getElementById(`upload-progress-${file.name}`)
 
     if ($progress) {
       $progress.setAttribute('data-progress', file.progress)
-      $progress.setAttribute('data-complete', file.bytesUploaded)
+      $progress.setAttribute(
+        'data-complete',
+        formatFileSize(file.bytesUploaded)
+      )
     }
 
     // this.render({

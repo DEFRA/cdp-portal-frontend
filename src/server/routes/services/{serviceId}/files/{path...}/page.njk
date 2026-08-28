@@ -16,7 +16,7 @@
         html: renderName(obj)
       },
       {
-        text: sizeFormat(obj.size)
+        text: obj.size | formatFileSize
       },
       {
         html: appTime({
@@ -156,8 +156,7 @@
                   {{ fileUpload({
                     filesMeta: filesMeta,
                     path: path,
-                    csrfToken: csrfToken,
-                    sizeFormat: sizeFormat
+                    csrfToken: csrfToken
                   }) }}
                 </div>
 

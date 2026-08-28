@@ -4,15 +4,15 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "../upload-actions/macro.njk" import uploadActions %}
 
-{% macro renderRows(rows, filesMeta, sizeFormat) %}
+{% macro renderRows(rows, filesMeta) %}
   {% for file in filesMeta %}
     {{ rows.push([
       { text: file.name },
       { html: appProgress({
           id: 'upload-progress-' + file.name,
           progress: 0,
-          complete: sizeFormat(0),
-          total: sizeFormat(file.size)
+          complete: 0 | formatFileSize,
+          total: file.size | formatFileSize
         })
       },
       { html: uploadActions({ status: 'uploading' }) }
@@ -31,7 +31,7 @@
   {% endcall %}
 
   {% set rows = [] %}
-  {% set t = renderRows(rows, params.filesMeta, params.sizeFormat) %}
+  {% set t = renderRows(rows, params.filesMeta) %}
   {{ govukTable({
     classes: "app-table app-table--inverse govuk-!-margin-bottom-3",
     head: [

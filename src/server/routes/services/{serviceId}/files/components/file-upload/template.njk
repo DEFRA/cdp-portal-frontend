@@ -3,8 +3,7 @@
 
 {% if params.filesMeta %}
   {{ uploadProgress({
-    filesMeta: params.filesMeta,
-    sizeFormat: params.sizeFormat
+    filesMeta: params.filesMeta
   }) }}
 {% else %}
   {{ uploadForm({

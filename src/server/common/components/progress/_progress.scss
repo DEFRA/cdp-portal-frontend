@@ -34,7 +34,7 @@
 
 .app-progress__readout {
   @include govuk-font($size: 19);
-  min-width: 100px;
+  min-width: 150px;
   flex: govuk-spacing(2);
   margin-left: govuk-spacing(1);
   color: govuk-colour('black', $variant: 'tint-25');

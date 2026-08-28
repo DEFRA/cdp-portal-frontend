@@ -3,13 +3,6 @@ import { scopes } from '@defra/cdp-validation-kit'
 import { folderTreeForPath, listPathContents } from '../BucketService.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 
-const byteValueNumberFormatter = Intl.NumberFormat('en', {
-  notation: 'compact',
-  style: 'unit',
-  unit: 'byte',
-  unitDisplay: 'narrow'
-})
-
 export const ext = [...commonServiceExtensions]
 
 export const options = {
@@ -41,10 +34,9 @@ export default async function (request) {
     relativePathParts,
     folderContents,
     folderTree,
-    sizeFormat: byteValueNumberFormatter.format,
     filesMeta,
     encodePathSegments,
-    pageTile: 'Files',
+    pageTitle: 'Files',
     breadcrumbs: [
       {
         text: 'Services',
