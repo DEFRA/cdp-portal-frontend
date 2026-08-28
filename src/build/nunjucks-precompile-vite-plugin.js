@@ -51,7 +51,8 @@ export default function nunjucksPrecompile({ env, paths }) {
             ${compiled}
             export default '${relativeId}';
           `,
-          map: null
+          map: null,
+          moduleSideEffects: 'no-treeshake'
         }
       }
     }
