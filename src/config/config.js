@@ -129,6 +129,12 @@ const config = convict({
       ? 'https://webshell.{environment}.cdp-int.defra.cloud'
       : 'http://localhost:8000'
   },
+  enablePgWeb: {
+    doc: 'Enable PgWeb tool in the terminal',
+    format: Boolean,
+    default: false,
+    env: 'ENABLE_PG_WEB'
+  },
   grafanaUrl: {
     doc: 'Grafana base url',
     format: String,
