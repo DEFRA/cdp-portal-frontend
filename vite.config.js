@@ -37,8 +37,7 @@ export default defineConfig({
         applicationCss: 'src/client/stylesheets/application.scss',
         mermaid: 'src/client/javascripts/mermaid.js',
         webComponents: 'src/client/javascripts/web-components.js'
-      },
-      treeshake: false
+      }
     },
     sourcemap: true
   },
