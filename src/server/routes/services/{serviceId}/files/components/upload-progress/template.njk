@@ -9,14 +9,14 @@
     {{ rows.push([
       { text: file.name },
       { html: appProgress({
-          id: 'upload-progress-' + file.name,
+          id: 'upload-progress-' + file.name | urlencode,
           progress: 0,
           complete: 0 | formatFileSize,
           total: file.size | formatFileSize
         })
       },
       { html: uploadActions({
-        id: 'upload-button-' + file.name,
+        id: 'upload-button-' + file.name | urlencode,
         status: 'uploading'
       }) }
     ]) }}

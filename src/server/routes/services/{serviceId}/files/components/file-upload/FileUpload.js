@@ -61,7 +61,9 @@ export default class FileUpload extends NunjucksComponent {
   #onProgress(event) {
     const file = event.detail
 
-    const $progress = document.getElementById(`upload-progress-${file.name}`)
+    const $progress = document.getElementById(
+      `upload-progress-${encodeURI(file.name)}`
+    )
 
     if ($progress) {
       $progress.setAttribute('data-progress', file.progress)
@@ -75,7 +77,9 @@ export default class FileUpload extends NunjucksComponent {
   #onComplete(event) {
     const file = event.detail
 
-    const $progress = document.getElementById(`upload-progress-${file.name}`)
+    const $progress = document.getElementById(
+      `upload-progress-${encodeURI(file.name)}`
+    )
 
     if ($progress) {
       $progress.setAttribute('data-progress', file.progress)
@@ -85,7 +89,9 @@ export default class FileUpload extends NunjucksComponent {
       )
     }
 
-    const $button = document.getElementById(`upload-button-${file.name}`)
+    const $button = document.getElementById(
+      `upload-button-${encodeURI(file.name)}`
+    )
 
     if ($button) {
       $button.setAttribute('data-status', 'complete')
