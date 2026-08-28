@@ -7,12 +7,12 @@ window.cdp = window.cdp ?? {}
 window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
 
 export default class UploadForm extends NunjucksComponent {
+  #form
+  #onSubmitHandler
+
   static get observedAttributes() {
     return ['data-status']
   }
-
-  #form
-  #onSubmitHandler
 
   constructor() {
     super()
@@ -43,19 +43,12 @@ export default class UploadForm extends NunjucksComponent {
 
     const payload = {
       csrfToken: this.#form.querySelector('input[name="csrfToken"]').value,
-      filesMeta: JSON.stringify(
-        Array.from(files).map(({ name, size }) => ({
-          name,
-          size
-        }))
-      )
+      filesMeta: JSON.stringify(window.cdp.uploadManager.getFilesMeta())
     }
 
     const { ok } = await xhrPostRequest(location.href, payload)
 
-    if (ok) {
-      // startUpload()
-    } else {
+    if (!ok) {
       clientNotification('Loading failed, please refresh the page')
     }
 
