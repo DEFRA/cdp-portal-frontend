@@ -101,7 +101,7 @@ async function createServer() {
     authOidcPlugin,
     sessionCookie,
     Scooter,
-    contentSecurityPolicy,
+    // contentSecurityPolicy,
     csrf,
     nunjucksConfig,
     sanitise,
