@@ -133,7 +133,7 @@ function formatAsS3Path(path = '', withTrailingSlash) {
   let result = path
 
   if (result.startsWith('/')) {
-    result = result.replace('/')
+    result = result.replace('/', '')
   }
 
   if (withTrailingSlash && !result.endsWith('/')) {
