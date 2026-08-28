@@ -15,7 +15,10 @@
           total: file.size | formatFileSize
         })
       },
-      { html: uploadActions({ status: 'uploading' }) }
+      { html: uploadActions({
+        id: 'upload-button-' + file.name,
+        status: 'uploading'
+      }) }
     ]) }}
   {% endfor %}
 {% endmacro %}

@@ -48,7 +48,6 @@ export default class NunjucksComponent extends HTMLElement {
     this.render(this.dataset)
   }
 
-
   /* --- Methods for optional override --- */
 
   mounted() {
@@ -60,6 +59,8 @@ export default class NunjucksComponent extends HTMLElement {
   }
 
   render(props) {
-    this.innerHTML = nunjucksEnvironment.render(this.#template, { params: props })
+    this.innerHTML = nunjucksEnvironment.render(this.#template, {
+      params: props
+    })
   }
 }

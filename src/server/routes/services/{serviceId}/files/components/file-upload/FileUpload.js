@@ -6,16 +6,17 @@ import UploadManager from './UploadManager.js'
 window.cdp = window.cdp ?? {}
 window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
 
-
 export default class FileUpload extends NunjucksComponent {
   #onSubmitHandler
   #onProgressHandler
+  #onCompleteHandler
 
   constructor() {
     super(template)
 
     this.#onSubmitHandler = this.#onSubmit.bind(this)
     this.#onProgressHandler = this.#onProgress.bind(this)
+    this.#onCompleteHandler = this.#onComplete.bind(this)
   }
 
   mounted() {
@@ -25,14 +26,22 @@ export default class FileUpload extends NunjucksComponent {
       'progress',
       this.#onProgressHandler
     )
+    window.cdp.uploadManager.addEventListener(
+      'complete',
+      this.#onCompleteHandler
+    )
   }
 
   dismounted() {
-    this.addEventListener('submit', this.#onSubmitHandler)
+    this.removeEventListener('submit', this.#onSubmitHandler)
 
     window.cdp.uploadManager.removeEventListener(
       'progress',
       this.#onProgressHandler
+    )
+    window.cdp.uploadManager.removeEventListener(
+      'complete',
+      this.#onCompleteHandler
     )
   }
 
@@ -49,11 +58,22 @@ export default class FileUpload extends NunjucksComponent {
     })
   }
 
-
   #onProgress(event) {
     const file = event.detail
 
-    // const filesMeta = window.cdp.uploadManager.getFilesMeta()
+    const $progress = document.getElementById(`upload-progress-${file.name}`)
+
+    if ($progress) {
+      $progress.setAttribute('data-progress', file.progress)
+      $progress.setAttribute(
+        'data-complete',
+        formatFileSize(file.bytesUploaded)
+      )
+    }
+  }
+
+  #onComplete(event) {
+    const file = event.detail
 
     const $progress = document.getElementById(`upload-progress-${file.name}`)
 
@@ -65,9 +85,18 @@ export default class FileUpload extends NunjucksComponent {
       )
     }
 
-    // this.render({
-    //   filesMeta
-    // })
+    const $button = document.getElementById(`upload-button-${file.name}`)
+
+    if ($button) {
+      $button.setAttribute('data-status', 'complete')
+    }
+
+
+    const filesMeta = window.cdp.uploadManager.getFilesMeta()
+
+    if (filesMeta.every((file) => file.status === 'complete')) {
+      window.location.reload()
+    }
   }
 }
 
