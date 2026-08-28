@@ -75,7 +75,7 @@ export default class UploadManager extends EventTarget {
           'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({
-          path
+          path: `${path}/${file.name}`
         })
       })
 
@@ -90,8 +90,8 @@ export default class UploadManager extends EventTarget {
         headers: {
           'Content-Type': 'application/octet-stream'
         },
-        body: file.stream(), // .pipeThrough(progressTrackingStream),
-        duplex: 'half'
+        body: file //.stream(), // .pipeThrough(progressTrackingStream),
+        // duplex: 'half'
       })
 
       if (!uploadResponse.ok) {
