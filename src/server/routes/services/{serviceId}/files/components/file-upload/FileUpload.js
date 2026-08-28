@@ -91,7 +91,6 @@ export default class FileUpload extends NunjucksComponent {
       $button.setAttribute('data-status', 'complete')
     }
 
-
     const filesMeta = window.cdp.uploadManager.getFilesMeta()
 
     if (filesMeta.every((file) => file.status === 'complete')) {
