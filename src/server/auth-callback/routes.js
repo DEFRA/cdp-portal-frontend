@@ -1,4 +1,8 @@
 import { authCallbackController } from './auth-callback-controller.js'
+import {
+  authCompleteController,
+  authCompletePath
+} from './auth-complete-controller.js'
 
 export const authCallback = {
   plugin: {
@@ -27,6 +31,11 @@ export const authCallback = {
           options: {
             auth: false
           }
+        },
+        {
+          method: ['GET'],
+          path: authCompletePath,
+          handler: authCompleteController.handler
         }
       ])
     }

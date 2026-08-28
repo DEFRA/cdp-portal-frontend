@@ -1,10 +1,9 @@
 import { randomUUID } from 'node:crypto'
 
 import Boom from '@hapi/boom'
-import { sessionNames } from '../common/constants/session-names.js'
 import { saveUserSession } from '#server/common/helpers/auth/save-session.js'
 import { redirectWithRefresh } from '#server/common/helpers/url/url-helpers.js'
-import { fetchScopes } from '#server/teams/helpers/fetch/fetch-scopes.js'
+import { authCompletePath } from './auth-complete-controller.js'
 
 export const authCallbackController = {
   handler: async (request, h) => {
@@ -14,7 +13,7 @@ export const authCallbackController = {
       throw Boom.unauthorized()
     }
 
-    const { sessionCookie, audit, yar, logger } = request
+    const { sessionCookie, audit, logger } = request
 
     const sessionId = randomUUID()
 
@@ -31,16 +30,9 @@ export const authCallbackController = {
       user: session
     })
 
-    let redirect = yar.flash(sessionNames.referrer)?.at(0) ?? '/'
-    logger.info(`Login complete, redirecting user to ${redirect}`)
-
-    if (session && redirect === '/services') {
-      const { scopeFlags } = await fetchScopes(session.token)
-      if (scopeFlags?.isAdmin) {
-        redirect = '/services/all'
-      }
-    }
-
-    return redirectWithRefresh(h, redirect)
+    // Under response_mode=form_post the provider returns here as a cross-site
+    // POST with no SameSite cookies, so the session holding the return path is
+    // only reachable from a same-site GET.
+    return redirectWithRefresh(h, authCompletePath)
   }
 }

@@ -27,9 +27,14 @@ function getRefererAsRelativeURL(referer, defaultPath) {
     }
   }
 
+  // Browsers read `\` as a separator, so `/\evil` is as off-site as `//evil`.
+  if (/^[/\\]{2}/.test(relative)) {
+    return defaultPath
+  }
+
   // Don't redirect back to the auth callback page as the content can only be processed once.
   if (relative.startsWith(callbackPath)) {
-    relative = defaultPath
+    return defaultPath
   }
 
   return relative
