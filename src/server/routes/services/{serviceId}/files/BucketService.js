@@ -1,6 +1,8 @@
 import { config } from '#config/config.js'
-import { GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3'
+import { GetObjectCommand, ListObjectsV2Command, PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+
+const SIGNED_URL_TTL_SECONDS = 10
 
 // TODO: Use real bucket / call BE
 const bucket = config.get('documentation.bucket')
@@ -106,8 +108,22 @@ export async function getFileUrl(request, path) {
   })
 
   const url = await getSignedUrl(request.s3Client, command, {
-    expiresIn: 10,
+    expiresIn: SIGNED_URL_TTL_SECONDS,
     unsignableHeaders: new Set(['content-disposition'])
+  })
+
+  return url
+}
+
+export async function getFilePutUrl(request, path, uploadId) {
+  const command = new PutObjectCommand({
+    Bucket: bucket,
+    Key: formatAsS3Path(path),
+    UploadId: uploadId
+  })
+
+  const url = await getSignedUrl(request.s3Client, command, {
+    expiresIn: SIGNED_URL_TTL_SECONDS
   })
 
   return url

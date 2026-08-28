@@ -16,7 +16,8 @@ const csrf = {
       password: sessionCookieConfig.password,
       isSecure: sessionCookieConfig.isSecure,
       ttl: sessionCookieConfig.ttl
-    }
+    },
+    restful: true
   }
 }
 

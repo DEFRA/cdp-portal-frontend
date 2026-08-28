@@ -51,7 +51,12 @@ export default class FileUpload extends NunjucksComponent {
     const $form = this.querySelector('form')
     const files = $form.querySelector('input[name="files"]')?.files ?? []
 
-    window.cdp.uploadManager.startUpload(files)
+    window.cdp.uploadManager.startUpload(
+      this.dataset.service,
+      this.dataset.path,
+      files,
+      this.dataset.csrftoken
+    )
 
     this.render({
       filesMeta: window.cdp.uploadManager.getFilesMeta()
