@@ -1,7 +1,6 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { folderTreeForPath, listPathContents } from '../BucketService.js'
-import { sessionNames } from '#server/common/constants/session-names.js'
 
 export const ext = [...commonServiceExtensions]
 
@@ -26,15 +25,12 @@ export default async function (request) {
 
   const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
 
-  const { filesMeta } = request.yar.get(sessionNames.dataUpload) ?? {}
-
   return {
     entity,
     path,
     relativePathParts,
     folderContents,
     folderTree,
-    filesMeta,
     encodePathSegments,
     pageTitle: 'Files',
     breadcrumbs: [
@@ -60,18 +56,10 @@ function encodePathSegments(path) {
 }
 
 export async function POST(request, h) {
-  const { files, filesMeta } = request.payload
+  const { files } = request.payload
 
   if (files) {
-    // TODO: Server-side only upload if no client-side JS enabled
+    // TODO: Handle Server-side only upload if no client-side JS enabled
   }
-
-  if (filesMeta) {
-    request.yar.set(sessionNames.dataUpload, {
-      filesMeta: JSON.parse(filesMeta)
-    })
-    await request.yar.commit(h)
-  }
-
   return h.redirect(request.url)
 }

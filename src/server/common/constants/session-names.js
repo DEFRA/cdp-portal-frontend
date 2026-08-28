@@ -10,8 +10,7 @@ const sessionNames = {
   validationFailure: 'validationFailure',
   resourcesBasket: 'resourcesBasket',
   xhrRefresh: 'xhrRefresh',
-  grafanaPlayground: 'grafanaPlayground',
-  dataUpload: 'dataUpload'
+  grafanaPlayground: 'grafanaPlayground'
 }
 
 export { sessionNames }
