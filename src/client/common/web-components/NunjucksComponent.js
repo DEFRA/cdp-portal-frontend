@@ -1,5 +1,9 @@
 import nunjucks from 'nunjucks/browser/nunjucks-slim.js'
 import path from 'path'
+import { formatFileSize } from '#config/nunjucks/filters/filters.js'
+
+const env = nunjucks.configure()
+env.addFilter('formatFileSize', formatFileSize)
 
 /*
  * Patch loader due to missing `path` reference
@@ -37,7 +41,7 @@ export default class NunjucksComponent extends HTMLElement {
   attributeChangedCallback() {
     if (!this.#connected) return
 
-    this.innerHTML = this.render(this.dataset)
+    this.render(this.dataset)
   }
 
   // Protected methods for optional override
@@ -47,6 +51,6 @@ export default class NunjucksComponent extends HTMLElement {
   dismounted() {}
 
   render(props) {
-    return nunjucks.render(this.#template, { params: props })
+    this.innerHTML = env.render(this.#template, { params: props })
   }
 }

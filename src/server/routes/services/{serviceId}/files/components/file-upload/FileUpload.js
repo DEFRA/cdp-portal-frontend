@@ -42,8 +42,6 @@ export default class FileUpload extends NunjucksComponent {
   #onSubmit(event) {
     event.preventDefault()
 
-    this.#form.dataset.isSubmitting = 'true'
-
     const files = this.#form.querySelector('input[name="files"]')?.files ?? []
 
     window.cdp.uploadManager.startUpload(files)

@@ -2,13 +2,11 @@ import { defineConfig } from 'vite'
 import { NodePackageImporter } from 'sass-embedded'
 import nunjucksPrecompile from './src/build/nunjucks-precompile-vite-plugin.js'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import { nunjucksEnvironment } from '#config/nunjucks'
 
 export default defineConfig({
   base: '/public',
   plugins: [
     nunjucksPrecompile({
-      env: nunjucksEnvironment,
       paths: [
         'node_modules/govuk-frontend/dist',
         'src/server/common/components',
