@@ -111,8 +111,10 @@ export default class FileUpload extends NunjucksComponent {
 
     const filesMeta = window.cdp.uploadManager.getFilesMeta()
 
-    if (filesMeta.every((file) => file.status === 'complete')) {
-      window.location.reload()
+    if (!filesMeta.some((file) => file.status === 'uploading')) {
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
     }
   }
 
