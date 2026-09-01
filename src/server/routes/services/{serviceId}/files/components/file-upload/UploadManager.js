@@ -1,4 +1,4 @@
-import { formatISO9075 } from 'date-fns'
+import pRetry, { AbortError } from 'p-retry'
 
 const ONE_HUNDRED_MEGABYTES = 100 * 1024 * 1024
 
@@ -152,23 +152,26 @@ export default class UploadManager extends EventTarget {
   }
 
   async #getPutUrl(service, path, file, csrfToken, uploadPartNumber) {
-    const response = await fetch(`/services/${service}/files-api/put-url`, {
-      method: 'POST',
-      cache: 'no-store',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
-        'Cache-Control': 'no-cache, no-store, max-age=0',
-        Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
-        Pragma: 'no-cache',
-        'X-CSRF-Token': csrfToken
-      },
-      body: JSON.stringify({
-        path: `${path}/${file.name}`,
-        uploadId: file.uploadId,
-        uploadPartNumber
-      })
-    })
+    const response = await fetchWithRetry(
+      `/services/${service}/files-api/put-url`,
+      {
+        method: 'POST',
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+          'Cache-Control': 'no-cache, no-store, max-age=0',
+          Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+          Pragma: 'no-cache',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          path: `${path}/${file.name}`,
+          uploadId: file.uploadId,
+          uploadPartNumber
+        })
+      }
+    )
 
     if (!response.ok) {
       throw new Error('Failed to get PUT URL')
@@ -180,7 +183,7 @@ export default class UploadManager extends EventTarget {
   }
 
   async #streamBlob(url, blob, progressTrackingStream) {
-    const uploadResponse = await fetch(url, {
+    const uploadResponse = await fetchWithRetry(url, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/octet-stream'
@@ -193,7 +196,7 @@ export default class UploadManager extends EventTarget {
   }
 
   async #startMultipartUpload(service, path, file, csrfToken) {
-    const response = await fetch(
+    const response = await fetchWithRetry(
       `/services/${service}/files-api/multipart-upload`,
       {
         method: 'POST',
@@ -222,7 +225,7 @@ export default class UploadManager extends EventTarget {
   }
 
   async #completeMultipartUpload(service, path, file, csrfToken) {
-    const response = await fetch(
+    const response = await fetchWithRetry(
       `/services/${service}/files-api/multipart-upload/${file.uploadId}`,
       {
         method: 'PUT',
@@ -253,4 +256,23 @@ export default class UploadManager extends EventTarget {
 
     return uploadId
   }
+}
+
+function fetchWithRetry(url, fetchOpts, retryOpts = {}) {
+  return pRetry(
+    async () => {
+      const response = await fetch(url, fetchOpts)
+
+      if (response.status === 404) {
+        throw new AbortError(response.statusText)
+      }
+
+      if (!response.ok) {
+        throw new Error(`${response.status}:${response?.statusMessage}`)
+      }
+
+      return response
+    },
+    { retries: 2, minTimeout: 500, ...retryOpts }
+  )
 }
