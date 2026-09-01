@@ -1,3 +1,5 @@
+const ONE_HUNDRED_MEGABYTES = 100 * 1024 * 1024
+
 export default class UploadManager extends EventTarget {
   #files
 
@@ -5,7 +7,11 @@ export default class UploadManager extends EventTarget {
     this.#files = files
 
     for (const file of this.#files) {
-      this.#uploadFile(service, path, file, csrfToken)
+      if (file.size > ONE_HUNDRED_MEGABYTES) {
+        this.#uploadLargeFile(service, path, file, csrfToken)
+      } else {
+        this.#uploadFile(service, path, file, csrfToken)
+      }
     }
   }
 
@@ -23,27 +29,7 @@ export default class UploadManager extends EventTarget {
       file.bytesUploaded = 0
       file.progress = 0
 
-      const urlRequest = await fetch(`/services/${service}/files-api/put-url`, {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest',
-          'Cache-Control': 'no-cache, no-store, max-age=0',
-          Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
-          Pragma: 'no-cache',
-          'X-CSRF-Token': csrfToken
-        },
-        body: JSON.stringify({
-          path: `${path}/${file.name}`
-        })
-      })
-
-      if (!urlRequest.ok) {
-        throw new Error('Url fetch failed')
-      }
-
-      const { url } = await urlRequest.json()
+      const url = await this.#getPutUrl(service, path, file, csrfToken)
 
       const uploadManager = this
       const progressTrackingStream = new TransformStream({
@@ -52,17 +38,7 @@ export default class UploadManager extends EventTarget {
           file.bytesUploaded += chunk.byteLength
           file.progress = Math.round((file.bytesUploaded / file.size) * 100)
 
-          uploadManager.dispatchEvent(
-            new CustomEvent('progress', {
-              detail: {
-                name: file.name,
-                size: file.size,
-                bytesUploaded: file.bytesUploaded,
-                progress: file.progress,
-                status: file.status
-              }
-            })
-          )
+          uploadManager.#dispatchFileEvent('progress', file)
         }
       })
 
@@ -81,36 +57,87 @@ export default class UploadManager extends EventTarget {
 
       file.status = 'complete'
       file.progress = 100
-
-      this.dispatchEvent(
-        new CustomEvent('complete', {
-          detail: {
-            name: file.name,
-            size: file.size,
-            bytesUploaded: file.size,
-            status: file.status,
-            progress: file.progress
-          }
-        })
-      )
+      this.#dispatchFileEvent('complete', file)
     } catch (error) {
       file.status = 'failed'
-
-      this.dispatchEvent(
-        new CustomEvent('failed', {
-          detail: {
-            name: file.name,
-            size: file.size,
-            bytesUploaded: file.size,
-            status: file.status,
-            progress: file.progress
-          }
-        })
-      )
+      this.#dispatchFileEvent('failed', file)
     }
   }
 
   async #uploadLargeFile(service, path, file, csrfToken) {
     // TODO: over a certain size, split the upload into parallel streams
+    //
+    const uploadId = await this.#startMultipartUpload(service, path, file, csrfToken)
+    console.log(uploadId)
+    this.uploadFile(service, path, file, csrfToken)
+  }
+
+  #dispatchFileEvent(type, file) {
+    this.dispatchEvent(
+      new CustomEvent(type, {
+        detail: {
+          name: file.name,
+          size: file.size,
+          bytesUploaded: file.bytesUploaded,
+          status: file.status,
+          progress: file.progress
+        }
+      })
+    )
+  }
+
+  async #getPutUrl(service, path, file, csrfToken) {
+    const response = await fetch(`/services/${service}/files-api/put-url`, {
+      method: 'POST',
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Cache-Control': 'no-cache, no-store, max-age=0',
+        Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+        Pragma: 'no-cache',
+        'X-CSRF-Token': csrfToken
+      },
+      body: JSON.stringify({
+        path: `${path}/${file.name}`
+      })
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to get PUT URL')
+    }
+
+    const { url } = await response.json()
+
+    return url
+  }
+
+  async #startMultipartUpload(service, path, file, csrfToken) {
+    const response = await fetch(
+      `/services/${service}/files-api/multipart-upload`,
+      {
+        method: 'POST',
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+          'Cache-Control': 'no-cache, no-store, max-age=0',
+          Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+          Pragma: 'no-cache',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          path: `${path}/${file.name}`
+        })
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to start multipart upload')
+    }
+
+    const { uploadId } = await response.json()
+
+    return uploadId
   }
 }
