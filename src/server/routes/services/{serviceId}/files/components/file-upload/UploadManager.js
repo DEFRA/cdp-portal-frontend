@@ -7,50 +7,6 @@ export default class UploadManager extends EventTarget {
     for (const file of this.#files) {
       this.#uploadFile(service, path, file, csrfToken)
     }
-
-    // // TODO: Replace with actual upload
-    // setInterval(() => {
-    //   for (const file of this.#files) {
-    //     file.status = file.status ?? 'uploading'
-    //     file.bytesDownloaded = file.bytesDownloaded ?? 0
-
-    //     file.bytesDownloaded += 100
-
-    //     if (file.bytesDownloaded >= file.size) {
-    //       if (file.status !== 'complete') {
-    //         file.status = 'complete'
-
-    //         this.dispatchEvent(
-    //           new CustomEvent('complete', {
-    //             detail: {
-    //               name: file.name,
-    //               size: file.size,
-    //               bytesUploaded: file.size,
-    //               progress: 100,
-    //               status: file.status
-    //             }
-    //           })
-    //         )
-    //       }
-
-    //       continue
-    //     }
-
-    //     const progress = Math.round((file.bytesDownloaded / file.size) * 100)
-
-    //     this.dispatchEvent(
-    //       new CustomEvent('progress', {
-    //         detail: {
-    //           name: file.name,
-    //           size: file.size,
-    //           bytesUploaded: file.bytesDownloaded,
-    //           progress,
-    //           status: file.status
-    //         }
-    //       })
-    //     )
-    //   }
-    // }, 10)
   }
 
   getFilesMeta() {
@@ -63,8 +19,9 @@ export default class UploadManager extends EventTarget {
 
   async #uploadFile(service, path, file, csrfToken) {
     try {
-
       file.status = file.status ?? 'uploading'
+      file.bytesUploaded = file.bytesUploaded ?? 0
+      file.progress = file.progress ?? 0
 
       const urlRequest = await fetch(`/services/${service}/files-api/put-url`, {
         method: 'POST',
@@ -88,13 +45,34 @@ export default class UploadManager extends EventTarget {
 
       const { url } = await urlRequest.json()
 
+      const uploadManager = this
+      const progressTrackingStream = new TransformStream({
+        transform(chunk, controller) {
+          controller.enqueue(chunk)
+          file.bytesUploaded += chunk.byteLength
+          file.progress = Math.round((file.bytesUploaded / file.size) * 100)
+
+          uploadManager.dispatchEvent(
+            new CustomEvent('progress', {
+              detail: {
+                name: file.name,
+                size: file.size,
+                bytesUploaded: file.bytesUploaded,
+                progress: file.progress,
+                status: file.status
+              }
+            })
+          )
+        }
+      })
+
       const uploadResponse = await fetch(url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/octet-stream'
         },
-        body: file //.stream(), // .pipeThrough(progressTrackingStream),
-        // duplex: 'half'
+        body: file.stream().pipeThrough(progressTrackingStream),
+        duplex: 'half'
       })
 
       if (!uploadResponse.ok) {
@@ -115,7 +93,6 @@ export default class UploadManager extends EventTarget {
           }
         })
       )
-
     } catch (error) {
       file.status = 'failed'
 
@@ -125,7 +102,8 @@ export default class UploadManager extends EventTarget {
             name: file.name,
             size: file.size,
             bytesUploaded: file.size,
-            status: file.status
+            status: file.status,
+            progress: file.progress
           }
         })
       )
