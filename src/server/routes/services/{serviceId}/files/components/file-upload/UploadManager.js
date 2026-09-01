@@ -19,9 +19,9 @@ export default class UploadManager extends EventTarget {
 
   async #uploadFile(service, path, file, csrfToken) {
     try {
-      file.status = file.status ?? 'uploading'
-      file.bytesUploaded = file.bytesUploaded ?? 0
-      file.progress = file.progress ?? 0
+      file.status = 'uploading'
+      file.bytesUploaded = 0
+      file.progress = 0
 
       const urlRequest = await fetch(`/services/${service}/files-api/put-url`, {
         method: 'POST',
