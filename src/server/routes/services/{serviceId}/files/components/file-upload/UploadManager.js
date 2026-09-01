@@ -24,6 +24,7 @@ export default class UploadManager extends EventTarget {
   }
 
   async #uploadFile(service, path, file, csrfToken) {
+    // TODO: Define an actual model
     try {
       file.status = 'uploading'
       file.bytesUploaded = 0
@@ -42,14 +43,11 @@ export default class UploadManager extends EventTarget {
         }
       })
 
-      const uploadResponse = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/octet-stream'
-        },
-        body: file.stream().pipeThrough(progressTrackingStream),
-        duplex: 'half'
-      })
+      const uploadResponse = await this.#streamBlob(
+        url,
+        file,
+        progressTrackingStream
+      )
 
       if (!uploadResponse.ok) {
         throw new Error('Upload failed')
@@ -65,11 +63,23 @@ export default class UploadManager extends EventTarget {
   }
 
   async #uploadLargeFile(service, path, file, csrfToken) {
-    // TODO: over a certain size, split the upload into parallel streams
-    //
-    const uploadId = await this.#startMultipartUpload(service, path, file, csrfToken)
-    console.log(uploadId)
-    this.uploadFile(service, path, file, csrfToken)
+
+    file.uploadId = await this.#startMultipartUpload(
+      service,
+      path,
+      file,
+      csrfToken
+    )
+    console.log(file.uploadId)
+
+    // TODO: Slit into 100MB blobs
+
+    // for each blob - Fetch presignedUrl and upload
+
+    // TODO: Complete multipartUpload
+    await this.#completeMultipartUpload(service, path, file, csrfToken)
+
+    this.#uploadFile(service, path, file, csrfToken)
   }
 
   #dispatchFileEvent(type, file) {
@@ -80,7 +90,8 @@ export default class UploadManager extends EventTarget {
           size: file.size,
           bytesUploaded: file.bytesUploaded,
           status: file.status,
-          progress: file.progress
+          progress: file.progress,
+          uploadId: file.uploadId
         }
       })
     )
@@ -99,7 +110,8 @@ export default class UploadManager extends EventTarget {
         'X-CSRF-Token': csrfToken
       },
       body: JSON.stringify({
-        path: `${path}/${file.name}`
+        path: `${path}/${file.name}`,
+        uploadId: file.uploadId
       })
     })
 
@@ -110,6 +122,19 @@ export default class UploadManager extends EventTarget {
     const { url } = await response.json()
 
     return url
+  }
+
+  async #streamBlob(url, blob, progressTrackingStream) {
+    const uploadResponse = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/octet-stream'
+      },
+      body: blob.stream().pipeThrough(progressTrackingStream),
+      duplex: 'half'
+    })
+
+    return uploadResponse
   }
 
   async #startMultipartUpload(service, path, file, csrfToken) {
@@ -134,6 +159,36 @@ export default class UploadManager extends EventTarget {
 
     if (!response.ok) {
       throw new Error('Failed to start multipart upload')
+    }
+
+    const { uploadId } = await response.json()
+
+    return uploadId
+  }
+
+  async #completeMultipartUpload(service, path, file, csrfToken) {
+    const response = await fetch(
+      `/services/${service}/files-api/multipart-upload/${file.uploadId}`,
+      {
+        method: 'PUT',
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+          'Cache-Control': 'no-cache, no-store, max-age=0',
+          Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+          Pragma: 'no-cache',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          path: `${path}/${file.name}`,
+          uploadParts: file.uploadParts
+        })
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to complete multipart upload')
     }
 
     const { uploadId } = await response.json()
