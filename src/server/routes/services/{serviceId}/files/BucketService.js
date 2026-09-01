@@ -141,7 +141,7 @@ export async function getFilePutUrl(request, path, uploadId, uploadPartNumber) {
   const url = await getSignedUrl(request.s3Client, command, {
     expiresIn: SIGNED_URL_TTL_SECONDS
   })
-  console.log(url)
+
   return url
 }
 
