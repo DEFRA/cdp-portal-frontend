@@ -1,3 +1,5 @@
+import { formatISO9075 } from 'date-fns'
+
 const ONE_HUNDRED_MEGABYTES = 100 * 1024 * 1024
 
 export default class UploadManager extends EventTarget {
@@ -63,23 +65,75 @@ export default class UploadManager extends EventTarget {
   }
 
   async #uploadLargeFile(service, path, file, csrfToken) {
+    try {
+      file.status = 'uploading'
+      file.bytesUploaded = 0
+      file.progress = 0
+      file.uploadParts = []
+      file.uploadId = await this.#startMultipartUpload(
+        service,
+        path,
+        file,
+        csrfToken
+      )
 
-    file.uploadId = await this.#startMultipartUpload(
-      service,
-      path,
-      file,
-      csrfToken
-    )
-    console.log(file.uploadId)
+      let currentPosition = 0
+      while (currentPosition < file.size) {
+        const endPosition = Math.min(
+          currentPosition + ONE_HUNDRED_MEGABYTES,
+          file.size
+        )
+        const blob = file.slice(currentPosition, endPosition)
+        file.uploadParts.push({ blob })
 
-    // TODO: Slit into 100MB blobs
+        currentPosition += ONE_HUNDRED_MEGABYTES
+      }
 
-    // for each blob - Fetch presignedUrl and upload
+      await Promise.all(
+        file.uploadParts.map(async (uploadPart, index) => {
+          uploadPart.partNumber = index + 1
+          uploadPart.url = await this.#getPutUrl(
+            service,
+            path,
+            file,
+            csrfToken,
+            uploadPart.partNumber
+          )
 
-    // TODO: Complete multipartUpload
-    await this.#completeMultipartUpload(service, path, file, csrfToken)
+          const uploadManager = this
+          const progressTrackingStream = new TransformStream({
+            transform(chunk, controller) {
+              controller.enqueue(chunk)
+              file.bytesUploaded += chunk.byteLength
+              file.progress = Math.round((file.bytesUploaded / file.size) * 100)
 
-    this.#uploadFile(service, path, file, csrfToken)
+              uploadManager.#dispatchFileEvent('progress', file)
+            }
+          })
+
+          const uploadResponse = await this.#streamBlob(
+            uploadPart.url,
+            uploadPart.blob,
+            progressTrackingStream
+          )
+
+          if (!uploadResponse.ok) {
+            throw new Error('part upload failed')
+          }
+
+          uploadPart.eTag = uploadResponse.ETag
+        })
+      )
+
+      await this.#completeMultipartUpload(service, path, file, csrfToken)
+
+      file.status = 'complete'
+      file.progress = 100
+      this.#dispatchFileEvent('complete', file)
+    } catch (error) {
+      file.status = 'failed'
+      this.#dispatchFileEvent('failed', file)
+    }
   }
 
   #dispatchFileEvent(type, file) {
@@ -97,7 +151,7 @@ export default class UploadManager extends EventTarget {
     )
   }
 
-  async #getPutUrl(service, path, file, csrfToken) {
+  async #getPutUrl(service, path, file, csrfToken, uploadPartNumber) {
     const response = await fetch(`/services/${service}/files-api/put-url`, {
       method: 'POST',
       cache: 'no-store',
@@ -111,7 +165,8 @@ export default class UploadManager extends EventTarget {
       },
       body: JSON.stringify({
         path: `${path}/${file.name}`,
-        uploadId: file.uploadId
+        uploadId: file.uploadId,
+        uploadPartNumber
       })
     })
 
@@ -182,7 +237,10 @@ export default class UploadManager extends EventTarget {
         },
         body: JSON.stringify({
           path: `${path}/${file.name}`,
-          uploadParts: file.uploadParts
+          uploadParts: file.uploadParts.map((part, index) => ({
+            eTag: part.eTag,
+            partNumber: part.partNumber
+          }))
         })
       }
     )

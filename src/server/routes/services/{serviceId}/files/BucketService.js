@@ -4,7 +4,8 @@ import {
   CreateMultipartUploadCommand,
   GetObjectCommand,
   ListObjectsV2Command,
-  PutObjectCommand
+  PutObjectCommand,
+  UploadPartCommand
 } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
@@ -121,17 +122,26 @@ export async function getFileUrl(request, path) {
   return url
 }
 
-export async function getFilePutUrl(request, path, uploadId) {
-  const command = new PutObjectCommand({
-    Bucket: bucket,
-    Key: formatAsS3Path(path),
-    UploadId: uploadId
-  })
+export async function getFilePutUrl(request, path, uploadId, uploadPartNumber) {
+  let command
+  if (uploadId) {
+    command = new UploadPartCommand({
+      Bucket: bucket,
+      Key: formatAsS3Path(path),
+      UploadId: uploadId,
+      PartNumber: uploadPartNumber
+    })
+  } else {
+    command = new PutObjectCommand({
+      Bucket: bucket,
+      Key: formatAsS3Path(path)
+    })
+  }
 
   const url = await getSignedUrl(request.s3Client, command, {
     expiresIn: SIGNED_URL_TTL_SECONDS
   })
-
+  console.log(url)
   return url
 }
 
