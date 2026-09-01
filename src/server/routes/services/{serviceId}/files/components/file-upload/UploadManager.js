@@ -64,6 +64,8 @@ export default class UploadManager extends EventTarget {
   async #uploadFile(service, path, file, csrfToken) {
     try {
 
+      file.status = file.status ?? 'uploading'
+
       const urlRequest = await fetch(`/services/${service}/files-api/put-url`, {
         method: 'POST',
         cache: 'no-store',
@@ -99,26 +101,31 @@ export default class UploadManager extends EventTarget {
         throw new Error('Upload failed')
       }
 
+      file.status = 'complete'
+      file.progress = 100
+
       this.dispatchEvent(
         new CustomEvent('complete', {
           detail: {
             name: file.name,
             size: file.size,
             bytesUploaded: file.size,
-            status: 'complete',
-            progress: 100
+            status: file.status,
+            progress: file.progress
           }
         })
       )
 
     } catch (error) {
+      file.status = 'failed'
+
       this.dispatchEvent(
         new CustomEvent('failed', {
           detail: {
             name: file.name,
             size: file.size,
             bytesUploaded: file.size,
-            status: 'failed'
+            status: file.status
           }
         })
       )
