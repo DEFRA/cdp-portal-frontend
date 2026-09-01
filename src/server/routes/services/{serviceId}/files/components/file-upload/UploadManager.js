@@ -68,6 +68,7 @@ export default class UploadManager extends EventTarget {
         method: 'POST',
         cache: 'no-store',
         headers: {
+          'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
           'Cache-Control': 'no-cache, no-store, max-age=0',
           Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
@@ -97,6 +98,18 @@ export default class UploadManager extends EventTarget {
       if (!uploadResponse.ok) {
         throw new Error('Upload failed')
       }
+
+      this.dispatchEvent(
+        new CustomEvent('complete', {
+          detail: {
+            name: file.name,
+            size: file.size,
+            bytesUploaded: file.size,
+            status: 'complete',
+            progress: 100
+          }
+        })
+      )
 
     } catch (error) {
       this.dispatchEvent(
