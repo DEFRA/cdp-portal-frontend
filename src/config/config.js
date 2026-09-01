@@ -71,7 +71,7 @@ const config = convict({
       endpoint: {
         doc: 'AWS S3 endpoint',
         format: String,
-        default: 'http://localhost:4566',
+        default: 'https://localhost:4566',
         env: 'S3_ENDPOINT'
       },
       forcePathStyle: {
