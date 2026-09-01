@@ -1,5 +1,7 @@
 import { config } from '#config/config.js'
 import {
+  CompleteMultipartUploadCommand,
+  CreateMultipartUploadCommand,
   GetObjectCommand,
   ListObjectsV2Command,
   PutObjectCommand
@@ -148,10 +150,31 @@ function formatAsS3Path(path = '', withTrailingSlash) {
 }
 
 export async function startMultipartUpload(request, path) {
-  const { UploadId } = await request.s3Client.createMultipartUpload({
+  const command = new CreateMultipartUploadCommand({
     Bucket: bucket,
     Key: formatAsS3Path(path)
   })
+  const { UploadId } = await request.s3Client.send(command)
 
   return UploadId
+}
+
+export async function completeMultipartUpload(
+  request,
+  path,
+  uploadId,
+  uploadParts = []
+) {
+  const command = new CompleteMultipartUploadCommand({
+    Bucket: bucket,
+    Key: formatAsS3Path(path),
+    UploadId: uploadId,
+    MultipartUpload: {
+      Parts: uploadParts.map(({ eTag, partNumber }) => ({
+        ETag: eTag,
+        PartNumber: partNumber
+      }))
+    }
+  })
+  await request.s3Client.send(command)
 }
