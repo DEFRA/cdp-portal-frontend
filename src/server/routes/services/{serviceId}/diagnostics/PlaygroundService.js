@@ -4,15 +4,12 @@ import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 export async function getPlayground(serviceName) {
   const endpoint = `${config.get('portalBackendUrl')}/entities/${serviceName}/grafana/playground`
 
-  const { res, payload = {} } = await fetchJson(endpoint)
+  const { payload = {}, error } = await fetchJson(endpoint)
 
-  // BE fetching from queues
-  if (res.statusCode === 202) {
-    return {
-      status: 'LOADING',
-      alerts: [],
-      dashboards: []
-    }
+  if (error) {
+    throw new Error(
+      error.detail ?? error.message ?? 'Grafana playground request failed'
+    )
   }
 
   const isPromoting = payload?.dashboards?.some(
