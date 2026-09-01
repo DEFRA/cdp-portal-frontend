@@ -1,6 +1,6 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { getFilePutUrl } from '../../files/BucketService.js'
+import { completeMultipartUpload } from '../../../files/BucketService.js'
 
 export const ext = [...commonServiceExtensions]
 
@@ -13,10 +13,12 @@ export const options = {
   }
 }
 
-export async function POST(request) {
-  const { path, uploadId, uploadPartNumber } = request.payload
+export async function PUT(request) {
+  const { uploadId } = request.params
 
-  const url = await getFilePutUrl(request, path, uploadId, uploadPartNumber)
+  const { path, uploadParts } = request.payload
 
-  return { url }
+  await completeMultipartUpload(request, path, uploadId, uploadParts)
+
+  return { uploadId }
 }
