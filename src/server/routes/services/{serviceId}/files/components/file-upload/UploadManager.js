@@ -9,6 +9,7 @@ export default class UploadManager extends EventTarget {
     this.#files = files
 
     for (const file of this.#files) {
+      // TODO: Consolidate to a single function
       if (file.size > ONE_HUNDRED_MEGABYTES) {
         this.#uploadLargeFile(service, path, file, csrfToken)
       } else {
@@ -264,11 +265,11 @@ function fetchWithRetry(url, fetchOpts, retryOpts = {}) {
       const response = await fetch(url, fetchOpts)
 
       if (response.status === 404) {
-        throw new AbortError(response.statusText)
+        throw new AbortError(`${response.status}:${response.statusText}`)
       }
 
       if (!response.ok) {
-        throw new Error(`${response.status}:${response?.statusMessage}`)
+        throw new Error(`${response.status}:${response.statusText}`)
       }
 
       return response
