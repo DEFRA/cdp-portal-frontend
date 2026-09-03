@@ -57,6 +57,7 @@ describe('transformRunningServices', () => {
           }
         },
         serviceName: 'cdp-portal-frontend',
+        tags: ['live'],
         teams: [
           {
             name: 'Platform',
@@ -105,6 +106,7 @@ describe('transformRunningServices', () => {
           }
         },
         serviceName: 'cdp-self-service-ops',
+        tags: [],
         teams: [],
         isOwner: false
       },
@@ -148,6 +150,7 @@ describe('transformRunningServices', () => {
           }
         },
         serviceName: 'cdp-user-service-backend',
+        tags: [],
         teams: [
           {
             name: 'Platform',
