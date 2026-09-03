@@ -68,7 +68,7 @@ async function provideServiceTabs(request, h) {
 
         // TODO: Open to serviceOwners
         if (isAdmin) {
-          buildTab(response, request, 'services', 'files', entityName)
+          buildTab(response, request, 'services', 'imports', entityName)
         }
       }
     }
