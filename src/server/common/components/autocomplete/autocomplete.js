@@ -155,26 +155,14 @@ class Autocomplete {
       $autocomplete.setAttribute('data-lpignore', 'true') // Disable last password widget
     }
 
-    // Autocomplete hidden input - this sends the value in the form
-    const $autocompleteHiddenInput = document.createElement('input')
-    $autocompleteHiddenInput.type = 'hidden'
-    $autocompleteHiddenInput.name = $select.name
-    $autocompleteHiddenInput.value = suggestion?.value ?? $select.value ?? ''
-
-    this.$autocompleteHiddenInput = $autocompleteHiddenInput
-    this.$hiddenInputs = [$autocompleteHiddenInput]
-
-    $select.replaceWith($autocomplete, $autocompleteHiddenInput)
+    $select.replaceWith($autocomplete)
 
     // Handle existing value when using a data fetcher
     if (this.dataFetcher.isEnabled) {
       this.callDataFetcher($select.value)?.then(() => {
         const suggestion = this.getSuggestionByValue($select.value)
         $autocomplete.value = suggestion.text
-
-        if (!this.allowReselection) {
-          this.showCloseButton()
-        }
+        this.showCloseButton()
         const matchIndex = this.getSuggestionIndex(suggestion.text)
 
         this.populateSuggestions({
@@ -189,27 +177,25 @@ class Autocomplete {
    * @param {Record<string, string|string[]>} queryParams
    */
   setHiddenInputs(queryParams = {}) {
-    this.$hiddenInputs.slice(1).forEach(($input) => $input.remove())
+    this.$hiddenInputs.forEach(($input) => $input.remove())
+    this.$hiddenInputs = []
 
-    const [name, values] = Object.entries(queryParams).at(0) ?? [
-      this.$select.name,
-      ''
-    ]
+    for (const [name, values] of Object.entries(queryParams)) {
+      const items = Array.isArray(values) ? values : [values]
 
-    const items = Array.isArray(values) ? values : [values]
+      for (const value of items) {
+        if (value === undefined || value === null || value === '') {
+          continue
+        }
 
-    this.$autocompleteHiddenInput.name = name
-    this.$autocompleteHiddenInput.value = items[0] ?? ''
-    this.$hiddenInputs = [this.$autocompleteHiddenInput]
+        const $input = document.createElement('input')
+        $input.type = 'hidden'
+        $input.name = name
+        $input.value = String(value)
 
-    for (const value of items.slice(1)) {
-      const $input = document.createElement('input')
-      $input.type = 'hidden'
-      $input.name = name
-      $input.value = String(value)
-
-      this.$autocompleteHiddenInput.after($input)
-      this.$hiddenInputs.push($input)
+        this.$autocomplete.after($input)
+        this.$hiddenInputs.push($input)
+      }
     }
   }
 
@@ -758,9 +744,7 @@ class Autocomplete {
     const textValue = event?.target?.value
 
     if (textValue) {
-      if (!this.allowReselection) {
-        this.showCloseButton()
-      }
+      this.showCloseButton()
     } else {
       this.hideCloseButton()
       this.$suggestionsContainer.scrollTop = 0 // Move suggestions window scroll bar to top
@@ -836,16 +820,11 @@ class Autocomplete {
           const text = suggestion?.text ?? queryParamValue
           const value = suggestion?.value ?? queryParamValue
           this.updateInputValue({ text, value, withPublish: false })
-
-          if (!this.allowReselection) {
-            this.showCloseButton()
-          }
+          this.showCloseButton()
         }
 
         if (this.$autocomplete.value) {
-          if (!this.allowReselection) {
-            this.showCloseButton()
-          }
+          this.showCloseButton()
           const matchIndex = this.getSuggestionIndex(this.$autocomplete.value)
 
           this.populateSuggestions({
@@ -906,9 +885,7 @@ class Autocomplete {
       const textValue = event?.target?.value
 
       if (textValue) {
-        if (!this.allowReselection) {
-          this.showCloseButton()
-        }
+        this.showCloseButton()
       } else {
         this.hideCloseButton()
       }
@@ -975,7 +952,7 @@ class Autocomplete {
           this.suggestionIndex++
         }
 
-        // When last suggestion is passed scroll to the start of the suggestions list
+        // When last suggestion is passed scroll to the start of the suggestion list
         if (this.suggestionIndex > this.suggestionsLength - 1) {
           this.suggestionIndex = 0
         }
@@ -1108,9 +1085,7 @@ class Autocomplete {
 
         if (this.$autocomplete.value) {
           this.closeSuggestions()
-          if (!this.allowReselection) {
-            this.showCloseButton()
-          }
+          this.showCloseButton()
         } else {
           this.openSuggestions()
           this.hideCloseButton()
@@ -1142,9 +1117,7 @@ class Autocomplete {
         })
 
         this.closeSuggestions()
-        if (!this.allowReselection) {
-          this.showCloseButton()
-        }
+        this.showCloseButton()
       }
     })
   }
