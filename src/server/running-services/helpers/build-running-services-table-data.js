@@ -7,7 +7,10 @@ import { transformRunningServices } from './transformers/running-services.js'
 import { runningServiceToEntityRow } from './transformers/running-service-to-entity-row.js'
 import { sortByOwner } from '../../common/helpers/sort/sort-by-owner.js'
 import { fetchRunningServices } from './fetch/fetch-running-services.js'
-import { fetchServices } from '../../common/helpers/fetch/fetch-entities.js'
+import {
+  fetchDecommissions,
+  fetchServices
+} from '../../common/helpers/fetch/fetch-entities.js'
 import { renderRunningServiceEntity } from './render-running-service-entity.js'
 
 function addEnvironmentCellHtml(rows) {
@@ -57,17 +60,22 @@ async function buildRunningServicesTableData(request) {
   const environments = getEnvironments(userSession?.scope)
   const userScopes = userSession?.scope ?? []
 
-  const [deployableServices, runningServicesFilters, runningServices] =
-    await Promise.all([
-      fetchServices(),
-      fetchRunningServicesFilters(),
-      fetchRunningServices(environments, {
-        service: query.service,
-        status: query.status,
-        teamId: query.team,
-        user: query.user
-      })
-    ])
+  const [
+    deployableServices,
+    runningServicesFilters,
+    runningServices,
+    decommissionedServices
+  ] = await Promise.all([
+    fetchServices(),
+    fetchRunningServicesFilters(),
+    fetchRunningServices(environments, {
+      service: query.service,
+      status: query.status,
+      teamId: query.team,
+      user: query.user
+    }),
+    fetchDecommissions()
+  ])
 
   const { serviceFilters, userFilters, statusFilters, teamFilters } =
     getFilters(runningServicesFilters)
@@ -75,7 +83,8 @@ async function buildRunningServicesTableData(request) {
   const services = transformRunningServices({
     runningServices,
     deployableServices,
-    userScopes
+    userScopes,
+    decommissionedServices
   })
 
   const ownerSorter = sortByOwner('serviceName')

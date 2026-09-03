@@ -1,18 +1,23 @@
 import { runningServicesFixture } from '../../../../__fixtures__/running-services/running-services.js'
 import { transformRunningServices } from './running-services.js'
 import { runningServiceToEntityRow } from './running-service-to-entity-row.js'
-import { entityServicesFixture } from '../../../../__fixtures__/services/entities.js'
+import {
+  decommissionedEntityServicesFixture,
+  entityServicesFixture
+} from '../../../../__fixtures__/services/entities.js'
 
 describe('#runningServiceToEntityRow', () => {
   const adminGroupId = 'team:aabe63e7-87ef-4beb-a596-c810631fc474'
   const runningServices = runningServicesFixture
   const deployableServices = entityServicesFixture
   const userScopes = [adminGroupId]
+  const decommissionedServices = decommissionedEntityServicesFixture
 
   const services = transformRunningServices({
     runningServices,
     deployableServices,
-    userScopes
+    userScopes,
+    decommissionedServices
   })
   const firstService = services.at(0)
 
