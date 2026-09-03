@@ -22,6 +22,7 @@ export const sessionManager = {
       password: sessionConfig.cookie.password,
       isSecure: sessionConfig.cookie.isSecure,
       ttl: sessionConfig.cookie.ttl,
+      isSameSite: sessionConfig.cookie.isSameSite,
       clearInvalid: true
     }
   }
