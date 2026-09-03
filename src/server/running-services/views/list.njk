@@ -40,7 +40,8 @@
         value: formValues.service,
         suggestions: serviceFilters,
         typeahead: true,
-        placeholder: "Search by service"
+        placeholder: "Search by service",
+        allowReselection: true
       }) }}
     </div>
 
@@ -75,7 +76,8 @@
           classes: "app-form-group--inline"
         },
         value: formValues.user,
-        suggestions: userFilters
+        suggestions: userFilters,
+        allowReselection: true
       }) }}
     </div>
 
@@ -92,7 +94,8 @@
           classes: "app-form-group--inline"
         },
         value: formValues.status,
-        suggestions: statusFilters
+        suggestions: statusFilters,
+        allowReselection: true
       }) }}
     </div>
   {% endcall %}

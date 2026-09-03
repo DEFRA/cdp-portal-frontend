@@ -116,7 +116,6 @@ function setupSingleAutoComplete({ searchParam, params = {} } = {}) {
 
   return {
     autocompleteInput: firstElement.autocompleteInput,
-    autocompleteHiddenInput: firstElement.autocompleteHiddenInput,
     chevronButton: firstElement.chevronButton,
     suggestionsContainer: firstElement.suggestionsContainer
   }
@@ -132,7 +131,6 @@ function setup(components) {
     autocompleteInput: autoComplete.querySelector(
       '[data-testid="app-autocomplete-input"]'
     ),
-    autocompleteHiddenInput: autoComplete.querySelector(`input[type="hidden"]`),
     chevronButton: autoComplete.querySelector(
       '[data-testid="app-chevron-button"]'
     ),
@@ -152,17 +150,12 @@ describe('#autocompleteSearch', () => {
 
   describe('Without query param', () => {
     let autocompleteInput
-    let autocompleteHiddenInput
     let chevronButton
     let suggestionsContainer
 
     beforeEach(() => {
-      ;({
-        autocompleteInput,
-        autocompleteHiddenInput,
-        chevronButton,
-        suggestionsContainer
-      } = setupSingleAutoComplete())
+      ;({ autocompleteInput, chevronButton, suggestionsContainer } =
+        setupSingleAutoComplete())
     })
 
     describe('On load', () => {
@@ -274,7 +267,11 @@ describe('#autocompleteSearch', () => {
         })
 
         test('Should not have set hidden input value', () => {
-          expect(autocompleteHiddenInput.value).toBe('')
+          const hiddenInputs = autocompleteInput.form.querySelectorAll(
+            'input[type="hidden"]'
+          )
+
+          expect(hiddenInputs).toHaveLength(0)
         })
       })
 
@@ -288,7 +285,7 @@ describe('#autocompleteSearch', () => {
           expect(autocompleteInput).toHaveAttribute('aria-expanded', 'true')
         })
 
-        test('Should narrow to only expected suggestions', () => {
+        test('Should narrow to only expected suggestion', () => {
           expect(suggestionsContainer.children).toHaveLength(1)
           expect(suggestionsContainer.children[0]).toHaveTextContent(
             'provides SQS queues and SNS topics for services runninghow-to/sqs-sns.md'
@@ -325,11 +322,19 @@ describe('#autocompleteSearch', () => {
       })
 
       test('Should not have set hidden input value', () => {
-        expect(autocompleteHiddenInput.value).toBe('')
+        const hiddenInputs = autocompleteInput.form.querySelectorAll(
+          'input[type="hidden"]'
+        )
+
+        expect(hiddenInputs).toHaveLength(0)
       })
 
       test('When chosen, should set hidden input value', () => {
-        expect(autocompleteHiddenInput.value).toBe('')
+        const hiddenInputsBefore = autocompleteInput.form.querySelectorAll(
+          'input[type="hidden"]'
+        )
+
+        expect(hiddenInputsBefore).toHaveLength(0)
 
         const arrowDownKeyEvent = new KeyboardEvent('keydown', {
           code: 'arrowdown'
@@ -337,11 +342,16 @@ describe('#autocompleteSearch', () => {
         autocompleteInput.dispatchEvent(arrowDownKeyEvent)
         pressEnter(autocompleteInput)
 
+        const hiddenInputsAfter = autocompleteInput.form.querySelectorAll(
+          'input[type="hidden"]'
+        )
+
         expect(autocompleteInput).toHaveAttribute(
           'aria-activedescendant',
           'app-autocomplete-q-suggestion-1'
         )
-        expect(autocompleteHiddenInput.value).toBe('how-to/sqs-sns.md')
+        expect(hiddenInputsAfter).toHaveLength(1)
+        expect(hiddenInputsAfter[0].value).toBe('how-to/sqs-sns.md')
         expect(mockFormSubmit).toHaveBeenCalled()
       })
     })
@@ -565,11 +575,16 @@ describe('#autocompleteSearch', () => {
       test('Should have expected hidden input value', () => {
         pressEnter(autocompleteInput)
 
+        const hiddenInputs = autocompleteInput.form.querySelectorAll(
+          'input[type="hidden"]'
+        )
+
         expect(autocompleteInput).toHaveAttribute(
           'aria-activedescendant',
           'app-autocomplete-q-suggestion-1'
         )
-        expect(autocompleteHiddenInput.value).toBe('how-to/sqs-sns.md')
+        expect(hiddenInputs).toHaveLength(1)
+        expect(hiddenInputs[0].value).toBe('how-to/sqs-sns.md')
         expect(mockFormSubmit).toHaveBeenCalled()
       })
     })
@@ -619,7 +634,6 @@ describe('#autocompleteSearch', () => {
 
       test('suggestions Should have correct aria setsize values', () => {
         const children = suggestionsContainer.children
-
         expect(children[0]).toHaveAttribute('aria-setsize', '6')
       })
 

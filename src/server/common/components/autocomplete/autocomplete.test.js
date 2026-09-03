@@ -93,9 +93,11 @@ function setupSingleAutoComplete({ userSearchParam, params = {} } = {}) {
 
   return {
     autocompleteInput: firstElement.autocompleteInput,
-    autocompleteHiddenInput: firstElement.autocompleteInput.form.querySelector(
-      'input[type="hidden"]'
-    ),
+    get autocompleteHiddenInputs() {
+      return firstElement.autocompleteInput.form.querySelectorAll(
+        'input[type="hidden"]'
+      )
+    },
     chevronButton: firstElement.chevronButton,
     suggestionsContainer: firstElement.suggestionsContainer
   }
@@ -170,8 +172,8 @@ function setup(components) {
 
     return {
       autocompleteInput,
-      get autocompleteHiddenInput() {
-        return autocompleteInput.parentElement.querySelector(
+      get autocompleteHiddenInputs() {
+        return autocompleteInput.parentElement.querySelectorAll(
           'input[type="hidden"]'
         )
       },
@@ -188,19 +190,19 @@ function setup(components) {
 describe('#autocomplete', () => {
   describe('Without query param', () => {
     let autocompleteInput
-    let autocompleteHiddenInput
+    let getAutocompleteHiddenInputs
     let chevronButton
     let suggestionsContainer
 
     beforeEach(() => {
-      ;({
-        autocompleteInput,
-        autocompleteHiddenInput,
-        chevronButton,
-        suggestionsContainer
-      } = setupSingleAutoComplete({
+      const elements = setupSingleAutoComplete({
         params: { suggestions: basicSuggestions }
-      }))
+      })
+
+      autocompleteInput = elements.autocompleteInput
+      getAutocompleteHiddenInputs = () => elements.autocompleteHiddenInputs
+      chevronButton = elements.chevronButton
+      suggestionsContainer = elements.suggestionsContainer
     })
 
     describe('On load', () => {
@@ -304,7 +306,7 @@ describe('#autocomplete', () => {
         })
 
         test('Should not have set hidden input value', () => {
-          expect(autocompleteHiddenInput.value).toBe('')
+          expect(getAutocompleteHiddenInputs()).toHaveLength(0)
         })
       })
 
@@ -359,7 +361,8 @@ describe('#autocomplete', () => {
       })
 
       test('Should have set hidden input value', () => {
-        expect(autocompleteHiddenInput.value).toBe('Barbie')
+        expect(getAutocompleteHiddenInputs()).toHaveLength(1)
+        expect(getAutocompleteHiddenInputs()[0].value).toBe('Barbie')
       })
     })
 

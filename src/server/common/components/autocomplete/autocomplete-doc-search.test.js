@@ -47,7 +47,6 @@ function setupDocSearch() {
     autocompleteInput: $el.querySelector(
       '[data-testid="app-autocomplete-input"]'
     ),
-    autocompleteHiddenInput: $el.querySelector('input[type="hidden"]'),
     suggestionsContainer: $el.querySelector(
       '[data-testid="app-autocomplete-suggestions"]'
     )
@@ -174,12 +173,10 @@ describe('#autocompleteDocSearch', () => {
 
   describe('Anchor handling', () => {
     let autocompleteInput
-    let autocompleteHiddenInput
     let suggestionsContainer
 
     beforeEach(async () => {
-      ;({ autocompleteInput, autocompleteHiddenInput, suggestionsContainer } =
-        setupDocSearch())
+      ;({ autocompleteInput, suggestionsContainer } = setupDocSearch())
 
       mockFetchSuggestions.mockResolvedValue([
         { value: 'how-to/proxy.md', text: 'Proxy', anchor: 'proxy' },
@@ -208,7 +205,12 @@ describe('#autocompleteDocSearch', () => {
       autocompleteInput.dispatchEvent(arrowDown)
       pressEnter(autocompleteInput)
 
-      expect(autocompleteHiddenInput.value).toBe('how-to/proxy.md#proxy')
+      const hiddenInputs = autocompleteInput.form.querySelectorAll(
+        'input[type="hidden"]'
+      )
+
+      expect(hiddenInputs).toHaveLength(1)
+      expect(hiddenInputs[0].value).toBe('how-to/proxy.md#proxy')
     })
 
     test('Visible input keeps the typed text, not the file path', () => {
