@@ -1,6 +1,6 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { getFilePutUrl } from '../../files/BucketService.js'
+import { getFilePutUrl } from '../../imports/BucketService.js'
 
 export const ext = [...commonServiceExtensions]
 
