@@ -54,10 +54,7 @@ function removeSecretController(entityKind) {
           'Error whilst removing secret'
         )
       } else {
-        const useSyncApi = config.get('secrets.useSyncApi')
-        const secretRemoveEndpointUrl = useSyncApi
-          ? `${config.get('portalBackendUrl')}/secrets/${serviceId}/${environment}/remove`
-          : `${config.get('selfServiceOpsUrl')}/secrets/remove/${serviceId}/${environment}`
+        const secretRemoveEndpointUrl = `${config.get('portalBackendUrl')}/secrets/${serviceId}/${environment}/remove`
 
         try {
           await request.authedFetchJson(secretRemoveEndpointUrl, {
@@ -67,7 +64,7 @@ function removeSecretController(entityKind) {
 
           request.yar.clear(sessionNames.validationFailure)
           request.yar.flash(sessionNames.notifications, {
-            text: 'Secret being removed',
+            text: 'Secret removed',
             type: 'success'
           })
 

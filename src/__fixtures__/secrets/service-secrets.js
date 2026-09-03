@@ -11,45 +11,7 @@ const serviceSecretsFixture = {
     'REDIS_KEY_PREFIX'
   ],
   lastChangedDate: '2024-08-02T16:02:23.9872730Z',
-  createdDate: '2024-07-14T08:11:00',
-  pending: [],
-  exceptionMessage: null
+  createdDate: '2024-07-14T08:11:00'
 }
 
-const serviceSecretsWithPendingFixture = {
-  service: 'cdp-portal-backend',
-  environment: 'infra-dev',
-  keys: [
-    'automated_placeholder',
-    'SERVICE_SECRET',
-    'placeholder',
-    'a_lower_case_secret',
-    'REDIS_KEY_PREFIX'
-  ],
-  lastChangedDate: '2024-08-05T09:48:49.4822540Z',
-  createdDate: '2024-07-14T08:11:00',
-  pending: ['ANOTHER_SECRET'],
-  exceptionMessage: null
-}
-
-const serviceSecretsWithExceptionFixture = {
-  service: 'cdp-portal-backend',
-  environment: 'infra-dev',
-  keys: [
-    'automated_placeholder',
-    'SERVICE_SECRET',
-    'placeholder',
-    'a_lower_case_secret',
-    'REDIS_KEY_PREFIX'
-  ],
-  lastChangedDate: '2024-08-05T09:48:49.4822540Z',
-  createdDate: '2024-07-14T08:11:00',
-  pending: [],
-  exceptionMessage: 'Something really bad has happened'
-}
-
-export {
-  serviceSecretsFixture,
-  serviceSecretsWithPendingFixture,
-  serviceSecretsWithExceptionFixture
-}
+export { serviceSecretsFixture }
