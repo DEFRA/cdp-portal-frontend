@@ -197,6 +197,12 @@ const config = convict({
         format: Boolean,
         default: isProduction,
         env: 'SESSION_COOKIE_IS_SECURE'
+      },
+      isSameSite: {
+        doc: 'oidc cookie sameSite',
+        format: ['Strict', 'Lax', 'None'],
+        default: isProduction ? 'None' : 'Lax',
+        env: 'SESSION_COOKIE_SAME_SITE'
       }
     }
   },
