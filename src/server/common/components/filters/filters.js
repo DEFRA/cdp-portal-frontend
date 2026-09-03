@@ -62,18 +62,23 @@ async function submitForm($form) {
     }
   }
 
-  const queryParams = Array.from($form.elements).reduce(
-    (validElements, element) => {
-      if (element.name && element.value) {
-        return {
-          ...validElements,
-          [element.name]: element.value.trim()
-        }
-      }
-      return validElements
-    },
-    {}
-  )
+  const queryParams = Array.from($form.elements).reduce((params, element) => {
+    if (!element.name || !element.value) {
+      return params
+    }
+
+    const value = element.value.trim()
+    const existingValue = params[element.name]
+
+    return {
+      ...params,
+      [element.name]: existingValue
+        ? Array.isArray(existingValue)
+          ? [...existingValue, value]
+          : [existingValue, value]
+        : value
+    }
+  }, {})
 
   const result = await xhrRequest($form.action, queryParams)
 

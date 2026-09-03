@@ -64,7 +64,7 @@ async function buildRunningServicesTableData(request) {
       fetchRunningServices(environments, {
         service: query.service,
         status: query.status,
-        team: query.team,
+        teamId: query.team,
         user: query.user
       })
     ])
