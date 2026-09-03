@@ -18,50 +18,15 @@ const bucket = config.get('documentation.bucket')
 export async function listPathContents(request, path) {
   const s3Path = formatAsS3Path(path, true)
 
-  const command = new ListObjectsV2Command({
-    Bucket: bucket,
-    Prefix: s3Path === '/' ? undefined : s3Path
-  })
-  const response = await request.s3Client.send(command)
+  const service = 'cdp-postgres-service'
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
+  const { payload = {} } = await request.authedFetchJson(endpoint)
 
-  const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
-    const name = s3Path === '/' ? obj.Key : obj.Key.replace(s3Path, '')
+  return payload
 
-    if (!name.includes('/')) {
-      acc[name] = {
-        path: obj.Key,
-        size: obj.Size,
-        modifiedDate: obj.LastModified,
-        name,
-        isFolder: false
-      }
-    } else {
-      const folder = name.split('/').at(0)
-
-      if (acc[folder]) {
-        acc[folder].size += obj.Size
-        if (obj.LastModified > acc[folder].modifiedDate) {
-          acc[folder].modifiedDate = obj.LastModified
-        }
-      } else {
-        acc[folder] = {
-          path: formatAsS3Path(
-            path !== '' ? `${path}/${folder}/` : `${folder}/`
-          ),
-          size: obj.Size,
-          modifiedDate: obj.LastModified,
-          name: folder,
-          isFolder: true
-        }
-      }
-    }
-
-    return acc
-  }, {})
-
-  return Object.values(aggregatedFolders).sort(
-    (a, b) => b.isFolder - a.isFolder || a.name.localeCompare(b.name, 'en-GB')
-  )
+  // return Object.values(aggregatedFolders).sort(
+  //   (a, b) => b.isFolder - a.isFolder || a.name.localeCompare(b.name, 'en-GB')
+  // )
 }
 
 // TODO: handle pagination
@@ -147,6 +112,8 @@ export async function getFilePutUrl(request, path, uploadId, uploadPartNumber) {
 
 function formatAsS3Path(path = '', withTrailingSlash) {
   let result = path
+
+  if (path === '') return path
 
   if (result.startsWith('/')) {
     result = result.replace('/', '')
