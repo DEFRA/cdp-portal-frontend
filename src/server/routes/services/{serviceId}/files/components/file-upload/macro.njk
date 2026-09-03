@@ -1,9 +1,9 @@
 {% macro fileUpload(params) %}
   <file-upload
     {% if params.id %}id={{ params.id }}{% endif %}
-    data-path={{ params.path }}
-    data-service={{ params.service }}
-    data-csrftoken={{ params.csrfToken }}
+    data-path="{{ params.path }}"
+    data-service="{{ params.service }}"
+    data-csrftoken="{{ params.csrfToken }}"
   >
     {%- include "./template.njk" -%}
   </file-upload>
