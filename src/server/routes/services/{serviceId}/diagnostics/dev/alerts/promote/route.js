@@ -6,6 +6,7 @@ import {
 import createAlertRows from '../../../utils/createAlertRows.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { promoteAlerts } from '../../../PlaygroundService.js'
+import { environments } from '#config/environments.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -30,7 +31,10 @@ export default async function (request, h) {
     return h.redirect(`/services/${entity.name}/diagnostics/dev`)
   }
 
-  return { entity, alertRows: createAlertRows(playground.alerts) }
+  return {
+    entity,
+    alertRows: createAlertRows(playground.alerts, environments.dev.kebabName)
+  }
 }
 
 export async function POST(request, h) {
@@ -39,7 +43,7 @@ export async function POST(request, h) {
   const playground = request.yar.get(sessionNames.grafanaPlayground)
 
   if (!playground) {
-    return h.redirect(`/services/${entity.name}/diagnostics/de`)
+    return h.redirect(`/services/${entity.name}/diagnostics/dev`)
   }
 
   try {
