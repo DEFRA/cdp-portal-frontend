@@ -73,41 +73,60 @@ export async function folderTreeForPath(request, path) {
 }
 
 export async function getFileUrl(request, path) {
-  const command = new GetObjectCommand({
-    Bucket: bucket,
-    Key: formatAsS3Path(path),
-    ResponseContentDisposition: 'attachment' // NOTE: does not work on local with mock AWS
-  })
+  const s3Path = formatAsS3Path(path)
 
-  const url = await getSignedUrl(request.s3Client, command, {
-    expiresIn: SIGNED_URL_TTL_SECONDS,
-    unsignableHeaders: new Set(['content-disposition'])
-  })
+  const service = 'cdp-postgres-service'
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
+  const { payload = {} } = await request.authedFetchJson(endpoint)
 
-  return url
+  return payload.url
+
+  // const command = new GetObjectCommand({
+  //   Bucket: bucket,
+  //   Key: formatAsS3Path(path),
+  //   ResponseContentDisposition: 'attachment' // NOTE: does not work on local with mock AWS
+  // })
+
+  // const url = await getSignedUrl(request.s3Client, command, {
+  //   expiresIn: SIGNED_URL_TTL_SECONDS,
+  //   unsignableHeaders: new Set(['content-disposition'])
+  // })
+
+  // return url
 }
 
 export async function getFilePutUrl(request, path, uploadId, uploadPartNumber) {
-  let command
-  if (uploadId) {
-    command = new UploadPartCommand({
-      Bucket: bucket,
-      Key: formatAsS3Path(path),
-      UploadId: uploadId,
-      PartNumber: uploadPartNumber
-    })
-  } else {
-    command = new PutObjectCommand({
-      Bucket: bucket,
-      Key: formatAsS3Path(path)
-    })
-  }
+  const s3Path = formatAsS3Path(path)
 
-  const url = await getSignedUrl(request.s3Client, command, {
-    expiresIn: SIGNED_URL_TTL_SECONDS
+  const service = 'cdp-postgres-service'
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
+  const { payload = {} } = await request.authedFetchJson(endpoint, {
+    method: 'PUT'
   })
 
-  return url
+  return payload.url
+
+
+  // let command
+  // if (uploadId) {
+  //   command = new UploadPartCommand({
+  //     Bucket: bucket,
+  //     Key: formatAsS3Path(path),
+  //     UploadId: uploadId,
+  //     PartNumber: uploadPartNumber
+  //   })
+  // } else {
+  //   command = new PutObjectCommand({
+  //     Bucket: bucket,
+  //     Key: formatAsS3Path(path)
+  //   })
+  // }
+
+  // const url = await getSignedUrl(request.s3Client, command, {
+  //   expiresIn: SIGNED_URL_TTL_SECONDS
+  // })
+
+  // return url
 }
 
 function formatAsS3Path(path = '', withTrailingSlash) {
