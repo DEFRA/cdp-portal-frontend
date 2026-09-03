@@ -1,6 +1,7 @@
 {% extends "layouts/page.njk" %}
 
 {% from "icons/star-icon/macro.njk" import appStarIcon %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
 
 {% block content %}
 
@@ -149,6 +150,20 @@
                    data-testid="app-link">
                   {{ row.serviceName }}
                 </a>
+
+                {% if row.serviceTags | length %}
+                  <div class="app-!-layout-centered govuk-!-margin-top-2">
+                    <div class="app-entity-table__row-caption">
+                      {% for tag in row.serviceTags %}
+                        {{ govukTag({
+                          text: tag.displayName,
+                          classes: tag.className,
+                          attributes: { "data-testid": "govuk-tag" }
+                        }) }}
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
               </td>
 
               <td headers="team" class="app-entity-table__cell" data-label="Team">

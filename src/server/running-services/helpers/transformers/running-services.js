@@ -17,13 +17,24 @@ function transformRunningServices({
         ...rs
       }
 
+      let deployableService
       if (!acc[rs.service].teams) {
-        const deployableService = deployableServices.find(
+        deployableService = deployableServices.find(
           (service) => service.name.toLowerCase() === rs.service.toLowerCase()
         )
 
         acc[rs.service].teams =
           deployableService?.teams.filter((team) => team.teamId) ?? []
+      }
+
+      if (!acc[rs.service].tags) {
+        if (!deployableService) {
+          deployableService = deployableServices.find(
+            (service) => service.name.toLowerCase() === rs.service.toLowerCase()
+          )
+        }
+
+        acc[rs.service].tags = deployableService?.tags ?? []
       }
 
       if (!acc[rs.service].isOwner) {
@@ -34,12 +45,13 @@ function transformRunningServices({
 
       return acc
     }, {})
-  ).map(([serviceName, { envs, teams, isOwner }]) => {
+  ).map(([serviceName, { envs, teams, isOwner, tags }]) => {
     return {
       serviceName,
       isOwner,
       environments: envs,
-      teams
+      teams,
+      tags
     }
   })
 }

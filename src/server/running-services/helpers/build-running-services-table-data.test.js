@@ -53,6 +53,14 @@ describe('#buildRunningServicesTableData', () => {
             }
           },
           serviceName: 'cdp-portal-frontend',
+          serviceTags: [
+            {
+              className: 'govuk-tag--green',
+              description: 'Service is live and available to the public.',
+              displayName: 'Live',
+              name: 'live'
+            }
+          ],
           serviceTeams: [
             {
               name: 'Platform',

@@ -61,6 +61,14 @@ describe('#runningServiceToEntityRow', () => {
           }
         },
         serviceName: 'cdp-portal-frontend',
+        serviceTags: [
+          {
+            className: 'govuk-tag--green',
+            description: 'Service is live and available to the public.',
+            displayName: 'Live',
+            name: 'live'
+          }
+        ],
         serviceTeams: [
           {
             name: 'Platform',
@@ -81,6 +89,14 @@ describe('#runningServiceToEntityRow', () => {
       isOwner: true,
       serviceEnvironments: {},
       serviceName: 'cdp-portal-frontend',
+      serviceTags: [
+        {
+          className: 'govuk-tag--green',
+          description: 'Service is live and available to the public.',
+          displayName: 'Live',
+          name: 'live'
+        }
+      ],
       serviceTeams: [
         {
           name: 'Platform',
