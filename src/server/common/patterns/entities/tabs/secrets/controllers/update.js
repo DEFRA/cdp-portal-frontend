@@ -56,10 +56,7 @@ function updateSecretController(entityKind) {
           formErrors: errorDetails
         })
       } else {
-        const useSyncApi = config.get('secrets.useSyncApi')
-        const secretAddEndpointUrl = useSyncApi
-          ? `${config.get('portalBackendUrl')}/secrets/${serviceId}/${environment}/add`
-          : `${config.get('selfServiceOpsUrl')}/secrets/add/${serviceId}/${environment}`
+        const secretAddEndpointUrl = `${config.get('portalBackendUrl')}/secrets/${serviceId}/${environment}/add`
 
         try {
           await request.authedFetchJson(secretAddEndpointUrl, {
@@ -69,7 +66,7 @@ function updateSecretController(entityKind) {
 
           request.yar.clear(sessionNames.validationFailure)
           request.yar.flash(sessionNames.notifications, {
-            text: 'Secret being updated',
+            text: 'Secret updated',
             type: 'success'
           })
 
