@@ -51,7 +51,7 @@
   {% if obj.isFolder %}
     - - -
   {% else %}
-    <a href="/services/{{ entity.name }}/files-download/{{ encodePathSegments(obj.path) }}" data-no-xhr-link="true" target="_blank">Download</a>
+    <a href="/services/{{ entity.name }}/imports-download/{{ encodePathSegments(obj.path) }}" data-no-xhr-link="true" target="_blank">Download</a>
   {% endif %}
 {% endmacro %}
 
@@ -59,7 +59,7 @@
   <span class="app-tree--label">
     {% if obj.isFolder %}
       {{ appFolderIcon({ classes: "app-icon--small" }) }}
-      <a href="/services/{{ entity.name }}/files/{{ encodePathSegments(obj.path) }}">{{ obj.name }}</a>
+      <a href="/services/{{ entity.name }}/imports/{{ encodePathSegments(obj.path) }}">{{ obj.name }}</a>
     {% else %}
       {{ appFileIcon({ classes: "app-icon--small" }) }}
       {{ obj.name }}
@@ -70,7 +70,7 @@
 {% macro renderParentName(relativePathParts) %}
   <span class="app-tree--label">
     {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
-    <a href="/services/{{ entity.name }}/files/{{ encodePathSegments(relativePathParts.slice(0, -1) | join('/')) }}">..</a>
+    <a href="/services/{{ entity.name }}/imports/{{ encodePathSegments(relativePathParts.slice(0, -1) | join('/')) }}">..</a>
   </span>
 {% endmacro %}
 
@@ -85,7 +85,7 @@
         {{ appFolderIcon({ classes: "app-icon--small" }) }}
       {% endif %}
 
-      <a href="/services/{{ entity.name }}/files/{{ encodePathSegments(path) }}">{{ label }}</a>
+      <a href="/services/{{ entity.name }}/imports/{{ encodePathSegments(path) }}">{{ label }}</a>
     {% endif %}
   </span>
 {% endmacro %}
@@ -101,7 +101,7 @@
 
 {% block beforeTabContent %}
   {{ appPageHeading({
-    caption: "Files",
+    caption: "Imports",
     text: entity.name
   }) }}
 
@@ -113,9 +113,9 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full" data-js="xhr-nav" >
 
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Files</h2>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
           <p class="govuk-!-margin-bottom-6">
-            Manage data files associated with <strong>{{entity.name}}</strong>, including uploading and downloading.
+            Manage imported data associated with <strong>{{entity.name}}</strong>, including uploading and downloading.
           </p>
 
           {% block xhrContent %}

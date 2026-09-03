@@ -1,3 +1,4 @@
+import './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 
 export default class Progress extends NunjucksComponent {

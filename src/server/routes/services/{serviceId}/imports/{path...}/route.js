@@ -5,7 +5,7 @@ import { folderTreeForPath, listPathContents } from '../BucketService.js'
 export const ext = [...commonServiceExtensions]
 
 export const options = {
-  id: 'services/{serviceId}/files',
+  id: 'services/{serviceId}/imports',
   auth: {
     mode: 'required',
     access: {
@@ -32,7 +32,7 @@ export default async function (request) {
     folderContents,
     folderTree,
     encodePathSegments,
-    pageTitle: 'Files',
+    pageTitle: 'Imports',
     breadcrumbs: [
       {
         text: 'Services',
@@ -43,7 +43,7 @@ export default async function (request) {
         href: `/services/${entity.name}`
       },
       {
-        text: 'Files'
+        text: 'Imports'
       }
     ]
   }
