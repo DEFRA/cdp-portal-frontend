@@ -17,6 +17,7 @@ const $tickIcon = tickSvgIcon('app-icon app-icon--tiny')
  * @property {string} [hint]
  * @property {boolean} [disabled]
  * @property {Record<string, string|number|boolean>} [attributes]
+ * @property {Record<string, string|string[]>} [queryParams]
  */
 
 /**
@@ -40,6 +41,7 @@ class Autocomplete {
     )
     this.allowReselection = this.$select.dataset.allowReselection === 'true'
     this.name = this.$select.name
+    this.$hiddenInputs = []
 
     this.enhanceSelectWithAutocomplete()
 
@@ -67,6 +69,14 @@ class Autocomplete {
     /** @type {number | null} */
     this.suggestionIndex = null
     this.suggestionsLength = this.getSuggestionsMarkup().length
+
+    const suggestion = this.getSuggestionByValue(this.$select.value)
+
+    this.setHiddenInputs(
+      suggestion?.queryParams ?? {
+        [this.$select.name]: suggestion?.value ?? this.$select.value ?? ''
+      }
+    )
 
     if (this.subscribeTo) {
       this.setupSubscription()
@@ -152,6 +162,7 @@ class Autocomplete {
     $autocompleteHiddenInput.value = suggestion?.value ?? $select.value ?? ''
 
     this.$autocompleteHiddenInput = $autocompleteHiddenInput
+    this.$hiddenInputs = [$autocompleteHiddenInput]
 
     $select.replaceWith($autocomplete, $autocompleteHiddenInput)
 
@@ -175,11 +186,43 @@ class Autocomplete {
   }
 
   /**
+   * @param {Record<string, string|string[]>} queryParams
+   */
+  setHiddenInputs(queryParams = {}) {
+    this.$hiddenInputs.slice(1).forEach(($input) => $input.remove())
+
+    const [name, values] = Object.entries(queryParams).at(0) ?? [
+      this.$select.name,
+      ''
+    ]
+
+    const items = Array.isArray(values) ? values : [values]
+
+    this.$autocompleteHiddenInput.name = name
+    this.$autocompleteHiddenInput.value = items[0] ?? ''
+    this.$hiddenInputs = [this.$autocompleteHiddenInput]
+
+    for (const value of items.slice(1)) {
+      const $input = document.createElement('input')
+      $input.type = 'hidden'
+      $input.name = name
+      $input.value = String(value)
+
+      this.$autocompleteHiddenInput.after($input)
+      this.$hiddenInputs.push($input)
+    }
+  }
+
+  /**
    * Get raw suggestion that is not disabled, by value
    * @param {string|number} value
    * @returns Suggestion | undefined
    */
   getSuggestionByValue(value) {
+    if (Array.isArray(value)) {
+      return
+    }
+
     return window.cdp.suggestions?.[this.name].find(
       (suggestion) =>
         suggestion.disabled !== true &&
@@ -278,6 +321,10 @@ class Autocomplete {
   populateSuggestion($li, item) {
     $li.dataset.value = item.value
     $li.dataset.text = item.text
+
+    if (item.queryParams) {
+      $li.dataset.queryParams = JSON.stringify(item.queryParams)
+    }
 
     $li.firstElementChild.textContent = item.value
 
@@ -597,7 +644,7 @@ class Autocomplete {
 
   /**
    * Call all sibling data fetcher methods to fetch suggestions for a targeted sibling input in the same form
-   * @param {string} inputValue - text input value
+   * @param {string} inputValue - the text input value
    * @returns {undefined|Suggestions|Error}
    */
   callSiblingDataFetchers(inputValue) {
@@ -649,6 +696,7 @@ class Autocomplete {
    * @typedef {object} Input
    * @property {string|undefined} text - the visual text you see in the input
    * @property {string|undefined} value - the value set to the hidden input
+   * @property {Record<string, string|string[]>} [queryParams]
    */
 
   /**
@@ -656,15 +704,20 @@ class Autocomplete {
    * Also dispatch publish event if setup and call fetcher if enabled
    * @param {Input} args
    */
-  updateInputValue({ text, value, withPublish = true } = {}) {
+  updateInputValue({ text, value, queryParams, withPublish = true } = {}) {
     const inputText = text ?? ''
     const inputValue = value ?? ''
 
     this.$autocomplete.value = inputText
-    this.$autocompleteHiddenInput.value = inputValue
+
+    this.setHiddenInputs(
+      queryParams ?? {
+        [this.$select.name]: inputValue
+      }
+    )
 
     if (this.publishTo && withPublish) {
-      this.publishEvent(this.$autocompleteHiddenInput.name, inputValue)
+      this.publishEvent(this.$select.name, inputValue)
     }
 
     if (this.siblingDataFetchers?.length) {
@@ -734,7 +787,8 @@ class Autocomplete {
     if (foundSuggestion?.value) {
       this.updateInputValue({
         text: textValue,
-        value: foundSuggestion.value
+        value: foundSuggestion.value,
+        queryParams: foundSuggestion.queryParams
       })
       return
     }
@@ -770,10 +824,9 @@ class Autocomplete {
           this.$noJsSubmitButton.remove()
         }
 
-        const queryParamValue =
-          this.queryParams?.[this.$autocompleteHiddenInput.name]
+        const queryParamValue = this.queryParams?.[this.name]
 
-        if (queryParamValue) {
+        if (queryParamValue && !Array.isArray(queryParamValue)) {
           if (this.dataFetcher.isEnabled) {
             await this.callDataFetcher(queryParamValue)
           }
@@ -783,6 +836,7 @@ class Autocomplete {
           const text = suggestion?.text ?? queryParamValue
           const value = suggestion?.value ?? queryParamValue
           this.updateInputValue({ text, value, withPublish: false })
+
           if (!this.allowReselection) {
             this.showCloseButton()
           }
@@ -921,7 +975,7 @@ class Autocomplete {
           this.suggestionIndex++
         }
 
-        // When last suggestion is passed scroll to the start of the suggestion list
+        // When last suggestion is passed scroll to the start of the suggestions list
         if (this.suggestionIndex > this.suggestionsLength - 1) {
           this.suggestionIndex = 0
         }
@@ -1042,7 +1096,10 @@ class Autocomplete {
 
           this.updateInputValue({
             text: $currentSuggestion.dataset?.text,
-            value: $currentSuggestion.dataset?.value
+            value: $currentSuggestion.dataset?.value,
+            queryParams: JSON.parse(
+              $currentSuggestion.dataset?.queryParams ?? 'null'
+            )
           })
 
           this.choiceAction()
@@ -1071,7 +1128,8 @@ class Autocomplete {
       if ($suggestion && $suggestion.dataset.interactive !== 'false') {
         this.updateInputValue({
           text: $suggestion?.dataset?.text,
-          value: $suggestion?.dataset?.value
+          value: $suggestion?.dataset?.value,
+          queryParams: JSON.parse($suggestion?.dataset?.queryParams ?? 'null')
         })
 
         this.choiceAction()

@@ -6,7 +6,7 @@ import { fetchCdpTeams } from '../../../teams/helpers/fetch/fetch-cdp-teams.js'
  * @param {{}} request
  * @returns {Promise<[{teamId: string, github: string}]>}
  */
-async function getUsersTeams(request) {
+export async function getUsersTeams(request) {
   const userSession = request.auth.credentials
   const scopes = userSession?.scope
 
@@ -22,4 +22,10 @@ async function getUsersTeams(request) {
     .filter(Boolean)
 }
 
-export { getUsersTeams }
+export function getUserTeamsUnexpanded(request) {
+  const scopes = request.auth?.credentials?.scope ?? []
+
+  return scopes
+    .filter((s) => s.startsWith('team:'))
+    .map((s) => s.replace('team:', ''))
+}

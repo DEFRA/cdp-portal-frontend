@@ -5,6 +5,8 @@ import { sessionNames } from '../common/constants/session-names.js'
 import { saveUserSession } from '#server/common/helpers/auth/save-session.js'
 import { redirectWithRefresh } from '#server/common/helpers/url/url-helpers.js'
 import { fetchScopes } from '#server/teams/helpers/fetch/fetch-scopes.js'
+import { getUserTeamsUnexpanded } from '#server/common/helpers/user/get-users-teams.js'
+import qs from 'qs'
 
 export const authCallbackController = {
   handler: async (request, h) => {
@@ -37,8 +39,21 @@ export const authCallbackController = {
     if (session && redirect === '/services') {
       const { scopeFlags } = await fetchScopes(session.token)
       if (scopeFlags?.isAdmin) {
-        redirect = '/services/all'
+        redirect = request.routeLookup('services/all')
       }
+    }
+
+    if (session && redirect === '/running-services') {
+      const { scopes } = await fetchScopes(session.token)
+      const teamIds = getUserTeamsUnexpanded({
+        auth: { credentials: { scope: scopes } }
+      })
+      redirect =
+        request.routeLookup('running-services') +
+        qs.stringify(
+          { team: teamIds },
+          { arrayFormat: 'repeat', addQueryPrefix: true }
+        )
     }
 
     return redirectWithRefresh(h, redirect)

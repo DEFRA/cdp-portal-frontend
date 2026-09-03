@@ -93,7 +93,9 @@ function setupSingleAutoComplete({ userSearchParam, params = {} } = {}) {
 
   return {
     autocompleteInput: firstElement.autocompleteInput,
-    autocompleteHiddenInput: firstElement.autocompleteHiddenInput,
+    autocompleteHiddenInput: firstElement.autocompleteInput.form.querySelector(
+      'input[type="hidden"]'
+    ),
     chevronButton: firstElement.chevronButton,
     suggestionsContainer: firstElement.suggestionsContainer
   }
@@ -140,11 +142,16 @@ function setupMultipleAutoCompletes({ userSearchParam, params = {} } = {}) {
 
   return {
     autocompleteInput: firstElement.autocompleteInput,
-    autocompleteHiddenInput: firstElement.autocompleteHiddenInput,
+    autocompleteHiddenInput: firstElement.autocompleteInput.form.querySelector(
+      'input[type="hidden"]'
+    ),
     chevronButton: firstElement.chevronButton,
     suggestionsContainer: firstElement.suggestionsContainer,
     siblingAutocompleteInput: secondElement.autocompleteInput,
-    siblingAutocompleteHiddenInput: secondElement.autocompleteHiddenInput,
+    siblingAutocompleteHiddenInput:
+      secondElement.autocompleteInput.form.querySelector(
+        'input[type="hidden"]'
+      ),
     siblingChevronButton: secondElement.chevronButton,
     siblingSuggestionsContainer: secondElement.suggestionsContainer
   }
@@ -156,18 +163,26 @@ function setupMultipleAutoCompletes({ userSearchParam, params = {} } = {}) {
 function setup(components) {
   const autoCompletes = setupForm(components)
 
-  return autoCompletes.map((autoComplete) => ({
-    autocompleteInput: autoComplete.querySelector(
+  return autoCompletes.map((autoComplete) => {
+    const autocompleteInput = autoComplete.querySelector(
       '[data-testid="app-autocomplete-input"]'
-    ),
-    autocompleteHiddenInput: autoComplete.querySelector(`input[type="hidden"]`),
-    chevronButton: autoComplete.querySelector(
-      '[data-testid="app-chevron-button"]'
-    ),
-    suggestionsContainer: autoComplete.querySelector(
-      '[data-testid="app-autocomplete-suggestions"]'
     )
-  }))
+
+    return {
+      autocompleteInput,
+      get autocompleteHiddenInput() {
+        return autocompleteInput.parentElement.querySelector(
+          'input[type="hidden"]'
+        )
+      },
+      chevronButton: autoComplete.querySelector(
+        '[data-testid="app-chevron-button"]'
+      ),
+      suggestionsContainer: autoComplete.querySelector(
+        '[data-testid="app-autocomplete-suggestions"]'
+      )
+    }
+  })
 }
 
 describe('#autocomplete', () => {
@@ -940,23 +955,33 @@ describe('#autocomplete', () => {
 
   describe('As a type ahead', () => {
     let autocompleteInput
-    let autocompleteHiddenInput
 
     beforeEach(() => {
-      ;({ autocompleteInput, autocompleteHiddenInput } =
-        setupSingleAutoComplete({ params: { typeahead: true } }))
+      ;({ autocompleteInput } = setupSingleAutoComplete({
+        params: { typeahead: true }
+      }))
     })
 
     test('Should have set hidden input value with partial match', () => {
       enterValue(autocompleteInput, 'Rob')
 
-      expect(autocompleteHiddenInput.value).toBe('Rob')
+      const hiddenInputs = autocompleteInput.form.querySelectorAll(
+        'input[type="hidden"]'
+      )
+
+      expect(hiddenInputs).toHaveLength(1)
+      expect(hiddenInputs[0].value).toBe('Rob')
     })
 
     test('Should have set hidden input value with full match', () => {
       enterValue(autocompleteInput, 'RoboCop')
 
-      expect(autocompleteHiddenInput.value).toBe('RoboCop')
+      const hiddenInputs = autocompleteInput.form.querySelectorAll(
+        'input[type="hidden"]'
+      )
+
+      expect(hiddenInputs).toHaveLength(1)
+      expect(hiddenInputs[0].value).toBe('RoboCop')
     })
   })
 })

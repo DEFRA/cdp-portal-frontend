@@ -1,6 +1,8 @@
 import { scopes } from '@defra/cdp-validation-kit'
+import qs from 'qs'
+import { getUserTeamsUnexpanded } from '#server/common/helpers/user/get-users-teams.js'
 
-async function buildNavigation(request, userSession) {
+export async function buildNavigation(request, userSession) {
   const hasPostgresPermission = request.hasScope(scopes.restrictedTechPostgres)
   const hasTestAsTenantPermission = request.hasScope(scopes.testAsTenant)
 
@@ -9,13 +11,20 @@ async function buildNavigation(request, userSession) {
     return firstPathPart === value
   }
 
+  const teamIds = getUserTeamsUnexpanded(request)
+
   const documentationPath = request.routeLookup('documentation')
   const servicesPath = userSession?.isAdmin
     ? request.routeLookup('services/all')
     : request.routeLookup('services')
   const apisPath = request.routeLookup('apis')
   const testSuitesPath = request.routeLookup('test-suites')
-  const runningServicesPath = request.routeLookup('running-services')
+  const runningServicesPath =
+    request.routeLookup('running-services') +
+    qs.stringify(
+      { team: teamIds },
+      { arrayFormat: 'repeat', addQueryPrefix: true }
+    )
   const deployServicePath = request.routeLookup('deploy-service')
   const createPath = request.routeLookup('create')
   const adminPath = request.routeLookup('admin')
@@ -172,5 +181,3 @@ async function buildNavigation(request, userSession) {
     admin
   }
 }
-
-export { buildNavigation }
