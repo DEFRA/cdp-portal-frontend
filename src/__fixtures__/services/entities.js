@@ -1,5 +1,5 @@
 // Response from portalBackendApi/entities
-const entityServicesFixture = [
+export const entityServicesFixture = [
   {
     name: 'cdp-portal-backend',
     type: 'Microservice',
@@ -122,4 +122,20 @@ const entityServicesFixture = [
   }
 ]
 
-export { entityServicesFixture }
+export const decommissionedEntityServicesFixture = [
+  {
+    name: 'cdp-decommissioned-service',
+    type: 'Microservice',
+    subType: 'Backend',
+    primaryLanguage: 'JavaScript',
+    created: '2024-12-05T11:21:25Z',
+    teams: [
+      {
+        teamId: 'aabe63e7-87ef-4beb-a596-c810631fc474',
+        name: 'Platform'
+      }
+    ],
+    status: 'Decommissioned',
+    tags: []
+  }
+]

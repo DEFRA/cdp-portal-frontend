@@ -1,6 +1,12 @@
 import { fetchRunningServices } from './fetch/fetch-running-services.js'
-import { fetchServices } from '../../common/helpers/fetch/fetch-entities.js'
-import { entityServicesFixture } from '../../../__fixtures__/services/entities.js'
+import {
+  fetchDecommissions,
+  fetchServices
+} from '../../common/helpers/fetch/fetch-entities.js'
+import {
+  decommissionedEntityServicesFixture,
+  entityServicesFixture
+} from '../../../__fixtures__/services/entities.js'
 import { buildRunningServicesTableData } from './build-running-services-table-data.js'
 import { fetchRunningServicesFilters } from './fetch/fetch-running-services-filters.js'
 import { runningServicesFiltersFixture } from '../../../__fixtures__/running-services/filters.js'
@@ -24,6 +30,7 @@ describe('#buildRunningServicesTableData', () => {
         ({ service }) => service === 'cdp-portal-frontend'
       )
     )
+    fetchDecommissions.mockResolvedValue(decommissionedEntityServicesFixture)
 
     const result = await buildRunningServicesTableData({
       auth: { credentials: { scope: [scopes.admin] } },
