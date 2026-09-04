@@ -79,9 +79,7 @@ export default async function (request, h) {
     return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/view/${entity.name}-${type}`
   }
 
-  const serviceExistsInEnvironment = entity.environments[environment]
-    ? true
-    : false
+  const serviceExistsInEnvironment = !!entity.environments[environment]
 
   return {
     environment,
