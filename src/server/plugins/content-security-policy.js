@@ -21,6 +21,8 @@ const grafanaDomains = [
   )
 ]
 
+const s3Endpoint = config.get('aws').s3.endpoint
+
 /**
  * @satisfies {import('@hapi/hapi').Plugin}
  */
@@ -29,7 +31,7 @@ const contentSecurityPolicy = {
   options: {
     defaultSrc: ['self'],
     fontSrc: ['self', 'data:'],
-    connectSrc: ['self', 'data:', 'ws:'],
+    connectSrc: ['self', 'data:', 'ws:', s3Endpoint], // TODO S3 host as config
     scriptSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
     styleSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
     imgSrc: ['self', 'data:'],

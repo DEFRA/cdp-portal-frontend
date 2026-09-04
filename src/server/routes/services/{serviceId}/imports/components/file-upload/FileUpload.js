@@ -10,6 +10,7 @@ export default class FileUpload extends NunjucksComponent {
   #onSubmitHandler
   #onProgressHandler
   #onCompleteHandler
+  #onFailedHandler
 
   constructor() {
     super(template)
@@ -17,6 +18,7 @@ export default class FileUpload extends NunjucksComponent {
     this.#onSubmitHandler = this.#onSubmit.bind(this)
     this.#onProgressHandler = this.#onProgress.bind(this)
     this.#onCompleteHandler = this.#onComplete.bind(this)
+    this.#onFailedHandler = this.#onFailed.bind(this)
   }
 
   mounted() {
@@ -30,6 +32,7 @@ export default class FileUpload extends NunjucksComponent {
       'complete',
       this.#onCompleteHandler
     )
+    window.cdp.uploadManager.addEventListener('failed', this.#onFailedHandler)
   }
 
   dismounted() {
@@ -43,6 +46,10 @@ export default class FileUpload extends NunjucksComponent {
       'complete',
       this.#onCompleteHandler
     )
+    window.cdp.uploadManager.removeEventListener(
+      'failed',
+      this.#onFailedHandler
+    )
   }
 
   #onSubmit(event) {
@@ -51,7 +58,12 @@ export default class FileUpload extends NunjucksComponent {
     const $form = this.querySelector('form')
     const files = $form.querySelector('input[name="files"]')?.files ?? []
 
-    window.cdp.uploadManager.startUpload(files)
+    window.cdp.uploadManager.startUpload(
+      this.dataset.service,
+      this.dataset.path,
+      files,
+      this.dataset.csrftoken
+    )
 
     this.render({
       filesMeta: window.cdp.uploadManager.getFilesMeta()
@@ -62,7 +74,7 @@ export default class FileUpload extends NunjucksComponent {
     const file = event.detail
 
     const $progress = document.getElementById(
-      `upload-progress-${encodeURI(file.name)}`
+      `upload-progress-${encodeURIComponent(file.name)}`
     )
 
     if ($progress) {
@@ -78,7 +90,7 @@ export default class FileUpload extends NunjucksComponent {
     const file = event.detail
 
     const $progress = document.getElementById(
-      `upload-progress-${encodeURI(file.name)}`
+      `upload-progress-${encodeURIComponent(file.name)}`
     )
 
     if ($progress) {
@@ -90,7 +102,7 @@ export default class FileUpload extends NunjucksComponent {
     }
 
     const $button = document.getElementById(
-      `upload-button-${encodeURI(file.name)}`
+      `upload-button-${encodeURIComponent(file.name)}`
     )
 
     if ($button) {
@@ -99,8 +111,22 @@ export default class FileUpload extends NunjucksComponent {
 
     const filesMeta = window.cdp.uploadManager.getFilesMeta()
 
-    if (filesMeta.every((file) => file.status === 'complete')) {
-      window.location.reload()
+    if (!filesMeta.some((file) => file.status === 'uploading')) {
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+    }
+  }
+
+  #onFailed(event) {
+    const file = event.detail
+
+    const $button = document.getElementById(
+      `upload-button-${encodeURIComponent(file.name)}`
+    )
+
+    if ($button) {
+      $button.setAttribute('data-status', 'failed')
     }
   }
 }
