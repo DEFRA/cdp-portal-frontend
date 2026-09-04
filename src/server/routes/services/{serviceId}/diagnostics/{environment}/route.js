@@ -8,7 +8,6 @@ import { serviceParamsValidation } from '#server/services/helpers/schema/service
 import { scopes } from '@defra/cdp-validation-kit'
 import { Boom } from '@hapi/boom'
 import { formatText } from '#config/nunjucks/filters/filters.js'
-import { fetchRunningServices } from '#server/common/helpers/fetch/fetch-running-services.js'
 import transformResources from '../utils/transformResources.js'
 import createDashboardRows from '../utils/createDashboardRows.js'
 import createAlertRows from '../utils/createAlertRows.js'
@@ -49,20 +48,17 @@ export default async function (request, h) {
   const entityName = request.params?.serviceId ?? request.params?.entityName
   const environment = request.params.environment
 
-  const [runningServices, playground] = await Promise.all([
-    fetchRunningServices(entityName),
-    environment.endsWith('dev')
-      ? getPlayground(entityName).catch((error) => {
-          request.logger.error(error, 'Grafana playground load failed:')
+  const playground = environment.endsWith('dev')
+    ? await getPlayground(entityName).catch((error) => {
+        request.logger.error(error, 'Grafana playground load failed:')
 
-          request.yar.flash(
-            sessionNames.globalValidationFailures,
-            'Failed to load playgrounds'
-          )
-          return { status: 'FAILED', alerts: [], dashboards: [] }
-        })
-      : {}
-  ])
+        request.yar.flash(
+          sessionNames.globalValidationFailures,
+          'Failed to load playgrounds'
+        )
+        return { status: 'FAILED', alerts: [], dashboards: [] }
+      })
+    : {}
 
   // Explicitly fetch entity after the playgrounds, to prevent stale data on promotion state change
   const entity = environment.endsWith('dev')
@@ -77,24 +73,24 @@ export default async function (request, h) {
   const hasPendingPromotionTakingTooLong =
     getPromotionsTakingTooLong(playground)
 
-  const serviceDeployedInEnvironment = runningServices.some(
-    (service) => service.environment === environment
-  )
-
   const resources = transformResources(entity.environments[environment])
 
   function logViewUrl(type) {
     return `https://logs.${environment}.cdp-int.defra.cloud/_dashboards/app/discover#/view/${entity.name}-${type}`
   }
 
+  const serviceExistsInEnvironment = entity.environments[environment]
+    ? true
+    : false
+
   return {
     environment,
-    serviceDeployedInEnvironment,
     resources,
     playground,
     renderLinks,
     logViewUrl,
     apigwMetricLink,
+    serviceExistsInEnvironment,
     createDashboardRows,
     createAlertRows,
     hasPendingPromotionTakingTooLong,

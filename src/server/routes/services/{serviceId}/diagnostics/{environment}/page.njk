@@ -27,7 +27,7 @@
             Provides a visual representation of traffic flow for <strong>{{entity.name}}</strong> allowing you to quickly understand the stages in the platform and view logs and metrics for those stages.
           </p>
 
-          {% if serviceDeployedInEnvironment %}
+          {% if serviceExistsInEnvironment %}
 
               {{ trafficFlow(environment, entity, resources, getAssetPath, logViewUrl, renderLinks, apigwMetricLink) }}
 
@@ -56,15 +56,15 @@
                     </div>
                   {% endif %}
 
-                  {{ dashboards(environment, resources.metrics, playground, createDashboardRows, userIsAdmin or userIsOwner) }}
-                  {{ alerts(environment, resources.alerts, playground, createAlertRows, userIsAdmin) }}
+                  {{ dashboards(environment, resources.metrics | default([]), playground, createDashboardRows, userIsAdmin or userIsOwner) }}
+                  {{ alerts(environment, resources.alerts | default([]), playground, createAlertRows, userIsAdmin) }}
                 </div>
 
               {% endblock %}
 
           {% else %}
 
-            {{ appInfo({ text: "Service not deployed in this environment" }) }}
+            {{ appInfo({ text: "Service does not exist in this environment." }) }}
 
           {% endif %}
        {% endcall %}

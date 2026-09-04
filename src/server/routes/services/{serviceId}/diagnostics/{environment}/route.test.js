@@ -10,7 +10,6 @@ import { fetchMarkdown } from '#server/documentation/helpers/s3-file-handler.js'
 vi.mock('#server/common/helpers/fetch/fetch-entities.js')
 vi.mock('#server/common/helpers/auth/get-user-session.js')
 vi.mock('#server/services/helpers/fetch/fetch-shuttering-urls.js')
-vi.mock('#server/common/helpers/fetch/fetch-running-services.js')
 vi.mock('#server/documentation/helpers/s3-file-handler.js')
 
 const serviceName = 'mock-service-with-resources'
