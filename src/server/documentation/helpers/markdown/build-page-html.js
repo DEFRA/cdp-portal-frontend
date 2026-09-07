@@ -8,6 +8,7 @@ import { renderComponent } from '../../../common/helpers/nunjucks/render-compone
 import { previewHeadingsExtension } from '../../../home/helpers/extensions/preview-headings.js'
 import { codeExtension } from '../extensions/code.js'
 import { renderTag } from '../../../common/helpers/view/render-tag.js'
+import { headingToAnchor } from '#server/documentation/helpers/extensions/heading-anchor.js'
 
 /**
  * Provide the class for the tag component based on the tag text
@@ -81,7 +82,7 @@ function addHeadingInternalAnchors(token, marked, headings) {
   if (token.type === 'heading') {
     const { text, depth: level } = token
     const cleanText = stripHtml(text).result
-    const internalAnchorId = cleanText.toLowerCase().replace(/\W+/g, '-')
+    const internalAnchorId = headingToAnchor(cleanText)
     const parsedText = marked.parseInline(text)
 
     headings.push({
