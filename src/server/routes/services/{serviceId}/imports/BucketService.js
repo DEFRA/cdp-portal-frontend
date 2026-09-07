@@ -1,5 +1,4 @@
 import { config } from '#config/config.js'
-import { fetchJson } from '#server/common/helpers/fetch/fetch-json.js'
 import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 
 // TODO: Use real bucket / call BE
@@ -8,7 +7,7 @@ const bucket = config.get('documentation.bucket')
 export async function listPathContents(request, path) {
   const s3Path = formatAsS3Path(path, true)
 
-  const service = 'cdp-postgres-service'
+  const service = 'cdp-example-node-postgres-be' // 'cdp-postgres-service'
   const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
   const { payload = {} } = await request.authedFetchJson(endpoint)
 
@@ -102,7 +101,7 @@ export async function startMultipartUpload(request, path, size) {
   const service = 'cdp-postgres-service'
   const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
 
-  const { payload = {} } = await fetchJson(endpoint, {
+  const { payload = {} } = await request.authedFetchJson(endpoint, {
     method: 'POST',
     payload: {
       size
