@@ -38,7 +38,7 @@ export default class UploadManager extends EventTarget {
       file.uploadId = uploadResponse.uploadId
 
       for (const part of uploadResponse.parts) {
-        const blob = file.slice(part.startPosition, part.endPosition)
+        const blob = file.slice(part.byteStartPosition, part.byteEndPosition)
         file.uploadParts.push({
           partNumber: part.partNumber,
           url: part.url,
