@@ -2,7 +2,7 @@
   "CORSRules": [
     {
       "AllowedOrigins": ["*"],
-      "AllowedMethods": ["PUT", "HEAD"],
+      "AllowedMethods": ["GET", "PUT", "POST", "HEAD"],
       "AllowedHeaders": ["*"],
       "ExposeHeaders": ["Content-Length", "Content-Type"],
       "MaxAgeSeconds": 3000

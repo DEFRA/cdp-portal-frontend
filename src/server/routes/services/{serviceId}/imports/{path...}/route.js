@@ -1,6 +1,6 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { folderTreeForPath, listPathContents } from '../BucketService.js'
+import { listPathContents } from '../BucketService.js'
 
 export const ext = [...commonServiceExtensions]
 
@@ -20,7 +20,7 @@ export default async function (request) {
 
   const [folderContents, folderTree] = await Promise.all([
     listPathContents(request, path),
-    folderTreeForPath(request, path)
+    {} // folderTreeForPath(request, path)
   ])
 
   const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
