@@ -158,7 +158,7 @@ export default class UploadManager extends EventTarget {
         },
         body: JSON.stringify({
           path: `${path}/${file.name}`,
-          uploadParts: file.uploadParts.map((part, index) => ({
+          uploadParts: file.uploadParts.map((part) => ({
             eTag: part.eTag,
             partNumber: part.partNumber
           }))
