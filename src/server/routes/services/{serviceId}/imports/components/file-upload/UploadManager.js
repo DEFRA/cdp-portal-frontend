@@ -1,7 +1,5 @@
 import pRetry, { AbortError } from 'p-retry'
 
-const ONE_HUNDRED_MEGABYTES = 100 * 1024 * 1024
-
 export default class UploadManager extends EventTarget {
   #files
 
