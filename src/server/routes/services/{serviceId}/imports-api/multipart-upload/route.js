@@ -14,9 +14,9 @@ export const options = {
 }
 
 export async function POST(request) {
-  const { path } = request.payload
+  const { path, size } = request.payload
 
-  const uploadId = await startMultipartUpload(request, path)
+  const uploadId = await startMultipartUpload(request, path, size)
 
   return { uploadId }
 }
