@@ -9,12 +9,7 @@ export default class UploadManager extends EventTarget {
     this.#files = files
 
     for (const file of this.#files) {
-      // TODO: Consolidate to a single function
-      if (file.size > ONE_HUNDRED_MEGABYTES) {
-        this.#uploadLargeFile(service, path, file, csrfToken)
-      } else {
-        this.#uploadFile(service, path, file, csrfToken)
-      }
+      this.#uploadLargeFile(service, path, file, csrfToken)
     }
   }
 
@@ -26,81 +21,33 @@ export default class UploadManager extends EventTarget {
     }))
   }
 
-  async #uploadFile(service, path, file, csrfToken) {
-    // TODO: Define an actual model
-    try {
-      file.status = 'uploading'
-      file.bytesUploaded = 0
-      file.progress = 0
-
-      const url = await this.#getPutUrl(service, path, file, csrfToken)
-
-      const uploadManager = this
-      const progressTrackingStream = new TransformStream({
-        transform(chunk, controller) {
-          controller.enqueue(chunk)
-          file.bytesUploaded += chunk.byteLength
-          file.progress = Math.round((file.bytesUploaded / file.size) * 100)
-
-          uploadManager.#dispatchFileEvent('progress', file)
-        }
-      })
-
-      const uploadResponse = await this.#streamBlob(
-        url,
-        file,
-        progressTrackingStream
-      )
-
-      if (!uploadResponse.ok) {
-        throw new Error('Upload failed')
-      }
-
-      file.status = 'complete'
-      file.progress = 100
-      this.#dispatchFileEvent('complete', file)
-    } catch (error) {
-      file.status = 'failed'
-      this.#dispatchFileEvent('failed', file)
-    }
-  }
-
   async #uploadLargeFile(service, path, file, csrfToken) {
     try {
       file.status = 'uploading'
       file.bytesUploaded = 0
       file.progress = 0
       file.uploadParts = []
-      file.uploadId = await this.#startMultipartUpload(
+
+      const uploadResponse = await this.#startMultipartUpload(
         service,
         path,
         file,
         csrfToken
       )
 
-      let currentPosition = 0
-      while (currentPosition < file.size) {
-        const endPosition = Math.min(
-          currentPosition + ONE_HUNDRED_MEGABYTES,
-          file.size
-        )
-        const blob = file.slice(currentPosition, endPosition)
-        file.uploadParts.push({ blob })
+      file.uploadId = uploadResponse.uploadId
 
-        currentPosition += ONE_HUNDRED_MEGABYTES
+      for (const part of uploadResponse.parts) {
+        const blob = file.slice(part.startPosition, part.endPosition)
+        file.uploadParts.push({
+          partNumber: part.partNumber,
+          url: part.url,
+          blob
+        })
       }
 
       await Promise.all(
-        file.uploadParts.map(async (uploadPart, index) => {
-          uploadPart.partNumber = index + 1
-          uploadPart.url = await this.#getPutUrl(
-            service,
-            path,
-            file,
-            csrfToken,
-            uploadPart.partNumber
-          )
-
+        file.uploadParts.map(async (uploadPart) => {
           const uploadManager = this
           const progressTrackingStream = new TransformStream({
             transform(chunk, controller) {
@@ -152,37 +99,6 @@ export default class UploadManager extends EventTarget {
     )
   }
 
-  async #getPutUrl(service, path, file, csrfToken, uploadPartNumber) {
-    const response = await fetchWithRetry(
-      `/services/${service}/files-api/put-url`,
-      {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest',
-          'Cache-Control': 'no-cache, no-store, max-age=0',
-          Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
-          Pragma: 'no-cache',
-          'X-CSRF-Token': csrfToken
-        },
-        body: JSON.stringify({
-          path: `${path}/${file.name}`,
-          uploadId: file.uploadId,
-          uploadPartNumber
-        })
-      }
-    )
-
-    if (!response.ok) {
-      throw new Error('Failed to get PUT URL')
-    }
-
-    const { url } = await response.json()
-
-    return url
-  }
-
   async #streamBlob(url, blob, progressTrackingStream) {
     const uploadResponse = await fetchWithRetry(url, {
       method: 'PUT',
@@ -198,7 +114,7 @@ export default class UploadManager extends EventTarget {
 
   async #startMultipartUpload(service, path, file, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/files-api/multipart-upload`,
+      `/services/${service}/imports-api/multipart-upload`,
       {
         method: 'POST',
         cache: 'no-store',
@@ -211,7 +127,8 @@ export default class UploadManager extends EventTarget {
           'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({
-          path: `${path}/${file.name}`
+          path: `${path}/${file.name}`,
+          size: file.size
         })
       }
     )
@@ -227,7 +144,7 @@ export default class UploadManager extends EventTarget {
 
   async #completeMultipartUpload(service, path, file, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/files-api/multipart-upload/${file.uploadId}`,
+      `/services/${service}/imports-api/multipart-upload/${file.uploadId}`,
       {
         method: 'PUT',
         cache: 'no-store',
