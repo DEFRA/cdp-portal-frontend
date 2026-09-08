@@ -21,10 +21,7 @@ const grafanaDomains = [
   )
 ]
 
-const s3Endpoint = 'https://*.s3.eu-west-2.amazonaws.com'
-// config.get('aws').s3.endpoint === 'http://localhost:4566'
-//   ? 'https://localhost:4566' // S3 location when uploading objects on localhost
-//   : config.get('aws').s3.endpoint
+const cspRule = config.get('aws').s3.cspRule
 
 /**
  * @satisfies {import('@hapi/hapi').Plugin}
@@ -34,7 +31,7 @@ const contentSecurityPolicy = {
   options: {
     defaultSrc: ['self'],
     fontSrc: ['self', 'data:'],
-    connectSrc: ['self', 'data:', 'ws:', s3Endpoint], // TODO S3 host as config
+    connectSrc: ['self', 'data:', 'ws:', cspRule],
     scriptSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
     styleSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
     imgSrc: ['self', 'data:'],
