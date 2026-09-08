@@ -74,6 +74,12 @@ const config = convict({
         default: 'http://localhost:4566',
         env: 'S3_ENDPOINT'
       },
+      cspRule: {
+        doc: 'AWS S3 CSP rule - used when directly uploading/downloading from a bucket',
+        format: String,
+        default: 'https://localhost:4566',
+        env: 'S3_CSP_RULE'
+      },
       forcePathStyle: {
         doc: 'AWS S3 forcePathStyle option',
         format: Boolean,

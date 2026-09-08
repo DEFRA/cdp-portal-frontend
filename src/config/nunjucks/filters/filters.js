@@ -15,6 +15,7 @@ import { pluralise } from '#server/common/helpers/pluralise.js'
 import { formatDate } from '#server/common/helpers/date/format-date.js'
 import { relativeDate } from '#server/common/helpers/date/relative-date.js'
 import { sanitiseUser } from '#server/common/helpers/sanitisation/sanitise-user.js'
+import { partial } from 'filesize'
 
 const formatText = (value) => upperFirst(kebabCase(value))
 
@@ -24,13 +25,9 @@ const numberFormatter = new Intl.NumberFormat('en-GB', {
 })
 const formatNumber = (value) => numberFormatter.format(value)
 
-const byteValueNumberFormatter = Intl.NumberFormat('en', {
-  notation: 'compact',
-  style: 'unit',
-  unit: 'byte',
-  unitDisplay: 'narrow'
+const formatFileSize = partial({
+  locale: 'en-GB'
 })
-const formatFileSize = byteValueNumberFormatter.format
 
 function uppercaseMatch(value, matches = []) {
   return value

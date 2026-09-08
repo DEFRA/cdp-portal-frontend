@@ -81,8 +81,8 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
-          label: 'Files',
-          url: '/services/cdp-portal-frontend/files'
+          label: 'Imports',
+          url: '/services/cdp-portal-frontend/imports'
         },
         {
           isActive: false,
@@ -150,8 +150,8 @@ describe('#provideServiceTabs', () => {
         },
         {
           isActive: false,
-          label: 'Files',
-          url: '/services/cdp-portal-frontend/files'
+          label: 'Imports',
+          url: '/services/cdp-portal-frontend/imports'
         },
         {
           isActive: false,

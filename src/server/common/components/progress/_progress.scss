@@ -30,13 +30,15 @@
   /* stylelint-enable */
   position: relative;
   overflow: hidden;
+  transition: width 1s;
 }
 
 .app-progress__readout {
   @include govuk-font($size: 19);
-  min-width: 150px;
+  min-width: 180px;
   flex: govuk-spacing(2);
   margin-left: govuk-spacing(1);
   color: govuk-colour('black', $variant: 'tint-25');
   text-wrap-mode: nowrap;
+  text-align: right;
 }

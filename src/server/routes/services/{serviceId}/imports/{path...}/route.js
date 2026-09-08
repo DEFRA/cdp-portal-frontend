@@ -1,11 +1,11 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { folderTreeForPath, listPathContents } from '../BucketService.js'
+import { listPathContents } from '../BucketService.js'
 
 export const ext = [...commonServiceExtensions]
 
 export const options = {
-  id: 'services/{serviceId}/files',
+  id: 'services/{serviceId}/imports',
   auth: {
     mode: 'required',
     access: {
@@ -20,7 +20,7 @@ export default async function (request) {
 
   const [folderContents, folderTree] = await Promise.all([
     listPathContents(request, path),
-    folderTreeForPath(request, path)
+    {} // folderTreeForPath(request, path)
   ])
 
   const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
@@ -32,7 +32,7 @@ export default async function (request) {
     folderContents,
     folderTree,
     encodePathSegments,
-    pageTitle: 'Files',
+    pageTitle: 'Imports',
     breadcrumbs: [
       {
         text: 'Services',
@@ -43,7 +43,7 @@ export default async function (request) {
         href: `/services/${entity.name}`
       },
       {
-        text: 'Files'
+        text: 'Imports'
       }
     ]
   }
