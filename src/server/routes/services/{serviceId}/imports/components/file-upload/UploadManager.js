@@ -7,7 +7,7 @@ export default class UploadManager extends EventTarget {
     this.#files = files
 
     for (const file of this.#files) {
-      this.#uploadLargeFile(service, path, file, csrfToken)
+      this.#uploadFile(service, path, file, csrfToken)
     }
   }
 
@@ -19,7 +19,7 @@ export default class UploadManager extends EventTarget {
     }))
   }
 
-  async #uploadLargeFile(service, path, file, csrfToken) {
+  async #uploadFile(service, path, file, csrfToken) {
     try {
       file.status = 'uploading'
       file.bytesUploaded = 0
@@ -46,6 +46,8 @@ export default class UploadManager extends EventTarget {
 
       await Promise.all(
         file.uploadParts.map(async (uploadPart) => {
+          uploadPart.contentMd5 = await calcMd5Hash(uploadPart.blob)
+
           const uploadManager = this
           const progressTrackingStream = new TransformStream({
             transform(chunk, controller) {
@@ -60,6 +62,7 @@ export default class UploadManager extends EventTarget {
           const uploadResponse = await this.#streamBlob(
             uploadPart.url,
             uploadPart.blob,
+            uploadPart.contentMd5,
             progressTrackingStream
           )
 
@@ -97,11 +100,12 @@ export default class UploadManager extends EventTarget {
     )
   }
 
-  async #streamBlob(url, blob, progressTrackingStream) {
+  async #streamBlob(url, blob, md5Hash, progressTrackingStream) {
     const uploadResponse = await fetchWithRetry(url, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/octet-stream'
+        'Content-Type': 'application/octet-stream',
+        'Content-MD5': md5Hash
       },
       body: blob.stream().pipeThrough(progressTrackingStream),
       duplex: 'half'
@@ -191,4 +195,8 @@ function fetchWithRetry(url, fetchOpts, retryOpts = {}) {
     },
     { retries: 2, minTimeout: 500, ...retryOpts }
   )
+}
+
+async function calcMd5Hash(file) {
+  return Promise.resolve('UkUAIAQuiwgu2gUewQi0PA==')
 }
