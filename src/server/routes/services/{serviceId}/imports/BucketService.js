@@ -4,10 +4,11 @@ import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 // TODO: Use real bucket / call BE
 const bucket = config.get('documentation.bucket')
 
+const service = 'cdp-example-node-postgres-be' // 'cdp-postgres-service'
+
 export async function listPathContents(request, path) {
   const s3Path = formatAsS3Path(path, true)
 
-  const service = 'cdp-example-node-postgres-be' // 'cdp-postgres-service'
   const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
   const { payload = {} } = await request.authedFetchJson(endpoint)
 
@@ -59,8 +60,7 @@ export async function folderTreeForPath(request, path) {
 export async function getFileUrl(request, path) {
   const s3Path = formatAsS3Path(path)
 
-  const service = 'cdp-postgres-service'
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
   const { payload = {} } = await request.authedFetchJson(endpoint)
 
   return payload.url
@@ -98,8 +98,7 @@ function formatAsS3Path(path = '', withTrailingSlash) {
 export async function startMultipartUpload(request, path, size) {
   const s3Path = formatAsS3Path(path)
 
-  const service = 'cdp-postgres-service'
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
 
   const { payload = {} } = await request.authedFetchJson(endpoint, {
     method: 'POST',
@@ -119,8 +118,7 @@ export async function completeMultipartUpload(
 ) {
   const s3Path = formatAsS3Path(path)
 
-  const service = 'cdp-postgres-service'
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
   await request.authedFetchJson(endpoint, {
     method: 'PUT',
     payload: {
