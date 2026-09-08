@@ -61,7 +61,7 @@ export async function getFileUrl(request, path) {
   const s3Path = formatAsS3Path(path)
 
   const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
-  request.logger.info(`endpoint ${endpoint}`)
+
   const { payload = {} } = await request.authedFetchJson(endpoint)
 
   return payload.url
