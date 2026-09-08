@@ -21,10 +21,10 @@ const grafanaDomains = [
   )
 ]
 
-const s3Endpoint =
-  config.get('aws').s3.endpoint === 'http://localhost:4566'
-    ? 'https://localhost:4566' // S3 location when uploading objects on localhost
-    : config.get('aws').s3.endpoint
+const s3Endpoint = 'https://*.s3.eu-west-2.amazonaws.com'
+// config.get('aws').s3.endpoint === 'http://localhost:4566'
+//   ? 'https://localhost:4566' // S3 location when uploading objects on localhost
+//   : config.get('aws').s3.endpoint
 
 /**
  * @satisfies {import('@hapi/hapi').Plugin}
