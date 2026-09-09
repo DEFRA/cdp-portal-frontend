@@ -1,6 +1,14 @@
 // Response from portalBackendApi/deployables/{service}
 const availableVersionsFixture = [
   {
+    tag: '0.317.0-rc.1',
+    created: '2024-03-08T10:48:59.313Z'
+  },
+  {
+    tag: '0.316.0+build.2',
+    created: '2024-03-07T18:12:01.000Z'
+  },
+  {
     tag: '0.316.0',
     created: '2024-03-07T11:48:59.313Z'
   },

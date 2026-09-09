@@ -17,6 +17,8 @@ const editActionItems = (userId) => ({
 function transformUserToSummary(user, withActions = true) {
   const editActions = editActionItems(user.userId)
   const actions = withActions ? editActions : null
+  const displayName =
+    user.disabled && user.name ? `${user.name} (Disabled)` : user.name
 
   return {
     classes: 'app-summary-list',
@@ -26,7 +28,11 @@ function transformUserToSummary(user, withActions = true) {
     rows: [
       {
         key: { text: 'Name' },
-        value: { text: user.name }
+        value: { text: displayName }
+      },
+      {
+        key: { text: 'Status' },
+        value: { text: user.disabled ? 'Disabled' : 'Active' }
       },
       {
         key: { text: 'Email' },
@@ -64,6 +70,23 @@ function transformUserToSummary(user, withActions = true) {
             datetime: user.lastActive,
             formatString: dateFormatString
           })
+        }
+      },
+      {
+        key: { text: 'Disabled at' },
+        value: {
+          html: user.disabledAt
+            ? renderComponent('time', {
+                datetime: user.disabledAt,
+                formatString: dateFormatString
+              })
+            : noValue
+        }
+      },
+      {
+        key: { text: 'Disabled reason' },
+        value: {
+          text: user.disabledReason ?? noValue
         }
       },
       {

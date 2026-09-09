@@ -1,17 +1,27 @@
 import { config } from '#config/config.js'
 import { dateFormatString } from '../../../common/constants/date.js'
+import { buildLink } from '../../../common/helpers/view/build-link.js'
 
 function transformUserToEntityRow(user) {
   const githubOrg = config.get('githubOrg')
+  const displayName =
+    user.disabled && user.name ? `${user.name} (Disabled)` : user.name
+  const userLinkClasses = user.disabled ? 'app-text--muted' : null
 
   return {
     cells: [
       {
         headers: 'name',
         entity: {
-          kind: 'link',
-          value: user.name ? user.name : null,
-          url: `/admin/users/${user.userId}`
+          kind: 'html',
+          value: user.name
+            ? buildLink({
+                href: `/admin/users/${user.userId}`,
+                text: displayName,
+                classes: userLinkClasses,
+                newTab: false
+              })
+            : null
         }
       },
       {
