@@ -21,16 +21,6 @@ describe('#buildSuggestions', () => {
         text: ' - - select - - '
       },
       {
-        hint: 'Fri 8th Mar 2024 at 10:48',
-        text: '0.317.0-rc.1 - Fri 8th Mar 2024 at 10:48',
-        value: '0.317.0-rc.1'
-      },
-      {
-        hint: 'Thu 7th Mar 2024 at 18:12',
-        text: '0.316.0+build.2 - Thu 7th Mar 2024 at 18:12',
-        value: '0.316.0+build.2'
-      },
-      {
         hint: 'Thu 7th Mar 2024 at 11:48',
         text: '0.316.0 - Thu 7th Mar 2024 at 11:48',
         value: '0.316.0'
@@ -75,14 +65,6 @@ describe('#buildSuggestions', () => {
         text: ' - - select - - '
       },
       {
-        text: '0.317.0-rc.1 - Fri 8th Mar 2024 at 10:48',
-        value: '0.317.0-rc.1'
-      },
-      {
-        text: '0.316.0+build.2 - Thu 7th Mar 2024 at 18:12',
-        value: '0.316.0+build.2'
-      },
-      {
         text: '0.316.0 - Thu 7th Mar 2024 at 11:48',
         value: '0.316.0'
       },
@@ -125,33 +107,25 @@ describe('#buildSuggestions', () => {
         text: ' - - select - - '
       },
       {
-        text: '0.317.0-rc.1 - Fri 8th Mar 2024 at 10:48',
-        value: '0.317.0-rc.1'
-      },
-      {
-        text: '0.316.0+build.2 - Thu 7th Mar 2024 at 18:12',
-        value: '0.316.0+build.2'
-      },
-      {
-        hint: 0,
         text: '0.316.0 - Thu 7th Mar 2024 at 11:48',
         value: '0.316.0'
       },
       {
-        hint: false,
         text: '0.315.0 - Wed 6th Mar 2024 at 14:32',
         value: '0.315.0'
       },
       {
-        hint: '',
+        hint: 0,
         text: '0.314.0 - Wed 6th Mar 2024 at 13:11',
         value: '0.314.0'
       },
       {
+        hint: false,
         text: '0.313.0 - Wed 6th Mar 2024 at 13:06',
         value: '0.313.0'
       },
       {
+        hint: '',
         text: '0.312.0 - Tue 5th Mar 2024 at 14:55',
         value: '0.312.0'
       }

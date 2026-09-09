@@ -44,7 +44,6 @@ async function aboutHandler(request, h) {
     isPostgres
   })
   const latestPublishedImageVersions = availableVersions
-    .filter((version) => !/[-+]/.test(version.tag))
     .sort(sortBy('created'))
     .slice(0, latestCount)
   const availableMigrations = migrations.slice(0, latestCount)
