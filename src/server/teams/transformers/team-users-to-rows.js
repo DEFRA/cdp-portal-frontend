@@ -33,6 +33,9 @@ function transformTeamUsersToRows({
 
   return team.users.map((user) => {
     const iconClasses = ['app-icon--minuscule', 'govuk-!-margin-right-1']
+    const displayName =
+      user.disabled && user.name ? `${user.name} (Disabled)` : user.name
+    const textClasses = user.disabled ? 'app-text--muted' : ''
     const grandBreakGlassLink = hasCanGrantBreakGlass
       ? breakGlassLink(user)
       : ''
@@ -52,7 +55,7 @@ function transformTeamUsersToRows({
     return [
       {
         html: `<div class="app-!-layout-centered">
-                ${renderIcon('user-icon', { classes: iconClasses.join(' ') })}${user.name}
+                ${renderIcon('user-icon', { classes: iconClasses.join(' ') })}<span class="${textClasses}">${displayName}</span>
               </div>`
       },
       ...(withActions
