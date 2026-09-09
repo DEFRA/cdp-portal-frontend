@@ -14,11 +14,42 @@ const editActionItems = (userId) => ({
   ]
 })
 
+function userDisplayName(user) {
+  return user.disabled && user.name ? `${user.name} (Disabled)` : user.name
+}
+
+function statusRow(user) {
+  return {
+    key: { text: 'Status' },
+    value: { text: user.disabled ? 'Disabled' : 'Active' }
+  }
+}
+
+function disabledHistoryRows(user) {
+  return [
+    {
+      key: { text: 'Disabled at' },
+      value: {
+        html: user.disabledAt
+          ? renderComponent('time', {
+              datetime: user.disabledAt,
+              formatString: dateFormatString
+            })
+          : noValue
+      }
+    },
+    {
+      key: { text: 'Disabled reason' },
+      value: {
+        text: user.disabledReason ?? noValue
+      }
+    }
+  ]
+}
+
 function transformUserToSummary(user, withActions = true) {
   const editActions = editActionItems(user.userId)
   const actions = withActions ? editActions : null
-  const displayName =
-    user.disabled && user.name ? `${user.name} (Disabled)` : user.name
 
   return {
     classes: 'app-summary-list',
@@ -28,12 +59,9 @@ function transformUserToSummary(user, withActions = true) {
     rows: [
       {
         key: { text: 'Name' },
-        value: { text: displayName }
+        value: { text: userDisplayName(user) }
       },
-      {
-        key: { text: 'Status' },
-        value: { text: user.disabled ? 'Disabled' : 'Active' }
-      },
+      statusRow(user),
       {
         key: { text: 'Email' },
         value: {
@@ -72,23 +100,7 @@ function transformUserToSummary(user, withActions = true) {
           })
         }
       },
-      {
-        key: { text: 'Disabled at' },
-        value: {
-          html: user.disabledAt
-            ? renderComponent('time', {
-                datetime: user.disabledAt,
-                formatString: dateFormatString
-              })
-            : noValue
-        }
-      },
-      {
-        key: { text: 'Disabled reason' },
-        value: {
-          text: user.disabledReason ?? noValue
-        }
-      },
+      ...disabledHistoryRows(user),
       {
         key: { text: 'Created' },
         value: {

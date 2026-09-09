@@ -4,7 +4,7 @@ const accountDisabledController = {
       mode: 'try'
     }
   },
-  handler: async (request, h) =>
+  handler: async (_request, h) =>
     h.view('account-disabled/view', {
       pageTitle: 'Account disabled',
       heading: 'Your account has been disabled',
