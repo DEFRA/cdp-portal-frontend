@@ -19,7 +19,8 @@ function transformUserToEntityRow(user) {
                 href: `/admin/users/${user.userId}`,
                 text: displayName,
                 classes: userLinkClasses,
-                newTab: false
+                newTab: false,
+                dataTestId: 'app-entity-link'
               })
             : null
         }

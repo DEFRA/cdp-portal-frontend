@@ -7,9 +7,12 @@ describe('#transformUserToEntityRow', () => {
       cells: [
         {
           entity: {
-            kind: 'link',
-            url: '/admin/users/1398fa86-98a2-4ee8-84bb-2468cc71d0ec',
-            value: 'B. A. Baracus'
+            kind: 'html',
+            value:
+              '<a class="app-link"\n' +
+              '             href="/admin/users/1398fa86-98a2-4ee8-84bb-2468cc71d0ec"\n' +
+              '             \n' +
+              '             data-testid="app-entity-link" >B. A. Baracus</a>'
           },
           headers: 'name'
         },
