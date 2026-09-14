@@ -113,7 +113,7 @@ describe('Audit page', () => {
     server = await initialiseServer()
 
     vi.useFakeTimers({ advanceTimers: true })
-    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
+    vi.setSystemTime(new Date('2026-08-01T00:00:00.000Z'))
   })
 
   afterAll(async () => {
