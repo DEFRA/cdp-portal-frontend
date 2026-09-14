@@ -51,7 +51,7 @@
   {% if obj.isFolder %}
     - - -
   {% else %}
-    <a href="/services/{{ entity.name }}/imports-download/{{ encodePathSegments(obj.path) }}" data-no-xhr-link="true" target="_blank">Download</a>
+    <a href="/services/{{ entity.name }}/imports-resource/{{ encodePathSegments(obj.path) }}" data-no-xhr-link="true" target="_blank">Download</a>
   {% endif %}
 {% endmacro %}
 
