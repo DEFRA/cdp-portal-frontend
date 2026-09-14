@@ -31,6 +31,7 @@ export async function GET(request, h) {
 
   const url = await getFileUrl(request, entity.name, path)
 
+  request.logger.info(`Proxying GET to ${url}`)
   return h.proxy({
     uri: url
   })
@@ -67,6 +68,7 @@ export async function PUT(request, h) {
       contentMd5
     )
 
+    request.logger.info(`Proxying PUT to ${url}`)
     return h.proxy({
       uri: url
     })
