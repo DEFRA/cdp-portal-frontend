@@ -73,11 +73,11 @@ export async function PUT(request, h) {
     return h.proxy({
       redirects: 10,
       mapUri(request) {
-        request.logger.info(`Proxying PUT host ${request.host}`)
         return {
           uri: url,
           headers: {
             'content-type': 'application/octet-stream',
+            'content-length': request.headers['content-length'],
             'content-md5': contentMd5
           }
         }
