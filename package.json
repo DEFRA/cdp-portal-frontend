@@ -62,6 +62,7 @@
     "@hapi/catbox-redis": "7.0.2",
     "@hapi/cookie": "12.0.1",
     "@hapi/crumb": "9.0.1",
+    "@hapi/h2o2": "10.0.4",
     "@hapi/hapi": "21.4.9",
     "@hapi/hoek": "11.0.7",
     "@hapi/inert": "7.1.1",
