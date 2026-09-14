@@ -18,5 +18,9 @@ export default async function (request, h) {
 
   const url = await getFileUrl(request, path)
 
-  return h.redirect(url)
+  return h.proxy({
+    uri: url
+  })
+
+  // return h.redirect(url)
 }
