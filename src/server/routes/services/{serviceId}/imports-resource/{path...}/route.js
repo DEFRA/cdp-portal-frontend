@@ -22,13 +22,14 @@ export const options = {
 
 export async function GET(request, h) {
   const { path = '/' } = request.params
+  const entity = request.app.entity
   const isFolder = path.endsWith('/')
 
   if (isFolder) {
     return Boom.notFound('Folders are not downloadable')
   }
 
-  const url = await getFileUrl(request, path)
+  const url = await getFileUrl(request, entity.name, path)
 
   return h.proxy({
     uri: url
@@ -37,6 +38,7 @@ export async function GET(request, h) {
 
 export async function POST(request) {
   const { path = '/' } = request.params
+  const entity = request.app.entity
   const isFolder = path.endsWith('/')
 
   if (isFolder) {
@@ -45,18 +47,20 @@ export async function POST(request) {
   }
 
   const { size } = request.payload
-  const response = await startMultipartUpload(request, path, size)
+  const response = await startMultipartUpload(request, entity.name, path, size)
 
   return response
 }
 
 export async function PUT(request, h) {
   const { path = '/' } = request.params
+  const entity = request.app.entity
   const { uploadId, partNumber, contentMd5 } = request.query
 
   if (uploadId && partNumber && contentMd5) {
     const url = await getMultipartUploadPartUrl(
       request,
+      entity.name,
       path,
       uploadId,
       partNumber,
@@ -73,7 +77,13 @@ export async function PUT(request, h) {
     output: 'data'
   })
   const { uploadParts } = payload
-  await completeMultipartUpload(request, path, uploadId, uploadParts)
+  await completeMultipartUpload(
+    request,
+    entity.name,
+    path,
+    uploadId,
+    uploadParts
+  )
 
   return {
     uploadId
