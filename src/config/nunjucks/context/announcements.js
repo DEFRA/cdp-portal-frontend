@@ -75,6 +75,7 @@ async function getAnnouncements({ request, userSession, isInternetExplorer }) {
 
   if (
     userSession?.isAuthenticated &&
+    !userSession?.isDisabled &&
     !(userSession?.isAdmin || userSession?.isTenant)
   ) {
     const registrationMessage = announcements.get('unRegisteredUser')
