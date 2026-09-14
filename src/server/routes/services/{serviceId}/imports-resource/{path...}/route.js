@@ -33,7 +33,8 @@ export async function GET(request, h) {
 
   request.logger.info(`Proxying GET to ${url}`)
   return h.proxy({
-    uri: url
+    uri: url,
+    redirects: 10
   })
 }
 
@@ -70,7 +71,9 @@ export async function PUT(request, h) {
 
     request.logger.info(`Proxying PUT to ${url}`)
     return h.proxy({
-      uri: url
+      uri: url,
+      redirects: 10,
+      passThrough: true // TODO: limit to needed?
     })
   }
 
