@@ -4,7 +4,12 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l">{{ heading }}</h1>
-      <p class="govuk-body">{{ message }}</p>
+      <p class="govuk-body">
+        {{ message }} Please contact the Platform team on Slack <a class="app-link app-link--underline"
+                                                                   href="{{ supportChannel }}"
+                                                                   target="_blank"
+                                                                   rel="noopener noreferrer">#cdp-support</a> to re-enable your account.
+      </p>
       <p class="govuk-body">
         <a class="app-link app-link--underline" href="/login">Return to login</a>
       </p>

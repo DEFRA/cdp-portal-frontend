@@ -81,6 +81,21 @@ describe('#getAnnouncements', () => {
     )
   })
 
+  test('Should return no unRegisteredUser announcement for disabled user', async () => {
+    const announcements = await getAnnouncements({
+      request: {},
+      userSession: {
+        isAuthenticated: true,
+        isAdmin: false,
+        isTenant: false,
+        isDisabled: true
+      },
+      isInternetExplorer: false
+    })
+
+    expect(announcements).toEqual([])
+  })
+
   test('Should return isIe announcement for unauthenticated user using IE', async () => {
     const announcements = await getAnnouncements({
       userSession: null,
