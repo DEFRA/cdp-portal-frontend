@@ -4,7 +4,7 @@ import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 // TODO: Use real bucket / call BE
 const bucket = config.get('documentation.bucket')
 
-const service = 'cdp-postgres-service' // 'cdp-example-node-postgres-be' // 'cdp-postgres-service'
+const service = 'cdp-example-node-postgres-be' // 'cdp-postgres-service'
 
 export async function listPathContents(request, path) {
   const s3Path = formatAsS3Path(path, true)
