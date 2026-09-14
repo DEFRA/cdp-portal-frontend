@@ -112,8 +112,7 @@ export default class UploadManager extends EventTarget {
           'Cache-Control': 'no-cache, no-store, max-age=0',
           Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
           Pragma: 'no-cache',
-          'X-CSRF-Token': csrfToken,
-          'content-md5': md5Hash
+          'X-CSRF-Token': csrfToken
         },
         body: blob.stream().pipeThrough(progressTrackingStream),
         duplex: 'half'
