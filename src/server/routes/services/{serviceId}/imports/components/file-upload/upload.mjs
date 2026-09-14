@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 
 const apiKey = process.env.API_KEY;
+const cookie = process.env.COOKIE;
 
 const file = '/Users/david/Downloads/test/18010 instrucciones.pdf';
 const endpoint = 'https://ephemeral-protected.api.infra-dev.cdp-int.defra.cloud/cdp-portal-backend/entities/cdp-example-node-postgres-be/imports/';
@@ -22,7 +23,8 @@ const startResponse = await fetch(fullPath, {
   method: 'POST',
   headers: {
     'content-type': 'application/json',
-    'x-api-key': apiKey
+    'x-api-key': apiKey,
+    cookie
   },
   body: JSON.stringify({
     size
@@ -43,8 +45,8 @@ console.log('Starting part');
 const partResponse = await fetch(`${fullPath}?${upload.parts[0].queryParams}&contentMd5=${hash}`, {
   method: 'PUT',
   headers: {
-    // 'content-md5': hash,
-    'x-api-key': apiKey
+    'x-api-key': apiKey,
+    cookie
   }
 })
 
@@ -65,7 +67,8 @@ const uploadResponse = await fetch(partInfo.url, {
   method: partInfo.method,
   headers: {
     'content-md5': hash,
-    'x-api-key': apiKey
+    'x-api-key': apiKey,
+    cookie
   },
   body: content
 })
@@ -87,7 +90,8 @@ const completeResponse = await fetch(fullPath, {
   method: 'PUT',
   headers: {
     'content-type': 'application/json',
-    'x-api-key': apiKey
+    'x-api-key': apiKey,
+    cookie
   },
   body: JSON.stringify({
     uploadId: upload.uploadId,
