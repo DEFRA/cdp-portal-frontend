@@ -4,9 +4,7 @@ import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 // TODO: Use real bucket / call BE
 const bucket = config.get('documentation.bucket')
 
-const service = 'cdp-postgres-service' // 'cdp-example-node-postgres-be' // 'cdp-postgres-service'
-
-export async function listPathContents(request, path) {
+export async function listPathContents(request, service, path) {
   const s3Path = formatAsS3Path(path, true)
 
   const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
@@ -15,7 +13,7 @@ export async function listPathContents(request, path) {
   return payload
 }
 
-export async function folderTreeForPath(request, path) {
+export async function folderTreeForPath(request, service, path) {
   const s3Path = formatAsS3Path(path, true)
 
   const command = new ListObjectsV2Command({
@@ -57,7 +55,7 @@ export async function folderTreeForPath(request, path) {
   return aggregatedFolders
 }
 
-export async function getFileUrl(request, path) {
+export async function getFileUrl(request, service, path) {
   const s3Path = formatAsS3Path(path)
 
   const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
@@ -67,7 +65,7 @@ export async function getFileUrl(request, path) {
   return payload.url
 }
 
-export async function startMultipartUpload(request, path, size) {
+export async function startMultipartUpload(request, service, path, size) {
   const s3Path = formatAsS3Path(path)
 
   const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
@@ -89,6 +87,7 @@ export async function startMultipartUpload(request, path, size) {
 
 export async function getMultipartUploadPartUrl(
   request,
+  service,
   path,
   uploadId,
   partNumber,
@@ -106,6 +105,7 @@ export async function getMultipartUploadPartUrl(
 
 export async function completeMultipartUpload(
   request,
+  service,
   path,
   uploadId,
   uploadParts = []
@@ -120,19 +120,6 @@ export async function completeMultipartUpload(
       parts: uploadParts
     }
   })
-
-  // const command = new CompleteMultipartUploadCommand({
-  //   Bucket: bucket,
-  //   Key: formatAsS3Path(path),
-  //   UploadId: uploadId,
-  //   MultipartUpload: {
-  //     Parts: uploadParts.map(({ eTag, partNumber }) => ({
-  //       ETag: eTag,
-  //       PartNumber: partNumber
-  //     }))
-  //   }
-  // })
-  // await request.s3Client.send(command)
 }
 
 function formatAsS3Path(path = '', withTrailingSlash) {
