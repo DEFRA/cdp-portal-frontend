@@ -127,7 +127,7 @@ async function createServer() {
       }
 
       const { body } = await response.json()
-      return body
+      return JSON.parse(body)
     },
     options: {
       cache: {
