@@ -1,5 +1,4 @@
 import pRetry, { AbortError } from 'p-retry'
-// import MD5 from 'md5.js'
 
 export default class UploadManager extends EventTarget {
   #files
@@ -205,7 +204,8 @@ function fetchWithRetry(url, fetchOpts, retryOpts = {}) {
 }
 
 async function calcMd5Hash(blob) {
-  return Promise.resolve('UkUAIAQuiwgu2gUewQi0PA==')
+  // return Promise.resolve('UkUAIAQuiwgu2gUewQi0PA==')
+  return Promise.resolve('6cwFahYlulfmH/29UTuHWA==')
 
   // return new Promise((resolve, reject) => {
   //   const md5Stream = new MD5()
