@@ -430,6 +430,28 @@ const config = convict({
       default: 0,
       env: 'MONITORING_INTERVAL'
     }
+  },
+  slackChannels: {
+    url: {
+      doc: 'URL for the Slack channels API',
+      format: String,
+      default: 'http://localhost:3939/infra-dev/slack/channels',
+      env: 'SLACK_CHANNELS_URL'
+    },
+    cache: {
+      expiresIn: {
+        doc: 'How long Slack channels remain cached in milliseconds',
+        format: Number,
+        default: 24 * 60 * 60 * 1000,
+        env: 'SLACK_CHANNELS_CACHE_EXPIRES_IN'
+      },
+      staleIn: {
+        doc: 'How long before cached Slack channels are considered stale in milliseconds',
+        format: Number,
+        default: 2 * 60 * 1000,
+        env: 'SLACK_CHANNELS_CACHE_STALE_IN'
+      }
+    }
   }
 })
 
