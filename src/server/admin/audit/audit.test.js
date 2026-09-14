@@ -111,10 +111,14 @@ describe('Audit page', () => {
       }
     ])
     server = await initialiseServer()
+
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2025-05-10T14:16:00.000Z'))
   })
 
   afterAll(async () => {
     await server.stop({ timeout: 0 })
+    vi.useRealTimers()
   })
 
   describe('list view', () => {
