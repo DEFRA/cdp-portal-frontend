@@ -24,11 +24,13 @@ const userController = {
     const diagram = await fetchPermissionDiagram(request.params?.userId)
     const displayName =
       user.disabled && user.name ? `${user.name} (Disabled)` : user.name
+    const isTargetAdmin = user.scopeFlags?.isAdmin ?? false
 
     return h.view('admin/users/views/user', {
       pageTitle: displayName,
       user,
       displayName,
+      isTargetAdmin,
       diagram,
       summaryList: transformUserToSummary(user),
       teamsTaskList: transformUserTeamsToTaskList(user),
