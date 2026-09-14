@@ -71,9 +71,17 @@ export async function PUT(request, h) {
 
     request.logger.info(`Proxying PUT to ${url}`)
     return h.proxy({
-      uri: url,
       redirects: 10,
-      passThrough: true // TODO: limit to needed?
+      mapUri(request) {
+        request.logger.info(`Proxying PUT host ${request.host}`)
+        return {
+          uri: url,
+          headers: {
+            'content-type': 'application/octet-stream',
+            'content-md5': contentMd5
+          }
+        }
+      }
     })
   }
 
