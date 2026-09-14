@@ -153,7 +153,7 @@ export default class UploadManager extends EventTarget {
 
   async #completeMultipartUpload(service, path, file, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/imports-api/multipart-upload/${file.uploadId}`,
+      `/services/${service}/imports-resource/${encodeURIComponent(`${path}${file.name}`)}?uploadId=${file.uploadId}`,
       {
         method: 'PUT',
         cache: 'no-store',
@@ -166,7 +166,6 @@ export default class UploadManager extends EventTarget {
           'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({
-          path: `${path}/${file.name}`,
           uploadParts: file.uploadParts.map((part) => ({
             eTag: part.eTag,
             partNumber: part.partNumber
