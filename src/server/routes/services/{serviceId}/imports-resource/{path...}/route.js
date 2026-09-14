@@ -72,6 +72,7 @@ export async function PUT(request, h) {
     request.logger.info(`Proxying PUT to ${url}`)
     return h.proxy({
       redirects: 10,
+      passThrough: true,
       mapUri(request) {
         return {
           uri: url,
