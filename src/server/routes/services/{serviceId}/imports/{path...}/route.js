@@ -19,7 +19,7 @@ export default async function (request) {
   const entity = request.app.entity
 
   const [folderContents, folderTree] = await Promise.all([
-    listPathContents(request, path),
+    listPathContents(request, entity.name, path),
     {} // folderTreeForPath(request, path)
   ])
 
