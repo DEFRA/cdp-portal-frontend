@@ -21,6 +21,4 @@ export default async function (request, h) {
   return h.proxy({
     uri: url
   })
-
-  // return h.redirect(url)
 }
