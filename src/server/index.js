@@ -2,6 +2,7 @@ import qs from 'qs'
 import path from 'node:path'
 import hapi from '@hapi/hapi'
 import Scooter from '@hapi/scooter'
+import H202 from '@hapi/h2o2'
 
 import { router } from './router.js'
 import { config } from '../config/config.js'
@@ -111,7 +112,8 @@ async function createServer() {
     },
     auditing,
     s3Client,
-    nodeVmMetrics
+    nodeVmMetrics,
+    H202
   ])
 
   server.ext('onPreHandler', redirectDisabledUser)
