@@ -1,0 +1,27 @@
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    {{ appPageHeading({
+      text: "Are you sure you want to disable this user?"
+    }) }}
+
+    <p class="govuk-body">
+      This user will not be able to log in until they are re-enabled.
+    </p>
+
+    {{ govukSummaryList(summaryList) }}
+
+    <div class="govuk-button-group govuk-!-margin-top-5">
+      <form action="/admin/users/{{ user.userId }}/disable" method="post">
+        <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+        {{ govukButton({
+          classes: "app-button app-button--destructive",
+          text: "Disable user"
+        }) }}
+      </form>
+      <a class="app-link" href="/admin/users/{{ user.userId }}">Cancel</a>
+    </div>
+  {% endcall %}
+{% endblock %}

@@ -26,6 +26,7 @@ import { getCacheEngine } from './common/helpers/session/cache-engine.js'
 import { nodeVmMetrics } from './plugins/node-vm-metrics.js'
 import appRouter from './plugins/appRouter.js'
 import { authOidcPlugin } from '#server/plugins/auth-oidc-plugin.js'
+import { redirectDisabledUser } from './common/helpers/auth/redirect-disabled-user.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -112,6 +113,8 @@ async function createServer() {
     s3Client,
     nodeVmMetrics
   ])
+
+  server.ext('onPreHandler', redirectDisabledUser)
 
   const sessionCookieConfig = config.get('session.cookie')
   const oneSecond = 1000

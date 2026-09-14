@@ -22,10 +22,13 @@ const userController = {
   handler: async (request, h) => {
     const user = await fetchCdpUser(request.params?.userId)
     const diagram = await fetchPermissionDiagram(request.params?.userId)
+    const displayName =
+      user.disabled && user.name ? `${user.name} (Disabled)` : user.name
 
     return h.view('admin/users/views/user', {
-      pageTitle: user.name,
+      pageTitle: displayName,
       user,
+      displayName,
       diagram,
       summaryList: transformUserToSummary(user),
       teamsTaskList: transformUserTeamsToTaskList(user),
@@ -40,7 +43,7 @@ const userController = {
           href: '/admin/users'
         },
         {
-          text: user.name
+          text: displayName
         }
       ]
     })

@@ -5,7 +5,7 @@
 
     {{ appPageHeading({
       caption: "User",
-      text: user.name
+      text: displayName
     }) }}
 
     <hr class="app-section-break app-section-break--slim">
@@ -13,6 +13,21 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         <ul class="govuk-list">
+          {% if user.disabled %}
+            <li>
+              <form action="/admin/users/{{ user.userId }}/enable" method="post" class="app-inline-form">
+                <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+                <button class="app-link app-link--underline app-inline-button" type="submit" data-testid="admin-enable-user">
+                  Enable user
+                </button>
+              </form>
+            </li>
+          {% else %}
+            <li>
+              <a href="{{ routeLookup('admin/users/{userId}/confirm-disable', { params: { userId: user.userId } }) }}"
+                 class="app-link app-link--underline" data-testid="admin-disable-user">Disable user</a>
+            </li>
+          {% endif %}
           <li>
             <a href="{{ routeLookup('admin/users/{userId}/confirm-delete', { params: { userId: user.userId } }) }}"
                class="app-link app-link--underline" data-testid="admin-delete-user">Delete user</a>

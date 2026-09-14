@@ -4,6 +4,9 @@ import { userController } from './controllers/user.js'
 import { usersListController } from './controllers/users-list.js'
 import { confirmDeleteUserController } from './controllers/delete/confirm-delete-user.js'
 import { deleteUserController } from './controllers/delete/delete-user.js'
+import { confirmDisableUserController } from './controllers/disable/confirm-disable-user.js'
+import { disableUserController } from './controllers/disable/disable-user.js'
+import { enableUserController } from './controllers/enable/enable-user.js'
 import { editUserController } from './controllers/edit/edit-user.js'
 import { startCreateUserController } from './controllers/save/start-create-user.js'
 import { findAadUserFormController } from './controllers/save/find-aad-user-form.js'
@@ -104,6 +107,21 @@ const adminUsers = {
             method: 'POST',
             path: '/admin/users/{userId}/delete',
             ...deleteUserController
+          },
+          {
+            method: 'GET',
+            path: '/admin/users/{userId}/confirm-disable',
+            ...confirmDisableUserController
+          },
+          {
+            method: 'POST',
+            path: '/admin/users/{userId}/disable',
+            ...disableUserController
+          },
+          {
+            method: 'POST',
+            path: '/admin/users/{userId}/enable',
+            ...enableUserController
           },
           {
             method: 'GET',
