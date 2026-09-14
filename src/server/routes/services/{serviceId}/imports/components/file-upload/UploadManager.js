@@ -39,7 +39,7 @@ export default class UploadManager extends EventTarget {
         const blob = file.slice(part.byteStartPosition, part.byteEndPosition)
         file.uploadParts.push({
           partNumber: part.partNumber,
-          url: part.url,
+          url: `/services/${service}/imports-resource/${encodeURIComponent(`${path}${file.name}`)}?${part.queryParams}`,
           blob
         })
       }
@@ -101,22 +101,24 @@ export default class UploadManager extends EventTarget {
   }
 
   async #streamBlob(url, blob, md5Hash, progressTrackingStream) {
-    const uploadResponse = await fetchWithRetry(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/octet-stream',
-        'Content-MD5': md5Hash
-      },
-      body: blob.stream().pipeThrough(progressTrackingStream),
-      duplex: 'half'
-    })
+    const uploadResponse = await fetchWithRetry(
+      `${url}&contentMd5=${md5Hash}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/octet-stream'
+        },
+        body: blob.stream().pipeThrough(progressTrackingStream),
+        duplex: 'half'
+      }
+    )
 
     return uploadResponse
   }
 
   async #startMultipartUpload(service, path, file, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/imports-api/multipart-upload`,
+      `/services/${service}/imports-resource/${encodeURIComponent(`${path}${file.name}`)}`,
       {
         method: 'POST',
         cache: 'no-store',
@@ -129,7 +131,6 @@ export default class UploadManager extends EventTarget {
           'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({
-          path: `${path}/${file.name}`,
           size: file.size
         })
       }
@@ -139,9 +140,9 @@ export default class UploadManager extends EventTarget {
       throw new Error('Failed to start multipart upload')
     }
 
-    const { uploadId } = await response.json()
+    const result = await response.json()
 
-    return uploadId
+    return result
   }
 
   async #completeMultipartUpload(service, path, file, csrfToken) {
