@@ -22,7 +22,7 @@
                 </button>
               </form>
             </li>
-          {% else %}
+          {% elif not isTargetAdmin %}
             <li>
               <a href="{{ routeLookup('admin/users/{userId}/confirm-disable', { params: { userId: user.userId } }) }}"
                  class="app-link app-link--underline" data-testid="admin-disable-user">Disable user</a>
