@@ -71,7 +71,7 @@ export default class UploadManager extends EventTarget {
             throw new Error('part upload failed')
           }
 
-          uploadPart.eTag = uploadResponse.ETag
+          uploadPart.eTag = uploadResponse.headers.get('etag')
         })
       )
 
