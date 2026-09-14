@@ -108,7 +108,7 @@
                         classes: "app-hint"
                       },
                       formGroup: {
-                        classes: "app-form-group"
+                        classes: "app-form-group app-form-group-js"
                       },
                       items: environmentOptions,
                       values: formValues.environments,
@@ -131,24 +131,20 @@
                   text: "Note: The available environments varies per notification event"
                 }) }}
 
-                {{ govukInput({
-                  classes: "govuk-input--width-10",
-                  label: {
-                    text: "Slack channel",
-                    classes: "govuk-label--m"
-                  },
-                  hint: {
-                    text: "Name of the Slack channel to receive the notification",
-                    classes: "app-hint"
-                  },
-                  prefix: {
-                    text: "#"
-                  },
-                  id: "channel",
+                {{ appAutocomplete({
+                  id: "filters-slack-channels",
                   name: "channel",
-                  spellcheck: false,
+                  classes: "app-autocomplete--inline govuk-!-margin-bottom-4",
+                  label: {
+                    text: "Slack Channel",
+                    classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+                  },
+                  formGroup: {
+                    classes: "app-form-group--inline"
+                  },
                   value: formValues.channel,
-                  errorMessage: errorMessageHelper(formErrors.channel.message)
+                  suggestions: slackChannelFilters,
+                  allowReselection: true
                 }) }}
 
               {% endcall %}

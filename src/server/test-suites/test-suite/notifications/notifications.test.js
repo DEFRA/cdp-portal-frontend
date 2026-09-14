@@ -4,6 +4,7 @@ import {
   mockCommonTestSuiteCalls,
   mockFetchNotificationRules,
   mockFetchSupportedNotifications,
+  mockGetSlackChannels,
   mockTestRuns
 } from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
@@ -23,6 +24,7 @@ describe('Test suite notifications page', () => {
     mockFetchNotificationRules(testSuite)
     mockTestRuns(testSuite)
     server = await initialiseServer()
+    mockGetSlackChannels(server)
   })
 
   afterAll(async () => {

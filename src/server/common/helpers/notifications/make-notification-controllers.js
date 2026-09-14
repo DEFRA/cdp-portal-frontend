@@ -16,6 +16,7 @@ import {
   testNotificationRule,
   updateNotificationRule
 } from '#server/common/helpers/fetch/fetch-notifications.js'
+import { getSlackChannelFilters } from '#server/common/helpers/slack/slack-channel-filters.js'
 
 function normaliseEnvironments(environments) {
   return Array.isArray(environments)
@@ -102,10 +103,13 @@ function makeNotificationControllers(config) {
 
       const supportVerticalHeadings = environments.length >= 5
 
+      const slackChannelFilters = await getSlackChannelFilters(request.server)
+
       return h.view(views.list, {
         pageTitle: `${entityLabel} - ${entityName} - Notifications`,
         entity,
         formValues,
+        slackChannelFilters,
         eventTypeOptions,
         environmentOptions,
         tableData: {

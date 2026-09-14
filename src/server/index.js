@@ -27,6 +27,7 @@ import { nodeVmMetrics } from './plugins/node-vm-metrics.js'
 import appRouter from './plugins/appRouter.js'
 import { authOidcPlugin } from '#server/plugins/auth-oidc-plugin.js'
 import { redirectDisabledUser } from './common/helpers/auth/redirect-disabled-user.js'
+import { signedFetch } from '#server/common/helpers/fetch/signed-fetch.js'
 
 const enableSecureContext = config.get('enableSecureContext')
 
@@ -115,6 +116,28 @@ async function createServer() {
   ])
 
   server.ext('onPreHandler', redirectDisabledUser)
+
+  server.method({
+    name: 'getSlackChannels',
+    method: async () => {
+      const response = await signedFetch(config.get('slackChannels.url'))
+
+      if (!response.ok) {
+        throw new Error(`Slack channels request failed: ${response.status}`)
+      }
+
+      const { body } = await response.json()
+      return body
+    },
+    options: {
+      cache: {
+        expiresIn: config.get('slackChannels.cache.expiresIn'),
+        generateTimeout: 6000,
+        staleIn: config.get('slackChannels.cache.staleIn'),
+        staleTimeout: 6000
+      }
+    }
+  })
 
   const sessionCookieConfig = config.get('session.cookie')
   const oneSecond = 1000
