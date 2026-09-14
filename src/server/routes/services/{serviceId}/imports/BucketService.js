@@ -4,7 +4,7 @@ import { ListObjectsV2Command } from '@aws-sdk/client-s3'
 // TODO: Use real bucket / call BE
 const bucket = config.get('documentation.bucket')
 
-const service = 'cdp-example-node-postgres-be' // 'cdp-postgres-service'
+const service = 'cdp-postgres-service' // 'cdp-example-node-postgres-be' // 'cdp-postgres-service'
 
 export async function listPathContents(request, path) {
   const s3Path = formatAsS3Path(path, true)
@@ -65,35 +65,6 @@ export async function getFileUrl(request, path) {
   const { payload = {} } = await request.authedFetchJson(endpoint)
 
   return payload.url
-
-  // const command = new GetObjectCommand({
-  //   Bucket: bucket,
-  //   Key: formatAsS3Path(path),
-  //   ResponseContentDisposition: 'attachment' // NOTE: does not work on local with mock AWS
-  // })
-
-  // const url = await getSignedUrl(request.s3Client, command, {
-  //   expiresIn: SIGNED_URL_TTL_SECONDS,
-  //   unsignableHeaders: new Set(['content-disposition'])
-  // })
-
-  // return url
-}
-
-function formatAsS3Path(path = '', withTrailingSlash) {
-  let result = path
-
-  if (path === '') return path
-
-  if (result.startsWith('/')) {
-    result = result.replace('/', '')
-  }
-
-  if (withTrailingSlash && !result.endsWith('/')) {
-    result = `${result}/`
-  }
-
-  return result
 }
 
 export async function startMultipartUpload(request, path, size) {
@@ -101,14 +72,36 @@ export async function startMultipartUpload(request, path, size) {
 
   const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
 
+  try {
+    const { payload = {} } = await request.authedFetchJson(endpoint, {
+      method: 'POST',
+      payload: {
+        size
+      }
+    })
+
+    return payload
+  } catch (error) {
+    request.logger.error(error)
+    throw error
+  }
+}
+
+export async function getMultipartUploadPartUrl(
+  request,
+  path,
+  uploadId,
+  partNumber,
+  contentMd5
+) {
+  const s3Path = formatAsS3Path(path)
+
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}?uploadId=${uploadId}&partNumber=${partNumber}&contentMd5=${contentMd5}`
   const { payload = {} } = await request.authedFetchJson(endpoint, {
-    method: 'POST',
-    payload: {
-      size
-    }
+    method: 'PUT'
   })
 
-  return payload
+  return payload.url
 }
 
 export async function completeMultipartUpload(
@@ -140,4 +133,20 @@ export async function completeMultipartUpload(
   //   }
   // })
   // await request.s3Client.send(command)
+}
+
+function formatAsS3Path(path = '', withTrailingSlash) {
+  let result = path
+
+  if (path === '') return path
+
+  if (result.startsWith('/')) {
+    result = result.replace('/', '')
+  }
+
+  if (withTrailingSlash && !result.endsWith('/')) {
+    result = `${result}/`
+  }
+
+  return result
 }
