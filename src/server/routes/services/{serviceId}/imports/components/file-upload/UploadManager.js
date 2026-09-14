@@ -39,7 +39,7 @@ export default class UploadManager extends EventTarget {
         const blob = file.slice(part.byteStartPosition, part.byteEndPosition)
         file.uploadParts.push({
           partNumber: part.partNumber,
-          url: part.url,
+          url: `/services/${service}/imports-resource/${encodeURIComponent(`${path}${file.name}`)}?${part.queryParams}`,
           blob
         })
       }
@@ -63,6 +63,7 @@ export default class UploadManager extends EventTarget {
             uploadPart.url,
             uploadPart.blob,
             uploadPart.contentMd5,
+            csrfToken,
             progressTrackingStream
           )
 
@@ -100,23 +101,30 @@ export default class UploadManager extends EventTarget {
     )
   }
 
-  async #streamBlob(url, blob, md5Hash, progressTrackingStream) {
-    const uploadResponse = await fetchWithRetry(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/octet-stream',
-        'Content-MD5': md5Hash
-      },
-      body: blob.stream().pipeThrough(progressTrackingStream),
-      duplex: 'half'
-    })
+  async #streamBlob(url, blob, md5Hash, csrfToken, progressTrackingStream) {
+    const uploadResponse = await fetchWithRetry(
+      `${url}&contentMd5=${md5Hash}`,
+      {
+        method: 'PUT',
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/octet-stream',
+          'Cache-Control': 'no-cache, no-store, max-age=0',
+          Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+          Pragma: 'no-cache',
+          'X-CSRF-Token': csrfToken
+        },
+        body: blob.stream().pipeThrough(progressTrackingStream),
+        duplex: 'half'
+      }
+    )
 
     return uploadResponse
   }
 
   async #startMultipartUpload(service, path, file, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/imports-api/multipart-upload`,
+      `/services/${service}/imports-resource/${encodeURIComponent(`${path}${file.name}`)}`,
       {
         method: 'POST',
         cache: 'no-store',
@@ -129,7 +137,6 @@ export default class UploadManager extends EventTarget {
           'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({
-          path: `${path}/${file.name}`,
           size: file.size
         })
       }
@@ -139,14 +146,14 @@ export default class UploadManager extends EventTarget {
       throw new Error('Failed to start multipart upload')
     }
 
-    const { uploadId } = await response.json()
+    const result = await response.json()
 
-    return uploadId
+    return result
   }
 
   async #completeMultipartUpload(service, path, file, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/imports-api/multipart-upload/${file.uploadId}`,
+      `/services/${service}/imports-resource/${encodeURIComponent(`${path}${file.name}`)}?uploadId=${file.uploadId}`,
       {
         method: 'PUT',
         cache: 'no-store',
@@ -159,7 +166,6 @@ export default class UploadManager extends EventTarget {
           'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({
-          path: `${path}/${file.name}`,
           uploadParts: file.uploadParts.map((part) => ({
             eTag: part.eTag,
             partNumber: part.partNumber
@@ -197,6 +203,22 @@ function fetchWithRetry(url, fetchOpts, retryOpts = {}) {
   )
 }
 
-async function calcMd5Hash(file) {
-  return Promise.resolve('UkUAIAQuiwgu2gUewQi0PA==')
+async function calcMd5Hash(blob) {
+  // return Promise.resolve('UkUAIAQuiwgu2gUewQi0PA==')
+  return Promise.resolve('6cwFahYlulfmH/29UTuHWA==')
+
+  // return new Promise((resolve, reject) => {
+  //   const md5Stream = new MD5()
+  //   const content = blob.stream()
+
+  //   content.on('error', (err) => {
+  //     reject(err)
+  //   })
+
+  //   md5Stream.once('readable', () => {
+  //     resolve(md5Stream.read().toString('hex'))
+  //   })
+
+  //   content.pipeTo(md5Stream)
+  // })
 }
