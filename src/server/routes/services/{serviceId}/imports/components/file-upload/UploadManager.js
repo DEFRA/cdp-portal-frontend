@@ -63,6 +63,7 @@ export default class UploadManager extends EventTarget {
             uploadPart.url,
             uploadPart.blob,
             uploadPart.contentMd5,
+            csrfToken,
             progressTrackingStream
           )
 
@@ -100,16 +101,21 @@ export default class UploadManager extends EventTarget {
     )
   }
 
-  async #streamBlob(url, blob, md5Hash, progressTrackingStream) {
+  async #streamBlob(url, blob, md5Hash, csrfToken, progressTrackingStream) {
     const uploadResponse = await fetchWithRetry(
       `${url}&contentMd5=${md5Hash}`,
       {
         method: 'PUT',
+        cache: 'no-store',
         headers: {
-          'Content-Type': 'application/octet-stream'
+          'Content-Type': 'application/octet-stream',
+          'Cache-Control': 'no-cache, no-store, max-age=0',
+          Expires: 'Thu, 1 Jan 1970 00:00:00 GMT',
+          Pragma: 'no-cache',
+          'X-CSRF-Token': csrfToken
         },
-        body: blob.stream().pipeThrough(progressTrackingStream),
-        duplex: 'half'
+        body: blob // .stream().pipeThrough(progressTrackingStream),
+        // duplex: 'half'
       }
     )
 
