@@ -1,11 +1,13 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import {
+  completeMultipartUpload,
   getFileUrl,
   getMultipartUploadPartUrl,
   startMultipartUpload
 } from '../../imports/BucketService.js'
 import { Boom } from '@hapi/boom'
+import { parse } from '@hapi/subtext'
 
 export const ext = [...commonServiceExtensions]
 
@@ -50,8 +52,8 @@ export async function POST(request) {
 
 export async function PUT(request, h) {
   const { path = '/' } = request.params
-  const {uploadId, partNumber, contentMd5 } = request.query
-console.log(path, uploadId)
+  const { uploadId, partNumber, contentMd5 } = request.query
+
   if (uploadId && partNumber && contentMd5) {
     const url = await getMultipartUploadPartUrl(
       request,
@@ -66,11 +68,16 @@ console.log(path, uploadId)
     })
   }
 
-  return Boom.notFound('TODO')
-  // const { uploadId } = request.params
-  // const { path, uploadParts } = request.payload
-  // await completeMultipartUpload(request, path, uploadId, uploadParts)
-  // return { uploadId }
+  const { payload } = await parse(request.raw.req, null, {
+    parse: true,
+    output: 'data'
+  })
+  const { uploadParts } = payload
+  await completeMultipartUpload(request, path, uploadId, uploadParts)
+
+  return {
+    uploadId
+  }
 }
 
 PUT.options = {
