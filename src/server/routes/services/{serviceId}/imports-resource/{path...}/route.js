@@ -39,7 +39,7 @@ export async function POST(request) {
 
   if (isFolder) {
     // TOTO: createFolder()
-    return Boom.notFound('Folders are not downloadable')
+    return Boom.notFound('TODO')
   }
 
   const { size } = request.payload
@@ -49,8 +49,9 @@ export async function POST(request) {
 }
 
 export async function PUT(request, h) {
-  const { path = '/', uploadId, partNumber, contentMd5 } = request.params
-
+  const { path = '/' } = request.params
+  const {uploadId, partNumber, contentMd5 } = request.query
+console.log(path, uploadId)
   if (uploadId && partNumber && contentMd5) {
     const url = await getMultipartUploadPartUrl(
       request,
@@ -65,8 +66,17 @@ export async function PUT(request, h) {
     })
   }
 
+  return Boom.notFound('TODO')
   // const { uploadId } = request.params
   // const { path, uploadParts } = request.payload
   // await completeMultipartUpload(request, path, uploadId, uploadParts)
   // return { uploadId }
+}
+
+PUT.options = {
+  payload: {
+    maxBytes: 100 * 1024 * 1024,
+    output: 'stream',
+    parse: false
+  }
 }
