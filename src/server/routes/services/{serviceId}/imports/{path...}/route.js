@@ -49,11 +49,6 @@ export default async function (request) {
   }
 }
 
-function encodePathSegments(path) {
-  const parts = path.split('/')
-  const encoded = parts.map((part) => encodeURI(part))
-  return encoded.join('/')
-}
 
 export async function POST(request, h) {
   const { files } = request.payload
@@ -62,4 +57,10 @@ export async function POST(request, h) {
     // TODO: Handle Server-side only upload if no client-side JS enabled
   }
   return h.redirect(request.url)
+}
+
+function encodePathSegments(path) {
+  const parts = path.split('/')
+  const encoded = parts.map((part) => encodeURI(part))
+  return encoded.join('/')
 }
