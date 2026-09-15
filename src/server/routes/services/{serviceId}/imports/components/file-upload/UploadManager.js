@@ -117,8 +117,8 @@ export default class UploadManager extends EventTarget {
           Pragma: 'no-cache',
           'X-CSRF-Token': csrfToken
         },
-        body: blob //.stream().pipeThrough(progressTrackingStream),
-        // duplex: 'half'
+        body: blob.stream().pipeThrough(progressTrackingStream),
+        duplex: 'half'
       }
     )
 
@@ -232,7 +232,6 @@ async function calcMd5Hash(blob) {
       } else {
         const hash = btoa(md5.end(true)) // Base64 encoded
         md5.destroy()
-        console.log(hash)
         resolve(hash)
       }
     }
