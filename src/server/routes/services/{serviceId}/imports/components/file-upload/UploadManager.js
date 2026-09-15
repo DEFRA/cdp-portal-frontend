@@ -106,7 +106,7 @@ export default class UploadManager extends EventTarget {
 
   async #streamBlob(url, blob, md5Hash, csrfToken, progressTrackingStream) {
     const uploadResponse = await fetchWithRetry(
-      `${url}&contentMd5=${md5Hash}`,
+      `${url}&contentMd5=${encodeURIComponent(md5Hash)}`,
       {
         method: 'PUT',
         cache: 'no-store',
