@@ -49,7 +49,6 @@ export default async function (request) {
   }
 }
 
-
 export async function POST(request, h) {
   const { files } = request.payload
 
