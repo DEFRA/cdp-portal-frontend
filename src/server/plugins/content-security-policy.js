@@ -21,8 +21,6 @@ const grafanaDomains = [
   )
 ]
 
-const cspRule = config.get('aws').s3.cspRule
-
 /**
  * @satisfies {import('@hapi/hapi').Plugin}
  */
@@ -31,7 +29,7 @@ const contentSecurityPolicy = {
   options: {
     defaultSrc: ['self'],
     fontSrc: ['self', 'data:'],
-    connectSrc: ['self', 'data:', 'ws:', cspRule],
+    connectSrc: ['self', 'data:', 'ws:'],
     scriptSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
     styleSrc: ['self', 'data:', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
     imgSrc: ['self', 'data:'],
