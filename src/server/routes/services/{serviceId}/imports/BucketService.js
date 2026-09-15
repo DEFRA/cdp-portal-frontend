@@ -95,7 +95,7 @@ export async function getMultipartUploadPartUrl(
 ) {
   const s3Path = formatAsS3Path(path)
 
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}?uploadId=${uploadId}&partNumber=${partNumber}&contentMd5=${contentMd5}`
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}?uploadId=${uploadId}&partNumber=${partNumber}&contentMd5=${encodeURIComponent(contentMd5)}`
   const { payload = {} } = await request.authedFetchJson(endpoint, {
     method: 'PUT'
   })
