@@ -1,5 +1,7 @@
 import pRetry, { AbortError } from 'p-retry'
+import SparkMD5 from 'spark-md5'
 
+const HASH_CHUNK_SIZE = 2 * 1024 * 1024 // Chunks of 2MB
 
 export default class UploadManager extends EventTarget {
   #files
@@ -211,21 +213,40 @@ function encodedResourcePath(path, filename) {
 }
 
 async function calcMd5Hash(blob) {
-  // return Promise.resolve('UkUAIAQuiwgu2gUewQi0PA==')
-  // return Promise.resolve('6cwFahYlulfmH/29UTuHWA==')
-
   return new Promise((resolve, reject) => {
-    const md5= new MD5()
-    const content = blob.stream()
+    const md5 = new SparkMD5.ArrayBuffer()
+    const numberOfChunks = Math.ceil(blob.size / HASH_CHUNK_SIZE)
+    const fileReader = new FileReader()
+    let currentChunk = 0
 
-    content.on('error', (err) => {
-      reject(err)
-    })
+    fileReader.onerror = (error) => {
+      reject(error)
+    }
 
-    md5Stream.once('readable', () => {
-      resolve(md5Stream.read().toString('hex'))
-    })
+    fileReader.onload = (event) => {
+      md5.append(event.target.result)
+      currentChunk++
 
-    content.pipeTo(md5Stream)
+      if (currentChunk < numberOfChunks) {
+        loadNext()
+      } else {
+        const hash = btoa(md5.end(true)) // Base64 encoded
+        md5.destroy()
+        console.log(hash)
+        resolve(hash)
+      }
+    }
+
+    function loadNext() {
+      const start = currentChunk * HASH_CHUNK_SIZE
+      const end =
+        start + HASH_CHUNK_SIZE >= blob.size
+          ? blob.size
+          : start + HASH_CHUNK_SIZE
+
+      fileReader.readAsArrayBuffer(blob.slice(start, end))
+    }
+
+    loadNext()
   })
 }
