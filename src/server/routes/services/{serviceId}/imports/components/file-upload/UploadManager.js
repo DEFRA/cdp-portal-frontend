@@ -1,5 +1,6 @@
 import pRetry, { AbortError } from 'p-retry'
 
+
 export default class UploadManager extends EventTarget {
   #files
 
@@ -39,7 +40,7 @@ export default class UploadManager extends EventTarget {
         const blob = file.slice(part.byteStartPosition, part.byteEndPosition)
         file.uploadParts.push({
           partNumber: part.partNumber,
-          url: `/services/${service}/imports-resource/${encodeURIComponent(`${path}${file.name}`)}?${part.queryParams}`,
+          url: `/services/${service}/imports-resource/${encodedResourcePath(path, file.name)}?${part.queryParams}`,
           blob
         })
       }
@@ -114,8 +115,8 @@ export default class UploadManager extends EventTarget {
           Pragma: 'no-cache',
           'X-CSRF-Token': csrfToken
         },
-        body: blob.stream().pipeThrough(progressTrackingStream),
-        duplex: 'half'
+        body: blob //.stream().pipeThrough(progressTrackingStream),
+        // duplex: 'half'
       }
     )
 
@@ -124,7 +125,7 @@ export default class UploadManager extends EventTarget {
 
   async #startMultipartUpload(service, path, file, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/imports-resource/${encodeURIComponent(`${path}${file.name}`)}`,
+      `/services/${service}/imports-resource/${encodedResourcePath(path, file.name)}`,
       {
         method: 'POST',
         cache: 'no-store',
@@ -153,7 +154,7 @@ export default class UploadManager extends EventTarget {
 
   async #completeMultipartUpload(service, path, file, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/imports-resource/${encodeURIComponent(`${path}${file.name}`)}?uploadId=${file.uploadId}`,
+      `/services/${service}/imports-resource/${encodedResourcePath(path, file.name)}?uploadId=${file.uploadId}`,
       {
         method: 'PUT',
         cache: 'no-store',
@@ -203,22 +204,28 @@ function fetchWithRetry(url, fetchOpts, retryOpts = {}) {
   )
 }
 
+function encodedResourcePath(path, filename) {
+  if (!path) return encodeURIComponent(filename)
+
+  if (path && filename) return `${path}/${encodeURIComponent(filename)}`
+}
+
 async function calcMd5Hash(blob) {
   // return Promise.resolve('UkUAIAQuiwgu2gUewQi0PA==')
-  return Promise.resolve('6cwFahYlulfmH/29UTuHWA==')
+  // return Promise.resolve('6cwFahYlulfmH/29UTuHWA==')
 
-  // return new Promise((resolve, reject) => {
-  //   const md5Stream = new MD5()
-  //   const content = blob.stream()
+  return new Promise((resolve, reject) => {
+    const md5= new MD5()
+    const content = blob.stream()
 
-  //   content.on('error', (err) => {
-  //     reject(err)
-  //   })
+    content.on('error', (err) => {
+      reject(err)
+    })
 
-  //   md5Stream.once('readable', () => {
-  //     resolve(md5Stream.read().toString('hex'))
-  //   })
+    md5Stream.once('readable', () => {
+      resolve(md5Stream.read().toString('hex'))
+    })
 
-  //   content.pipeTo(md5Stream)
-  // })
+    content.pipeTo(md5Stream)
+  })
 }
