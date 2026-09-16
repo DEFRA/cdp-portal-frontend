@@ -20,49 +20,12 @@ export async function folderTreeForPath(request, service, path) {
 
     const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}?view=tree`
     const { payload = {} } = await request.authedFetchJson(endpoint)
-    console.log(payload)
+
     return payload
   } catch (error) {
     request.logger.error(error)
     throw error
   }
-  // const command = new ListObjectsV2Command({
-  //   Bucket: bucket
-  // })
-  // const response = await request.s3Client.send(command)
-
-  // const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
-  //   const folderParts = obj.Key.split('/').slice(0, -1)
-
-  //   let nested = acc
-  //   folderParts.forEach((part, index) => {
-  //     const currentPath = formatAsS3Path(
-  //       folderParts.slice(0, index).join('/'),
-  //       true
-  //     )
-
-  //     if (s3Path.includes(currentPath)) {
-  //       const folderPath = formatAsS3Path(
-  //         currentPath === '/' ? part : `${currentPath}${part}`,
-  //         true
-  //       )
-
-  //       if (!nested[part]) {
-  //         nested[part] = {
-  //           path: folderPath,
-  //           subFolders: {},
-  //           isCurrent: s3Path === folderPath
-  //         }
-  //       }
-
-  //       nested = nested[part].subFolders
-  //     }
-  //   })
-
-  //   return acc
-  // }, {})
-
-  // return aggregatedFolders
 }
 
 export async function getFileUrl(request, service, path) {
