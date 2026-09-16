@@ -19,7 +19,7 @@ $scrollbar-width: 15px;
 
 .app-iframe--terminal {
   min-height: 85vh;
-  width: calc(100vw - $scrollbar-width);
+  width: 100%;
 }
 
 .app-iframe--grafana-snapshot {
