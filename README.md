@@ -403,7 +403,7 @@ To set up the web shell so it displays locally in the Portal Frontend UI:
 #### Repositories
 
 - Web Shell Proxy - https://github.com/DEFRA/cdp-webshell-proxy
-- Web Shell - https://github.com/christopherjturner/webshell
+- Web Shell - https://github.com/DEFRA/cdp-webshell
 
 ### Set up
 
@@ -413,14 +413,15 @@ cd cdp-webshell-proxy
 pip3 install -r requirements.txt
 pip3 install "fastapi[standard]"
 
-## Start proxy
-fast api dev app.py
+## Start proxy (listens on http://127.0.0.1:8000)
+export USE_MOCKED_CREDENTIALS=true
+fastapi dev app.py
 
 ## Register a route
-curl --header "Content-type: application/json" --data-raw '{"id":"12345","target":"localhost"}' 'http://localhost:8080/admin/register'
+curl --header "Content-type: application/json" --data-raw '{"id":"12345","target":"localhost"}' 'http://localhost:8000/admin/register'
 
 ## Start the web shell
-git clone https://github.com/christopherjturner/webshell
+git clone https://github.com/DEFRA/cdp-webshell
 
 install go https://go.dev/doc/install
 
@@ -430,7 +431,7 @@ go run . -port 8085 -token 12345
 http://localhost:8000/12345/
 
 ## De-register a route
-curl http://localhost:8080/admin/deregister/12345'
+curl http://localhost:8000/admin/deregister/12345
 ```
 
 ## Licence
