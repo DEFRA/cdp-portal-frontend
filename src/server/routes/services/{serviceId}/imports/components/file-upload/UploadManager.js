@@ -43,7 +43,8 @@ export default class UploadManager extends EventTarget {
         file.uploadParts.push({
           partNumber: part.partNumber,
           url: `/services/${service}/imports-resource/${encodedResourcePath(path, file.name)}?${part.queryParams}`,
-          blob
+          blob,
+          bytesUploaded: 0
         })
       }
 
@@ -52,22 +53,23 @@ export default class UploadManager extends EventTarget {
           uploadPart.contentMd5 = await calcMd5Hash(uploadPart.blob)
 
           const uploadManager = this
-          const progressTrackingStream = new TransformStream({
-            transform(chunk, controller) {
-              controller.enqueue(chunk)
-              file.bytesUploaded += chunk.byteLength
-              file.progress = Math.round((file.bytesUploaded / file.size) * 100)
-
-              uploadManager.#dispatchFileEvent('progress', file)
-            }
-          })
 
           const uploadResponse = await this.#streamBlob(
             uploadPart.url,
             uploadPart.blob,
             uploadPart.contentMd5,
             csrfToken,
-            progressTrackingStream
+            ({ bytesUploaded }) => {
+              uploadPart.bytesUploaded = bytesUploaded
+              file.bytesUploaded = file.uploadParts.reduce(
+                (sum, part) => sum + part.bytesUploaded,
+                0
+              )
+
+              file.progress = Math.round((file.bytesUploaded / file.size) * 100)
+
+              uploadManager.#dispatchFileEvent('progress', file)
+            }
           )
 
           if (!uploadResponse.ok) {
@@ -104,12 +106,11 @@ export default class UploadManager extends EventTarget {
     )
   }
 
-  async #streamBlob(url, blob, md5Hash, csrfToken, progressTrackingStream) {
-    const uploadResponse = await fetchWithRetry(
+  async #streamBlob(url, blob, md5Hash, csrfToken, onProgress) {
+    const uploadResponse = await xmlHttpRequestWithUploadProgress(
       `${url}&contentMd5=${encodeURIComponent(md5Hash)}`,
       {
         method: 'PUT',
-        cache: 'no-store',
         headers: {
           'Content-Type': 'application/octet-stream',
           'Cache-Control': 'no-cache, no-store, max-age=0',
@@ -117,9 +118,9 @@ export default class UploadManager extends EventTarget {
           Pragma: 'no-cache',
           'X-CSRF-Token': csrfToken
         },
-        body: blob.stream().pipeThrough(progressTrackingStream),
-        duplex: 'half'
-      }
+        body: blob
+      },
+      onProgress
     )
 
     return uploadResponse
@@ -204,6 +205,44 @@ function fetchWithRetry(url, fetchOpts, retryOpts = {}) {
     },
     { retries: 2, minTimeout: 500, ...retryOpts }
   )
+}
+
+// API approximates fetch API
+function xmlHttpRequestWithUploadProgress(url, options = {}, onProgress) {
+  const xhr = new XMLHttpRequest()
+  return new Promise((resolve, reject) => {
+    xhr.addEventListener('error', (event) => {
+      return reject(event)
+    })
+
+    xhr.addEventListener('abort', (event) => {
+      return reject(event)
+    })
+
+    xhr.addEventListener('load', () => {
+      resolve({
+        ok: xhr.status >= 200 && xhr.status <= 299,
+        status: xhr.status,
+        statusText: xhr.statusText,
+        body: xhr.response,
+        headers: new Headers({
+          eTag: xhr.getResponseHeader('eTag')
+        })
+      })
+    })
+
+    xhr.upload.addEventListener('progress', (event) => {
+      onProgress?.({ bytesUploaded: event.loaded })
+    })
+
+    xhr.open(options.method ?? 'GET', url, true)
+
+    Object.entries(options.headers ?? {}).forEach(([key, value]) => {
+      xhr.setRequestHeader(key, value)
+    })
+
+    xhr.send(options.body)
+  })
 }
 
 function encodedResourcePath(path, filename) {
