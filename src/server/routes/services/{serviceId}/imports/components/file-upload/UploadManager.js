@@ -107,7 +107,7 @@ export default class UploadManager extends EventTarget {
   }
 
   async #streamBlob(url, blob, md5Hash, csrfToken, onProgress) {
-    const uploadResponse = await xmlHttpRequestWithUploadProgress(
+    const uploadResponse = await xmlHttpRequestWithUploadProgressWithRetry(
       `${url}&contentMd5=${encodeURIComponent(md5Hash)}`,
       {
         method: 'PUT',
@@ -243,6 +243,35 @@ function xmlHttpRequestWithUploadProgress(url, options = {}, onProgress) {
 
     xhr.send(options.body)
   })
+}
+
+function xmlHttpRequestWithUploadProgressWithRetry(
+  url,
+  options,
+  onProgress,
+  retryOpts = {}
+) {
+  return pRetry(
+    async () => {
+      onProgress({ bytesUploaded: 0 })
+      const response = await xmlHttpRequestWithUploadProgress(
+        url,
+        options,
+        onProgress
+      )
+
+      if (response.status === 404) {
+        throw new AbortError(`${response.status}:${response.statusText}`)
+      }
+
+      if (!response.ok) {
+        throw new Error(`${response.status}:${response.statusText}`)
+      }
+
+      return response
+    },
+    { retries: 2, minTimeout: 500, ...retryOpts }
+  )
 }
 
 function encodedResourcePath(path, filename) {
