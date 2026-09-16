@@ -58,7 +58,7 @@ export async function folderTreeForPath(request, service, path) {
 export async function getFileUrl(request, service, path) {
   const s3Path = formatAsS3Path(path)
 
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
 
   const { payload = {} } = await request.authedFetchJson(endpoint)
 
@@ -68,7 +68,7 @@ export async function getFileUrl(request, service, path) {
 export async function startMultipartUpload(request, service, path, size) {
   const s3Path = formatAsS3Path(path)
 
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
 
   try {
     const { payload = {} } = await request.authedFetchJson(endpoint, {
@@ -95,7 +95,7 @@ export async function getMultipartUploadPartUrl(
 ) {
   const s3Path = formatAsS3Path(path)
 
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}?uploadId=${uploadId}&partNumber=${partNumber}&contentMd5=${encodeURIComponent(contentMd5)}`
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}?uploadId=${uploadId}&partNumber=${partNumber}&contentMd5=${encodeURIComponent(contentMd5)}`
   const { payload = {} } = await request.authedFetchJson(endpoint, {
     method: 'PUT'
   })
@@ -112,7 +112,7 @@ export async function completeMultipartUpload(
 ) {
   const s3Path = formatAsS3Path(path)
 
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodeURIComponent(s3Path)}`
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
   await request.authedFetchJson(endpoint, {
     method: 'PUT',
     payload: {
@@ -120,6 +120,12 @@ export async function completeMultipartUpload(
       parts: uploadParts
     }
   })
+}
+
+export function encodePathSegments(path) {
+  const parts = path.split('/')
+  const encoded = parts.map((part) => encodeURI(part))
+  return encoded.join('/')
 }
 
 function formatAsS3Path(path = '', withTrailingSlash) {
