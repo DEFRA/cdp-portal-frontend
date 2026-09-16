@@ -1,6 +1,10 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
-import { listPathContents, encodePathSegments, folderTreeForPath } from '../BucketService.js'
+import {
+  listPathContents,
+  encodePathSegments,
+  folderTreeForPath
+} from '../BucketService.js'
 
 export const ext = [...commonServiceExtensions]
 
