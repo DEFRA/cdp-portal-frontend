@@ -1,76 +1,91 @@
 import { config } from '#config/config.js'
-import { ListObjectsV2Command } from '@aws-sdk/client-s3'
-
-// TODO: Use real bucket / call BE
-const bucket = config.get('documentation.bucket')
 
 export async function listPathContents(request, service, path) {
-  const s3Path = formatAsS3Path(path, true)
+  try {
+    const s3Path = formatAsS3Path(path, true)
 
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
-  const { payload = {} } = await request.authedFetchJson(endpoint)
+    const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
+    const { payload = {} } = await request.authedFetchJson(endpoint)
 
-  return payload
+    return payload
+  } catch (error) {
+    request.logger.error(error)
+    throw error
+  }
 }
 
 export async function folderTreeForPath(request, service, path) {
-  const s3Path = formatAsS3Path(path, true)
+  try {
+    const s3Path = formatAsS3Path(path, true)
 
-  const command = new ListObjectsV2Command({
-    Bucket: bucket
-  })
-  const response = await request.s3Client.send(command)
+    const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}?view=tree`
+    const { payload = {} } = await request.authedFetchJson(endpoint)
+    console.log(payload)
+    return payload
+  } catch (error) {
+    request.logger.error(error)
+    throw error
+  }
+  // const command = new ListObjectsV2Command({
+  //   Bucket: bucket
+  // })
+  // const response = await request.s3Client.send(command)
 
-  const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
-    const folderParts = obj.Key.split('/').slice(0, -1)
+  // const aggregatedFolders = (response.Contents ?? []).reduce((acc, obj) => {
+  //   const folderParts = obj.Key.split('/').slice(0, -1)
 
-    let nested = acc
-    folderParts.forEach((part, index) => {
-      const currentPath = formatAsS3Path(
-        folderParts.slice(0, index).join('/'),
-        true
-      )
+  //   let nested = acc
+  //   folderParts.forEach((part, index) => {
+  //     const currentPath = formatAsS3Path(
+  //       folderParts.slice(0, index).join('/'),
+  //       true
+  //     )
 
-      if (s3Path.includes(currentPath)) {
-        const folderPath = formatAsS3Path(
-          currentPath === '/' ? part : `${currentPath}${part}`,
-          true
-        )
+  //     if (s3Path.includes(currentPath)) {
+  //       const folderPath = formatAsS3Path(
+  //         currentPath === '/' ? part : `${currentPath}${part}`,
+  //         true
+  //       )
 
-        if (!nested[part]) {
-          nested[part] = {
-            path: folderPath,
-            subFolders: {},
-            isCurrent: s3Path === folderPath
-          }
-        }
+  //       if (!nested[part]) {
+  //         nested[part] = {
+  //           path: folderPath,
+  //           subFolders: {},
+  //           isCurrent: s3Path === folderPath
+  //         }
+  //       }
 
-        nested = nested[part].subFolders
-      }
-    })
+  //       nested = nested[part].subFolders
+  //     }
+  //   })
 
-    return acc
-  }, {})
+  //   return acc
+  // }, {})
 
-  return aggregatedFolders
+  // return aggregatedFolders
 }
 
 export async function getFileUrl(request, service, path) {
-  const s3Path = formatAsS3Path(path)
+  try {
+    const s3Path = formatAsS3Path(path)
 
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
+    const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
 
-  const { payload = {} } = await request.authedFetchJson(endpoint)
+    const { payload = {} } = await request.authedFetchJson(endpoint)
 
-  return payload.url
+    return payload.url
+  } catch (error) {
+    request.logger.error(error)
+    throw error
+  }
 }
 
 export async function startMultipartUpload(request, service, path, size) {
-  const s3Path = formatAsS3Path(path)
-
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
-
   try {
+    const s3Path = formatAsS3Path(path)
+
+    const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
+
     const { payload = {} } = await request.authedFetchJson(endpoint, {
       method: 'POST',
       payload: {
