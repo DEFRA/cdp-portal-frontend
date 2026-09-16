@@ -25,7 +25,7 @@
 
 {% call appPanel({ withHighlight: true }) %}
 
-  <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Uploading 2 files</h3>
+  <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Uploading {{ params.filesMeta.length }} file{{ "s" if params.filesMeta.length != 1 }}</h3>
 
  {% call appWarning({
     classes: "govuk-!-margin-bottom-5 app-warning--inverse"
