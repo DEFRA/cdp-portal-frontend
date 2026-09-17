@@ -1,10 +1,10 @@
 import { config } from '#config/config.js'
 
-export async function listPathContents(request, service, path) {
+export async function listPathContents(request, basePath, path) {
   try {
     const s3Path = formatAsS3Path(path, true)
 
-    const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}`
+    const endpoint = `${config.get('portalBackendUrl')}${basePath}${s3Path}`
     const { payload = {} } = await request.authedFetchJson(endpoint)
 
     return payload
@@ -14,11 +14,11 @@ export async function listPathContents(request, service, path) {
   }
 }
 
-export async function folderTreeForPath(request, service, path) {
+export async function folderTreeForPath(request, basePath, path) {
   try {
     const s3Path = formatAsS3Path(path, true)
 
-    const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${s3Path}?view=tree`
+    const endpoint = `${config.get('portalBackendUrl')}${basePath}${s3Path}?view=tree`
     const { payload = {} } = await request.authedFetchJson(endpoint)
 
     return payload
@@ -28,11 +28,11 @@ export async function folderTreeForPath(request, service, path) {
   }
 }
 
-export async function getFileUrl(request, service, path) {
+export async function getFileUrl(request, basePath, path) {
   try {
     const s3Path = formatAsS3Path(path)
 
-    const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
+    const endpoint = `${config.get('portalBackendUrl')}${basePath}${encodePathSegments(s3Path)}`
 
     const { payload = {} } = await request.authedFetchJson(endpoint)
 
@@ -43,11 +43,11 @@ export async function getFileUrl(request, service, path) {
   }
 }
 
-export async function startMultipartUpload(request, service, path, size) {
+export async function startMultipartUpload(request, basePath, path, size) {
   try {
     const s3Path = formatAsS3Path(path)
 
-    const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
+    const endpoint = `${config.get('portalBackendUrl')}${basePath}${encodePathSegments(s3Path)}`
 
     const { payload = {} } = await request.authedFetchJson(endpoint, {
       method: 'POST',
@@ -65,7 +65,7 @@ export async function startMultipartUpload(request, service, path, size) {
 
 export async function getMultipartUploadPartUrl(
   request,
-  service,
+  basePath,
   path,
   uploadId,
   partNumber,
@@ -73,7 +73,7 @@ export async function getMultipartUploadPartUrl(
 ) {
   const s3Path = formatAsS3Path(path)
 
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}?uploadId=${uploadId}&partNumber=${partNumber}&contentMd5=${encodeURIComponent(contentMd5)}`
+  const endpoint = `${config.get('portalBackendUrl')}${basePath}${encodePathSegments(s3Path)}?uploadId=${uploadId}&partNumber=${partNumber}&contentMd5=${encodeURIComponent(contentMd5)}`
   const { payload = {} } = await request.authedFetchJson(endpoint, {
     method: 'PUT'
   })
@@ -83,14 +83,14 @@ export async function getMultipartUploadPartUrl(
 
 export async function completeMultipartUpload(
   request,
-  service,
+  basePath,
   path,
   uploadId,
   uploadParts = []
 ) {
   const s3Path = formatAsS3Path(path)
 
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${service}/imports/${encodePathSegments(s3Path)}`
+  const endpoint = `${config.get('portalBackendUrl')}${basePath}${encodePathSegments(s3Path)}`
   await request.authedFetchJson(endpoint, {
     method: 'PUT',
     payload: {
@@ -112,7 +112,7 @@ function formatAsS3Path(path = '', withTrailingSlash) {
   if (path === '') return path
 
   if (result.startsWith('/')) {
-    result = result.replace('/', '')
+    result = result.slice(1)
   }
 
   if (withTrailingSlash && !result.endsWith('/')) {

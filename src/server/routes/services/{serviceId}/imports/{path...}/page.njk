@@ -38,6 +38,7 @@
                   {{ appFileList({
                     files: folderContents,
                     basePath: "/services/" + entity.name + "/imports/",
+                    downloadBasePath: "/services/" + entity.name + "/imports-resource/",
                     parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null
                   }) }}
                 </div>
