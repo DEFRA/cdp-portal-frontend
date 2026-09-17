@@ -1,78 +1,7 @@
 {% extends "layouts/tabbed-page.njk" %}
-{% from "icons/file-icon/macro.njk" import appFileIcon %}
-{% from "icons/folder-icon/macro.njk" import appFolderIcon %}
-{% from "icons/open-folder-icon/macro.njk" import appOpenFolderIcon %}
 {% from "progress/macro.njk" import appProgress %}
-{% from "time/macro.njk" import appTime %}
-{% from "tag/macro.njk" import appTag %}
 {% from "folder-tree/macro.njk" import appFolderTree %}
-
-
-{% macro renderRows(rows, content) %}
-  {% for obj in content %}
-    {{ rows.push([
-      {
-        html: renderName(obj)
-      },
-      {
-        text: obj.size | formatFileSize
-      },
-      {
-        html: appTime({
-          datetime: obj.modifiedDate
-        })
-      },
-      {
-        html: renderActions(obj)
-      }
-    ])}}
-  {% endfor %}
-{% endmacro %}
-
-{% macro renderParentRow(rows, relativePathParts) %}
-    {{ rows.push([
-      {
-        html: renderParentName(relativePathParts)
-      },
-      {
-        text: '- - -'
-      },
-      {
-        text: '- - -'
-      },
-      {
-        html: '- - -'
-      }
-    ]) }}
-{% endmacro %}
-
-{% macro renderActions(obj) %}
-  {% if obj.isFolder %}
-    - - -
-  {% else %}
-    <a href="/services/{{ entity.name }}/imports-resource/{{ obj.path | encodePathSegments }}" data-no-xhr-link="true" target="_blank">Download</a>
-  {% endif %}
-{% endmacro %}
-
-{% macro renderName(obj) %}
-  <span class="app-tree--label">
-    {% if obj.isFolder %}
-      {{ appFolderIcon({ classes: "app-icon--small" }) }}
-      <a href="/services/{{ entity.name }}/imports/{{ obj.path | encodePathSegments }}">{{ obj.name }}</a>
-    {% else %}
-      {{ appFileIcon({ classes: "app-icon--small" }) }}
-      {{ obj.name }}
-    {% endif %}
-  </span>
-{% endmacro %}
-
-{% macro renderParentName(relativePathParts) %}
-  <span class="app-tree--label">
-    {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
-    <a href="/services/{{ entity.name }}/imports/{{ relativePathParts.slice(0, -1) | join('/') | encodePathSegments }}">..</a>
-  </span>
-{% endmacro %}
-
+{% from "file-list/macro.njk" import appFileList %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -97,29 +26,19 @@
 
             <div class="govuk-grid-row">
               <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
-
-                {{ appFolderTree({ tree: folderTree, basePath: "/services/{{ entity.name }}/imports/" }) }}
-
+                {{ appFolderTree({
+                  tree: folderTree,
+                  basePath: "/services/" + entity.name + "/imports/"
+                }) }}
               </div>
 
               <div class="govuk-grid-column-three-quarters">
 
                 <div data-xhr="folder-contents">
-                  {% set contentsRows = [] %}
-                  {% if path !== '' %}
-                    {% set t = renderParentRow(contentsRows, relativePathParts) %}
-                  {% endif %}
-                  {% set t = renderRows(contentsRows, folderContents) %}
-
-                  {{ govukTable({
-                    classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
-                    head: [
-                      { text: "Name" },
-                      { text: "Size" },
-                      { text: "Modified" },
-                      { text: "Actions" }
-                    ],
-                    rows: contentsRows
+                  {{ appFileList({
+                    files: folderContents,
+                    basePath: "/services/" + entity.name + "/imports/",
+                    parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null
                   }) }}
                 </div>
 

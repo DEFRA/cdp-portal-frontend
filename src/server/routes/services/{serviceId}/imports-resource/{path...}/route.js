@@ -106,7 +106,7 @@ export async function PUT(request, h) {
 
 PUT.options = {
   payload: {
-    maxBytes: 100 * 1024 * 1024,
+    maxBytes: 100 * 1024 * 1024, // 100MB
     output: 'stream',
     parse: false
   }
