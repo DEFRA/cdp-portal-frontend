@@ -53,7 +53,12 @@ export async function POST(request) {
   }
 
   const { size } = request.payload
-  const response = await startMultipartUpload(request, `/entities/${entity.name}/imports/`, path, size)
+  const response = await startMultipartUpload(
+    request,
+    `/entities/${entity.name}/imports/`,
+    path,
+    size
+  )
 
   return response
 }

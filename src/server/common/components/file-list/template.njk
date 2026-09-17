@@ -30,10 +30,27 @@
   {% endfor %}
 {% endmacro %}
 
-{% macro renderParentRow(rows, relativePathParts) %}
+{% macro renderParentRow(rows, relativePath) %}
     {{ rows.push([
       {
-        html: renderParentName(relativePathParts)
+        html: renderParentName(relativePath)
+      },
+      {
+        text: '- - -'
+      },
+      {
+        text: '- - -'
+      },
+      {
+        html: '- - -'
+      }
+    ]) }}
+{% endmacro %}
+
+{% macro renderSelfRow(rows) %}
+    {{ rows.push([
+      {
+        html: renderSelfName()
       },
       {
         text: '- - -'
@@ -67,14 +84,22 @@
   </span>
 {% endmacro %}
 
-{% macro renderParentName(relativePathParts) %}
+{% macro renderParentName(relativePath) %}
+  <span class="app-tree--label">
+    {{ appFolderIcon({ classes: "app-icon--small" }) }}
+    <a href="{{ basePath }}{{ relativePath | encodePathSegments }}">..</a>
+  </span>
+{% endmacro %}
+
+{% macro renderSelfName() %}
   <span class="app-tree--label">
     {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
-    <a href="{{ basePath }}{{ parentPath | encodePathSegments }}">..</a>
+    <strong>.</strong>
   </span>
 {% endmacro %}
 
 {% set contentsRows = [] %}
+{% set t = renderSelfRow(contentsRows) %}
 {% if parentPath != null %}
   {% set t = renderParentRow(contentsRows, parentPath) %}
 {% endif %}
