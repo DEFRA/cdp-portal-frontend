@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template">
   <head>
     <meta charset="utf-8">
-    <title>  mock-service-with-resources - Resources - Infra-dev | Core Delivery Platform - Portal
+    <title>  Imports | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -256,18 +256,14 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources"
              data-testid="app-breadcrumbs-link">mock-service-with-resources</a>
         </li>
-        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources/resources"
-             data-testid="app-breadcrumbs-link">Resources</a>
-        </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">Infra-dev</li>
+            data-testid="app-breadcrumbs-list-item">Imports</li>
   </ol>
 </nav>
 
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
-    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Resources</span>
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Imports</span>
 
 <div class="app-page-heading">
   <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service-with-resources</h1>
@@ -333,8 +329,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         </li>
 
 
-        <li class="app-tabs__list-item"
-            data-testid="app-tabs-list-item-imports">
+        <li class="app-tabs__list-item app-tabs__list-item--selected"
+            data-testid="app-tabs-list-item-imports app-tabs-list-item--selected">
 
 
           <a id="tab-imports"
@@ -343,7 +339,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-imports"
-             aria-selected="false"
+             aria-selected="true"
              data-testid="app-tabs-list-item__anchor-imports">
             Imports
           </a>
@@ -401,8 +397,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         </li>
 
 
-        <li class="app-tabs__list-item app-tabs__list-item--selected"
-            data-testid="app-tabs-list-item-resources app-tabs-list-item--selected">
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-resources">
 
 
           <a id="tab-resources"
@@ -411,7 +407,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              data-js="app-tab"
              role="tab"
              aria-controls="tab-panel-resources"
-             aria-selected="true"
+             aria-selected="false"
              data-testid="app-tabs-list-item__anchor-resources">
             Resources
           </a>
@@ -470,169 +466,253 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </ul>
   </div>
 
-    <section id="tab-panel-resources"
+    <section id="tab-panel-imports"
              class="app-tabs__panel"
              role="tabpanel"
-             aria-labelledby="tab-resources"
+             aria-labelledby="tab-imports"
              data-testid="app-tabs-panel">
         <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
+      <div class="govuk-grid-column-full" data-js="xhr-nav" >
+
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
+          <p class="govuk-!-margin-bottom-6">
+            Manage imported data associated with <strong>mock-service-with-resources</strong>, including uploading and downloading.
+          </p>
 
 
-<div class="app-split-pane" data-testid="app-split-pane">
-    <div class="app-split-pane__nav"
-         data-testid="app-split-pane-nav">
-<nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
-  <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-all">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources"
-           data-testid="app-subnav-link-all"
-        >All</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item app-subnav__section-item--current"
-          data-testid="app-subnav-item-infra-dev">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/infra-dev"
-           data-testid="app-subnav-link-infra-dev"
-        >Infra-dev</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-management">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/management"
-           data-testid="app-subnav-link-management"
-        >Management</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-dev">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/dev"
-           data-testid="app-subnav-link-dev"
-        >Dev</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-test">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/test"
-           data-testid="app-subnav-link-test"
-        >Test</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-perf-test">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/perf-test"
-           data-testid="app-subnav-link-perf-test"
-        >Perf-test</a>
-      </li>
-    </ul>
-    <ul class="app-subnav__section">
-
-      <li class="app-subnav__section-item"
-          data-testid="app-subnav-item-prod">
-        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-           href="/services/mock-service-with-resources/resources/prod"
-           data-testid="app-subnav-link-prod"
-        >Prod</a>
-      </li>
-    </ul>
-</nav>
-    </div>
-  <div class="app-split-pane__content" data-testid="app-split-pane-content">
-
-    <section class="app-content">
+            <div class="govuk-grid-row">
+              <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
                 
 
 
 
-<span class="govuk-caption-l">Infra-dev</span>
-
-<h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
-<p class="govuk-!-margin-bottom-2">
-  View resources for <strong>mock-service-with-resources</strong> in all CDP environments. To set up new resources read the
-  <a href="/documentation/how-to/buckets.md" class="govuk-link app-link app-link--underline"
-     target="_blank" rel="noopener noreferrer">S3 buckets</a>,
-  <a href="/documentation/how-to/sqs-sns.md" class="govuk-link app-link app-link--underline"
-     target="_blank" rel="noopener noreferrer">SQS Queues and SNS Topics</a> documentation and then use the create <a href="/create" class="govuk-link app-link app-link--underline">Resources request</a> form.
-</p>
-<p>
-  Contact the Platform team via Slack <a class="app-link app-link--underline" href="" target="_blank"
-               rel="noopener noreferrer">#cdp-support</a> if you need options not covered by the <a href="/create" class="govuk-link app-link app-link--underline">Resources request</a> form.
-</p>
-
-  <div>
 
 
-<div
-  class="app-info"
-  tabindex="-1"
-  role="alert"
-  data-testid="app-info">
 
-  <svg class="app-icon app-info-icon app-icon--small"
-     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
-     role="img" aria-label="Info">
-  <path fill-rule="nonzero"
-        d="M24.138363 35.9288256c.6244365 0 1.1513167-.2180783 1.5806406-.6542349.4293238-.4361565.6439857-.9772716.6439857-1.6233451v-9.6797154c0-.6092526-.2156109-1.1315776-.6468327-1.566975-.4308422-.435777-.9527877-.6536655-1.5658363-.6536655-.6130487 0-1.1471412.2178885-1.6022776.6536655-.455516.4353974-.683274.9577224-.683274 1.566975v9.6797154c0 .6460735.2228232 1.1871886.6684697 1.6233451.4456465.4361566.9806881.6542349 1.6051246.6542349Zm-.1679715-17.4234875c.7789323 0 1.4198813-.2448399 1.9228469-.7345196.5029656-.4896797.7544484-1.1144958.7544484-1.8744484 0-.8780071-.2501542-1.5546382-.7504626-2.0298932-.5003084-.4756347-1.1386002-.713452-1.9148754-.713452-.8613049 0-1.5244603.234401-1.9894662.7032029-.465006.4688019-.6975089 1.1230367-.6975089 1.9627046 0 .8077817.2511032 1.4574614.7533096 1.9490391.5022064.4915777 1.1427758.7373666 1.9217082.7373666ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.95231317-5.45954922 5.13651245-7.64412811 2.18419929-2.18457888 4.73224202-3.90225385 7.64412812-5.15302491C17.5521708.62538553 20.6595492 0 23.9624199 0c3.3165362 0 6.4394781.62367734 9.3688257 1.87103203 2.9293475 1.24735468 5.4802372 2.9602847 7.652669 5.13879003 2.1724318 2.17888494 3.8847924 4.73205224 5.1370818 7.65950174C47.3736655 17.5963938 48 20.7214235 48 24.0444128c0 3.3199526-.6253855 6.4303677-1.8761566 9.3312456-1.250771 2.9004982-2.968446 5.4396204-5.1530249 7.6173665-2.1845789 2.1777462-4.7358482 3.889917-7.6538078 5.1365125C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
+
+<div class="app-panel  app-panel--inverse" >
+  
+    <ul class="govuk-list govuk-list--bullet">
+      
+  <li class="app-tree--open">
+     <span class="app-tree--label">
+    &NoBreak; 
+        <svg class="app-icon app-open-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Open folder icon">
+       <path d="M150-139q-36.81 0-63.91-27.09Q59-193.19 59-230v-500q0-38.23 27.09-65.11Q113.19-822 150-822h263l68 69h329q38.23 0 65.11 27.09Q902-698.81 902-662H150v437l100-377h709L859-225q-14 47-42.5 66.5T740-139z"/>
 </svg>
 
 
-  <span class="app-info__content" data-testid="app-info-content">
-      Why do bucket names have random characters at the end?
-  <a class="app-link app-link--underline" href="/documentation/how-to/buckets.md#bucket-naming"
-     target="_blank"
-     rel="noopener noreferrer">See Bucket Naming documentation</a> for more details
-
+      <a href="/services/mock-service-with-resources/imports/">/</a>
   </span>
 
-</div>
+
+      <ul class="govuk-list govuk-list--bullet">
+      
+  <li class="app-tree--closed">
+     <span class="app-tree--label">
+    &NoBreak; 
+      <svg class="app-icon app-open-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Open folder icon">
+       <path d="M150-139q-36.81 0-63.91-27.09Q59-193.19 59-230v-500q0-38.23 27.09-65.11Q113.19-822 150-822h263l68 69h329q38.23 0 65.11 27.09Q902-698.81 902-662H150v437l100-377h709L859-225q-14 47-42.5 66.5T740-139z"/>
+</svg>
+<strong>batch-0001</strong>
+  </span>
+
+
+  </li>
+
+      
+  <li class="app-tree--closed">
+     <span class="app-tree--label">
+    &NoBreak; 
+        <svg class="app-icon app-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Folder icon">
+       <path d="M150-139q-37.17 0-64.09-27.09Q59-193.19 59-230v-500q0-37.23 26.91-64.61Q112.83-822 150-822h263l68 69h329q37.23 0 64.61 27.09Q902-698.81 902-662v432q0 36.81-27.39 63.91Q847.23-139 810-139z"/>
+</svg>
+
+
+      <a href="/services/mock-service-with-resources/imports/">batch-0002</a>
+  </span>
+
+
+  </li>
+
+  </ul>
+
+  </li>
+
+  </ul>
+
+
 
 </div>
 
 
+              </div>
+
+              <div class="govuk-grid-column-three-quarters">
+
+                <div data-xhr="folder-contents">
+                  
 
 
-            <pre class="mermaid mermaid--no-label-background mermaid--table-node">
-              flowchart LR
-                  service@{ icon: "logos:aws-fargate", h: 80, label: "mock-service-with-resources"}
-
-                      subgraph s3_buckets[S3 buckets]
-                        direction LR
-                        s3_bucketstest-bucketIcon@{ icon: "logos:aws-s3", h: 80, label: "<span id='test-bucket' class='mermaid--label ' >test-bucket</span>"}
-                        s3_bucketstest-bucket[<table aria-label="Properties of test-bucket" ><tr><th>Arn</th><td>arn:aws:s3:eu-west-2:333333333:test-bucket</td></tr></table>]
-                          s3_bucketstest-bucketIcon ~~~ s3_bucketstest-bucket
-                      end
-                      service --- s3_buckets
-            </pre>
 
 
-          <p class="govuk-!-margin-top-2">
-            <a href="./infra-dev/debug" class="govuk-link app-link app-link--underline">Debug view</a>
-          </p>
 
 
-    </section>
-  </div>
-</div>
+
+
+
+<table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-8">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Size</th>
+      <th scope="col" class="govuk-table__header">Modified</th>
+      <th scope="col" class="govuk-table__header">Actions</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">  <span class="app-tree--label">
+    <svg class="app-icon app-open-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Open folder icon">
+       <path d="M150-139q-36.81 0-63.91-27.09Q59-193.19 59-230v-500q0-38.23 27.09-65.11Q113.19-822 150-822h263l68 69h329q38.23 0 65.11 27.09Q902-698.81 902-662H150v437l100-377h709L859-225q-14 47-42.5 66.5T740-139z"/>
+</svg>
+
+    <strong>.</strong>
+  </span>
+</td>
+      <td class="govuk-table__cell">- - -</td>
+      <td class="govuk-table__cell">- - -</td>
+      <td class="govuk-table__cell">- - -</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">  <span class="app-tree--label">
+      <svg class="app-icon app-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Folder icon">
+       <path d="M150-139q-37.17 0-64.09-27.09Q59-193.19 59-230v-500q0-37.23 26.91-64.61Q112.83-822 150-822h263l68 69h329q37.23 0 64.61 27.09Q902-698.81 902-662v432q0 36.81-27.39 63.91Q847.23-139 810-139z"/>
+</svg>
+
+      <a href="/services/mock-service-with-resources/imports/">18010 instrucciones.pdf</a>
+  </span>
+</td>
+      <td class="govuk-table__cell">242.33 kB</td>
+      <td class="govuk-table__cell">
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="1 day ago"
+>
+        <time    datetime="Yesterday at 09:48"
+    data-testid="app-time">
+        16th Sep 2026 at 09:48:55
+
+  </time>
+
+
+</span>
+
+
+
+</td>
+      <td class="govuk-table__cell">    - - -
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">  <span class="app-tree--label">
+      <svg class="app-icon app-file-icon app-icon--small" width="48" height="48"
+     role="img" aria-label="File icon" viewBox="0 0 48 48">
+  <path fill-rule="nonzero"
+        d="M17.4116788 37.1245552h14.1766424c.569343 0 1.0343065-.189229 1.3948905-.5676869.3605839-.3780783.5408759-.8468802.5408759-1.4064057 0-.5432028-.180292-1.0047924-.5408759-1.3847686-.360584-.3799763-.8255475-.5699645-1.3948905-.5699645H17.3547445c-.5913576 0-1.0618248.1877106-1.4114014.5631317-.3495767.3750415-.524365.8400475-.524365 1.3950178 0 .5545908.180292 1.0216845.5408759 1.4012811.360584.3795967.8445256.5693951 1.4518248.5693951Zm0-9.6227758h14.2335767c.5484671 0 1.0081168-.189229 1.3789489-.5676869.3712117-.3780783.5568175-.8468802.5568175-1.4064057 0-.5432028-.1856058-.9953025-.5568175-1.3562989-.3708321-.3609964-.8304818-.5414947-1.3789489-.5414947h-14.290511c-.5913576 0-1.0618248.1803085-1.4114014.5409253-.3495767.3606168-.524365.8127165-.524365 1.3562989 0 .5432029.180292 1.0082088.5408759 1.3950178.360584.3864295.8445256.5796442 1.4518248.5796442ZM10.1810219 48c-1.35807299 0-2.56109489-.5107473-3.6090657-1.532242C5.5239854 45.4458837 5 44.2294662 5 42.8185053V5.23843416c0-1.42690391.5239854-2.65660735 1.5719562-3.68911032C7.61992701.51644128 8.82294891 0 10.1810219 0h18.5605839c.718511 0 1.4032409.14310795 2.0541898.42932384.6509489.2865955 1.1997956.6749229 1.6465402 1.16498221l9.9065693 9.85053385c.4900146.5151127.8877956 1.0915302 1.1933431 1.7292526C43.8474161 13.8114353 44 14.5066667 44 15.2597865v27.5587188c0 1.4109609-.5296788 2.6273784-1.5890365 3.6492527C41.3519854 47.4892527 40.1356788 48 38.7620438 48H10.1810219Zm17.9912409-35.0177936V5.23843416H10.1810219V42.8185053h28.5810219V15.6014235h-7.9708029c-.7875913 0-1.4208905-.2397153-1.8998978-.7191459-.4793869-.479051-.7190803-1.1124081-.7190803-1.9000712ZM10.20948905 5.23843416V15.6014235 5.23843416 42.8185053 5.23843416Z" />
+</svg>
+
+      data-01.dat
+  </span>
+</td>
+      <td class="govuk-table__cell">42 B</td>
+      <td class="govuk-table__cell">
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="2 days ago"
+>
+        <time    datetime="Last Tuesday at 12:46"
+    data-testid="app-time">
+        15th Sep 2026 at 12:46:43
+
+  </time>
+
+
+</span>
+
+
+
+</td>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/" data-no-xhr-link="true" target="_blank">Download</a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">  <span class="app-tree--label">
+      <svg class="app-icon app-file-icon app-icon--small" width="48" height="48"
+     role="img" aria-label="File icon" viewBox="0 0 48 48">
+  <path fill-rule="nonzero"
+        d="M17.4116788 37.1245552h14.1766424c.569343 0 1.0343065-.189229 1.3948905-.5676869.3605839-.3780783.5408759-.8468802.5408759-1.4064057 0-.5432028-.180292-1.0047924-.5408759-1.3847686-.360584-.3799763-.8255475-.5699645-1.3948905-.5699645H17.3547445c-.5913576 0-1.0618248.1877106-1.4114014.5631317-.3495767.3750415-.524365.8400475-.524365 1.3950178 0 .5545908.180292 1.0216845.5408759 1.4012811.360584.3795967.8445256.5693951 1.4518248.5693951Zm0-9.6227758h14.2335767c.5484671 0 1.0081168-.189229 1.3789489-.5676869.3712117-.3780783.5568175-.8468802.5568175-1.4064057 0-.5432028-.1856058-.9953025-.5568175-1.3562989-.3708321-.3609964-.8304818-.5414947-1.3789489-.5414947h-14.290511c-.5913576 0-1.0618248.1803085-1.4114014.5409253-.3495767.3606168-.524365.8127165-.524365 1.3562989 0 .5432029.180292 1.0082088.5408759 1.3950178.360584.3864295.8445256.5796442 1.4518248.5796442ZM10.1810219 48c-1.35807299 0-2.56109489-.5107473-3.6090657-1.532242C5.5239854 45.4458837 5 44.2294662 5 42.8185053V5.23843416c0-1.42690391.5239854-2.65660735 1.5719562-3.68911032C7.61992701.51644128 8.82294891 0 10.1810219 0h18.5605839c.718511 0 1.4032409.14310795 2.0541898.42932384.6509489.2865955 1.1997956.6749229 1.6465402 1.16498221l9.9065693 9.85053385c.4900146.5151127.8877956 1.0915302 1.1933431 1.7292526C43.8474161 13.8114353 44 14.5066667 44 15.2597865v27.5587188c0 1.4109609-.5296788 2.6273784-1.5890365 3.6492527C41.3519854 47.4892527 40.1356788 48 38.7620438 48H10.1810219Zm17.9912409-35.0177936V5.23843416H10.1810219V42.8185053h28.5810219V15.6014235h-7.9708029c-.7875913 0-1.4208905-.2397153-1.8998978-.7191459-.4793869-.479051-.7190803-1.1124081-.7190803-1.9000712ZM10.20948905 5.23843416V15.6014235 5.23843416 42.8185053 5.23843416Z" />
+</svg>
+
+      data-02.dat
+  </span>
+</td>
+      <td class="govuk-table__cell">42.34 kB</td>
+      <td class="govuk-table__cell">
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="2 days ago"
+>
+        <time    datetime="Last Tuesday at 12:48"
+    data-testid="app-time">
+        15th Sep 2026 at 12:48:23
+
+  </time>
+
+
+</span>
+
+
+
+</td>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/" data-no-xhr-link="true" target="_blank">Download</a>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+
+                </div>
+
+              </div>
+            </div>
+
+
       </div>
     </div>
   </section>
@@ -701,9 +781,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </footer>
 
 
-    <script type="module" src="/.public/src/client/javascripts/application.js"></script>
+  <script type="module" src="/.public/src/client/javascripts/application.js"></script>
   <script type="module" src="/.public/src/client/javascripts/web-components.js"></script>
-
-  <script type="module" src="/.public/src/client/javascripts/mermaid.js"></script>
   </body>
 </html>

@@ -1,0 +1,54 @@
+{% extends "layouts/tabbed-page.njk" %}
+{% from "progress/macro.njk" import appProgress %}
+{% from "folder-tree/macro.njk" import appFolderTree %}
+{% from "file-list/macro.njk" import appFileList %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Imports",
+    text: entity.name
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full" data-js="xhr-nav" >
+
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
+          <p class="govuk-!-margin-bottom-6">
+            Manage imported data associated with <strong>{{entity.name}}</strong>, including uploading and downloading.
+          </p>
+
+          {% block xhrContent %}
+
+            <div class="govuk-grid-row">
+              <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
+                {{ appFolderTree({
+                  tree: folderTree,
+                  basePath: "/services/" + entity.name + "/imports/"
+                }) }}
+              </div>
+
+              <div class="govuk-grid-column-three-quarters">
+
+                <div data-xhr="folder-contents">
+                  {{ appFileList({
+                    files: folderContents,
+                    basePath: "/services/" + entity.name + "/imports/",
+                    downloadBasePath: "/services/" + entity.name + "/imports-resource/",
+                    parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null
+                  }) }}
+                </div>
+
+              </div>
+            </div>
+
+          {% endblock %}
+
+      </div>
+    </div>
+  </section>
+{% endblock %}
