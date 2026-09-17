@@ -1,0 +1,37 @@
+{% from "tree/macro.njk" import appTree %}
+{% from "icons/file-icon/macro.njk" import appFileIcon %}
+{% from "icons/folder-icon/macro.njk" import appFolderIcon %}
+{% from "icons/open-folder-icon/macro.njk" import appOpenFolderIcon %}
+
+{% set tree = params.tree %}
+{% set basePath = params.basePath %}
+
+{% macro renderFolderNodeHtml(label, path, isCurrent, isOpen) %}
+  <span class="app-tree--label">
+    {% if isCurrent %}
+      {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<strong>{{ label }}</strong>
+    {% else %}
+      {% if isOpen %}
+        {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
+      {% else %}
+        {{ appFolderIcon({ classes: "app-icon--small" }) }}
+      {% endif %}
+
+      <a href="{{ basePath }}{{ path | encodePathSegments }}">{{ label }}</a>
+    {% endif %}
+  </span>
+{% endmacro %}
+
+{% macro renderFolderNodes(nodes, folderTree) %}
+  {% for folderName, folder in folderTree %}
+    {% set subNodes = [] %}
+    {% set t = renderFolderNodes(subNodes, folder.subNodes) %}
+    {{ nodes.push({ html: renderFolderNodeHtml(folderName, folder.path, folder.isCurrent, folder.subNodes | length), nodes: subNodes }) }}
+  {% endfor %}
+{% endmacro %}
+
+{% set folderNodes = [] %}
+{% set t = renderFolderNodes(folderNodes, {
+  '/': tree
+}) %}
+{{ appTree({ nodes: folderNodes }) }}

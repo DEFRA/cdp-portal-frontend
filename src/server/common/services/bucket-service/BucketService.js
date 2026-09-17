@@ -100,7 +100,7 @@ export async function completeMultipartUpload(
   })
 }
 
-export function encodePathSegments(path) {
+export function encodePathSegments(path = '') {
   const parts = path.split('/')
   const encoded = parts.map((part) => encodeURI(part))
   return encoded.join('/')

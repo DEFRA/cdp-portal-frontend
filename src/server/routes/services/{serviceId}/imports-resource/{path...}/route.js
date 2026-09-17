@@ -5,7 +5,7 @@ import {
   getFileUrl,
   getMultipartUploadPartUrl,
   startMultipartUpload
-} from '../../imports/BucketService.js'
+} from '#server/common/services/bucket-service/BucketService.js'
 import { Boom } from '@hapi/boom'
 import { parse } from '@hapi/subtext'
 
