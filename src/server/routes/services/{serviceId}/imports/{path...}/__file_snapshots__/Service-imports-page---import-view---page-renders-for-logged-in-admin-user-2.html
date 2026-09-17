@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+  <head>
+    <meta charset="utf-8">
+    <title>  Imports | Core Delivery Platform - Portal
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#1d70b8">
+
+  <link href="/.public/src/client/stylesheets/application.scss" rel="stylesheet">
+    <meta name="service-version" content="0.1.0">
+    <meta name="service-environment" content="test">
+
+
+    <link rel="icon" sizes="48x48" href="/.public/node_modules/govuk-frontend/dist/govuk/assets/images/favicon.ico">
+    <link rel="icon" sizes="any" href="/.public/node_modules/govuk-frontend/dist/govuk/assets/images/favicon.svg" type="image/svg+xml" >
+    <link rel="mask-icon" href="/.public/node_modules/govuk-frontend/dist/govuk/assets/images/govuk-icon-mask.svg" color="#1d70b8">
+    <link rel="apple-touch-icon" href="/.public/node_modules/govuk-frontend/dist/govuk/assets/images/govuk-icon-180.png">
+    <link rel="manifest" href="/.public/node_modules/govuk-frontend/dist/govuk/assets/manifest.json">
+
+  </head>
+  <body class="govuk-template__body">
+    <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+
+  
+  <div>
+    <a href="#main-content" class="govuk-skip-link app-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+
+  </div>
+
+    
+
+
+  
+
+
+<header class="app-service-header" role="banner" data-testid="app-service-header">
+  <div class="app-service-header__container app-service-header__container--full-width">
+    <div class="app-service-header__content">
+      <a href="/"
+         class="app-service-header__link app-service-header__service-name"
+         data-testid="app-service-header-service-name">
+        Core Delivery Platform - Portal
+      </a>
+
+
+    </div>
+    <div class="app-service-header__actions">
+
+
+
+          <a class="app-service-header_profile-link" href="/user-profile">
+                      <svg class="app-icon app-user-icon app-icon--tiny"
+     xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
+     aria-label="User">
+  <g fill-rule="evenodd">
+    <circle cx="19" cy="12" r="8" />
+    <path
+      d="M19 25c6.1827536 0 11.6757612 2.1477482 15.1454151 5.4733482C30.6757769 35.0468378 25.1827625 38 19 38c-6.1827625 0-11.6757769-2.9531622-15.14542996-7.5258733C7.32458451 27.147613 12.8174409 25 19 25Z" />
+  </g>
+</svg>
+
+          <span data-testid="app-login-username">B. A. Baracus</span>
+
+          </a>
+
+      <span class="app-service-header__login app-service-header__login--logged-in">
+        <a href="/logout"
+           class="app-service-header__link app-service-header__login-link"
+           data-testid="app-login-link">
+            Sign out
+        </a>
+      </span>
+
+    </div>
+  </div>
+</header>
+
+
+  
+  <div class="govuk-service-navigation"
+data-module="govuk-service-navigation"
+>
+      <div class="govuk-width-container">
+
+    <div class="govuk-service-navigation__container">
+      
+
+      
+        <nav aria-label="Menu" class="govuk-service-navigation__wrapper app-navigation">
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden aria-hidden="true">
+            Menu
+          </button>
+
+          <ul class="govuk-service-navigation__list" id="navigation" >
+
+              <div class="app-navigation__primary">
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/" data-testid="nav-home">
+                                    
+Home
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/documentation" data-testid="nav-documentation">
+                                    
+Documentation
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
+                  <a class="govuk-service-navigation__link" href="/services/all" aria-current="page" data-testid="nav-services">
+                                    
+                  <strong class="govuk-service-navigation__active-fallback">Services</strong>
+
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/apis" data-testid="nav-apis">
+                                    
+APIs
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/test-suites" data-testid="nav-test-suites">
+                                    
+Test Suites
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/teams" data-testid="nav-teams">
+                                    
+Teams
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/requests" data-testid="nav-requests">
+                                    
+Requests
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/deployments" data-testid="nav-deployments">
+                                    
+Deployments
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/running-services?team=some-other-team-id" data-testid="nav-running-services">
+                                    
+Running Services
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/dependency-explorer" data-testid="nav-dependencies-explorer">
+                                    
+Dependency Explorer
+                  </a>
+              </li>
+
+              </div>
+  <div class="app-navigation__end">
+    <ul class="app-navigation__actions">
+        
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/deploy-service" data-testid="nav-deploy-service">
+      Deploy Service
+    </a>
+</li>
+
+
+        
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/create" data-testid="nav-create">
+      Create
+    </a>
+</li>
+
+
+    </ul>
+
+      <ul class="app-navigation__admin">
+          
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/admin" data-testid="nav-admin">
+      Admin
+    </a>
+</li>
+
+
+      </ul>
+  </div>
+</ul>
+        </nav>
+    </div>
+
+    </div>
+
+  </div>
+
+
+      <div class="govuk-width-container">
+  
+  <div
+  class="app-banner app-banner--hidden"
+  tabindex="-1"
+  role="alert"
+  data-testid="app-banner"
+data-js="app-client-notifications">
+  <p class="app-banner__content"
+data-js="app-client-notifications-content"     data-testid="app-banner-content"></p>
+</div>
+
+
+
+
+    
+<nav class="app-breadcrumbs" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="app-breadcrumbs__list">
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/services"
+             data-testid="app-breadcrumbs-link">Services</a>
+        </li>
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources"
+             data-testid="app-breadcrumbs-link">mock-service-with-resources</a>
+        </li>
+        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
+            data-testid="app-breadcrumbs-list-item">Imports</li>
+  </ol>
+</nav>
+
+        <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
+
+    <span class="govuk-caption-l" data-testid="app-page-heading-caption">Imports</span>
+
+<div class="app-page-heading">
+  <h1 class="app-page-heading--title" data-testid="app-page-heading-title">mock-service-with-resources</h1>
+
+
+</div>
+
+
+
+
+  <div class="app-tabs" data-js="app-tabs">
+    <ul class="app-tabs__list" data-testid="app-tabs-list" role="tablist" aria-label="Service tabs">
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-about">
+
+
+          <a id="tab-about"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-about"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-about">
+            About
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-automations">
+
+
+          <a id="tab-automations"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/automations"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-automations"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-automations">
+            Automations
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-diagnostics">
+
+
+          <a id="tab-diagnostics"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/diagnostics"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-diagnostics"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-diagnostics">
+            Diagnostics
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item app-tabs__list-item--selected"
+            data-testid="app-tabs-list-item-imports app-tabs-list-item--selected">
+
+
+          <a id="tab-imports"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/imports"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-imports"
+             aria-selected="true"
+             data-testid="app-tabs-list-item__anchor-imports">
+            Imports
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-maintenance">
+
+
+          <a id="tab-maintenance"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/maintenance"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-maintenance"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-maintenance">
+            Maintenance
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-notifications">
+
+
+          <a id="tab-notifications"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/notifications"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-notifications"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-notifications">
+            Notifications
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-proxy">
+
+
+          <a id="tab-proxy"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/proxy"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-proxy"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-proxy">
+            Proxy
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-resources">
+
+
+          <a id="tab-resources"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/resources"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-resources"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-resources">
+            Resources
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-secrets">
+
+
+          <a id="tab-secrets"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/secrets"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-secrets"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-secrets">
+            Secrets
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-terminal">
+
+
+          <a id="tab-terminal"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/terminal"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-terminal"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-terminal">
+            Terminal
+          </a>
+        </li>
+
+
+        <li class="app-tabs__list-item"
+            data-testid="app-tabs-list-item-topology">
+
+
+          <a id="tab-topology"
+             class="app-tabs__tab"
+             href="/services/mock-service-with-resources/topology"
+             data-js="app-tab"
+             role="tab"
+             aria-controls="tab-panel-topology"
+             aria-selected="false"
+             data-testid="app-tabs-list-item__anchor-topology">
+            Topology
+          </a>
+        </li>
+    </ul>
+  </div>
+
+    <section id="tab-panel-imports"
+             class="app-tabs__panel"
+             role="tabpanel"
+             aria-labelledby="tab-imports"
+             data-testid="app-tabs-panel">
+        <section class="govuk-!-margin-top-6">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full" data-js="xhr-nav" >
+
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
+          <p class="govuk-!-margin-bottom-6">
+            Manage imported data associated with <strong>mock-service-with-resources</strong>, including uploading and downloading.
+          </p>
+
+
+            <div class="govuk-grid-row">
+              <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
+                
+
+
+
+
+
+
+
+<div class="app-panel  app-panel--inverse" >
+  
+    <ul class="govuk-list govuk-list--bullet">
+      
+  <li class="app-tree--open">
+     <span class="app-tree--label">
+    &NoBreak; 
+        <svg class="app-icon app-open-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Open folder icon">
+       <path d="M150-139q-36.81 0-63.91-27.09Q59-193.19 59-230v-500q0-38.23 27.09-65.11Q113.19-822 150-822h263l68 69h329q38.23 0 65.11 27.09Q902-698.81 902-662H150v437l100-377h709L859-225q-14 47-42.5 66.5T740-139z"/>
+</svg>
+
+
+      <a href="/services/mock-service-with-resources/imports/">/</a>
+  </span>
+
+
+      <ul class="govuk-list govuk-list--bullet">
+      
+  <li class="app-tree--closed">
+     <span class="app-tree--label">
+    &NoBreak; 
+      <svg class="app-icon app-open-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Open folder icon">
+       <path d="M150-139q-36.81 0-63.91-27.09Q59-193.19 59-230v-500q0-38.23 27.09-65.11Q113.19-822 150-822h263l68 69h329q38.23 0 65.11 27.09Q902-698.81 902-662H150v437l100-377h709L859-225q-14 47-42.5 66.5T740-139z"/>
+</svg>
+<strong>batch-0001</strong>
+  </span>
+
+
+  </li>
+
+      
+  <li class="app-tree--closed">
+     <span class="app-tree--label">
+    &NoBreak; 
+        <svg class="app-icon app-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Folder icon">
+       <path d="M150-139q-37.17 0-64.09-27.09Q59-193.19 59-230v-500q0-37.23 26.91-64.61Q112.83-822 150-822h263l68 69h329q37.23 0 64.61 27.09Q902-698.81 902-662v432q0 36.81-27.39 63.91Q847.23-139 810-139z"/>
+</svg>
+
+
+      <a href="/services/mock-service-with-resources/imports/">batch-0002</a>
+  </span>
+
+
+  </li>
+
+  </ul>
+
+  </li>
+
+  </ul>
+
+
+
+</div>
+
+
+              </div>
+
+              <div class="govuk-grid-column-three-quarters">
+
+                <div data-xhr="folder-contents">
+                  
+
+
+
+
+
+
+
+
+
+<table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-8">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Size</th>
+      <th scope="col" class="govuk-table__header">Modified</th>
+      <th scope="col" class="govuk-table__header">Actions</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">  <span class="app-tree--label">
+    <svg class="app-icon app-open-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Open folder icon">
+       <path d="M150-139q-36.81 0-63.91-27.09Q59-193.19 59-230v-500q0-38.23 27.09-65.11Q113.19-822 150-822h263l68 69h329q38.23 0 65.11 27.09Q902-698.81 902-662H150v437l100-377h709L859-225q-14 47-42.5 66.5T740-139z"/>
+</svg>
+
+    <strong>.</strong>
+  </span>
+</td>
+      <td class="govuk-table__cell">- - -</td>
+      <td class="govuk-table__cell">- - -</td>
+      <td class="govuk-table__cell">- - -</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">  <span class="app-tree--label">
+      <svg class="app-icon app-folder-icon app-icon--small"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 -960 960 960"
+     role="img" aria-label="Folder icon">
+       <path d="M150-139q-37.17 0-64.09-27.09Q59-193.19 59-230v-500q0-37.23 26.91-64.61Q112.83-822 150-822h263l68 69h329q37.23 0 64.61 27.09Q902-698.81 902-662v432q0 36.81-27.39 63.91Q847.23-139 810-139z"/>
+</svg>
+
+      <a href="/services/mock-service-with-resources/imports/">18010 instrucciones.pdf</a>
+  </span>
+</td>
+      <td class="govuk-table__cell">242.33 kB</td>
+      <td class="govuk-table__cell">
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="1 day ago"
+>
+        <time    datetime="Yesterday at 09:48"
+    data-testid="app-time">
+        16th Sep 2026 at 09:48:55
+
+  </time>
+
+
+</span>
+
+
+
+</td>
+      <td class="govuk-table__cell">    - - -
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">  <span class="app-tree--label">
+      <svg class="app-icon app-file-icon app-icon--small" width="48" height="48"
+     role="img" aria-label="File icon" viewBox="0 0 48 48">
+  <path fill-rule="nonzero"
+        d="M17.4116788 37.1245552h14.1766424c.569343 0 1.0343065-.189229 1.3948905-.5676869.3605839-.3780783.5408759-.8468802.5408759-1.4064057 0-.5432028-.180292-1.0047924-.5408759-1.3847686-.360584-.3799763-.8255475-.5699645-1.3948905-.5699645H17.3547445c-.5913576 0-1.0618248.1877106-1.4114014.5631317-.3495767.3750415-.524365.8400475-.524365 1.3950178 0 .5545908.180292 1.0216845.5408759 1.4012811.360584.3795967.8445256.5693951 1.4518248.5693951Zm0-9.6227758h14.2335767c.5484671 0 1.0081168-.189229 1.3789489-.5676869.3712117-.3780783.5568175-.8468802.5568175-1.4064057 0-.5432028-.1856058-.9953025-.5568175-1.3562989-.3708321-.3609964-.8304818-.5414947-1.3789489-.5414947h-14.290511c-.5913576 0-1.0618248.1803085-1.4114014.5409253-.3495767.3606168-.524365.8127165-.524365 1.3562989 0 .5432029.180292 1.0082088.5408759 1.3950178.360584.3864295.8445256.5796442 1.4518248.5796442ZM10.1810219 48c-1.35807299 0-2.56109489-.5107473-3.6090657-1.532242C5.5239854 45.4458837 5 44.2294662 5 42.8185053V5.23843416c0-1.42690391.5239854-2.65660735 1.5719562-3.68911032C7.61992701.51644128 8.82294891 0 10.1810219 0h18.5605839c.718511 0 1.4032409.14310795 2.0541898.42932384.6509489.2865955 1.1997956.6749229 1.6465402 1.16498221l9.9065693 9.85053385c.4900146.5151127.8877956 1.0915302 1.1933431 1.7292526C43.8474161 13.8114353 44 14.5066667 44 15.2597865v27.5587188c0 1.4109609-.5296788 2.6273784-1.5890365 3.6492527C41.3519854 47.4892527 40.1356788 48 38.7620438 48H10.1810219Zm17.9912409-35.0177936V5.23843416H10.1810219V42.8185053h28.5810219V15.6014235h-7.9708029c-.7875913 0-1.4208905-.2397153-1.8998978-.7191459-.4793869-.479051-.7190803-1.1124081-.7190803-1.9000712ZM10.20948905 5.23843416V15.6014235 5.23843416 42.8185053 5.23843416Z" />
+</svg>
+
+      data-01.dat
+  </span>
+</td>
+      <td class="govuk-table__cell">42 B</td>
+      <td class="govuk-table__cell">
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="2 days ago"
+>
+        <time    datetime="Last Tuesday at 12:46"
+    data-testid="app-time">
+        15th Sep 2026 at 12:46:43
+
+  </time>
+
+
+</span>
+
+
+
+</td>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/" data-no-xhr-link="true" target="_blank">Download</a>
+</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">  <span class="app-tree--label">
+      <svg class="app-icon app-file-icon app-icon--small" width="48" height="48"
+     role="img" aria-label="File icon" viewBox="0 0 48 48">
+  <path fill-rule="nonzero"
+        d="M17.4116788 37.1245552h14.1766424c.569343 0 1.0343065-.189229 1.3948905-.5676869.3605839-.3780783.5408759-.8468802.5408759-1.4064057 0-.5432028-.180292-1.0047924-.5408759-1.3847686-.360584-.3799763-.8255475-.5699645-1.3948905-.5699645H17.3547445c-.5913576 0-1.0618248.1877106-1.4114014.5631317-.3495767.3750415-.524365.8400475-.524365 1.3950178 0 .5545908.180292 1.0216845.5408759 1.4012811.360584.3795967.8445256.5693951 1.4518248.5693951Zm0-9.6227758h14.2335767c.5484671 0 1.0081168-.189229 1.3789489-.5676869.3712117-.3780783.5568175-.8468802.5568175-1.4064057 0-.5432028-.1856058-.9953025-.5568175-1.3562989-.3708321-.3609964-.8304818-.5414947-1.3789489-.5414947h-14.290511c-.5913576 0-1.0618248.1803085-1.4114014.5409253-.3495767.3606168-.524365.8127165-.524365 1.3562989 0 .5432029.180292 1.0082088.5408759 1.3950178.360584.3864295.8445256.5796442 1.4518248.5796442ZM10.1810219 48c-1.35807299 0-2.56109489-.5107473-3.6090657-1.532242C5.5239854 45.4458837 5 44.2294662 5 42.8185053V5.23843416c0-1.42690391.5239854-2.65660735 1.5719562-3.68911032C7.61992701.51644128 8.82294891 0 10.1810219 0h18.5605839c.718511 0 1.4032409.14310795 2.0541898.42932384.6509489.2865955 1.1997956.6749229 1.6465402 1.16498221l9.9065693 9.85053385c.4900146.5151127.8877956 1.0915302 1.1933431 1.7292526C43.8474161 13.8114353 44 14.5066667 44 15.2597865v27.5587188c0 1.4109609-.5296788 2.6273784-1.5890365 3.6492527C41.3519854 47.4892527 40.1356788 48 38.7620438 48H10.1810219Zm17.9912409-35.0177936V5.23843416H10.1810219V42.8185053h28.5810219V15.6014235h-7.9708029c-.7875913 0-1.4208905-.2397153-1.8998978-.7191459-.4793869-.479051-.7190803-1.1124081-.7190803-1.9000712ZM10.20948905 5.23843416V15.6014235 5.23843416 42.8185053 5.23843416Z" />
+</svg>
+
+      data-02.dat
+  </span>
+</td>
+      <td class="govuk-table__cell">42.34 kB</td>
+      <td class="govuk-table__cell">
+
+
+
+<span
+  class="app-tool-tip"
+  data-text="2 days ago"
+>
+        <time    datetime="Last Tuesday at 12:48"
+    data-testid="app-time">
+        15th Sep 2026 at 12:48:23
+
+  </time>
+
+
+</span>
+
+
+
+</td>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/" data-no-xhr-link="true" target="_blank">Download</a>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+
+                </div>
+
+              </div>
+            </div>
+
+
+      </div>
+    </div>
+  </section>
+
+    </section>
+
+        </main>
+      </div>
+
+    
+
+  
+<footer class="app-footer" role="contentinfo" data-testid="app-footer">
+
+  <div class="app-footer__row">
+    <div class="app-footer__primary">
+      <p>
+        If you have a question, idea or suggestion. Contact the Platform team via Slack
+        <a class="app-footer__link" href="https://defra-digital-team.slack.com/archives/C05UJ3SE5C6" target="_blank"
+           rel="noopener noreferrer">#cdp-support</a>
+      </p>
+
+      <ul class="app-footer__list">
+        <li class="app-footer__list-item">
+          <a href="/documentation" class="app-footer__link">Documentation</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/cookie-policy" class="app-footer__link">Cookie policy</a>
+        </li>
+        <li class="app-footer__list-item">
+          <a href="/help/accessibility-statement" class="app-footer__link">Accessibility statement</a>
+        </li>
+      </ul>
+
+        <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a class="app-footer__link"
+               href="https://github.com/DEFRA/cdp-portal-frontend/releases/tag/0.1.0"
+               target="_blank" rel="noopener noreferrer">0.1.0</a>
+          </li>
+        </ul>
+
+      <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a href="/style-guide" class="app-footer__link">Style Guide</a>
+          </li>
+        <li class="app-footer__list-item">
+          <a href="https://github.com/DEFRA/cdp-portal-frontend" target="_blank"
+             rel="noopener noreferrer" class="app-footer__link">
+            GitHub
+            <svg class="app-icon app-github-icon app-icon--tiny govuk-!-margin-left-1"
+     xmlns="http://www.w3.org/2000/svg"
+     width="48" height="48" viewBox="0 0 48 48"
+     role="img" aria-label="CDP Portal Frontend repository on GitHub">
+  <path d="M23.9284898 0C10.6966531 0 0 11 0 24.6085c0 10.878 6.85371429 20.086 16.3616327 23.345 1.1887346.245 1.6241632-.5295 1.6241632-1.181 0-.5705-.0391837-2.526-.0391837-4.5635-6.6563265 1.467-8.04244893-2.9335-8.04244893-2.9335-1.06971429-2.852-2.65469388-3.585-2.65469388-3.585-2.17861225-1.5075.15869388-1.5075.15869388-1.5075 2.41665306.163 3.68473473 2.526 3.68473473 2.526 2.1389387 3.748 5.5856326 2.689 6.9722449 2.037.1978775-1.589.8321632-2.689 1.5056326-3.3-5.3088979-.5705-10.8945306-2.689-10.8945306-12.1415 0-2.689.95020408-4.889 2.4558367-6.6-.237551-.611-1.0697143-3.1375.2380408-6.519 0 0 2.0204082-.652 6.576 2.526 1.9504109-.5386687 3.9618381-.8126928 5.9823674-.815 2.0204082 0 4.08.2855 5.9818775.815 4.5560817-3.178 6.5764898-2.526 6.5764898-2.526 1.3077551 3.3815.4751021 5.908.2375511 6.519 1.5453061 1.711 2.4563265 3.911 2.4563265 6.6 0 9.4525-5.5856327 11.53-10.9342041 12.1415.8718367.774 1.6241633 2.2405 1.6241633 4.563 0 3.3-.0391837 5.9485-.0391837 6.763 0 .652.4359184 1.4265 1.6241633 1.182 9.5079183-3.26 16.3617395-12.4675 16.3617395-23.3455C47.8564898 11 37.1206531 0 23.9284898 0Z" />
+</svg>
+
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="app-footer__secondary"></div>
+  </div>
+
+</footer>
+
+
+  <script type="module" src="/.public/src/client/javascripts/application.js"></script>
+  <script type="module" src="/.public/src/client/javascripts/web-components.js"></script>
+  </body>
+</html>
