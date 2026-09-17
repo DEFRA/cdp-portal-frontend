@@ -2,9 +2,8 @@ import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.j
 import { scopes } from '@defra/cdp-validation-kit'
 import {
   listPathContents,
-  encodePathSegments,
   folderTreeForPath
-} from '../BucketService.js'
+} from '#server/common/services/bucket-service/BucketService.js'
 
 export const ext = [...commonServiceExtensions]
 
@@ -35,7 +34,6 @@ export default async function (request) {
     relativePathParts,
     folderContents,
     folderTree,
-    encodePathSegments,
     pageTitle: 'Imports',
     breadcrumbs: [
       {

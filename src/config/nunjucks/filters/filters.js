@@ -17,6 +17,8 @@ import { relativeDate } from '#server/common/helpers/date/relative-date.js'
 import { sanitiseUser } from '#server/common/helpers/sanitisation/sanitise-user.js'
 import { partial } from 'filesize'
 
+import { encodePathSegments } from '#server/common/services/bucket-service/BucketService.js'
+
 const formatText = (value) => upperFirst(kebabCase(value))
 
 const numberFormatter = new Intl.NumberFormat('en-GB', {
@@ -57,5 +59,6 @@ export {
   pickBy,
   uppercaseMatch,
   isObject,
-  formatFileSize
+  formatFileSize,
+  encodePathSegments
 }
