@@ -2,6 +2,7 @@
 {% from "icons/file-icon/macro.njk" import appFileIcon %}
 {% from "icons/folder-icon/macro.njk" import appFolderIcon %}
 {% from "icons/open-folder-icon/macro.njk" import appOpenFolderIcon %}
+{% from "icons/back-folder-icon/macro.njk" import appBackFolderIcon %}
 {% from "time/macro.njk" import appTime %}
 
 {% set files = params.files %}
@@ -86,7 +87,7 @@
 
 {% macro renderParentName(relativePath) %}
   <span class="app-tree--label">
-    {{ appFolderIcon({ classes: "app-icon--small" }) }}
+    {{ appBackFolderIcon({ classes: "app-icon--small" }) }}
     <a href="{{ basePath }}{{ relativePath | encodePathSegments }}">..</a>
   </span>
 {% endmacro %}
