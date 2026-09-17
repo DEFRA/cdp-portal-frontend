@@ -7,6 +7,7 @@
 {% set files = params.files %}
 {% set basePath = params.basePath %}
 {% set parentPath = params.parentPath %}
+{% set downloadBasePath = params.downloadBasePath %}
 
 {% macro renderRows(rows, content) %}
   {% for obj in content %}
@@ -50,7 +51,7 @@
   {% if obj.isFolder %}
     - - -
   {% else %}
-    <a href="{{ basePath }}{{ obj.path | encodePathSegments }}" data-no-xhr-link="true" target="_blank">Download</a>
+    <a href="{{ downloadBasePath }}{{ obj.path | encodePathSegments }}" data-no-xhr-link="true" target="_blank">Download</a>
   {% endif %}
 {% endmacro %}
 

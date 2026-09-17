@@ -29,12 +29,16 @@ export async function GET(request, h) {
     return Boom.notFound('Folders are not downloadable')
   }
 
-  const url = await getFileUrl(request, entity.name, path)
+  const url = await getFileUrl(
+    request,
+    `/entities/${entity.name}/imports/`,
+    path
+  )
 
   request.logger.info(`Proxying GET to ${url}`)
   return h.proxy({
     uri: url,
-    redirects: 10
+    redirects: 2
   })
 }
 
@@ -49,7 +53,7 @@ export async function POST(request) {
   }
 
   const { size } = request.payload
-  const response = await startMultipartUpload(request, entity.name, path, size)
+  const response = await startMultipartUpload(request, `/entities/${entity.name}/imports/`, path, size)
 
   return response
 }
@@ -62,7 +66,7 @@ export async function PUT(request, h) {
   if (uploadId && partNumber && contentMd5) {
     const url = await getMultipartUploadPartUrl(
       request,
-      entity.name,
+      `/entities/${entity.name}/imports/`,
       path,
       uploadId,
       partNumber,
@@ -71,7 +75,7 @@ export async function PUT(request, h) {
 
     request.logger.info(`Proxying PUT to ${url}`)
     return h.proxy({
-      redirects: 10,
+      redirects: 2,
       passThrough: true,
       mapUri(request) {
         return {
@@ -93,7 +97,7 @@ export async function PUT(request, h) {
   const { uploadParts } = payload
   await completeMultipartUpload(
     request,
-    entity.name,
+    `/entities/${entity.name}/imports/`,
     path,
     uploadId,
     uploadParts
