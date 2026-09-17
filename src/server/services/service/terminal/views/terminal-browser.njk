@@ -10,14 +10,14 @@
   }) }}
 {% endblock %}
 
-{% set bodyClasses = "app-terminal-background" %}
+{% set bodyClasses = "app-terminal-background" if isTerminalTool else "" %}
 
 {# Override container so the iframe is not inset by .govuk-width-container #}
 {% block container %}
   <main id="main-content" class="govuk-body govuk-!-margin-0">
     <iframe
       class="app-iframe app-iframe--terminal"
-      title="Terminal {{ serviceId }} - {{ environment }}"
+      title="{{ 'Terminal' if isTerminalTool else 'Tool' }} {{ serviceId }} - {{ environment }}"
       scrolling="no"
       src="{{ terminalProxyUrl }}">
     </iframe>

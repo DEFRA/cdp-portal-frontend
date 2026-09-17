@@ -41,8 +41,10 @@ const launchTerminalController = {
         },
         terminal: payload
       })
+      // Keep tool on the browser URL so the iframe can hint wait-page type before register.
+      const toolQuery = tool ? `?tool=${encodeURIComponent(tool)}` : ''
       return h.redirect(
-        `/services/${payload.service}/terminal/${payload.environment}/${payload.token}`
+        `/services/${payload.service}/terminal/${payload.environment}/${payload.token}${toolQuery}`
       )
     } catch (error) {
       request.yar.flash(sessionNames.globalValidationFailures, error.message)
