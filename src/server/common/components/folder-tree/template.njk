@@ -8,6 +8,7 @@
 
 {% macro renderFolderNodeHtml(label, path, isCurrent, isOpen) %}
   <span class="app-tree--label">
+    &NoBreak; {# stops icon forcing misalignment with tree arrow #}
     {% if isCurrent %}
       {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}<strong>{{ label }}</strong>
     {% else %}
