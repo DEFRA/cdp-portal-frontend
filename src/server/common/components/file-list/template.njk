@@ -1,0 +1,91 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "icons/file-icon/macro.njk" import appFileIcon %}
+{% from "icons/folder-icon/macro.njk" import appFolderIcon %}
+{% from "icons/open-folder-icon/macro.njk" import appOpenFolderIcon %}
+{% from "time/macro.njk" import appTime %}
+
+{% set files = params.files %}
+{% set basePath = params.basePath %}
+{% set parentPath = params.parentPath %}
+
+{% macro renderRows(rows, content) %}
+  {% for obj in content %}
+    {{ rows.push([
+      {
+        html: renderName(obj)
+      },
+      {
+        text: obj.size | formatFileSize
+      },
+      {
+        html: appTime({
+          datetime: obj.modifiedDate
+        })
+      },
+      {
+        html: renderActions(obj)
+      }
+    ])}}
+  {% endfor %}
+{% endmacro %}
+
+{% macro renderParentRow(rows, relativePathParts) %}
+    {{ rows.push([
+      {
+        html: renderParentName(relativePathParts)
+      },
+      {
+        text: '- - -'
+      },
+      {
+        text: '- - -'
+      },
+      {
+        html: '- - -'
+      }
+    ]) }}
+{% endmacro %}
+
+{% macro renderActions(obj) %}
+  {% if obj.isFolder %}
+    - - -
+  {% else %}
+    <a href="{{ basePath }}{{ obj.path | encodePathSegments }}" data-no-xhr-link="true" target="_blank">Download</a>
+  {% endif %}
+{% endmacro %}
+
+{% macro renderName(obj) %}
+  <span class="app-tree--label">
+    {% if obj.isFolder %}
+      {{ appFolderIcon({ classes: "app-icon--small" }) }}
+      <a href="{{ basePath }}{{ obj.path | encodePathSegments }}">{{ obj.name }}</a>
+    {% else %}
+      {{ appFileIcon({ classes: "app-icon--small" }) }}
+      {{ obj.name }}
+    {% endif %}
+  </span>
+{% endmacro %}
+
+{% macro renderParentName(relativePathParts) %}
+  <span class="app-tree--label">
+    {{ appOpenFolderIcon({ classes: "app-icon--small" }) }}
+    <a href="{{ basePath }}{{ parentPath | encodePathSegments }}">..</a>
+  </span>
+{% endmacro %}
+
+{% set contentsRows = [] %}
+{% if parentPath != null %}
+  {% set t = renderParentRow(contentsRows, parentPath) %}
+{% endif %}
+{% set t = renderRows(contentsRows, files) %}
+
+{{ govukTable({
+  classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
+  head: [
+    { text: "Name" },
+    { text: "Size" },
+    { text: "Modified" },
+    { text: "Actions" }
+  ],
+  rows: contentsRows
+}) }}
