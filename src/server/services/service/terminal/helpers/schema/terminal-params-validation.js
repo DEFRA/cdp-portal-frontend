@@ -44,3 +44,7 @@ export function terminalBrowserParamsValidation(params, options) {
 
   return validationResult.value
 }
+
+export const terminalBrowserQueryValidation = Joi.object({
+  tool: Joi.string().optional()
+}).unknown(true)
