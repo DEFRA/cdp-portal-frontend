@@ -6,7 +6,6 @@
 {% from "time/macro.njk" import appTime %}
 {% from "tag/macro.njk" import appTag %}
 {% from "tree/macro.njk" import appTree %}
-{% from "../components/file-upload/macro.njk" import fileUpload %}
 
 
 {% macro renderRows(rows, content) %}
@@ -149,15 +148,6 @@
                       { text: "Actions" }
                     ],
                     rows: contentsRows
-                  }) }}
-                </div>
-
-                <div data-xhr="file-upload">
-                  {{ fileUpload({
-                    filesMeta: filesMeta,
-                    path: path,
-                    csrfToken: csrfToken,
-                    service: entity.name
                   }) }}
                 </div>
 
