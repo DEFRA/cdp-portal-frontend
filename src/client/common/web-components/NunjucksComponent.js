@@ -1,5 +1,6 @@
 import nunjucks from 'nunjucks/browser/nunjucks-slim.js'
 import path from 'path'
+import { Idiomorph } from 'idiomorph'
 import * as filters from '#config/nunjucks/filters/filters.js'
 
 const nunjucksEnvironment = nunjucks.configure()
@@ -58,9 +59,14 @@ export default class NunjucksComponent extends HTMLElement {
     // clean up, such as removing listeners from the component
   }
 
-  render(props) {
-    this.innerHTML = nunjucksEnvironment.render(this.#template, {
+  // Renders using a DOM morph https://github.com/bigskysoftware/idiomorph
+  render(props, idiomorphOptions = {}) {
+    const html = nunjucksEnvironment.render(this.#template, {
       params: props
+    })
+    Idiomorph.morph(this, html, {
+      ...idiomorphOptions,
+      morphStyle: 'innerHTML'
     })
   }
 }
