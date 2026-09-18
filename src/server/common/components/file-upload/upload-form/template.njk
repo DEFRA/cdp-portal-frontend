@@ -1,0 +1,24 @@
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "button/macro.njk" import appButton %}
+
+<form method="post" data-js="file-upload">
+  <input type="hidden" name="csrfToken" value="{{ params.csrfToken }}" />
+
+  {{ govukFileUpload({
+    id: "files",
+    name: "files",
+    label: {
+      html: "Upload files to <strong>" + params.path + "/</strong>"
+    },
+    javascript: true,
+    multiple: true
+  }) }}
+
+  {{ appButton({
+    text: "Upload",
+    loader: {
+      name: "upload-button"
+    }
+  }) }}
+
+</form>
