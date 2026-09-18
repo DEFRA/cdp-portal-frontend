@@ -17,7 +17,7 @@ import { relativeDate } from '#server/common/helpers/date/relative-date.js'
 import { sanitiseUser } from '#server/common/helpers/sanitisation/sanitise-user.js'
 import { partial } from 'filesize'
 
-import { encodePathSegments } from '#server/common/services/bucket-service/BucketService.js'
+import { encodePathSegments } from '#server/common/services/bucket-service/encodePathSegments.js'
 
 const formatText = (value) => upperFirst(kebabCase(value))
 
