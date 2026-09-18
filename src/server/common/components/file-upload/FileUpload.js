@@ -34,11 +34,14 @@ export default class FileUpload extends NunjucksComponent {
     )
 
     this.render({
-      filesMeta: window.cdp.uploadManager.getFilesMeta()
+      filesMeta: window.cdp.uploadManager.getUploads()
     })
   }
 
   #onProgress(event) {
+    // this.render({
+    //   filesMeta: window.cdp.uploadManager.getUploads()
+    // })
     const file = event.detail
 
     const $progress = document.getElementById(
@@ -77,7 +80,7 @@ export default class FileUpload extends NunjucksComponent {
       $button.setAttribute('data-status', 'complete')
     }
 
-    const filesMeta = window.cdp.uploadManager.getFilesMeta()
+    const filesMeta = window.cdp.uploadManager.getUploads()
 
     if (!filesMeta.some((file) => file.status === 'uploading')) {
       setTimeout(() => {
