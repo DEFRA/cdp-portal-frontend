@@ -11,7 +11,7 @@
       { html: appProgress({
           id: 'upload-progress-' + upload.name | urlencode,
           progress: upload.progress or 0,
-          complete: upload.complete or 0 | formatFileSize,
+          complete: (upload.bytesUploaded or 0) | formatFileSize,
           total: upload.size | formatFileSize
         })
       },
