@@ -4,52 +4,53 @@ import SparkMD5 from 'spark-md5'
 const HASH_CHUNK_SIZE = 2 * 1024 * 1024 // Chunks of 2MB
 
 export default class UploadManager extends EventTarget {
-  #files
+  #uploads = []
 
   startUpload(service, path, files, csrfToken) {
-    this.#files = files
-
-    for (const file of this.#files) {
+    for (const file of files) {
       this.#uploadFile(service, path, file, csrfToken)
     }
   }
 
-  getFilesMeta() {
-    return Array.from(this.#files).map(({ name, size, status }) => ({
-      name,
-      size,
-      status
-    }))
+  getUploads() {
+    return this.#uploads.map(({ file, uploadParts, ...data }) => data)
   }
 
   async #uploadFile(service, path, file, csrfToken) {
-    try {
-      file.status = 'uploading'
-      file.bytesUploaded = 0
-      file.progress = 0
-      file.uploadParts = []
+    const upload = {
+      file,
+      uploadParts: [],
+      name: file.name,
+      status: 'uploading',
+      uploadId: '',
+      size: file.size,
+      bytesUploaded: 0,
+      progress: 0
+    }
+    this.#uploads.push(upload)
 
+    try {
       const uploadResponse = await this.#startMultipartUpload(
         service,
         path,
-        file,
+        upload,
         csrfToken
       )
 
-      file.uploadId = uploadResponse.uploadId
+      upload.uploadId = uploadResponse.uploadId
 
       for (const part of uploadResponse.parts) {
         const blob = file.slice(part.byteStartPosition, part.byteEndPosition)
-        file.uploadParts.push({
+        upload.uploadParts.push({
           partNumber: part.partNumber,
-          url: `/services/${service}/imports-resource/${encodedResourcePath(path, file.name)}?${part.queryParams}`,
+          url: `/services/${service}/imports-resource/${encodedResourcePath(path, upload.name)}?${part.queryParams}`,
           blob,
           bytesUploaded: 0
         })
       }
 
       await Promise.all(
-        file.uploadParts.map(async (uploadPart) => {
+        upload.uploadParts.map(async (uploadPart) => {
           uploadPart.contentMd5 = await calcMd5Hash(uploadPart.blob)
 
           const uploadManager = this
@@ -61,14 +62,14 @@ export default class UploadManager extends EventTarget {
             csrfToken,
             ({ bytesUploaded }) => {
               uploadPart.bytesUploaded = bytesUploaded
-              file.bytesUploaded = file.uploadParts.reduce(
+              upload.bytesUploaded = upload.uploadParts.reduce(
                 (sum, part) => sum + part.bytesUploaded,
                 0
               )
 
-              file.progress = Math.round((file.bytesUploaded / file.size) * 100)
+              upload.progress = Math.round((upload.bytesUploaded / upload.size) * 100)
 
-              uploadManager.#dispatchFileEvent('progress', file)
+              uploadManager.#dispatchFileEvent('progress', upload)
             }
           )
 
@@ -80,28 +81,22 @@ export default class UploadManager extends EventTarget {
         })
       )
 
-      await this.#completeMultipartUpload(service, path, file, csrfToken)
+      await this.#completeMultipartUpload(service, path, upload, csrfToken)
 
-      file.status = 'complete'
-      file.progress = 100
-      this.#dispatchFileEvent('complete', file)
+      upload.status = 'complete'
+      upload.progress = 100
+      this.#dispatchFileEvent('complete', upload)
     } catch (error) {
-      file.status = 'failed'
-      this.#dispatchFileEvent('failed', file)
+      upload.status = 'failed'
+      this.#dispatchFileEvent('failed', upload)
     }
   }
 
-  #dispatchFileEvent(type, file) {
+  #dispatchFileEvent(type, upload) {
+    const { file, uploadParts, ...data } = upload
     this.dispatchEvent(
       new CustomEvent(type, {
-        detail: {
-          name: file.name,
-          size: file.size,
-          bytesUploaded: file.bytesUploaded,
-          status: file.status,
-          progress: file.progress,
-          uploadId: file.uploadId
-        }
+        detail: data
       })
     )
   }
@@ -126,9 +121,9 @@ export default class UploadManager extends EventTarget {
     return uploadResponse
   }
 
-  async #startMultipartUpload(service, path, file, csrfToken) {
+  async #startMultipartUpload(service, path, upload, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/imports-resource/${encodedResourcePath(path, file.name)}`,
+      `/services/${service}/imports-resource/${encodedResourcePath(path, upload.name)}`,
       {
         method: 'POST',
         cache: 'no-store',
@@ -141,7 +136,7 @@ export default class UploadManager extends EventTarget {
           'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({
-          size: file.size
+          size: upload.size
         })
       }
     )
@@ -155,9 +150,9 @@ export default class UploadManager extends EventTarget {
     return result
   }
 
-  async #completeMultipartUpload(service, path, file, csrfToken) {
+  async #completeMultipartUpload(service, path, upload, csrfToken) {
     const response = await fetchWithRetry(
-      `/services/${service}/imports-resource/${encodedResourcePath(path, file.name)}?uploadId=${file.uploadId}`,
+      `/services/${service}/imports-resource/${encodedResourcePath(path, upload.name)}?uploadId=${upload.uploadId}`,
       {
         method: 'PUT',
         cache: 'no-store',
@@ -170,7 +165,7 @@ export default class UploadManager extends EventTarget {
           'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({
-          uploadParts: file.uploadParts.map((part) => ({
+          uploadParts: upload.uploadParts.map((part) => ({
             eTag: part.eTag,
             partNumber: part.partNumber
           }))
