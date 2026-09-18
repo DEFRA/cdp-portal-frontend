@@ -2,6 +2,7 @@
 {% from "progress/macro.njk" import appProgress %}
 {% from "folder-tree/macro.njk" import appFolderTree %}
 {% from "file-list/macro.njk" import appFileList %}
+{% from "file-upload/macro.njk" import fileUpload %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -40,6 +41,15 @@
                     basePath: "/services/" + entity.name + "/imports/",
                     downloadBasePath: "/services/" + entity.name + "/imports-resource/",
                     parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null
+                  }) }}
+                </div>
+
+                <div data-xhr="file-upload">
+                  {{ fileUpload({
+                    filesMeta: filesMeta,
+                    path: path,
+                    csrfToken: csrfToken,
+                    service: entity.name
                   }) }}
                 </div>
 

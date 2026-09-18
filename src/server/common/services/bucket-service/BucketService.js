@@ -1,4 +1,5 @@
 import { config } from '#config/config.js'
+import { encodePathSegments } from './encodePathSegments.js'
 
 export async function listPathContents(request, basePath, path) {
   try {
@@ -98,12 +99,6 @@ export async function completeMultipartUpload(
       parts: uploadParts
     }
   })
-}
-
-export function encodePathSegments(path = '') {
-  const parts = path.split('/')
-  const encoded = parts.map((part) => encodeURI(part))
-  return encoded.join('/')
 }
 
 function formatAsS3Path(path = '', withTrailingSlash) {
