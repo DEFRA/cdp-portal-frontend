@@ -20,47 +20,52 @@ const serviceName = 'mock-service-with-resources'
 describe('Service imports page', () => {
   let server
 
+  beforeAll(async () => {
+    mockServiceEntityCallWithPostgres(serviceName, entitySubTypes.backend)
+    listPathContents.mockResolvedValue([
+      {
+        name: 'temp',
+        path: 'batch-0001/temp',
+        size: 242332,
+        modifiedDate: '2026-09-16T09:48:55Z',
+        isFolder: true
+      },
+      {
+        name: 'data-01.dat',
+        path: 'batch-0001/data-01.dat',
+        size: 42,
+        modifiedDate: '2026-09-15T12:46:43Z',
+        isFolder: false
+      },
+      {
+        name: 'data-02.dat',
+        path: 'batch-0001/data-01.dat',
+        size: 42342,
+        modifiedDate: '2026-09-15T12:48:23Z',
+        isFolder: false
+      }
+    ])
+    folderTreeForPath.mockResolvedValue({
+      path: '',
+      isCurrent: false,
+      subNodes: {
+        'batch-0001': { path: 'batch-0001/', isCurrent: true, subNodes: {} },
+        'batch-0002': { path: 'batch-0002/', isCurrent: false, subNodes: {} }
+      }
+    })
+
+    server = await initialiseServer()
+
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2026-09-16T00:00:00.000Z'))
+  })
+
   afterAll(async () => {
     await server.stop({ timeout: 0 })
+    vi.useRealTimers()
   })
 
   describe('import view', () => {
-    beforeAll(async () => {
-      mockServiceEntityCallWithPostgres(serviceName, entitySubTypes.backend)
-      listPathContents.mockResolvedValue([
-        {
-          name: '18010 instrucciones.pdf',
-          path: 'batch-0001/temp',
-          size: 242332,
-          modifiedDate: '2026-09-16T09:48:55Z',
-          isFolder: true
-        },
-        {
-          name: 'data-01.dat',
-          path: 'batch-0001/data-01.dat',
-          size: 42,
-          modifiedDate: '2026-09-15T12:46:43Z',
-          isFolder: false
-        },
-        {
-          name: 'data-02.dat',
-          path: 'batch-0001/data-01.dat',
-          size: 42342,
-          modifiedDate: '2026-09-15T12:48:23Z',
-          isFolder: false
-        }
-      ])
-      folderTreeForPath.mockResolvedValue({
-        path: '',
-        isCurrent: false,
-        subNodes: {
-          'batch-0001': { path: 'batch-0001/', isCurrent: true, subNodes: {} },
-          'batch-0002': { path: 'batch-0002/', isCurrent: false, subNodes: {} }
-        }
-      })
-      server = await initialiseServer()
-    })
-
     test('page renders for logged in admin user', async () => {
       const { result, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/imports`,
