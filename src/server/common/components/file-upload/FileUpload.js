@@ -7,49 +7,17 @@ window.cdp = window.cdp ?? {}
 window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
 
 export default class FileUpload extends NunjucksComponent {
-  #onSubmitHandler
-  #onProgressHandler
-  #onCompleteHandler
-  #onFailedHandler
-
   constructor() {
     super(template)
-
-    this.#onSubmitHandler = this.#onSubmit.bind(this)
-    this.#onProgressHandler = this.#onProgress.bind(this)
-    this.#onCompleteHandler = this.#onComplete.bind(this)
-    this.#onFailedHandler = this.#onFailed.bind(this)
   }
 
-  mounted() {
-    this.addEventListener('submit', this.#onSubmitHandler)
-
-    window.cdp.uploadManager.addEventListener(
-      'progress',
-      this.#onProgressHandler
-    )
-    window.cdp.uploadManager.addEventListener(
-      'complete',
-      this.#onCompleteHandler
-    )
-    window.cdp.uploadManager.addEventListener('failed', this.#onFailedHandler)
-  }
-
-  dismounted() {
-    this.removeEventListener('submit', this.#onSubmitHandler)
-
-    window.cdp.uploadManager.removeEventListener(
-      'progress',
-      this.#onProgressHandler
-    )
-    window.cdp.uploadManager.removeEventListener(
-      'complete',
-      this.#onCompleteHandler
-    )
-    window.cdp.uploadManager.removeEventListener(
-      'failed',
-      this.#onFailedHandler
-    )
+  get managedListeners() {
+    return [
+      [this, 'submit', this.#onSubmit],
+      [window.cdp.uploadManager, 'progress', this.#onProgress],
+      [window.cdp.uploadManager, 'complete', this.#onComplete],
+      [window.cdp.uploadManager, 'failed', this.#onFailed]
+    ]
   }
 
   #onSubmit(event) {
