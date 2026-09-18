@@ -1,9 +1,10 @@
 {% from "./upload-form/macro.njk" import uploadForm %}
 {% from "./upload-progress/macro.njk" import uploadProgress %}
 
-{% if params.filesMeta %}
+
+{% if params.uploads %}
   {{ uploadProgress({
-    filesMeta: params.filesMeta
+    uploads: params.uploads
   }) }}
 {% else %}
   {{ uploadForm({

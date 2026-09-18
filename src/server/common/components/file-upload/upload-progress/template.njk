@@ -4,20 +4,20 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "../upload-actions/macro.njk" import uploadActions %}
 
-{% macro renderRows(rows, filesMeta) %}
-  {% for file in filesMeta %}
+{% macro renderRows(rows, uploads) %}
+  {% for upload in uploads %}
     {{ rows.push([
-      { text: file.name },
+      { text: upload.name },
       { html: appProgress({
-          id: 'upload-progress-' + file.name | urlencode,
-          progress: 0,
-          complete: 0 | formatFileSize,
-          total: file.size | formatFileSize
+          id: 'upload-progress-' + upload.name | urlencode,
+          progress: upload.progress or 0,
+          complete: upload.complete or 0 | formatFileSize,
+          total: upload.size | formatFileSize
         })
       },
       { html: uploadActions({
-        id: 'upload-button-' + file.name | urlencode,
-        status: 'uploading'
+        id: 'upload-button-' + upload.name | urlencode,
+        status: upload.status
       }) }
     ]) }}
   {% endfor %}
@@ -34,7 +34,7 @@
   {% endcall %}
 
   {% set rows = [] %}
-  {% set t = renderRows(rows, params.filesMeta) %}
+  {% set t = renderRows(rows, params.uploads) %}
   {{ govukTable({
     classes: "app-table app-table--inverse govuk-!-margin-bottom-3",
     head: [

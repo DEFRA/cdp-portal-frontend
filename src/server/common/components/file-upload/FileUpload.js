@@ -1,6 +1,5 @@
 import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
-import { formatFileSize } from '#config/nunjucks/filters/filters.js'
 import UploadManager from './UploadManager.js'
 
 window.cdp = window.cdp ?? {}
@@ -34,71 +33,34 @@ export default class FileUpload extends NunjucksComponent {
     )
 
     this.render({
-      filesMeta: window.cdp.uploadManager.getUploads()
+      uploads: window.cdp.uploadManager.getUploads()
     })
   }
 
-  #onProgress(event) {
-    // this.render({
-    //   filesMeta: window.cdp.uploadManager.getUploads()
-    // })
-    const file = event.detail
-
-    const $progress = document.getElementById(
-      `upload-progress-${encodeURIComponent(file.name)}`
-    )
-
-    if ($progress) {
-      $progress.setAttribute('data-progress', file.progress)
-      $progress.setAttribute(
-        'data-complete',
-        formatFileSize(file.bytesUploaded)
-      )
-    }
+  #onProgress() {
+    this.render({
+      uploads: window.cdp.uploadManager.getUploads()
+    })
   }
 
-  #onComplete(event) {
-    const file = event.detail
+  #onComplete() {
+    const uploads = window.cdp.uploadManager.getUploads()
 
-    const $progress = document.getElementById(
-      `upload-progress-${encodeURIComponent(file.name)}`
-    )
+    this.render({
+      uploads
+    })
 
-    if ($progress) {
-      $progress.setAttribute('data-progress', file.progress)
-      $progress.setAttribute(
-        'data-complete',
-        formatFileSize(file.bytesUploaded)
-      )
-    }
-
-    const $button = document.getElementById(
-      `upload-button-${encodeURIComponent(file.name)}`
-    )
-
-    if ($button) {
-      $button.setAttribute('data-status', 'complete')
-    }
-
-    const filesMeta = window.cdp.uploadManager.getUploads()
-
-    if (!filesMeta.some((file) => file.status === 'uploading')) {
+    if (!uploads.some((upload) => upload.status === 'uploading')) {
       setTimeout(() => {
         window.location.reload()
       }, 1000)
     }
   }
 
-  #onFailed(event) {
-    const file = event.detail
-
-    const $button = document.getElementById(
-      `upload-button-${encodeURIComponent(file.name)}`
-    )
-
-    if ($button) {
-      $button.setAttribute('data-status', 'failed')
-    }
+  #onFailed() {
+    this.render({
+      uploads: window.cdp.uploadManager.getUploads()
+    })
   }
 }
 
