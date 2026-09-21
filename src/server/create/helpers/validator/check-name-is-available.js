@@ -1,9 +1,9 @@
-import { fetchRepository } from '../../../common/helpers/fetch/fetch-repository.js'
 import { fetchEntity } from '../../../common/helpers/fetch/fetch-entities.js'
+import { fetchCheckRepositoryName } from '#server/common/helpers/fetch/fetch-check-repository-name.js'
 
 async function checkNameIsAvailable(value) {
   const responses = await Promise.allSettled([
-    fetchRepository(value),
+    fetchCheckRepositoryName(value),
     fetchEntity(value)
   ])
 
