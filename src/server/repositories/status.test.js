@@ -5,10 +5,12 @@ import {
   mockRepositoryCall
 } from '#test-helpers/common-page-rendering.js'
 import { statusCodes } from '@defra/cdp-validation-kit'
-import { REPOSITORY } from '../common/patterns/entities/tabs/constants.js'
-import { fetchRepository } from '../common/helpers/fetch/fetch-repository.js'
+import { REPOSITORY } from '#server/common/patterns/entities/tabs/constants.js'
+import { fetchRepository } from '#server/common/helpers/fetch/fetch-repository.js'
+import { fetchCheckRepositoryName } from '#server/common/helpers/fetch/fetch-check-repository-name.js'
 
 vi.mock('../common/helpers/fetch/fetch-repository.js')
+vi.mock('../common/helpers/fetch/fetch-check-repository-name.js')
 vi.mock('../common/helpers/fetch/fetch-entities.js')
 vi.mock('../common/helpers/auth/get-user-session.js')
 
@@ -22,6 +24,7 @@ describe('Repository Status page', () => {
       const status = 'Creating'
       mockEntityCall(repositoryName, REPOSITORY, null, status)
       fetchRepository.mockResolvedValue?.(undefined)
+      fetchCheckRepositoryName.mockResolvedValue?.(undefined)
       server = await initialiseServer()
 
       vi.useFakeTimers({ advanceTimers: true })
