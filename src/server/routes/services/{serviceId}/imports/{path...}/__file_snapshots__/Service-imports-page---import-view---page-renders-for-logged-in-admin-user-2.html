@@ -475,15 +475,15 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full" data-js="xhr-nav" >
 
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
-          <p class="govuk-!-margin-bottom-6">
-            Manage imported data associated with <strong>mock-service-with-resources</strong>, including uploading and downloading.
-          </p>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
+        <p class="govuk-!-margin-bottom-6">
+          Manage imported data associated with <strong>mock-service-with-resources</strong>, including uploading and downloading.
+        </p>
 
 
-            <div class="govuk-grid-row">
-              <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
-                
+          <div class="govuk-grid-row">
+            <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
+              
 
 
 
@@ -539,7 +539,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </svg>
 
 
-      <a href="/services/mock-service-with-resources/imports/">batch-0002</a>
+      <a href="/services/mock-service-with-resources/imports/batch-0002/">batch-0002</a>
   </span>
 
 
@@ -556,12 +556,12 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-              </div>
+            </div>
 
-              <div class="govuk-grid-column-three-quarters">
+            <div class="govuk-grid-column-three-quarters">
 
-                <div data-xhr="folder-contents">
-                  
+              <div data-xhr="folder-contents">
+                
 
 
 
@@ -606,7 +606,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
        <path d="M150-139q-37.17 0-64.09-27.09Q59-193.19 59-230v-500q0-37.23 26.91-64.61Q112.83-822 150-822h263l68 69h329q37.23 0 64.61 27.09Q902-698.81 902-662v432q0 36.81-27.39 63.91Q847.23-139 810-139z"/>
 </svg>
 
-      <a href="/services/mock-service-with-resources/imports/">temp</a>
+      <a href="/services/mock-service-with-resources/imports/batch-0001/temp">temp</a>
   </span>
 </td>
       <td class="govuk-table__cell">242.33 kB</td>
@@ -665,7 +665,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 </td>
-      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/" data-no-xhr-link="true" target="_blank">Download</a>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/batch-0001/data-01.dat" data-no-xhr-link="true" target="_blank">Download</a>
 </td>
     </tr>
     <tr class="govuk-table__row">
@@ -700,17 +700,65 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 </td>
-      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/" data-no-xhr-link="true" target="_blank">Download</a>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/batch-0001/data-01.dat" data-no-xhr-link="true" target="_blank">Download</a>
 </td>
     </tr>
   </tbody>
 </table>
 
 
-                </div>
+              </div>
+
+              <div data-xhr="file-upload">
+                  <file-upload
+    data-path=""
+    data-service="mock-service-with-resources"
+    data-csrftoken="test-token"
+  >
+
+  
+<form method="post" data-js="file-upload">
+  <input type="hidden" name="csrfToken" value="test-token" />
+
+  <div class="govuk-form-group">
+  <label class="govuk-label" for="files">
+    Upload files to <strong>/</strong>
+  </label>
+  <div
+    class="govuk-file-upload-wrapper"
+    data-module="govuk-file-upload"
+  >
+  <input class="govuk-file-upload" id="files" name="files" type="file" multiple>
+  </div>
+</div>
+
+
+  
+
+
+<span class="app-button__container">
+  <button class="govuk-button app-button "
+data-loader="upload-button"          data-js="app-button"
+          data-testid="app-button">
+    Upload
+  </button>
+
+    <span class="app-loader"
+      data-testid="app-loader"
+data-js="upload-button">
+</span>
+
+</span>
+
+
+</form>
+
+</file-upload>
 
               </div>
+
             </div>
+          </div>
 
 
       </div>
