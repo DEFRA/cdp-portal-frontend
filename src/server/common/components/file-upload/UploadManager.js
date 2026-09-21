@@ -205,6 +205,7 @@ function fetchWithRetry(url, fetchOpts, retryOpts = {}) {
 }
 
 // API approximates fetch API
+// xmlHttpRequest is used over fetch to get cross-browser support for upload progress
 function xmlHttpRequestWithUploadProgress(url, options = {}, onProgress) {
   const xhr = new XMLHttpRequest()
   return new Promise((resolve, reject) => {

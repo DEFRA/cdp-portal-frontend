@@ -16,3 +16,4 @@ tsconfig.tsbuildinfo
 *.actual.html
 .clinic
 .env
+.vitest/
