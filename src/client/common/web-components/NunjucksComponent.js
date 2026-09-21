@@ -70,13 +70,13 @@ export default class NunjucksComponent extends HTMLElement {
   /* --- Methods for optional override --- */
 
   mounted() {
-    // setup, such as adding listeners
-    // NOTE: DOM listeners can be auto setup using `managedListeners`
+    // setup, such as adding listeners, fetching data
+    // NOTE: Listeners can be auto setup using `managedListeners`
   }
 
   dismounted() {
     // clean up, such as removing listeners
-    // NOTE: DOM listeners can be auto cleaned up using `managedListeners`
+    // NOTE: Listeners can be auto cleaned up using `managedListeners`
   }
 
   // Renders an update using a DOM morph https://github.com/bigskysoftware/idiomorph on the existing DOM
