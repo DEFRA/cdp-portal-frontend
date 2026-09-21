@@ -8,7 +8,7 @@ import { entityServicesFixture } from '../../../../__fixtures__/services/entitie
 describe('#checkNameAvailability', () => {
   const repositoryName = 'cdp-portal-frontend'
   const repositoryEndpointUrl = new URL(
-    `${config.get('portalBackendUrl')}/repositories/${repositoryName}`
+    `${config.get('portalBackendUrl')}/github/repositories/${repositoryName}`
   )
   const fetchEntitiesEndpointUrl = new URL(
     `${config.get('portalBackendUrl')}/entities/${repositoryName}`
