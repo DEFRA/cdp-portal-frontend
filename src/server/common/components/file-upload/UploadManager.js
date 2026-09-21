@@ -67,7 +67,9 @@ export default class UploadManager extends EventTarget {
                 0
               )
 
-              upload.progress = Math.round((upload.bytesUploaded / upload.size) * 100)
+              upload.progress = Math.round(
+                (upload.bytesUploaded / upload.size) * 100
+              )
 
               uploadManager.#dispatchFileEvent('progress', upload)
             }
