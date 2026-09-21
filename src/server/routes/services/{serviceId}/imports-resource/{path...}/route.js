@@ -17,6 +17,11 @@ export const options = {
     access: {
       scope: [/* scopes.serviceOwner, */ scopes.admin] // TODO: Open to owners
     }
+  },
+  plugins: {
+    crumb: {
+      restful: true
+    }
   }
 }
 

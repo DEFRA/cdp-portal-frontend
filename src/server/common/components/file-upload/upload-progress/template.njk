@@ -1,0 +1,48 @@
+{% from "panel/macro.njk" import appPanel %}
+{% from "warning/macro.njk" import appWarning %}
+{% from "progress/macro.njk" import appProgress %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "../upload-actions/macro.njk" import uploadActions %}
+
+{% macro renderRows(rows, uploads) %}
+  {% for upload in uploads %}
+    {{ rows.push([
+      { text: upload.name },
+      { html: appProgress({
+          id: 'upload-progress-' + upload.name | urlencode,
+          progress: upload.progress or 0,
+          complete: (upload.bytesUploaded or 0) | formatFileSize,
+          total: upload.size | formatFileSize
+        })
+      },
+      { html: uploadActions({
+        id: 'upload-button-' + upload.name | urlencode,
+        status: upload.status
+      }) }
+    ]) }}
+  {% endfor %}
+{% endmacro %}
+
+{% call appPanel({ withHighlight: true }) %}
+
+  <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Uploading {{ params.filesMeta.length }} file{{ "s" if params.filesMeta.length != 1 }}</h3>
+
+ {% call appWarning({
+    classes: "govuk-!-margin-bottom-5 app-warning--inverse"
+  }) %}
+    Do not navigate away from this page while uploading.
+  {% endcall %}
+
+  {% set rows = [] %}
+  {% set t = renderRows(rows, params.uploads) %}
+  {{ govukTable({
+    classes: "app-table app-table--inverse govuk-!-margin-bottom-3",
+    head: [
+      { text: "Name" },
+      { text: "Progress" },
+      { text: "Actions" }
+    ],
+    rows: rows
+  }) }}
+
+{% endcall %}

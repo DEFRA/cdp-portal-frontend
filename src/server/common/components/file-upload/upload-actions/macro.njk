@@ -1,0 +1,8 @@
+{% macro uploadActions(params) %}
+  <upload-actions
+    {% if params.id %}id={{ params.id }}{% endif %}
+    data-status="{{ params.status }}"
+  >
+    {%- include "./template.njk" -%}
+  </upload-actions>
+{% endmacro %}

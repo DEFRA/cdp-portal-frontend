@@ -1,9 +1,9 @@
 import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 
-export default class Progress extends NunjucksComponent {
+export default class UploadActions extends NunjucksComponent {
   static get observedAttributes() {
-    return ['data-progress', 'data-complete', 'data-total']
+    return ['data-status']
   }
 
   constructor() {
@@ -11,4 +11,4 @@ export default class Progress extends NunjucksComponent {
   }
 }
 
-window.customElements.define('app-progress', Progress)
+window.customElements.define('upload-actions', UploadActions)
