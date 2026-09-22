@@ -58,7 +58,18 @@ export default class NunjucksComponent extends HTMLElement {
   attributeChangedCallback() {
     if (!this.#connected) return
 
-    this.render(this.dataset)
+    this.render()
+  }
+
+  // Renders a template update using a DOM morph https://github.com/bigskysoftware/idiomorph on the existing DOM
+  morph(template, params, idiomorphOptions = {}) {
+    const html = nunjucksEnvironment.render(template, {
+      params
+    })
+    Idiomorph.morph(this, html, {
+      ...idiomorphOptions,
+      morphStyle: 'innerHTML'
+    })
   }
 
   /* --- Properties for optional override --- */
@@ -79,14 +90,8 @@ export default class NunjucksComponent extends HTMLElement {
     // NOTE: Listeners can be auto cleaned up using `managedListeners`
   }
 
-  // Renders an update using a DOM morph https://github.com/bigskysoftware/idiomorph on the existing DOM
-  render(props, idiomorphOptions = {}) {
-    const html = nunjucksEnvironment.render(this.#template, {
-      params: props
-    })
-    Idiomorph.morph(this, html, {
-      ...idiomorphOptions,
-      morphStyle: 'innerHTML'
-    })
+  render() {
+    // Default render from `data-` attributes
+    this.morph(this.#template, this.dataset)
   }
 }

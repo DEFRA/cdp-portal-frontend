@@ -17,6 +17,9 @@ export function render(
   container.innerHTML = html
 
   return Promise.resolve({
+    get element() {
+      return container.firstChild
+    },
     container,
     baseElement,
     debug,

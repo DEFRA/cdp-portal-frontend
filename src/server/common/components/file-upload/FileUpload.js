@@ -19,6 +19,12 @@ export default class FileUpload extends NunjucksComponent {
     ]
   }
 
+  render() {
+    this.morph(template, {
+      uploads: window.cdp.uploadManager.getUploads()
+    })
+  }
+
   #onSubmit(event) {
     event.preventDefault()
 
@@ -32,24 +38,17 @@ export default class FileUpload extends NunjucksComponent {
       this.dataset.csrftoken
     )
 
-    this.render({
-      uploads: window.cdp.uploadManager.getUploads()
-    })
+    this.render()
   }
 
   #onProgress() {
-    this.render({
-      uploads: window.cdp.uploadManager.getUploads()
-    })
+    this.render()
   }
 
   #onComplete() {
+    this.render()
+
     const uploads = window.cdp.uploadManager.getUploads()
-
-    this.render({
-      uploads
-    })
-
     if (!uploads.some((upload) => upload.status === 'uploading')) {
       setTimeout(() => {
         window.location.reload()

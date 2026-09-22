@@ -1,2 +1,2 @@
 
-import '../test-helpers/vitest-browser-nujucks-component.js'
+import '../test-helpers/vitest-browser-html-renderer.js'
