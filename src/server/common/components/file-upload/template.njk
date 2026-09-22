@@ -2,12 +2,13 @@
 {% from "./upload-progress/macro.njk" import uploadProgress %}
 
 
-{% if params.uploads %}
+{% if params.uploads and params.uploads.length != 0 %}
   {{ uploadProgress({
     uploads: params.uploads
   }) }}
 {% else %}
   {{ uploadForm({
+    uploads: params.uploads,
     path: params.path,
     csrfToken: params.csrfToken
   }) }}

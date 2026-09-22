@@ -1,6 +1,7 @@
 import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 import UploadManager from './UploadManager.js'
+import { initAll } from 'govuk-frontend'
 
 window.cdp = window.cdp ?? {}
 window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
@@ -21,8 +22,11 @@ export default class FileUpload extends NunjucksComponent {
 
   render() {
     this.morph(template, {
-      uploads: window.cdp.uploadManager.getUploads()
+      uploads: window.cdp.uploadManager.getUploads(),
+      ...this.dataset
     })
+
+    initAll() // Force re-init for govukFileUpload component
   }
 
   #onSubmit(event) {
@@ -30,6 +34,10 @@ export default class FileUpload extends NunjucksComponent {
 
     const $form = this.querySelector('form')
     const files = $form.querySelector('input[name="files"]')?.files ?? []
+
+    if (files.length === 0) {
+      this.render()
+    }
 
     window.cdp.uploadManager.startUpload(
       this.dataset.service,
@@ -57,9 +65,7 @@ export default class FileUpload extends NunjucksComponent {
   }
 
   #onFailed() {
-    this.render({
-      uploads: window.cdp.uploadManager.getUploads()
-    })
+    this.render()
   }
 }
 

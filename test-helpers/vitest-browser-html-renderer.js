@@ -14,7 +14,7 @@ export function render(
 ) {
   containers.add(container)
 
-  container.innerHTML = html
+  container.innerHTML = html?.trim()
 
   return Promise.resolve({
     get element() {
