@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest'
+import { test, expect, vi } from 'vitest'
 import { page } from 'vitest/browser'
 
 import './UploadActions.js'
