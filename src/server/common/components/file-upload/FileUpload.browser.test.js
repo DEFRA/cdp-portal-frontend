@@ -33,13 +33,15 @@ test('Prompts to select at least one file', async () => {
 })
 
 test('Intercepts submit and starts the upload', async () => {
-  const { element, getByRole } = await page.render(component)
+  const { element, getByRole, getById } = await page.render(component)
   window.cdp.uploadManager.getUploads = vi.fn().mockReturnValue(null)
   element.render()
 
   window.cdp.uploadManager.startUpload = vi.fn()
 
-  await getByRole('button').first().upload('./README.md')
+  await getById('files-input', {
+    includeHidden: true
+  }).upload('./README.md')
 
   await getByRole('button', { name: 'Upload' }).click()
   expect(window.cdp.uploadManager.startUpload).toHaveBeenCalled()
