@@ -32,9 +32,9 @@
     "security-audit": "npm audit --audit-level=critical",
     "start": "npm run dev",
     "start:debug": "npm run dev:debug",
-    "test": "npm run playwrite:install & NODE_ENV=test TZ=UTC vitest --coverage",
-    "test:ui": "npm run playwrite:install & NODE_ENV=test TZ=UTC vitest --project browser --browser.headless false",
-    "test:watch": "npm run playwrite:install & npm run test"
+    "test": "npm run playwrite:install && NODE_ENV=test TZ=UTC vitest --coverage --project browser",
+    "test:ui": "npm run playwrite:install && NODE_ENV=test TZ=UTC vitest --project browser --browser.headless false",
+    "test:watch": "npm run playwrite:install && npm run test"
   },
   "imports": {
     "#server/*": "./src/server/*",
