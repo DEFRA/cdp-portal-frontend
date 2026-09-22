@@ -63,4 +63,4 @@ export default class FileUpload extends NunjucksComponent {
   }
 }
 
-window.customElements.define('file-upload', FileUpload)
+window.customElements.define('app-file-upload', FileUpload)
