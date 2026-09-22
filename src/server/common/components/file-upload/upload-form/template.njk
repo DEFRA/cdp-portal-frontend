@@ -1,5 +1,10 @@
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
-{% from "button/macro.njk" import appButton %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set errorMessage = "" %}
+{% if params.uploads and params.uploads.length == 0 %}
+  {% set errorMessage = { text: "Please select at least one file."} %}
+{% endif %}
 
 <form method="post" data-js="file-upload">
   <input type="hidden" name="csrfToken" value="{{ params.csrfToken }}" />
@@ -11,14 +16,13 @@
       html: "Upload files to <strong>" + params.path + "/</strong>"
     },
     javascript: true,
-    multiple: true
+    multiple: true,
+    errorMessage: errorMessage
   }) }}
 
-  {{ appButton({
-    text: "Upload",
-    loader: {
-      name: "upload-button"
-    }
+  {{ govukButton({
+    classes: "app-button",
+    text: "Upload"
   }) }}
 
 </form>
