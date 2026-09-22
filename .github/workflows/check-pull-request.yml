@@ -24,7 +24,6 @@ jobs:
           npm ci
           npm run format:check
           npm run lint
-          npm test
 
       - name: Security audit
         run: npm run security-audit
@@ -36,6 +35,32 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         continue-on-error: true
+
+  server-unit-test:
+      name: Run Server Unit Tests
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v7
+        - uses: actions/setup-node@v7
+          with:
+            node-version-file: .nvmrc
+            cache: npm
+        - run: |
+            npm ci
+            npm run test:server
+
+  client-unit-test:
+      name: Run Client Unit Tests
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v7
+        - uses: actions/setup-node@v7
+          with:
+            node-version-file: .nvmrc
+            cache: npm
+        - run: |
+            npm ci
+            npm run test:client
 
   test:
     name: Run Journey Tests
