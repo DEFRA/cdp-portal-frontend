@@ -1,7 +1,11 @@
 <div class="app-progress">
   {# TODO: use the html progress element #}
   <div class="app-progress__bar">
-    <span class="app-progress__indicator" style="width: {{ params.progress }}%;"></span>
+    {% if params.progress %}
+      <span class="app-progress__indicator" style="width: {{ params.progress }}%;"></span>
+    {% else %}
+      <span class="app-progress__indicator app-progress__indicator-loading"></span>
+    {% endif %}
   </div>
   <div class="app-progress__readout">
     {{ params.complete }} / {{ params.total }}

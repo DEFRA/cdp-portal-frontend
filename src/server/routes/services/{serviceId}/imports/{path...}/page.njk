@@ -1,7 +1,7 @@
 {% extends "layouts/tabbed-page.njk" %}
 {% from "folder-tree/macro.njk" import appFolderTree %}
 {% from "file-list/macro.njk" import appFileList %}
-{% from "file-upload/macro.njk" import fileUpload %}
+{% from "file-upload/macro.njk" import appFileUpload %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -44,7 +44,7 @@
               </div>
 
               <div data-xhr="file-upload">
-                {{ fileUpload({
+                {{ appFileUpload({
                   path: path,
                   csrfToken: csrfToken,
                   service: entity.name

@@ -33,6 +33,25 @@
   transition: width 1s;
 }
 
+.app-progress__indicator-loading {
+  width: 100%;
+  background: repeating-linear-gradient(
+      45deg,
+      govuk-colour('blue'),
+      govuk-colour('blue') 10px,
+      govuk-colour('black', $variant: 'tint-95') 10px,
+      govuk-colour('black', $variant: 'tint-95') 20px
+  );
+  background-size: 200% 200%;
+  animation: app-progress-loading 10s linear infinite;
+}
+
+@keyframes app-progress-loading {
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 .app-progress__readout {
   @include govuk-font($size: 19);
   min-width: 180px;

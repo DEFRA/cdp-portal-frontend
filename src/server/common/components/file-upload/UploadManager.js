@@ -1,19 +1,26 @@
 import pRetry, { AbortError } from 'p-retry'
 import SparkMD5 from 'spark-md5'
+import pLimit from 'p-limit'
 
 const HASH_CHUNK_SIZE = 2 * 1024 * 1024 // Chunks of 2MB
+
+const limit = pLimit(20) // Limit concurrent upload requests
 
 export default class UploadManager extends EventTarget {
   #uploads = []
 
   startUpload(service, path, files, csrfToken) {
-    for (const file of files) {
+    for (const file of [...files].sort((a, b) =>
+      a.name?.localeCompare(b.name, 'en-GB')
+    )) {
       this.#uploadFile(service, path, file, csrfToken)
     }
   }
 
   getUploads() {
-    return this.#uploads.map(({ file, uploadParts, ...data }) => data)
+    return this.#uploads
+      .map(({ _file, _uploadParts, ...data }) => data)
+      .sort((a, b) => a.name?.localeCompare(b.name, 'en-GB'))
   }
 
   async #uploadFile(service, path, file, csrfToken) {
@@ -25,7 +32,7 @@ export default class UploadManager extends EventTarget {
       uploadId: '',
       size: file.size,
       bytesUploaded: 0,
-      progress: 0
+      progress: null
     }
     this.#uploads.push(upload)
 
@@ -50,37 +57,39 @@ export default class UploadManager extends EventTarget {
       }
 
       await Promise.all(
-        upload.uploadParts.map(async (uploadPart) => {
-          uploadPart.contentMd5 = await calcMd5Hash(uploadPart.blob)
+        upload.uploadParts.map(async (uploadPart) =>
+          limit(async () => {
+            uploadPart.contentMd5 = await calcMd5Hash(uploadPart.blob)
 
-          const uploadManager = this
+            const uploadManager = this
 
-          const uploadResponse = await this.#streamBlob(
-            uploadPart.url,
-            uploadPart.blob,
-            uploadPart.contentMd5,
-            csrfToken,
-            ({ bytesUploaded }) => {
-              uploadPart.bytesUploaded = bytesUploaded
-              upload.bytesUploaded = upload.uploadParts.reduce(
-                (sum, part) => sum + part.bytesUploaded,
-                0
-              )
+            const uploadResponse = await this.#streamBlob(
+              uploadPart.url,
+              uploadPart.blob,
+              uploadPart.contentMd5,
+              csrfToken,
+              ({ bytesUploaded }) => {
+                uploadPart.bytesUploaded = bytesUploaded
+                upload.bytesUploaded = upload.uploadParts.reduce(
+                  (sum, part) => sum + part.bytesUploaded,
+                  0
+                )
 
-              upload.progress = Math.round(
-                (upload.bytesUploaded / upload.size) * 100
-              )
+                upload.progress = Math.round(
+                  (upload.bytesUploaded / upload.size) * 100
+                )
 
-              uploadManager.#dispatchFileEvent('progress', upload)
+                uploadManager.#dispatchFileEvent('progress', upload)
+              }
+            )
+
+            if (!uploadResponse.ok) {
+              throw new Error('part upload failed')
             }
-          )
 
-          if (!uploadResponse.ok) {
-            throw new Error('part upload failed')
-          }
-
-          uploadPart.eTag = uploadResponse.headers.get('etag')
-        })
+            uploadPart.eTag = uploadResponse.headers.get('etag')
+          })
+        )
       )
 
       await this.#completeMultipartUpload(service, path, upload, csrfToken)
