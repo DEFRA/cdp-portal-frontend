@@ -4,8 +4,7 @@
 
 {% if params.uploads and params.uploads.length != 0 %}
   {{ uploadProgress({
-    uploads: params.uploads,
-    showDone: params.showDone
+    uploads: params.uploads
   }) }}
 {% else %}
   {{ uploadForm({

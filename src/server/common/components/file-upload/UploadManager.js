@@ -23,17 +23,8 @@ export default class UploadManager extends EventTarget {
       .sort((a, b) => a.name?.localeCompare(b.name, 'en-GB'))
   }
 
-  cancelUpload(id) {
-    const upload = this.#getUpload(id)
-
-    if (upload) {
-      upload.status = 'cancelled'
-    }
-  }
-
   async #uploadFile(service, path, file, csrfToken) {
     const upload = {
-      id: `upload-${encodeURIComponent(file.name)}`,
       file,
       uploadParts: [],
       name: file.name,
@@ -200,10 +191,6 @@ export default class UploadManager extends EventTarget {
     const { uploadId } = await response.json()
 
     return uploadId
-  }
-
-  #getUpload(id) {
-    return this.#uploads.find((upload) => upload.id === id)
   }
 }
 
