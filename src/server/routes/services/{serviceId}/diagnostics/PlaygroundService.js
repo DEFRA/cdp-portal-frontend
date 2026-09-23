@@ -35,8 +35,8 @@ export async function promoteDashboard(request, serviceName, uid) {
   })
 }
 
-export async function promoteAlerts(request, serviceName) {
-  const endpoint = `${config.get('portalBackendUrl')}/entities/${serviceName}/grafana/playground/promotions/alerts`
+export async function promoteAlert(request, serviceName, uid) {
+  const endpoint = `${config.get('portalBackendUrl')}/entities/${serviceName}/grafana/playground/promotions/alerts/${uid}`
 
   return await request.authedFetchJson(endpoint, {
     method: 'POST'

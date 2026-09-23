@@ -3,9 +3,9 @@ import {
   commonServiceExtensions,
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
-import createAlertRows from '../../../utils/createAlertRows.js'
+import createAlertRows from '../../../../utils/createAlertRows.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
-import { promoteAlerts } from '../../../PlaygroundService.js'
+import { promoteAlert } from '../../../../PlaygroundService.js'
 import { environments } from '#config/environments.js'
 
 export const ext = [
@@ -24,6 +24,7 @@ export const options = {
 
 export default async function (request, h) {
   const { entity } = request.app
+  const { uid } = request.params
 
   const playground = request.yar.get(sessionNames.grafanaPlayground)
 
@@ -33,12 +34,16 @@ export default async function (request, h) {
 
   return {
     entity,
-    alertRows: createAlertRows(playground.alerts, environments.dev.kebabName)
+    alertRows: createAlertRows(
+      playground.alerts.filter((alert) => alert.uid === uid),
+      environments.dev.kebabName
+    )
   }
 }
 
 export async function POST(request, h) {
   const { entity } = request.app
+  const { uid } = request.params
 
   const playground = request.yar.get(sessionNames.grafanaPlayground)
 
@@ -47,14 +52,14 @@ export async function POST(request, h) {
   }
 
   try {
-    await promoteAlerts(request, entity.name)
+    await promoteAlert(request, entity.name, uid)
 
     request.yar.flash(sessionNames.notifications, {
-      text: 'Alerts promoted',
+      text: 'Alert promoted',
       type: 'success'
     })
   } catch (error) {
-    request.logger.error(error, `Failed to promote alerts:`)
+    request.logger.error(error, `Failed to promote alert:`)
 
     request.yar.flash(
       sessionNames.globalValidationFailures,
