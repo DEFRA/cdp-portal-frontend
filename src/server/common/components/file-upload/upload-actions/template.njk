@@ -4,9 +4,9 @@
 {% if params.status == 'complete' %}
   {{ appTag({ text: 'Complete', classes: "govuk-tag--green" }) }}
 {% elseif params.status == 'cancelled' %}
-  {{ govukButton({ text: 'Restart', classes: 'app-button--small govuk-!-margin-bottom-0' }) }}
+  {{ appTag({ text: 'Cancelled', classes: "govuk-tag--orange" }) }}
 {% elseif params.status == 'failed' %}
-  {{ appTag({ text: 'Failed', classes: "govuk-tag--red" }) }} {# TODO: Make a restart button? #}
+  {{ appTag({ text: 'Failed', classes: "govuk-tag--red" }) }}
 {% else %}
   {{ govukButton({ text: 'Cancel', classes: 'app-button--small govuk-button--warning govuk-!-margin-bottom-0' }) }}
 {% endif %}

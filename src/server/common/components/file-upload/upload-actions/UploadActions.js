@@ -21,8 +21,6 @@ export default class UploadActions extends NunjucksComponent {
 
     if (this.dataset.status === 'uploading') {
       this.dispatchEvent(new Event('cancel', { bubbles: true }))
-    } else if (this.dataset.status === 'cancelled') {
-      this.dispatchEvent(new Event('restart', { bubbles: true }))
     }
   }
 }
