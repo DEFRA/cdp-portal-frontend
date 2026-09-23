@@ -2,6 +2,7 @@
 {% from "warning/macro.njk" import appWarning %}
 {% from "progress/macro.njk" import appProgress %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../upload-actions/macro.njk" import uploadActions %}
 
 {% macro renderRows(rows, uploads) %}
@@ -9,14 +10,13 @@
     {{ rows.push([
       { text: upload.name },
       { html: appProgress({
-          id: 'upload-progress-' + upload.name | urlencode,
           progress: upload.progress or 0,
           complete: (upload.bytesUploaded or 0) | formatFileSize,
           total: upload.size | formatFileSize
         })
       },
       { html: uploadActions({
-        id: 'upload-button-' + upload.name | urlencode,
+        id: upload.id,
         status: upload.status
       }) }
     ]) }}
@@ -44,5 +44,14 @@
     ],
     rows: rows
   }) }}
+
+  {% if params.showDone %}
+    <form method="GET">
+      {{ govukButton({
+        classes: "app-button",
+        text: "Close"
+      }) }}
+    </form>
+  {% endif %}
 
 {% endcall %}

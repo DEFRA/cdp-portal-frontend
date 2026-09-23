@@ -14,6 +14,7 @@ export default class FileUpload extends NunjucksComponent {
   get managedListeners() {
     return [
       [this, 'submit', this.#onSubmit],
+      [this, 'cancel', this.#onCancel],
       [window.cdp.uploadManager, 'progress', this.#onProgress],
       [window.cdp.uploadManager, 'complete', this.#onComplete],
       [window.cdp.uploadManager, 'failed', this.#onFailed]
@@ -21,12 +22,19 @@ export default class FileUpload extends NunjucksComponent {
   }
 
   render() {
+    const uploads = window.cdp.uploadManager.getUploads()
+    const isUploading = uploads?.some(({ status }) => status === 'uploading')
+    const hasFailedOrCancelled = uploads?.some(
+      ({ status }) => status === 'failed' || status === 'cancelled'
+    )
+
     this.morph(template, {
-      uploads: window.cdp.uploadManager.getUploads(),
-      ...this.dataset
+      uploads,
+      ...this.dataset,
+      showDone: !isUploading && hasFailedOrCancelled
     })
 
-    initAll() // Force re-init for govukFileUpload component
+    // initAll() // Force re-init for govukFileUpload component
   }
 
   #onSubmit(event) {
@@ -45,6 +53,12 @@ export default class FileUpload extends NunjucksComponent {
       files,
       this.dataset.csrftoken
     )
+
+    this.render()
+  }
+
+  #onCancel(event) {
+    window.cdp.uploadManager.cancelUpload(event.target.id)
 
     this.render()
   }
