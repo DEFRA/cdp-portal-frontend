@@ -15,13 +15,14 @@
       <form method="post" data-js="app-form-errors">
         <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
-        <p class="govuk-body govuk-!-margin-top-4">The following alerts will be promoted to all environments.</p>
+        <p class="govuk-body govuk-!-margin-top-4">The following alert will be promoted to all environments.</p>
 
         {{ govukTable({
           classes: "app-table app-table--inverse govuk-!-margin-bottom-8",
           head: [
             { text: "Type" },
             { text: "Name" },
+            { text: "Version" },
             { text: "Runbook" }
           ],
           rows: alertRows
