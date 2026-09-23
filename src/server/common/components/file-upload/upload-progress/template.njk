@@ -27,11 +27,13 @@
 
   <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Uploading {{ params.filesMeta.length }} file{{ "s" if params.filesMeta.length != 1 }}</h3>
 
- {% call appWarning({
-    classes: "govuk-!-margin-bottom-5 app-warning--inverse"
-  }) %}
-    Do not navigate away from this page while uploading.
-  {% endcall %}
+  {% if params.isUploading %}
+    {% call appWarning({
+      classes: "govuk-!-margin-bottom-5 app-warning--inverse"
+    }) %}
+      Do not navigate away from this page while uploading.
+    {% endcall %}
+  {% endif %}
 
   {% set rows = [] %}
   {% set t = renderRows(rows, params.uploads) %}
@@ -48,7 +50,7 @@
   {% if params.showDone %}
     <form method="GET">
       {{ govukButton({
-        classes: "app-button",
+        classes: "app-button app-button--secondary govuk-!-margin-top-5",
         text: "Close"
       }) }}
     </form>

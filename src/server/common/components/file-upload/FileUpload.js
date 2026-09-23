@@ -28,10 +28,11 @@ export default class FileUpload extends NunjucksComponent {
     const hasFailedOrCancelled = uploads?.some(
       ({ status }) => status === 'failed' || status === 'cancelled'
     )
-console.log(uploads)
+
     this.morph(template, {
       uploads,
       ...this.dataset,
+      isUploading,
       showDone: !isUploading && hasFailedOrCancelled
     })
 
@@ -39,9 +40,12 @@ console.log(uploads)
   }
 
   #onSubmit(event) {
+    const $form = this.querySelector('form')
+
+    if ($form.dataset.js !== 'file-upload') return
+
     event.preventDefault()
 
-    const $form = this.querySelector('form')
     const files = $form.querySelector('input[name="files"]')?.files ?? []
 
     if (files.length === 0) {
@@ -72,7 +76,12 @@ console.log(uploads)
     this.render()
 
     const uploads = window.cdp.uploadManager.getUploads()
-    if (!uploads.some((upload) => upload.status === 'uploading')) {
+    const isUploading = uploads?.some(({ status }) => status === 'uploading')
+    const hasFailedOrCancelled = uploads?.some(
+      ({ status }) => status === 'failed' || status === 'cancelled'
+    )
+
+    if (!isUploading && !hasFailedOrCancelled) {
       setTimeout(() => {
         window.location.reload()
       }, 1000)

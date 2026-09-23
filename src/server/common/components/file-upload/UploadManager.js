@@ -28,6 +28,7 @@ export default class UploadManager extends EventTarget {
 
     if (upload) {
       upload.abortController.abort()
+      upload.status = 'cancelled'
     }
   }
 
