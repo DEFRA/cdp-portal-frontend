@@ -17,8 +17,7 @@ export default class FileUpload extends NunjucksComponent {
       [this, 'cancel', this.#onCancel],
       [window.cdp.uploadManager, 'progress', this.#onProgress],
       [window.cdp.uploadManager, 'complete', this.#onComplete],
-      [window.cdp.uploadManager, 'failed', this.#onFailed],
-      [window.cdp.uploadManager, 'cancelled', this.#onCancelled]
+      [window.cdp.uploadManager, 'failed', this.#onFailed]
     ]
   }
 
@@ -28,7 +27,7 @@ export default class FileUpload extends NunjucksComponent {
     const hasFailedOrCancelled = uploads?.some(
       ({ status }) => status === 'failed' || status === 'cancelled'
     )
-console.log(uploads)
+
     this.morph(template, {
       uploads,
       ...this.dataset,
@@ -80,10 +79,6 @@ console.log(uploads)
   }
 
   #onFailed() {
-    this.render()
-  }
-
-  #onCancelled() {
     this.render()
   }
 }

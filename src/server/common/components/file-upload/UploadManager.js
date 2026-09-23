@@ -27,7 +27,7 @@ export default class UploadManager extends EventTarget {
     const upload = this.#getUpload(id)
 
     if (upload) {
-      upload.abortController.abort()
+      upload.status = 'cancelled'
     }
   }
 
@@ -38,22 +38,12 @@ export default class UploadManager extends EventTarget {
       uploadParts: [],
       name: file.name,
       status: 'uploading',
-      uploadId: '', // AWS S3 id
+      uploadId: '',
       size: file.size,
       bytesUploaded: 0,
-      progress: null,
-      abortController: new AbortController()
+      progress: null
     }
-
-    const existing = this.#getUpload(upload.id)
-    if (existing) {
-      existing.status = 'uploading'
-      existing.bytesUploaded = 0
-      existing.progress = upload.progress
-      existing.abortController = upload.abortController
-    } else {
-      this.#uploads.push(upload)
-    }
+    this.#uploads.push(upload)
 
     try {
       const uploadResponse = await this.#startMultipartUpload(
@@ -87,7 +77,6 @@ export default class UploadManager extends EventTarget {
               uploadPart.blob,
               uploadPart.contentMd5,
               csrfToken,
-              upload.abortController.signal,
               ({ bytesUploaded }) => {
                 uploadPart.bytesUploaded = bytesUploaded
                 upload.bytesUploaded = upload.uploadParts.reduce(
@@ -118,16 +107,8 @@ export default class UploadManager extends EventTarget {
       upload.progress = 100
       this.#dispatchFileEvent('complete', upload)
     } catch (error) {
-      if (error.name === 'AbortError') {
-        upload.status = 'cancelled'
-        upload.bytesUploaded = 0
-        upload.progress = 0
-        upload.uploadParts = []
-        this.#dispatchFileEvent('cancelled', upload)
-      } else {
-        upload.status = 'failed'
-        this.#dispatchFileEvent('failed', upload)
-      }
+      upload.status = 'failed'
+      this.#dispatchFileEvent('failed', upload)
     }
   }
 
@@ -140,7 +121,7 @@ export default class UploadManager extends EventTarget {
     )
   }
 
-  async #streamBlob(url, blob, md5Hash, csrfToken, signal, onProgress) {
+  async #streamBlob(url, blob, md5Hash, csrfToken, onProgress) {
     const uploadResponse = await xmlHttpRequestWithUploadProgressWithRetry(
       `${url}&contentMd5=${encodeURIComponent(md5Hash)}`,
       {
@@ -152,8 +133,7 @@ export default class UploadManager extends EventTarget {
           Pragma: 'no-cache',
           'X-CSRF-Token': csrfToken
         },
-        body: blob,
-        signal
+        body: blob
       },
       onProgress
     )
@@ -177,8 +157,7 @@ export default class UploadManager extends EventTarget {
         },
         body: JSON.stringify({
           size: upload.size
-        }),
-        signal: upload.abortController.signal
+        })
       }
     )
 
@@ -210,8 +189,7 @@ export default class UploadManager extends EventTarget {
             eTag: part.eTag,
             partNumber: part.partNumber
           }))
-        }),
-        signal: upload.abortController.signal
+        })
       }
     )
 
@@ -254,24 +232,14 @@ function xmlHttpRequestWithUploadProgress(url, options = {}, onProgress) {
   const xhr = new XMLHttpRequest()
   return new Promise((resolve, reject) => {
     xhr.addEventListener('error', (event) => {
-      if (options.signal) {
-        options.signal.removeEventListener('abort', abort, { once: true })
-      }
-      return reject(new Error('xhr error'))
+      return reject(event)
     })
 
     xhr.addEventListener('abort', (event) => {
-      if (options.signal) {
-        options.signal.removeEventListener('abort', abort, { once: true })
-      }
-      return reject(new Error('xhr abort'))
+      return reject(event)
     })
 
     xhr.addEventListener('load', () => {
-      if (options.signal) {
-        options.signal.removeEventListener('abort', abort, { once: true })
-      }
-
       resolve({
         ok: xhr.status >= 200 && xhr.status <= 299,
         status: xhr.status,
@@ -286,19 +254,6 @@ function xmlHttpRequestWithUploadProgress(url, options = {}, onProgress) {
     xhr.upload.addEventListener('progress', (event) => {
       onProgress?.({ bytesUploaded: event.loaded })
     })
-
-    function abort() {
-      xhr.abort()
-      reject(options.signal.reason)
-    }
-
-    if (options.signal) {
-      if (options.signal.aborted) {
-        reject(options.signal.reason)
-      }
-
-      options.signal.addEventListener('abort', abort, { once: true })
-    }
 
     xhr.open(options.method ?? 'GET', url, true)
 
