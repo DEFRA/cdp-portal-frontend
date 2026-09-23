@@ -32,7 +32,7 @@ export default class UploadManager extends EventTarget {
       uploadId: '',
       size: file.size,
       bytesUploaded: 0,
-      progress: 0
+      progress: undefined
     }
     this.#uploads.push(upload)
 
