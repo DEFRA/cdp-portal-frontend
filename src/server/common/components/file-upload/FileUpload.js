@@ -1,7 +1,8 @@
 import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 import UploadManager from './UploadManager.js'
-import { initAll } from 'govuk-frontend'
+import { createAll } from 'govuk-frontend'
+import { FileUpload as GovFileUpload } from 'govuk-frontend/dist/GOVUK/components/file-upload/file-upload.mjs'
 
 window.cdp = window.cdp ?? {}
 window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
@@ -36,7 +37,8 @@ export default class FileUpload extends NunjucksComponent {
       showDone: !isUploading && hasFailedOrCancelled
     })
 
-    // initAll() // Force re-init for govukFileUpload component
+    // Force re-init for govukFileUpload component
+    createAll(GovFileUpload)
   }
 
   #onSubmit(event) {
