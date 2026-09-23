@@ -19,7 +19,7 @@ export default class UploadManager extends EventTarget {
 
   getUploads() {
     return this.#uploads
-      .map(({ file, uploadParts, ...data }) => data)
+      .map(({ _file, _uploadParts, ...data }) => data)
       .sort((a, b) => a.name?.localeCompare(b.name, 'en-GB'))
   }
 
@@ -32,7 +32,7 @@ export default class UploadManager extends EventTarget {
       uploadId: '',
       size: file.size,
       bytesUploaded: 0,
-      progress: undefined
+      progress: null
     }
     this.#uploads.push(upload)
 
