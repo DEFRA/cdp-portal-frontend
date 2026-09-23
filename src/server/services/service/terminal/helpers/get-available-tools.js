@@ -9,7 +9,7 @@ export function getAvailableTools(entity, userScopes) {
     (env) => env.tenant_config?.mongo
   )
 
-  const canUsedPgWeb =
+  const canUseDatabaseWeb =
     isAdmin || userScopes.includes('team:central-animal-store')
 
   const tools = [{ text: 'Terminal', value: 'terminal' }]
@@ -17,14 +17,14 @@ export function getAvailableTools(entity, userScopes) {
     tools.push({ text: 'Terminal (latest)', value: 'terminal_latest' })
   }
 
-  if (canUsedPgWeb && hasPostgres) {
+  if (canUseDatabaseWeb && hasPostgres) {
     tools.push({ text: 'Postgres Web UI', value: 'pgweb' })
     if (isAdmin) {
       tools.push({ text: 'Postgres Web UI (latest)', value: 'pgweb_latest' })
     }
   }
 
-  if (hasMongo) {
+  if (canUseDatabaseWeb && hasMongo) {
     tools.push({ text: 'MongoDB Web UI', value: 'dbgate' })
     if (isAdmin) {
       tools.push({ text: 'MongoDB Web UI (latest)', value: 'dbgate_latest' })
