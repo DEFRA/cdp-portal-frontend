@@ -1,10 +1,10 @@
 <div class="app-progress">
   {# TODO: use the html progress element #}
   <div class="app-progress__bar">
-    {% if params.progress %}
-      <span class="app-progress__indicator" style="width: {{ params.progress }}%;"></span>
-    {% else %}
+    {% if params.progress == null %}
       <span class="app-progress__indicator app-progress__indicator-loading"></span>
+    {% else %}
+      <span class="app-progress__indicator" style="width: {{ params.progress }}%;"></span>
     {% endif %}
   </div>
   <div class="app-progress__readout">
