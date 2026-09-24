@@ -22,6 +22,10 @@ export default {
         .label('Folder name')
         .description('Name of the new folder')
         .invalid(...folders.map(({ name }) => name))
+        .messages({
+          'any.invalid': 'Name already exists',
+          'string.pattern.base': 'Please enter a valid folder name'
+        })
         .min(1)
         .max(100)
         .regex(/^[a-zA-Z0-9-_]+$/)
