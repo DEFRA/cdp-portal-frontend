@@ -14,7 +14,6 @@ export function register(routePath) {
         route: {
           path: routePath,
           options: {
-            //id: 'services/{serviceId}/imports-action',
             auth: {
               mode: 'required',
               access: {
