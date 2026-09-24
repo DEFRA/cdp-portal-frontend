@@ -24,7 +24,11 @@ export default function createAlertRows(alerts, environment, showPromote) {
           html: `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`
         },
         {
-          html: version ? formatText(version) : '-'
+          html: version
+            ? formatText(version)
+            : annotations.source_version
+              ? formatText(annotations.source_version)
+              : '- - -'
         },
         {
           html: annotations?.runbook_url
