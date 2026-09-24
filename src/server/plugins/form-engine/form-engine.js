@@ -1,6 +1,7 @@
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { buildErrorDetails } from '#server/common/helpers/build-error-details.js'
 import { provideFormContextValues } from '#server/common/helpers/form/provide-form-context-values.js'
+import qs from 'qs'
 import provideHelpers from './ext/provideHelpers.js'
 
 const typeToField = {
@@ -84,7 +85,11 @@ export default {
             formValues
           })
 
-          return h.redirect(request.path)
+          return h.redirect(
+            request.path + request.query
+              ? `?${qs.stringify(request.query)}`
+              : ''
+          )
         }
 
         const formSchema = await schema(request, h, formValues)
@@ -116,7 +121,11 @@ export default {
             formValues
           })
 
-          return h.redirect(request.path)
+          return h.redirect(
+            request.path + request.query
+              ? `?${qs.stringify(request.query)}`
+              : ''
+          )
         }
 
         request.yar.clear(sessionNames.validationFailure)
