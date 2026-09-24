@@ -6,9 +6,12 @@
 {% from "time/macro.njk" import appTime %}
 
 {% set files = params.files %}
+{% set path = params.path %}
 {% set basePath = params.basePath %}
 {% set parentPath = params.parentPath %}
 {% set downloadBasePath = params.downloadBasePath %}
+{% set actionBasePath = params.actionBasePath %}
+
 
 {% macro renderRows(rows, content) %}
   {% for obj in content %}
@@ -48,7 +51,7 @@
     ]) }}
 {% endmacro %}
 
-{% macro renderSelfRow(rows) %}
+{% macro renderSelfRow(rows, path) %}
     {{ rows.push([
       {
         html: renderSelfName()
@@ -60,9 +63,13 @@
         text: '- - -'
       },
       {
-        html: '- - -'
+        html: renderSelfActions(path)
       }
     ]) }}
+{% endmacro %}
+
+{% macro renderSelfActions(path) %}
+    <a href="{{ actionBasePath }}{{ path | encodePathSegments }}?action=create" data-no-xhr-link="true">Add sub folder</a>
 {% endmacro %}
 
 {% macro renderActions(obj) %}
@@ -100,7 +107,7 @@
 {% endmacro %}
 
 {% set contentsRows = [] %}
-{% set t = renderSelfRow(contentsRows) %}
+{% set t = renderSelfRow(contentsRows, path) %}
 {% if parentPath != null %}
   {% set t = renderParentRow(contentsRows, parentPath) %}
 {% endif %}
