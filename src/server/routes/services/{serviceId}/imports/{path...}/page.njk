@@ -37,8 +37,10 @@
               <div data-xhr="folder-contents">
                 {{ appFileList({
                   files: folderContents,
+                  path: path,
                   basePath: "/services/" + entity.name + "/imports/",
                   downloadBasePath: "/services/" + entity.name + "/imports-resource/",
+                  actionBasePath: "/services/" + entity.name + "/imports-action/",
                   parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null
                 }) }}
               </div>

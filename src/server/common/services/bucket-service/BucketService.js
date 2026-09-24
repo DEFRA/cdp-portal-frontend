@@ -101,6 +101,15 @@ export async function completeMultipartUpload(
   })
 }
 
+export async function createEmptyFolder(request, basePath, path) {
+  const s3Path = formatAsS3Path(path, true)
+
+  const endpoint = `${config.get('portalBackendUrl')}${basePath}${encodePathSegments(s3Path)}`
+  await request.authedFetchJson(endpoint, {
+    method: 'POST'
+  })
+}
+
 function formatAsS3Path(path = '', withTrailingSlash) {
   let result = path
 
