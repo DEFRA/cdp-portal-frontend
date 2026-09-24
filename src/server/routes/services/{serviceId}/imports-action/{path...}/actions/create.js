@@ -2,15 +2,11 @@ import { createEmptyFolder } from '#server/common/services/bucket-service/Bucket
 import Joi from 'joi'
 
 export default {
-  async schema(request) {
-    const { path = '' } = request.params
-
+  async schema() {
     return Joi.object({
       name: Joi.string()
         .label('Folder name')
-        .description(
-          `Name of the new folder to add under <strong>${path}/</strong>`
-        )
+        .description('Name of the new folder')
         .min(1)
         .max(100)
         .regex(/^[a-zA-Z0-9-_]+$/)
@@ -18,7 +14,7 @@ export default {
     })
   },
 
-  async actions(request, h) {
+  async actions(request) {
     const { path = '' } = request.params
     const entity = request.app.entity
 

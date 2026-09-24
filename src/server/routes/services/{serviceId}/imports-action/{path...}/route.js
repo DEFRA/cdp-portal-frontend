@@ -2,6 +2,7 @@ import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.j
 import { scopes } from '@defra/cdp-validation-kit'
 import formEngine from '#server/plugins/form-engine/form-engine.js'
 import actions from './actions/index.js'
+import provideLayoutContext from './ext/provideLayoutContext.js'
 
 export const ext = [...commonServiceExtensions]
 
@@ -23,7 +24,7 @@ export function register(routePath) {
           }
         },
 
-        ext: [...commonServiceExtensions],
+        ext: [...commonServiceExtensions, provideLayoutContext()],
 
         layout:
           'routes/services/{serviceId}/imports-action/{path...}/layout.njk',
@@ -49,39 +50,3 @@ export function register(routePath) {
     }
   ]
 }
-
-// export default async function (request) {
-//   const { path = '' } = request.params
-//   const entity = request.app.entity
-//   const { action } = request.query
-
-//   const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
-
-//   return {
-//     pageTitle: 'Imports Action',
-//     breadcrumbs: [
-//       {
-//         text: 'Services',
-//         href: '/services'
-//       },
-//       {
-//         text: entity.name,
-//         href: `/services/${entity.name}`
-//       },
-//       {
-//         text: 'Imports',
-//         href: path !== '' ? `/services/${entity.name}/imports` : undefined
-//       },
-//       ...relativePathParts.map((part, index) => {
-//         const partPath = relativePathParts.slice(0, index + 1).join('/')
-//         return {
-//           text: part,
-//           href:
-//             path !== partPath
-//               ? `/services/${entity.name}/imports/${partPath}/`
-//               : undefined
-//         }
-//       })
-//     ]
-//   }
-// }
