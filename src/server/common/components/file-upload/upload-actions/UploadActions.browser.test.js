@@ -19,7 +19,7 @@ test('Renders correctly', async () => {
 })
 
 test('Updates when attributes are changed', async () => {
-  const { element, getByRole, getByText } = await page.render(
+  const { element, getByText } = await page.render(
     `<upload-actions>
     </upload-actions>`
   )
@@ -30,9 +30,7 @@ test('Updates when attributes are changed', async () => {
   await expect.element(getByText('Failed')).toBeInTheDocument()
 
   element.setAttribute('data-status', 'cancelled')
-  await expect
-    .element(getByRole('button', { name: 'Restart' }))
-    .toBeInTheDocument()
+  await expect.element(getByText('Cancelled')).toBeInTheDocument()
 })
 
 test('Dispatched events when button clicked', async () => {
@@ -45,10 +43,4 @@ test('Dispatched events when button clicked', async () => {
   element.addEventListener('cancel', mockOnCancel)
   await getByText('Cancel').click()
   expect(mockOnCancel).toHaveBeenCalled()
-
-  element.setAttribute('data-status', 'cancelled')
-  const mockOnRestart = vi.fn()
-  element.addEventListener('restart', mockOnRestart)
-  await getByText('Restart').click()
-  expect(mockOnRestart).toHaveBeenCalled()
 })

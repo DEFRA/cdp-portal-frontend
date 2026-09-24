@@ -1,7 +1,8 @@
 import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 import UploadManager from './UploadManager.js'
-import { initAll } from 'govuk-frontend'
+import { createAll } from 'govuk-frontend'
+import { FileUpload as GovFileUpload } from 'govuk-frontend/dist/govuk/components/file-upload/file-upload.mjs'
 
 window.cdp = window.cdp ?? {}
 window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
@@ -14,25 +15,39 @@ export default class FileUpload extends NunjucksComponent {
   get managedListeners() {
     return [
       [this, 'submit', this.#onSubmit],
+      [this, 'cancel', this.#onCancel],
       [window.cdp.uploadManager, 'progress', this.#onProgress],
       [window.cdp.uploadManager, 'complete', this.#onComplete],
-      [window.cdp.uploadManager, 'failed', this.#onFailed]
+      [window.cdp.uploadManager, 'failed', this.#onFailed],
+      [window.cdp.uploadManager, 'cancelled', this.#onCancelled]
     ]
   }
 
   render() {
+    const uploads = window.cdp.uploadManager.getUploads()
+    const isUploading = uploads?.some(({ status }) => status === 'uploading')
+    const hasFailedOrCancelled = uploads?.some(
+      ({ status }) => status === 'failed' || status === 'cancelled'
+    )
+
     this.morph(template, {
-      uploads: window.cdp.uploadManager.getUploads(),
-      ...this.dataset
+      uploads,
+      ...this.dataset,
+      isUploading,
+      showDone: !isUploading && hasFailedOrCancelled
     })
 
-    initAll() // Force re-init for govukFileUpload component
+    // Force re-init for govukFileUpload component
+    createAll(GovFileUpload)
   }
 
   #onSubmit(event) {
+    const $form = this.querySelector('form')
+
+    if ($form.dataset.js !== 'file-upload') return
+
     event.preventDefault()
 
-    const $form = this.querySelector('form')
     const files = $form.querySelector('input[name="files"]')?.files ?? []
 
     if (files.length === 0) {
@@ -49,6 +64,12 @@ export default class FileUpload extends NunjucksComponent {
     this.render()
   }
 
+  #onCancel(event) {
+    window.cdp.uploadManager.cancelUpload(event.target.id)
+
+    this.render()
+  }
+
   #onProgress() {
     this.render()
   }
@@ -57,7 +78,12 @@ export default class FileUpload extends NunjucksComponent {
     this.render()
 
     const uploads = window.cdp.uploadManager.getUploads()
-    if (!uploads.some((upload) => upload.status === 'uploading')) {
+    const isUploading = uploads?.some(({ status }) => status === 'uploading')
+    const hasFailedOrCancelled = uploads?.some(
+      ({ status }) => status === 'failed' || status === 'cancelled'
+    )
+
+    if (!isUploading && !hasFailedOrCancelled) {
       setTimeout(() => {
         window.location.reload()
       }, 1000)
@@ -65,6 +91,10 @@ export default class FileUpload extends NunjucksComponent {
   }
 
   #onFailed() {
+    this.render()
+  }
+
+  #onCancelled() {
     this.render()
   }
 }
