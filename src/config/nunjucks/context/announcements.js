@@ -48,7 +48,7 @@ announcements.set('hasBreakGlass', (request, breakGlassScope) => {
 
   if (breakGlassScope.startAt && breakGlassScope.endAt) {
     return {
-      html: `You have active break glass for the ${teamDetail}. From ${from.toLowerCase()} until ${end.toLowerCase()}`
+      html: `You have active break glass for the ${teamDetail}. From ${from} until ${end}`
     }
   }
 

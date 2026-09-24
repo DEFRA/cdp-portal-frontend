@@ -62,7 +62,7 @@ describe('context and cache', () => {
       describe('With valid asset path', () => {
         test('Should provide expected asset path', () => {
           expect(contextResult.getAssetPath('application.js')).toBe(
-            '/.public/application.js'
+            '/public/application.js'
           )
         })
       })
@@ -70,7 +70,7 @@ describe('context and cache', () => {
       describe('With invalid asset path', () => {
         test('Should provide expected asset', () => {
           expect(contextResult.getAssetPath('an-image.png')).toBe(
-            '/.public/an-image.png'
+            '/public/an-image.png'
           )
         })
       })

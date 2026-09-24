@@ -8,6 +8,20 @@ export default class UploadActions extends NunjucksComponent {
 
   constructor() {
     super(template)
+
+    this.dataset.status = 'uploading'
+  }
+
+  get managedListeners() {
+    return [[this, 'click', this.#onClick]]
+  }
+
+  #onClick(event) {
+    if ((!event.target) instanceof HTMLButtonElement) return
+
+    if (this.dataset.status === 'uploading') {
+      this.dispatchEvent(new Event('cancel', { bubbles: true }))
+    }
   }
 }
 

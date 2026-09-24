@@ -45,8 +45,19 @@ export default async function (request) {
         href: `/services/${entity.name}`
       },
       {
-        text: 'Imports'
-      }
+        text: 'Imports',
+        href: path !== '' ? `/services/${entity.name}/imports` : undefined
+      },
+      ...relativePathParts.map((part, index) => {
+        const partPath = relativePathParts.slice(0, index + 1).join('/')
+        return {
+          text: part,
+          href:
+            path !== partPath
+              ? `/services/${entity.name}/imports/${partPath}/`
+              : undefined
+        }
+      })
     ]
   }
 }
