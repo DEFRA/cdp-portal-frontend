@@ -2,7 +2,7 @@ import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 import UploadManager from './UploadManager.js'
 import { createAll } from 'govuk-frontend'
-import { FileUpload as GovFileUpload } from 'govuk-frontend/dist/GOVUK/components/file-upload/file-upload.mjs'
+import { FileUpload as GovFileUpload } from 'govuk-frontend/dist/govuk/components/file-upload/file-upload.mjs'
 
 window.cdp = window.cdp ?? {}
 window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
