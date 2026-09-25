@@ -130,18 +130,24 @@ function apigwMetricLink(metrics = [], type) {
 function getPromotionsTakingTooLong(playground) {
   if (playground.status !== 'LOADED') return false
 
-  const { dashboards = [] /*, alerts = [] */ } = playground
+  const { dashboards = [], alerts = [] } = playground
 
   const pendingDashboards = dashboards.filter(
     (dashboard) => !dashboard.promoted && dashboard.promotion_request
   )
-  // const pendingAlerts = [] // TODO
+  const pendingAlerts = alerts.filter(
+    (alert) => !alert.promoted && alert.promotion_request
+  )
 
   const now = Date.now()
-  const takingTooLong = pendingDashboards.some(
+  const dashboardTakingTooLong = pendingDashboards.some(
+    ({ updated }) =>
+      parseISO(updated) < subMinutes(now, PENDING_TOO_LONG_MINUTES)
+  )
+  const alertTakingTooLong = pendingAlerts.some(
     ({ updated }) =>
       parseISO(updated) < subMinutes(now, PENDING_TOO_LONG_MINUTES)
   )
 
-  return takingTooLong
+  return dashboardTakingTooLong || alertTakingTooLong
 }
