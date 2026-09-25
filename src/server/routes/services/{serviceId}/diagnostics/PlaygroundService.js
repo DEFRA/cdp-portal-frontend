@@ -12,9 +12,9 @@ export async function getPlayground(serviceName) {
     )
   }
 
-  const isPromoting = payload?.dashboards?.some(
-    (dashboard) => dashboard.promotion_request
-  )
+  const isPromoting =
+    payload?.dashboards?.some((dashboard) => dashboard.promotion_request) ||
+    payload?.alerts?.some((alert) => alert.promotion_request)
 
   return {
     status: isPromoting ? 'PROMOTING' : 'LOADED',
