@@ -11,7 +11,7 @@ export default function provideLayoutContext() {
         : {}
 
       const { action } = request.query
-      const { path } = request.params
+      const { path = '' } = request.params
       const entity = request.app.entity
 
       if (action === 'create') {
