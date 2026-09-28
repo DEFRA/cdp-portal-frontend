@@ -24,9 +24,17 @@
       },
       {
         html: appTime({
+          datetime: obj.createdDate
+        })
+      } if obj.createdDate else { text: '- - -' },
+      {
+        html: appTime({
           datetime: obj.modifiedDate
         })
       },
+      {
+        html: obj.user.displayName
+      } if obj.user.displayName else { text: '- - -' },
       {
         html: renderActions(obj)
       }
@@ -46,6 +54,12 @@
         text: '- - -'
       },
       {
+        text: '- - -'
+      },
+      {
+        text: '- - -'
+      },
+      {
         html: '- - -'
       }
     ]) }}
@@ -55,6 +69,12 @@
     {{ rows.push([
       {
         html: renderSelfName()
+      },
+      {
+        text: '- - -'
+      },
+      {
+        text: '- - -'
       },
       {
         text: '- - -'
@@ -118,7 +138,9 @@
   head: [
     { text: "Name" },
     { text: "Size" },
+    { text: "Created" },
     { text: "Modified" },
+    { text: "Modified by" },
     { text: "Actions" }
   ],
   rows: contentsRows
