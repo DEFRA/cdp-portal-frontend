@@ -3,16 +3,9 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-{% from "icons/aws-icon/macro.njk" import appAwsIcon %}
-{% from "icons/curl-icon/macro.njk" import appCurlIcon %}
-{% from "icons/info-icon/macro.njk" import appInfoIcon %}
-{% from "icons/mongo-db-icon/macro.njk" import appMongoDbIcon %}
-{% from "icons/redis-icon/macro.njk" import appRedisIcon %}
 {% from "icons/terminal-icon/macro.njk" import appTerminalIcon %}
-{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
 {% from "info/macro.njk" import appInfo %}
 {% from "summary/macro.njk" import appSummary %}
-{% from "warning/macro.njk" import appWarning %}
 
 {# Construct table rows, tables and html contents #}
 {% set terminalTableRows = [] %}
@@ -38,22 +31,6 @@
   ]) }}
 {% endfor %}
 
-{% set tips = [
-  "Behave as your service does, same permissions, same visibility",
-  "You can upload files",
-  "For a Backend service talk to MongoDb",
-  "For a Frontend service talk to Redis",
-  "Curl your Backend from your Frontend",
-  "Access your AWS services"
-] %}
-
-{% set warnings = [
-  "The connection is short-lived, lasting around 2 hours",
-  "Any changes you make to the container, will be lost when the terminal is closed",
-  "Changes to external services will persist. S3, MongoDb, Redis, etc",
-  "Maximum 20 GB of ephemeral storage"
-] %}
-
 {% block beforeTabContent %}
   {{ appPageHeading({
     caption: "Terminal",
@@ -71,8 +48,7 @@
         <section class="govuk-!-margin-bottom-6">
           <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
           <p class="govuk-!-margin-right-2">
-            Welcome to the CDP terminal for {{ serviceName }}. Launch a short-lived terminal in an environment
-            with the same permissions, visibility and security as your service.
+            Launch a short-lived tool in an environment, running as {{ serviceName }}.
           </p>
         </section>
 
@@ -81,7 +57,7 @@
             heading: "Launch a terminal",
             icon: appTerminalIcon({ classes: "app-icon--small"}),
             intro: {
-              text: "Launch a secure terminal, as your service in an environment."
+              text: "Choose a tool and environment."
             }
           }) %}
 
@@ -126,97 +102,27 @@
         </article>
       </div>
 
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
+      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
+        {% for toolDescription in toolDescriptions %}
+          {% call appInfo({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-4" }) %}
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">{{ toolDescription.title }}</h2>
+            <p class="govuk-!-margin-bottom-2">{{ toolDescription.summary }}</p>
+            <ul class="govuk-list govuk-list--bullet">
+              {% for point in toolDescription.points %}
+                <li>{{ point }}</li>
+              {% endfor %}
+            </ul>
+          {% endcall %}
+        {% endfor %}
 
         {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tooling</h2>
-
-          <p class="govuk-!-margin-bottom-2">
-            A number of tools are available to you in the CDP terminal.
-          </p>
-
-          <ul class="govuk-list">
-            <li>
-              <div class="app-!-layout-flex-start">
-                {{ appCurlIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
-                <strong class="govuk-!-margin-right-1">Curl</strong>
-                <a class="app-link" href="https://curl.se"
-                   target="_blank" rel="noopener noreferrer">
-                  https://curl.se</a>
-              </div>
-            </li>
-            <li>
-              <div class="app-!-layout-flex-start">
-                {{ appAwsIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
-                <strong class="govuk-!-margin-right-1">AWS Cli</strong>
-                <a class="app-link" href="https://aws.amazon.com/cli"
-                   target="_blank" rel="noopener noreferrer">
-                  https://aws.amazon.com/cli</a>
-              </div>
-            </li>
-            <li>
-              <div class="app-!-layout-flex-start">
-                {{ appRedisIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
-                <strong class="govuk-!-margin-right-1">Redis Cli</strong>
-                <a class="app-link" href="https://redis.io/docs/latest/develop/connect/cli"
-                   target="_blank" rel="noopener noreferrer">
-                  https://redis.io/docs/latest/develop/connect/cli</a>
-              </div>
-            </li>
-            <li>
-              <div class="app-!-layout-flex-start">
-                {{ appMongoDbIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
-                <strong class="govuk-!-margin-right-1">MongoDb Cli</strong>
-                <a class="app-link" href="https://www.mongodb.com/docs/mongocli/current"
-                   target="_blank" rel="noopener noreferrer">
-                  https://www.mongodb.com/docs/mongocli/current</a>
-              </div>
-            </li>
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Good to know</h2>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Sessions last up to 2 hours for the Terminal and 6 hours for the web UIs.</li>
+            <li>Sessions idle for 20 minutes become a candidate to be closed.</li>
+            <li>Changes to external services such as S3, MongoDb and Redis persist.</li>
           </ul>
         {% endcall %}
-
-      </div>
-
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
-
-        {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Info</h2>
-
-          <p class="govuk-!-margin-bottom-2">
-            The CDP Terminal is a web shell into a dedicated container running with the permissions that your service
-            has.
-          </p>
-          <ul class="govuk-list">
-            {% for tip in tips -%}
-              <li>
-                <div class="app-!-layout-flex-start">
-                  {{ appInfoIcon({
-                    classes: "app-icon--tiny govuk-!-margin-right-1",
-                    description: "Info"
-                  }) }} {{ tip }}
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
-
-          <p class="govuk-!-margin-bottom-2">
-            The CDP Terminal also comes with a few things you need to be aware of.
-          </p>
-
-          <ul class="govuk-list">
-            {% for warning in warnings -%}
-              <li>
-                <div class="app-!-layout-flex-start">
-                  {{ appWarningIcon({
-                    classes: "app-icon--tiny govuk-!-margin-right-1",
-                    description: "Warning"
-                  }) }} {{ warning }}
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
-        {% endcall %}
-
       </div>
     </div>
   </section>

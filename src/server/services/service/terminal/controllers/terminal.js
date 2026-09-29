@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 
 import { getTerminalEnvs } from '../helpers/get-terminal-envs.js'
 import { getAvailableTools } from '#server/services/service/terminal/helpers/get-available-tools.js'
+import { getToolDescriptions } from '#server/services/service/terminal/helpers/tool-descriptions.js'
 import { buildOptions } from '#server/common/helpers/options/build-options.js'
 
 const terminalController = {
@@ -26,14 +27,16 @@ const terminalController = {
     })
     const canLaunchTerminal = terminalEnvs.length > 0
 
-    const tools = getAvailableTools(request.app.entity, scopes)
+    const availableTools = getAvailableTools(request.app.entity, scopes)
+    const toolDescriptions = getToolDescriptions(availableTools)
 
     return h.view('services/service/terminal/views/terminal', {
       pageTitle: `${serviceName} - Terminal`,
       serviceName,
       canLaunchTerminal,
       terminalEnvs,
-      tools: buildOptions(tools, false),
+      tools: buildOptions(availableTools, false),
+      toolDescriptions,
       breadcrumbs: [
         {
           text: 'Services',
