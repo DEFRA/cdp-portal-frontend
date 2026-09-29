@@ -1,3 +1,4 @@
+import { getRawPath } from '#server/common/helpers/url/url-helpers.js'
 import actions from '../actions/index.js'
 
 export default function provideLayoutContext() {
@@ -15,6 +16,7 @@ export default function provideLayoutContext() {
       const { action } = request.query
       const { path = '' } = request.params
       const entity = request.app.entity
+      const isFolder = getRawPath(request).endsWith('/')
 
       response.source.context.actionTitle =
         actions[action]?.title(request) ?? ''
@@ -40,6 +42,13 @@ export default function provideLayoutContext() {
         },
         ...relativePathParts.map((part, index) => {
           const partPath = relativePathParts.slice(0, index + 1).join('/')
+
+          if (!isFolder && index === relativePathParts.length - 1) {
+            return {
+              text: part
+            }
+          }
+
           return {
             text: part,
             href: `/services/${entity.name}/imports/${partPath}/`

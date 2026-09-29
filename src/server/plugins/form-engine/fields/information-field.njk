@@ -1,0 +1,13 @@
+{% from "info/macro.njk" import appInfo %}
+
+{% macro informationField(params, helpers) %}
+  {{ appInfo({
+    html: renderContent(helpers.resolveLabel(params.def, params.name), params.def.flags.description),
+    classes: helpers.resolveMeta(params.def, 'classes')
+  }) }}
+{% endmacro %}
+
+{% macro renderContent(label, description) %}
+  <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ label }}</h3>
+  {{ description | safe }}
+{% endmacro %}

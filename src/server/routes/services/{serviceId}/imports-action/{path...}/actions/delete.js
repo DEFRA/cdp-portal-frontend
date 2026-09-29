@@ -38,6 +38,20 @@ export default {
 
       nonEmptyFolder = resources.length !== 0
 
+      if (nonEmptyFolder) {
+        return Joi.object({
+          info: Joi.string()
+            .label('Folder is not empty')
+            .description(
+              `<p>Folder <strong>${name}</strong> can not deleted because it is not empty.</p>
+              <p>Delete the <a href="/services/${entity.name}/imports/${path}/">contents</a> of the folder first.</p>`
+            )
+            .meta({
+              component: 'informationField'
+            })
+        })
+      }
+
       return Joi.object({
         name: Joi.string()
           .label(`Confirm folder name - ${name}`)
@@ -72,23 +86,42 @@ export default {
     const { path = '' } = request.params
     const entity = request.app.entity
     const parentPath = path.split('/').slice(0, -1).join('/')
+    const isFolder = getRawPath(request).endsWith('/')
+
+    let nonEmptyFolder = false
+    if (isFolder) {
+      const resources = await listPathContents(
+        request,
+        `/entities/${entity.name}/imports/`,
+        path
+      )
+
+      nonEmptyFolder = resources.length !== 0
+    }
 
     return {
-      submit: {
-        text: 'Delete',
-        async method(request, h) {
-          const { path = '' } = request.params
-          const isFolder = getRawPath(request).endsWith('/')
+      ...(nonEmptyFolder
+        ? {}
+        : {
+            submit: {
+              text: 'Delete',
+              classes: 'app-button--destructive',
+              async method(request, h) {
+                const { path = '' } = request.params
+                const isFolder = getRawPath(request).endsWith('/')
 
-          await deleteResource(
-            request,
-            `/entities/${entity.name}/imports/`,
-            `${path}${isFolder ? '/' : ''}`
-          )
+                await deleteResource(
+                  request,
+                  `/entities/${entity.name}/imports/`,
+                  `${path}${isFolder ? '/' : ''}`
+                )
 
-          return h.redirect(`/services/${entity.name}/imports/${parentPath}`)
-        }
-      },
+                return h.redirect(
+                  `/services/${entity.name}/imports/${parentPath}`
+                )
+              }
+            }
+          }),
       cancel: {
         text: 'Cancel',
         url: `/services/${entity.name}/imports/${parentPath}`
