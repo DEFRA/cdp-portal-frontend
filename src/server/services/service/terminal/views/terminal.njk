@@ -3,8 +3,8 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
+{% from "icons/info-icon/macro.njk" import appInfoIcon %}
 {% from "icons/terminal-icon/macro.njk" import appTerminalIcon %}
-{% from "info/macro.njk" import appInfo %}
 {% from "summary/macro.njk" import appSummary %}
 
 {# Construct table rows, tables and html contents #}
@@ -103,23 +103,27 @@
       </div>
 
       <div class="govuk-grid-column-two-thirds-from-desktop-wide">
-        {% for toolDescription in toolDescriptions %}
-          {% call appInfo({ classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-4" }) %}
-            <h2 class="govuk-heading-m govuk-!-margin-bottom-2">{{ toolDescription.title }}</h2>
-            <p class="govuk-!-margin-bottom-2">{{ toolDescription.summary }}</p>
-            <ul class="govuk-list govuk-list--bullet">
+        {% call appSummary({
+          heading: "About the tools",
+          icon: appInfoIcon({ classes: "app-icon--small", description: "Info" }),
+          intro: {
+            text: "What each tool gives you and how long sessions last."
+          }
+        }) %}
+          {% for toolDescription in toolDescriptions %}
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ toolDescription.title }}</h3>
+            <p class="govuk-!-margin-bottom-1">{{ toolDescription.summary }}</p>
+            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-4">
               {% for point in toolDescription.points %}
                 <li>{{ point }}</li>
               {% endfor %}
             </ul>
-          {% endcall %}
-        {% endfor %}
+          {% endfor %}
 
-        {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Good to know</h2>
-          <ul class="govuk-list govuk-list--bullet">
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Good to know</h3>
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
             <li>Sessions idle for 20 minutes become a candidate to be closed.</li>
-            <li>Changes to external services such as S3, MongoDb and Redis persist.</li>
+            <li>Changes to external services such as S3, MongoDB and Redis persist.</li>
           </ul>
         {% endcall %}
       </div>
