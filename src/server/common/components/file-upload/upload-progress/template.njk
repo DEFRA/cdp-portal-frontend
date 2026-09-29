@@ -10,7 +10,7 @@
     {{ rows.push([
       { text: upload.name },
       { html: appProgress({
-          progress: upload.progress or 0,
+          progress: upload.progress,
           complete: (upload.bytesUploaded or 0) | formatFileSize,
           total: upload.size | formatFileSize
         })
