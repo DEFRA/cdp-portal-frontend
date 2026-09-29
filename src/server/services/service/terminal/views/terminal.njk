@@ -1,35 +1,6 @@
 {% extends "layouts/tabbed-page.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
-
-{% from "icons/info-icon/macro.njk" import appInfoIcon %}
-{% from "icons/terminal-icon/macro.njk" import appTerminalIcon %}
-{% from "summary/macro.njk" import appSummary %}
-
-{# Construct table rows, tables and html contents #}
-{% set terminalTableRows = [] %}
-
-{% for terminalEnv in terminalEnvs %}
-  {% set launchFormHtml %}
-    {% set classes = [
-      "app-button app-button--primary app-button--small",
-      "app-button--significant" if terminalEnv == "prod"
-    ] | join(" ") | trim %}
-
-    {{ govukButton({
-      classes: classes,
-      name: 'environment',
-      text: "Launch",
-      value: terminalEnv
-    }) }}
-  {% endset %}
-
-  {{ terminalTableRows.push([
-    { text: terminalEnv | title },
-    { html: launchFormHtml }
-  ]) }}
-{% endfor %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -40,93 +11,77 @@
   {% include "partials/entity/messages.njk" %}
 {% endblock %}
 
+{% set formattedEnvironment = environment | title %}
+{% set launchClasses = [
+  "app-button app-button--small govuk-!-margin-bottom-0",
+  "app-button--significant" if environment == "prod"
+] | join(" ") | trim %}
+
 {% block tabContent %}
   <section class="govuk-!-margin-top-6">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
+    {% call appSplitPane() %}
+      {% if environment %}
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+              data-testid="app-environment-header">{{ formattedEnvironment }} tools</h2>
+          <p>
+            Launch a short-lived tool in {{ formattedEnvironment }}, running as {{ serviceName }}.
+          </p>
 
-        <section class="govuk-!-margin-bottom-6">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
-          <p class="govuk-!-margin-right-2">
-            Launch a short-lived tool in an environment, running as {{ serviceName }}.
+          <div class="app-grid app-grid--fluid">
+            {% for toolCard in toolCards %}
+              {% call appPanel({ classes: "app-tool-card", isSlim: true, testId: "app-tool-card-" + toolCard.value }) %}
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ toolCard.title }}</h3>
+                <p class="govuk-!-margin-bottom-2">{{ toolCard.summary }}</p>
+                <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+                  {% for point in toolCard.points %}
+                    <li>{{ point }}</li>
+                  {% endfor %}
+                </ul>
+
+                <form class="app-tool-card__action" method="post" action="/services/{{ serviceName }}/terminal/launch" target="_blank">
+                  <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+                  <input type="hidden" name="environment" value="{{ environment }}" />
+
+                  <div class="govuk-button-group govuk-!-margin-bottom-0">
+                    {{ govukButton({
+                      classes: launchClasses + " app-button--primary",
+                      name: "tool",
+                      value: toolCard.value,
+                      text: "Launch",
+                      attributes: {
+                        "aria-label": "Launch " + toolCard.title + " in " + formattedEnvironment
+                      }
+                    }) }}
+
+                    {% if toolCard.latestValue %}
+                      {{ govukButton({
+                        classes: launchClasses + " app-button--secondary",
+                        name: "tool",
+                        value: toolCard.latestValue,
+                        text: "Launch latest",
+                        attributes: {
+                          "aria-label": "Launch latest " + toolCard.title + " in " + formattedEnvironment
+                        }
+                      }) }}
+                    {% endif %}
+                  </div>
+                </form>
+              {% endcall %}
+            {% endfor %}
+          </div>
+
+          <p class="govuk-body-s govuk-!-margin-top-4">
+            Sessions idle for 20 minutes become a candidate to be closed.
+            Changes to external services such as S3, MongoDB and Redis persist.
           </p>
         </section>
-
-        <article class="govuk-!-margin-bottom-6">
-          {% call appSummary({
-            heading: "Launch a tool",
-            icon: appTerminalIcon({ classes: "app-icon--small"}),
-            intro: {
-              text: "Choose a tool and environment." if tools | length > 1 else "Choose an environment."
-            }
-          }) %}
-
-            {% if canLaunchTerminal %}
-            <form method="post" action="/services/{{ serviceName }}/terminal/launch" target="_blank">
-              <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-
-              {%  if tools | length > 1 %}
-                {{ govukSelect({
-                  id: "tool",
-                  name: "tool",
-                  label: {
-                    text: "Tool",
-                    classes: "app-label"
-                  },
-                  classes: "app-select",
-                  value: formValues.eventType,
-                  items: tools,
-                  formGroup: {
-                    classes: "app-form-group app-form-group-js"
-                  }
-                }) }}
-              {% else %}
-                <input name="tool" type="hidden" value="{{ tools[0].value }}"/>
-              {%  endif %}
-
-              {{ govukTable({
-                classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-                attributes: {
-                  "data-testid": "govuk-table"
-                },
-                head: [{ text: "Environment" }, { text: "Action" }],
-                rows: terminalTableRows
-              }) }}
-            </form>
-            {% else %}
-              <p class="govuk-!-margin-bottom-2">
-                {{ serviceName if serviceName else "Your service" }} does not exist in any environment.
-              </p>
-            {% endif %}
-          {% endcall %}
-        </article>
-      </div>
-
-      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
-        {% call appSummary({
-          heading: "About the tools",
-          icon: appInfoIcon({ classes: "app-icon--small", description: "Info" }),
-          intro: {
-            text: "What each tool gives you and how long sessions last."
-          }
-        }) %}
-          {% for toolDescription in toolDescriptions %}
-            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ toolDescription.title }}</h3>
-            <p class="govuk-!-margin-bottom-1">{{ toolDescription.summary }}</p>
-            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-4">
-              {% for point in toolDescription.points %}
-                <li>{{ point }}</li>
-              {% endfor %}
-            </ul>
-          {% endfor %}
-
-          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Good to know</h3>
-          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-            <li>Sessions idle for 20 minutes become a candidate to be closed.</li>
-            <li>Changes to external services such as S3, MongoDB and Redis persist.</li>
-          </ul>
-        {% endcall %}
-      </div>
-    </div>
+      {% else %}
+        <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
+          <p>{{ serviceName }} does not exist in any environment you can launch tools in.</p>
+        </section>
+      {% endif %}
+    {% endcall %}
   </section>
 {% endblock %}

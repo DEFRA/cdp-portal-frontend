@@ -30,15 +30,23 @@ const toolDescriptionsMap = {
   }
 }
 
-export function getToolDescriptions(availableTools) {
-  const tools = new Set(
-    availableTools
-      .map(({ tool }) => tool)
-      .filter((tool) => tool in toolDescriptionsMap)
-  )
+export function getToolCards(availableTools) {
+  const cards = new Map()
 
-  return [...tools].map((value) => ({
-    value,
-    ...toolDescriptionsMap[value]
-  }))
+  for (const { value, tool } of availableTools) {
+    if (!(tool in toolDescriptionsMap)) {
+      continue
+    }
+
+    const card = cards.get(tool) ?? {
+      ...toolDescriptionsMap[tool],
+      value: tool
+    }
+    if (value !== tool) {
+      card.latestValue = value
+    }
+    cards.set(tool, card)
+  }
+
+  return [...cards.values()]
 }

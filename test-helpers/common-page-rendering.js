@@ -706,12 +706,12 @@ export async function mockAuthAndRenderUrl(server, options = {}) {
 
   getSession.mockResolvedValue?.(userSession)
 
-  const { result, statusCode } = await server.inject({
+  const { result, statusCode, headers } = await server.inject({
     method: 'GET',
     url: options.targetUrl,
     auth,
     headers: options.headers || {}
   })
 
-  return { result, statusCode }
+  return { result, statusCode, headers }
 }

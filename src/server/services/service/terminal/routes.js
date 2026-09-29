@@ -1,5 +1,6 @@
 import { launchTerminalController } from './controllers/launch-terminal.js'
 import { terminalController } from './controllers/terminal.js'
+import { terminalEnvironmentController } from './controllers/terminal-environment.js'
 import { terminalBrowserController } from './controllers/terminal-browser.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { authScope } from '../../../common/helpers/auth/auth-scope.js'
@@ -37,6 +38,11 @@ const serviceTerminal = {
             method: 'GET',
             path: '/services/{serviceId}/terminal',
             ...terminalController
+          },
+          {
+            method: 'GET',
+            path: '/services/{serviceId}/terminal/{environment}',
+            ...terminalEnvironmentController
           },
           {
             method: 'POST',

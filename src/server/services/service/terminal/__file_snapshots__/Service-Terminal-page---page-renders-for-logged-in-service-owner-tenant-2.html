@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template">
   <head>
     <meta charset="utf-8">
-    <title>  mock-service-with-terminal - Terminal | Core Delivery Platform - Portal
+    <title>  mock-service-with-terminal - Terminal - Dev | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -241,8 +241,12 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <a class="app-breadcrumbs__link" href="/services/mock-service-with-terminal"
              data-testid="app-breadcrumbs-link">mock-service-with-terminal</a>
         </li>
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/services/mock-service-with-terminal/terminal"
+             data-testid="app-breadcrumbs-link">Terminal</a>
+        </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">Terminal</li>
+            data-testid="app-breadcrumbs-list-item">Dev</li>
   </ol>
 </nav>
 
@@ -440,113 +444,90 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
              aria-labelledby="tab-terminal"
              data-testid="app-tabs-panel">
         <section class="govuk-!-margin-top-6">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
 
-        <section class="govuk-!-margin-bottom-6">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
-          <p class="govuk-!-margin-right-2">
-            Launch a short-lived tool in an environment, running as mock-service-with-terminal.
+<div class="app-split-pane" data-testid="app-split-pane">
+    <div class="app-split-pane__nav"
+         data-testid="app-split-pane-nav">
+<nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
+  <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item app-subnav__section-item--current"
+          data-testid="app-subnav-item-dev">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-terminal/terminal/dev"
+           data-testid="app-subnav-link-dev"
+        >Dev</a>
+      </li>
+    </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item"
+          data-testid="app-subnav-item-test">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-terminal/terminal/test"
+           data-testid="app-subnav-link-test"
+        >Test</a>
+      </li>
+    </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item"
+          data-testid="app-subnav-item-perf-test">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-terminal/terminal/perf-test"
+           data-testid="app-subnav-link-perf-test"
+        >Perf-test</a>
+      </li>
+    </ul>
+</nav>
+    </div>
+  <div class="app-split-pane__content" data-testid="app-split-pane-content">
+
+    <section class="app-content">
+              <section>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+              data-testid="app-environment-header">Dev tools</h2>
+          <p>
+            Launch a short-lived tool in Dev, running as mock-service-with-terminal.
+          </p>
+
+          <div class="app-grid app-grid--fluid">
+
+<div class="app-panel app-tool-card  app-panel--slim" data-testid="app-tool-card-terminal">
+                  <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Terminal</h3>
+                <p class="govuk-!-margin-bottom-2">A web shell in a container running with your service&#39;s permissions.</p>
+                <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+                    <li>Includes jq, curl, AWS CLI, redis-cli, mongosh and psql.</li>
+                    <li>Use the Files tab to upload files.</li>
+                    <li>Sessions last up to 2 hours.</li>
+                    <li>Changes in the container are lost when the session ends.</li>
+                </ul>
+
+                <form class="app-tool-card__action" method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
+                  <input type="hidden" name="csrfToken" value="test-token" />
+                  <input type="hidden" name="environment" value="dev" />
+
+                  <div class="govuk-button-group govuk-!-margin-bottom-0">
+                    <button type="submit" value="terminal" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--primary" data-module="govuk-button" aria-label="Launch Terminal in Dev">
+  Launch
+</button>
+
+                  </div>
+                </form>
+
+</div>
+          </div>
+
+          <p class="govuk-body-s govuk-!-margin-top-4">
+            Sessions idle for 20 minutes become a candidate to be closed.
+            Changes to external services such as S3, MongoDB and Redis persist.
           </p>
         </section>
 
-        <article class="govuk-!-margin-bottom-6">
-
-<section class="app-summary">
-  <header class="app-summary__header">
-    <span class="app-summary__icon"><svg class="app-icon app-terminal app-icon--small"
-     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
-     role="img" aria-label="Terminal">
-  <path fill-rule="nonzero"
-        d="M4.8 43c-1.32 0-2.45-.4651042-3.39-1.3953125C.47 40.6744792 0 39.55625 0 38.25V9.75c0-1.30625.47-2.42447917 1.41-3.3546875C2.35 5.46510417 3.48 5 4.8 5h38.4c1.32 0 2.45.46510417 3.39 1.3953125C47.53 7.32552083 48 8.44375 48 9.75v28.5c0 1.30625-.47 2.4244792-1.41 3.3546875C45.65 42.5348958 44.52 43 43.2 43H4.8Zm0-4.75h38.4v-28H4.8v28Zm8.4-2.375L9.84 32.55l6.18-6.175L9.78 20.2l3.42-3.325 9.6 9.5-9.6 9.5Zm10.8 0v-4.75h14.4v4.75H24Z" />
-</svg>
-</span>
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Launch a tool</h2>
-  </header>
-  <p class="app-summary__intro">
-    Choose an environment.
-  </p>
-  
-            <form method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
-              <input type="hidden" name="csrfToken" value="test-token" />
-
-                <input name="tool" type="hidden" value="terminal"/>
-
-              <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4" data-testid="govuk-table">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Environment</th>
-      <th scope="col" class="govuk-table__header">Action</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">Dev</td>
-      <td class="govuk-table__cell">
-    <button type="submit" value="dev" name="environment" class="govuk-button app-button app-button--primary app-button--small" data-module="govuk-button">
-  Launch
-</button>
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">Test</td>
-      <td class="govuk-table__cell">
-    <button type="submit" value="test" name="environment" class="govuk-button app-button app-button--primary app-button--small" data-module="govuk-button">
-  Launch
-</button>
-</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell">Perf-test</td>
-      <td class="govuk-table__cell">
-    <button type="submit" value="perf-test" name="environment" class="govuk-button app-button app-button--primary app-button--small" data-module="govuk-button">
-  Launch
-</button>
-</td>
-    </tr>
-  </tbody>
-</table>
-
-            </form>
-
-</section>
-        </article>
-      </div>
-
-      <div class="govuk-grid-column-two-thirds-from-desktop-wide">
-
-<section class="app-summary">
-  <header class="app-summary__header">
-    <span class="app-summary__icon"><svg class="app-icon app-info-icon app-icon--small"
-     xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
-     role="img" aria-label="Info">
-  <path fill-rule="nonzero"
-        d="M24.138363 35.9288256c.6244365 0 1.1513167-.2180783 1.5806406-.6542349.4293238-.4361565.6439857-.9772716.6439857-1.6233451v-9.6797154c0-.6092526-.2156109-1.1315776-.6468327-1.566975-.4308422-.435777-.9527877-.6536655-1.5658363-.6536655-.6130487 0-1.1471412.2178885-1.6022776.6536655-.455516.4353974-.683274.9577224-.683274 1.566975v9.6797154c0 .6460735.2228232 1.1871886.6684697 1.6233451.4456465.4361566.9806881.6542349 1.6051246.6542349Zm-.1679715-17.4234875c.7789323 0 1.4198813-.2448399 1.9228469-.7345196.5029656-.4896797.7544484-1.1144958.7544484-1.8744484 0-.8780071-.2501542-1.5546382-.7504626-2.0298932-.5003084-.4756347-1.1386002-.713452-1.9148754-.713452-.8613049 0-1.5244603.234401-1.9894662.7032029-.465006.4688019-.6975089 1.1230367-.6975089 1.9627046 0 .8077817.2511032 1.4574614.7533096 1.9490391.5022064.4915777 1.1427758.7373666 1.9217082.7373666ZM23.9686833 48c-3.3047687 0-6.4203084-.6187426-9.3466192-1.8562278-2.9263108-1.2378647-5.47606173-2.9433926-7.64925271-5.1165836-2.17319099-2.173191-3.87871886-4.7242705-5.11658363-7.6532384C.61874259 30.4449822 0 27.3229893 0 24.0079715c0-3.3112218.61988138-6.4227758 1.85964413-9.3346619 1.24014235-2.9115065 2.95231317-5.45954922 5.13651245-7.64412811 2.18419929-2.18457888 4.73224202-3.90225385 7.64412812-5.15302491C17.5521708.62538553 20.6595492 0 23.9624199 0c3.3165362 0 6.4394781.62367734 9.3688257 1.87103203 2.9293475 1.24735468 5.4802372 2.9602847 7.652669 5.13879003 2.1724318 2.17888494 3.8847924 4.73205224 5.1370818 7.65950174C47.3736655 17.5963938 48 20.7214235 48 24.0444128c0 3.3199526-.6253855 6.4303677-1.8761566 9.3312456-1.250771 2.9004982-2.968446 5.4396204-5.1530249 7.6173665-2.1845789 2.1777462-4.7358482 3.889917-7.6538078 5.1365125C30.399051 47.3765125 27.2829419 48 23.9686833 48Z" />
-</svg>
-</span>
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">About the tools</h2>
-  </header>
-  <p class="app-summary__intro">
-    What each tool gives you and how long sessions last.
-  </p>
-              <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Terminal</h3>
-            <p class="govuk-!-margin-bottom-1">A web shell in a container running with your service&#39;s permissions.</p>
-            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-4">
-                <li>Includes jq, curl, AWS CLI, redis-cli, mongosh and psql.</li>
-                <li>Use the Files tab to upload files.</li>
-                <li>Sessions last up to 2 hours.</li>
-                <li>Changes in the container are lost when the session ends.</li>
-            </ul>
-
-          <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Good to know</h3>
-          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-            <li>Sessions idle for 20 minutes become a candidate to be closed.</li>
-            <li>Changes to external services such as S3, MongoDB and Redis persist.</li>
-          </ul>
-
-</section>
-      </div>
-    </div>
+    </section>
+  </div>
+</div>
   </section>
 
     </section>
