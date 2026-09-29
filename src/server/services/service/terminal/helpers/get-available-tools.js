@@ -10,7 +10,7 @@ export function getAvailableTools(entity, userScopes) {
   )
 
   const canUseDatabaseWeb =
-    isAdmin || userScopes.includes('team:central-animal-store')
+    isAdmin || userScopes.includes('permission:betaTester')
 
   const tools = [{ text: 'Terminal', value: 'terminal' }]
   if (isAdmin) {
