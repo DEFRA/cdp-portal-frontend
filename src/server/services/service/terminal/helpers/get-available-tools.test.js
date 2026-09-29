@@ -15,27 +15,37 @@ describe('#getAvailableTools', () => {
   test('admin gets stable and latest tools', () => {
     const tools = getAvailableTools(fullEntity, [scopes.admin])
     expect(tools).toEqual([
-      { text: 'Terminal', value: 'terminal' },
-      { text: 'Terminal (latest)', value: 'terminal_latest' },
-      { text: 'Postgres Web UI', value: 'pgweb' },
-      { text: 'Postgres Web UI (latest)', value: 'pgweb_latest' },
-      { text: 'MongoDB Web UI', value: 'dbgate' },
-      { text: 'MongoDB Web UI (latest)', value: 'dbgate_latest' }
+      { text: 'Terminal', value: 'terminal', tool: 'terminal' },
+      { text: 'Terminal (latest)', value: 'terminal_latest', tool: 'terminal' },
+      { text: 'Postgres Web UI', value: 'pgweb', tool: 'pgweb' },
+      {
+        text: 'Postgres Web UI (latest)',
+        value: 'pgweb_latest',
+        tool: 'pgweb'
+      },
+      { text: 'MongoDB Web UI', value: 'dbgate', tool: 'dbgate' },
+      {
+        text: 'MongoDB Web UI (latest)',
+        value: 'dbgate_latest',
+        tool: 'dbgate'
+      }
     ])
   })
 
   test('beta tester gets stable database tools only', () => {
     const tools = getAvailableTools(fullEntity, ['permission:betaTester'])
     expect(tools).toEqual([
-      { text: 'Terminal', value: 'terminal' },
-      { text: 'Postgres Web UI', value: 'pgweb' },
-      { text: 'MongoDB Web UI', value: 'dbgate' }
+      { text: 'Terminal', value: 'terminal', tool: 'terminal' },
+      { text: 'Postgres Web UI', value: 'pgweb', tool: 'pgweb' },
+      { text: 'MongoDB Web UI', value: 'dbgate', tool: 'dbgate' }
     ])
   })
 
   test('plain tenant gets terminal only', () => {
     const tools = getAvailableTools(fullEntity, [scopes.tenant])
-    expect(tools).toEqual([{ text: 'Terminal', value: 'terminal' }])
+    expect(tools).toEqual([
+      { text: 'Terminal', value: 'terminal', tool: 'terminal' }
+    ])
   })
 
   test('postgres and mongo visibility follows service capabilities', () => {
@@ -56,17 +66,19 @@ describe('#getAvailableTools', () => {
     }
 
     expect(getAvailableTools(postgresOnly, ['permission:betaTester'])).toEqual([
-      { text: 'Terminal', value: 'terminal' },
-      { text: 'Postgres Web UI', value: 'pgweb' }
+      { text: 'Terminal', value: 'terminal', tool: 'terminal' },
+      { text: 'Postgres Web UI', value: 'pgweb', tool: 'pgweb' }
     ])
     expect(getAvailableTools(mongoOnly, ['permission:betaTester'])).toEqual([
-      { text: 'Terminal', value: 'terminal' },
-      { text: 'MongoDB Web UI', value: 'dbgate' }
+      { text: 'Terminal', value: 'terminal', tool: 'terminal' },
+      { text: 'MongoDB Web UI', value: 'dbgate', tool: 'dbgate' }
     ])
   })
 
   test('central-animal-store team scope alone no longer grants tools', () => {
     const tools = getAvailableTools(fullEntity, ['team:central-animal-store'])
-    expect(tools).toEqual([{ text: 'Terminal', value: 'terminal' }])
+    expect(tools).toEqual([
+      { text: 'Terminal', value: 'terminal', tool: 'terminal' }
+    ])
   })
 })

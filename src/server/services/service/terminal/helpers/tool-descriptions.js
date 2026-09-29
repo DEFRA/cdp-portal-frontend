@@ -1,51 +1,44 @@
 const toolDescriptionsMap = {
   terminal: {
-    value: 'terminal',
     title: 'Terminal',
     summary:
       "A web shell in a container running with your service's permissions.",
     points: [
       'Includes jq, curl, AWS CLI, redis-cli, mongosh and psql.',
       'Use the Files tab to upload files.',
+      'Sessions last up to 2 hours.',
       'Changes in the container are lost when the session ends.'
     ]
   },
   pgweb: {
-    value: 'pgweb',
     title: 'Postgres Web UI',
     summary: "A browser UI for your service's Postgres database.",
     points: [
       'Browse tables and run SQL queries.',
-      'Export query results.'
+      'Export query results.',
+      'Sessions last up to 6 hours.'
     ]
   },
   dbgate: {
-    value: 'dbgate',
     title: 'MongoDB Web UI',
     summary: "A browser UI for your service's MongoDB database.",
     points: [
       'Browse collections and documents.',
-      'Run queries in the browser.'
+      'Run queries in the browser.',
+      'Sessions last up to 6 hours.'
     ]
   }
 }
 
-function stableToolValue(toolValue) {
-  return toolValue.replace(/_latest$/, '')
-}
+export function getToolDescriptions(availableTools) {
+  const tools = new Set(
+    availableTools
+      .map(({ tool }) => tool)
+      .filter((tool) => tool in toolDescriptionsMap)
+  )
 
-export function getToolDescriptions(tools) {
-  const orderedUniqueStableValues = []
-
-  for (const tool of tools) {
-    const stableValue = stableToolValue(tool.value)
-    if (
-      toolDescriptionsMap[stableValue] &&
-      !orderedUniqueStableValues.includes(stableValue)
-    ) {
-      orderedUniqueStableValues.push(stableValue)
-    }
-  }
-
-  return orderedUniqueStableValues.map((value) => toolDescriptionsMap[value])
+  return [...tools].map((value) => ({
+    value,
+    ...toolDescriptionsMap[value]
+  }))
 }

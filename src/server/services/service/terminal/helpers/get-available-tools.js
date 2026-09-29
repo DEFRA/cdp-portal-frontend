@@ -12,22 +12,34 @@ export function getAvailableTools(entity, userScopes) {
   const canUseDatabaseWeb =
     isAdmin || userScopes.includes('permission:betaTester')
 
-  const tools = [{ text: 'Terminal', value: 'terminal' }]
+  const tools = [{ text: 'Terminal', value: 'terminal', tool: 'terminal' }]
   if (isAdmin) {
-    tools.push({ text: 'Terminal (latest)', value: 'terminal_latest' })
+    tools.push({
+      text: 'Terminal (latest)',
+      value: 'terminal_latest',
+      tool: 'terminal'
+    })
   }
 
   if (canUseDatabaseWeb && hasPostgres) {
-    tools.push({ text: 'Postgres Web UI', value: 'pgweb' })
+    tools.push({ text: 'Postgres Web UI', value: 'pgweb', tool: 'pgweb' })
     if (isAdmin) {
-      tools.push({ text: 'Postgres Web UI (latest)', value: 'pgweb_latest' })
+      tools.push({
+        text: 'Postgres Web UI (latest)',
+        value: 'pgweb_latest',
+        tool: 'pgweb'
+      })
     }
   }
 
   if (canUseDatabaseWeb && hasMongo) {
-    tools.push({ text: 'MongoDB Web UI', value: 'dbgate' })
+    tools.push({ text: 'MongoDB Web UI', value: 'dbgate', tool: 'dbgate' })
     if (isAdmin) {
-      tools.push({ text: 'MongoDB Web UI (latest)', value: 'dbgate_latest' })
+      tools.push({
+        text: 'MongoDB Web UI (latest)',
+        value: 'dbgate_latest',
+        tool: 'dbgate'
+      })
     }
   }
 

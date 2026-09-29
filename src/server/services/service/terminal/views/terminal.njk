@@ -54,10 +54,10 @@
 
         <article class="govuk-!-margin-bottom-6">
           {% call appSummary({
-            heading: "Launch a terminal",
+            heading: "Launch a tool",
             icon: appTerminalIcon({ classes: "app-icon--small"}),
             intro: {
-              text: "Choose a tool and environment."
+              text: "Choose a tool and environment." if tools | length > 1 else "Choose an environment."
             }
           }) %}
 
@@ -118,7 +118,6 @@
         {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
           <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Good to know</h2>
           <ul class="govuk-list govuk-list--bullet">
-            <li>Sessions last up to 2 hours for the Terminal and 6 hours for the web UIs.</li>
             <li>Sessions idle for 20 minutes become a candidate to be closed.</li>
             <li>Changes to external services such as S3, MongoDb and Redis persist.</li>
           </ul>
