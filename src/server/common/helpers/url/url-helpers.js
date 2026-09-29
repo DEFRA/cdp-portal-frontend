@@ -29,3 +29,11 @@ export const redirectWithRefresh = (h, redirect) => {
     )
     .takeover()
 }
+
+/**
+ * Get the raw path of a request (before the trailing / is removed)
+ */
+export function getRawPath(request) {
+  const url = request.raw.req.url
+  return new URL(url, 'http://localhost').pathname
+}

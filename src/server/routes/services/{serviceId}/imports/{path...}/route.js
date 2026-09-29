@@ -26,7 +26,7 @@ export default async function (request) {
     folderTreeForPath(request, `/entities/${entity.name}/imports/`, path)
   ])
 
-  const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
+  const relativePathParts = path.split('/').filter((seg) => seg !== '')
 
   return {
     entity,
@@ -66,7 +66,7 @@ export async function POST(request, h) {
   const { files } = request.payload
 
   if (files) {
-    // TODO: Handle Server-side only upload if no client-side JS enabled
+    // TODO: Handle Server-side only upload if no client-side JS enabled?
   }
   return h.redirect(request.url)
 }

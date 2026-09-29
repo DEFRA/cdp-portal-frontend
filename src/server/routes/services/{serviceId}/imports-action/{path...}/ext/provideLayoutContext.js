@@ -1,3 +1,5 @@
+import actions from '../actions/index.js'
+
 export default function provideLayoutContext() {
   return {
     type: 'onPostHandler',
@@ -14,14 +16,14 @@ export default function provideLayoutContext() {
       const { path = '' } = request.params
       const entity = request.app.entity
 
-      if (action === 'create') {
-        response.source.context.actionTitle = 'Create sub folder'
-        response.source.context.actionDescription = `Create a new folder under <strong>${path}/</strong>`
-      }
+      response.source.context.actionTitle =
+        actions[action]?.title(request) ?? ''
+      response.source.context.actionDescription =
+        actions[action]?.description(request) ?? ''
 
       response.source.context.pageTitle = `Import - ${response.source.context.actionTitle}`
 
-      const relativePathParts = [...path.split('/').filter((seg) => seg !== '')]
+      const relativePathParts = path.split('/').filter((seg) => seg !== '')
 
       response.source.context.breadcrumbs = [
         {
