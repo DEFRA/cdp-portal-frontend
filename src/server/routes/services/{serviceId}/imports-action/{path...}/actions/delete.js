@@ -71,6 +71,7 @@ export default {
   async actions(request) {
     const { path = '' } = request.params
     const entity = request.app.entity
+    const parentPath = path.split('/').slice(0, -1).join('/')
 
     return {
       submit: {
@@ -85,13 +86,12 @@ export default {
             `${path}${isFolder ? '/' : ''}`
           )
 
-          const parentPath = path.split('/').slice(0, -1).join('/')
           return h.redirect(`/services/${entity.name}/imports/${parentPath}`)
         }
       },
       cancel: {
         text: 'Cancel',
-        url: `/services/${entity.name}/imports/${path}`
+        url: `/services/${entity.name}/imports/${parentPath}`
       }
     }
   }
