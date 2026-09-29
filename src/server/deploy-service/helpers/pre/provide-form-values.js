@@ -3,14 +3,14 @@ import { optionsWithMessage } from '../../../common/helpers/options/options-with
 import { fetchDeployServiceOptions } from '../../../common/helpers/fetch/fetch-deploy-service-options.js'
 import { fetchLatestDeploymentSettings } from '../../../common/helpers/fetch/fetch-latest-deployment-settings.js'
 import { defaultOption } from '../../../common/helpers/options/default-option.js'
-import { reduceCpuToMemoryOptions } from '../reduce-cpu-to-memory-options.js'
 
-const provideFormValues = {
+export const provideFormValues = {
   method: async (request) => {
     const stepData = request.pre?.stepData
+    const isPrototype = stepData?.isPrototype === true
 
     const { cpuOptions, ecsCpuToMemoryOptionsMap } =
-      await fetchDeployServiceOptions()
+      await fetchDeployServiceOptions(isPrototype)
 
     const formDetail = {
       formValues: {
@@ -20,76 +20,43 @@ const provideFormValues = {
       }
     }
 
+    if (isPrototype) {
+      formDetail.formValues.instanceCount = 1 // Hardcode the instance count option for prototypes
+      formDetail.formValues.isPrototype = true
+    }
+
     if (stepData) {
       // Fetch last deployment details
       const lastDeployment = await fetchLatestDeploymentSettings(
-        stepData?.environment,
-        stepData?.imageName
+        stepData.environment,
+        stepData.imageName
       )
       const hasLastDeployment =
         lastDeployment && Object.values(lastDeployment).every(Boolean)
 
-      if (stepData.isPrototype) {
-        const { reducedCpuOptions, reducedCpuToMemoryOptionsMap } =
-          reduceCpuToMemoryOptions({ cpuOptions, ecsCpuToMemoryOptionsMap })
-        const availableMemoryOptions = stepData.cpu
-          ? [defaultOption, ...reducedCpuToMemoryOptionsMap[stepData.cpu]]
-          : optionsWithMessage('Choose a CPU value')
+      // Populate with last deployment details
+      if (hasLastDeployment) {
+        const cpu = lastDeployment.cpu
 
         formDetail.formValues = {
           ...formDetail.formValues,
-          instanceCount: 1, // Hardcode the instance count option for prototypes
-          cpuOptions: buildOptions(reducedCpuOptions),
-          availableMemoryOptions,
-          isPrototype: true
-        }
-
-        // Populate with last deployment details
-        if (hasLastDeployment) {
-          const cpu = lastDeployment?.cpu
-          const memory = lastDeployment?.memory
-
-          formDetail.formValues = {
-            ...formDetail.formValues,
-            memory,
-            cpu,
-            availableMemoryOptions: [
-              defaultOption,
-              ...reducedCpuToMemoryOptionsMap[cpu]
-            ],
-            preExistingDetails: true
-          }
+          instanceCount: isPrototype ? 1 : lastDeployment.instanceCount,
+          memory: lastDeployment.memory,
+          cpu,
+          availableMemoryOptions: [
+            defaultOption,
+            ...ecsCpuToMemoryOptionsMap[cpu]
+          ],
+          preExistingDetails: true
         }
       }
 
-      if (!stepData.isPrototype) {
-        // Populate with last deployment details
-        if (hasLastDeployment) {
-          const cpu = lastDeployment?.cpu
-          const instanceCount = lastDeployment?.instanceCount
-          const memory = lastDeployment?.memory
-
-          formDetail.formValues = {
-            ...formDetail.formValues,
-            instanceCount,
-            memory,
-            cpu,
-            availableMemoryOptions: [
-              defaultOption,
-              ...ecsCpuToMemoryOptionsMap[cpu]
-            ],
-            preExistingDetails: true
-          }
-        }
-
-        // If session cpu exists provide memory options dependent on this stepData.cpu value
-        if (stepData?.cpu) {
-          formDetail.formValues.availableMemoryOptions = [
-            defaultOption,
-            ...ecsCpuToMemoryOptionsMap[stepData?.cpu]
-          ]
-          formDetail.formValues.preExistingDetails = false
-        }
+      if (stepData.cpu) {
+        formDetail.formValues.availableMemoryOptions = [
+          defaultOption,
+          ...ecsCpuToMemoryOptionsMap[stepData.cpu]
+        ]
+        formDetail.formValues.preExistingDetails = false
       }
     }
 
@@ -97,5 +64,3 @@ const provideFormValues = {
   },
   assign: 'formDetail'
 }
-
-export { provideFormValues }

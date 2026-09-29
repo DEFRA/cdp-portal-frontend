@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { repositoryNameValidation } from '@defra/cdp-validation-kit'
-import { provideEntity } from '../../../common/helpers/ext/provide-entitiy.js'
+import { provideEntity } from '../../../common/helpers/ext/provide-entity.js'
 
 export const entityDebugRoute = {
   options: {

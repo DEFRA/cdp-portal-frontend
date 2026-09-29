@@ -1,4 +1,4 @@
-import { provideEntity } from './provide-entitiy.js'
+import { provideEntity } from './provide-entity.js'
 import { validateEntityIsAService } from './validate-entity-is-a-service.js'
 import { provideNotFoundIfPrototype } from './provide-not-found-if-prototype.js'
 import { validateEntityIsATestSuite } from './validate-entity-is-a-test-suite.js'

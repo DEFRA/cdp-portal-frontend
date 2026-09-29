@@ -1,4 +1,4 @@
-const deployServiceOptionsFixture = {
+export const deployServiceOptionsFixture = {
   cpuOptions: [
     {
       value: 512,
@@ -270,5 +270,3 @@ const deployServiceOptionsFixture = {
     ]
   }
 }
-
-export { deployServiceOptionsFixture }

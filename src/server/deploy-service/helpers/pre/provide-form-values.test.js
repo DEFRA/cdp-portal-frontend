@@ -8,6 +8,8 @@ import {
   deploymentSessionFixture,
   prototypeDeploymentSessionFixture
 } from '../../../../__fixtures__/deploy-service/deployment-session.js'
+import { entitySubTypes } from '@defra/cdp-validation-kit'
+import { deployServicePrototypeOptionsFixture } from '../../../../__fixtures__/deploy-service/deploy-service-prototype-options.js'
 
 describe('#provideFormValues', () => {
   const mockRequest = (stepData = null) => ({
@@ -28,13 +30,13 @@ describe('#provideFormValues', () => {
       `/deployment-settings/cdp-portal-prototype/dev`
   )
 
-  beforeEach(() => {
-    nock(optionsEndpointUrl.origin)
-      .get(optionsEndpointUrl.pathname)
-      .reply(200, deployServiceOptionsFixture)
-  })
-
   describe('Without a deployment session', () => {
+    beforeEach(() => {
+      nock(optionsEndpointUrl.origin)
+        .get(optionsEndpointUrl.pathname)
+        .reply(200, deployServiceOptionsFixture)
+    })
+
     test('Should provide expected form detail', async () => {
       expect(await provideFormValues.method(mockRequest())).toEqual({
         formValues: {
@@ -66,6 +68,12 @@ describe('#provideFormValues', () => {
   })
 
   describe('With a deployment session', () => {
+    beforeEach(() => {
+      nock(optionsEndpointUrl.origin)
+        .get(optionsEndpointUrl.pathname)
+        .reply(200, deployServiceOptionsFixture)
+    })
+
     describe('And null previous deployment config values', () => {
       beforeEach(() => {
         nock(deploymentConfigEndpoint.origin)
@@ -195,110 +203,119 @@ describe('#provideFormValues', () => {
 
     describe('With a prototype session', () => {
       beforeEach(() => {
-        nock(prototypeDeploymentConfigEndpoint.origin)
-          .get(prototypeDeploymentConfigEndpoint.pathname)
-          .reply(200, null)
+        nock(optionsEndpointUrl.origin)
+          .get(optionsEndpointUrl.pathname)
+          .query({ subtype: entitySubTypes.prototype })
+          .reply(200, deployServicePrototypeOptionsFixture)
       })
 
-      test('Should provide expected form detail', async () => {
-        expect(
-          await provideFormValues.method(
-            mockRequest(prototypeDeploymentSessionFixture)
-          )
-        ).toEqual({
-          formValues: {
-            availableMemoryOptions: [
-              {
-                text: ' - - Choose a CPU value - - ',
-                value: '',
-                disabled: true,
-                attributes: {
-                  selected: true
+      describe('And null previous deployment config values', () => {
+        beforeEach(() => {
+          nock(prototypeDeploymentConfigEndpoint.origin)
+            .get(prototypeDeploymentConfigEndpoint.pathname)
+            .reply(200, null)
+        })
+
+        test('Should provide expected form detail', async () => {
+          expect(
+            await provideFormValues.method(
+              mockRequest(prototypeDeploymentSessionFixture)
+            )
+          ).toEqual({
+            formValues: {
+              availableMemoryOptions: [
+                {
+                  text: ' - - Choose a CPU value - - ',
+                  value: '',
+                  disabled: true,
+                  attributes: {
+                    selected: true
+                  }
                 }
-              }
-            ],
-            cpuOptions: [
-              {
-                value: '',
-                text: ' - - select - - ',
-                disabled: true,
-                attributes: {
-                  selected: true
+              ],
+              cpuOptions: [
+                {
+                  value: '',
+                  text: ' - - select - - ',
+                  disabled: true,
+                  attributes: {
+                    selected: true
+                  }
+                },
+                {
+                  value: 512,
+                  text: '512 (.5 vCPU)'
+                },
+                {
+                  value: 1024,
+                  text: '1024 (1 vCPU)'
                 }
-              },
-              {
-                value: 512,
-                text: '512 (.5 vCPU)'
-              },
-              {
-                value: 1024,
-                text: '1024 (1 vCPU)'
-              }
-            ],
-            preExistingDetails: false,
-            instanceCount: 1,
-            isPrototype: true
-          }
+              ],
+              preExistingDetails: false,
+              instanceCount: 1,
+              isPrototype: true
+            }
+          })
         })
       })
-    })
 
-    describe('With a prototype and previous deployment config', () => {
-      beforeEach(() => {
-        nock(prototypeDeploymentConfigEndpoint.origin)
-          .get(prototypeDeploymentConfigEndpoint.pathname)
-          .reply(200, existingServiceInfoFixture)
-      })
+      describe('and previous deployment config', () => {
+        beforeEach(() => {
+          nock(prototypeDeploymentConfigEndpoint.origin)
+            .get(prototypeDeploymentConfigEndpoint.pathname)
+            .reply(200, existingServiceInfoFixture)
+        })
 
-      test('Should provide expected form detail', async () => {
-        expect(
-          await provideFormValues.method(
-            mockRequest(prototypeDeploymentSessionFixture)
-          )
-        ).toEqual({
-          formValues: {
-            availableMemoryOptions: [
-              {
-                value: '',
-                text: ' - - select - - ',
-                disabled: true,
-                attributes: {
-                  selected: true
+        test('Should provide expected form detail', async () => {
+          expect(
+            await provideFormValues.method(
+              mockRequest(prototypeDeploymentSessionFixture)
+            )
+          ).toEqual({
+            formValues: {
+              availableMemoryOptions: [
+                {
+                  value: '',
+                  text: ' - - select - - ',
+                  disabled: true,
+                  attributes: {
+                    selected: true
+                  }
+                },
+                {
+                  value: 2048,
+                  text: '2 GB'
+                },
+                {
+                  value: 3072,
+                  text: '3 GB'
                 }
-              },
-              {
-                value: 2048,
-                text: '2 GB'
-              },
-              {
-                value: 3072,
-                text: '3 GB'
-              }
-            ],
-            cpuOptions: [
-              {
-                value: '',
-                text: ' - - select - - ',
-                disabled: true,
-                attributes: {
-                  selected: true
+              ],
+              cpuOptions: [
+                {
+                  value: '',
+                  text: ' - - select - - ',
+                  disabled: true,
+                  attributes: {
+                    selected: true
+                  }
+                },
+                {
+                  value: 512,
+                  text: '512 (.5 vCPU)'
+                },
+                {
+                  value: 1024,
+                  text: '1024 (1 vCPU)'
                 }
-              },
-              {
-                value: 512,
-                text: '512 (.5 vCPU)'
-              },
-              {
-                value: 1024,
-                text: '1024 (1 vCPU)'
-              }
-            ],
-            preExistingDetails: true,
-            instanceCount: 1,
-            isPrototype: true,
-            memory: '2048',
-            cpu: '1024'
-          }
+              ],
+              preExistingDetails: true,
+              instanceCount: 1,
+              isPrototype: true,
+              memory: '2048',
+              cpu: '1024'
+            }
+          })
         })
       })
     })

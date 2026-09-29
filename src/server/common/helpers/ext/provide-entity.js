@@ -1,7 +1,7 @@
 import { fetchEntity } from '../fetch/fetch-entities.js'
 import { statusTagClassMap } from '../status-tag-class-map.js'
 
-async function provideEntity(request, h) {
+export async function provideEntity(request, h) {
   const entityName = request.params?.serviceId ?? request.params?.entityName
 
   if (entityName) {
@@ -13,5 +13,3 @@ async function provideEntity(request, h) {
 
   return h.continue
 }
-
-export { provideEntity }
