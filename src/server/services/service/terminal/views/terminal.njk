@@ -20,68 +20,61 @@
 {% block tabContent %}
   <section class="govuk-!-margin-top-6">
     {% call appSplitPane() %}
-      {% if environment %}
-        <section>
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-              data-testid="app-environment-header">{{ formattedEnvironment }} tools</h2>
-          <p>
-            Launch a short-lived tool in {{ formattedEnvironment }}, running as {{ serviceName }}.
-          </p>
+      <section>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+            data-testid="app-environment-header">{{ formattedEnvironment }} tools</h2>
+        <p>
+          Launch a short-lived tool in {{ formattedEnvironment }}, running as {{ serviceName }}.
+        </p>
 
-          <div class="app-grid app-grid--fluid">
-            {% for toolCard in toolCards %}
-              {% call appPanel({ classes: "app-tool-card", isSlim: true, testId: "app-tool-card-" + toolCard.value }) %}
-                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ toolCard.title }}</h3>
-                <p class="govuk-!-margin-bottom-2">{{ toolCard.summary }}</p>
-                <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-                  {% for point in toolCard.points %}
-                    <li>{{ point }}</li>
-                  {% endfor %}
-                </ul>
+        <div class="app-grid app-grid--fluid">
+          {% for toolCard in toolCards %}
+            {% call appPanel({ classes: "app-tool-card", isSlim: true, testId: "app-tool-card-" + toolCard.value }) %}
+              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ toolCard.title }}</h3>
+              <p class="govuk-!-margin-bottom-2">{{ toolCard.summary }}</p>
+              <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+                {% for point in toolCard.points %}
+                  <li>{{ point }}</li>
+                {% endfor %}
+              </ul>
 
-                <form class="app-tool-card__action" method="post" action="/services/{{ serviceName }}/terminal/launch" target="_blank">
-                  <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
-                  <input type="hidden" name="environment" value="{{ environment }}" />
+              <form class="app-tool-card__action" method="post" action="/services/{{ serviceName }}/terminal/launch" target="_blank">
+                <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+                <input type="hidden" name="environment" value="{{ environment }}" />
 
-                  <div class="govuk-button-group govuk-!-margin-bottom-0">
+                <div class="govuk-button-group govuk-!-margin-bottom-0">
+                  {{ govukButton({
+                    classes: launchClasses + " app-button--primary",
+                    name: "tool",
+                    value: toolCard.value,
+                    text: "Launch",
+                    attributes: {
+                      "aria-label": "Launch " + toolCard.title + " in " + formattedEnvironment
+                    }
+                  }) }}
+
+                  {% if toolCard.latestValue %}
                     {{ govukButton({
-                      classes: launchClasses + " app-button--primary",
+                      classes: launchClasses + " app-button--secondary",
                       name: "tool",
-                      value: toolCard.value,
-                      text: "Launch",
+                      value: toolCard.latestValue,
+                      text: "Launch latest",
                       attributes: {
-                        "aria-label": "Launch " + toolCard.title + " in " + formattedEnvironment
+                        "aria-label": "Launch latest " + toolCard.title + " in " + formattedEnvironment
                       }
                     }) }}
+                  {% endif %}
+                </div>
+              </form>
+            {% endcall %}
+          {% endfor %}
+        </div>
 
-                    {% if toolCard.latestValue %}
-                      {{ govukButton({
-                        classes: launchClasses + " app-button--secondary",
-                        name: "tool",
-                        value: toolCard.latestValue,
-                        text: "Launch latest",
-                        attributes: {
-                          "aria-label": "Launch latest " + toolCard.title + " in " + formattedEnvironment
-                        }
-                      }) }}
-                    {% endif %}
-                  </div>
-                </form>
-              {% endcall %}
-            {% endfor %}
-          </div>
-
-          <p class="govuk-body-s govuk-!-margin-top-4">
-            Sessions idle for 20 minutes become a candidate to be closed.
-            Changes to external services such as S3, MongoDB and Redis persist.
-          </p>
-        </section>
-      {% else %}
-        <section>
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
-          <p>{{ serviceName }} does not exist in any environment you can launch tools in.</p>
-        </section>
-      {% endif %}
+        <p class="govuk-body-s govuk-!-margin-top-4">
+          Sessions idle for 20 minutes become a candidate to be closed.
+          Changes to external services such as S3, MongoDB and Redis persist.
+        </p>
+      </section>
     {% endcall %}
   </section>
 {% endblock %}

@@ -2,6 +2,7 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { getTerminalEnvs } from '../helpers/get-terminal-envs.js'
+import { buildTerminalBreadcrumbs } from '../helpers/build-terminal-breadcrumbs.js'
 
 const terminalController = {
   options: {
@@ -30,22 +31,10 @@ const terminalController = {
       )
     }
 
-    return h.view('services/service/terminal/views/terminal', {
+    return h.view('services/service/terminal/views/terminal-empty', {
       pageTitle: `${serviceName} - Terminal`,
       serviceName,
-      breadcrumbs: [
-        {
-          text: 'Services',
-          href: '/services'
-        },
-        {
-          text: serviceName,
-          href: `/services/${serviceName}`
-        },
-        {
-          text: 'Terminal'
-        }
-      ]
+      breadcrumbs: buildTerminalBreadcrumbs(serviceName)
     })
   }
 }

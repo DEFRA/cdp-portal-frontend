@@ -31,22 +31,11 @@ const toolDescriptionsMap = {
 }
 
 export function getToolCards(availableTools) {
-  const cards = new Map()
-
-  for (const { value, tool } of availableTools) {
-    if (!(tool in toolDescriptionsMap)) {
-      continue
-    }
-
-    const card = cards.get(tool) ?? {
+  return availableTools
+    .filter(({ tool }) => Object.hasOwn(toolDescriptionsMap, tool))
+    .map(({ tool, canLaunchLatest }) => ({
       ...toolDescriptionsMap[tool],
-      value: tool
-    }
-    if (value !== tool) {
-      card.latestValue = value
-    }
-    cards.set(tool, card)
-  }
-
-  return [...cards.values()]
+      value: tool,
+      ...(canLaunchLatest && { latestValue: `${tool}_latest` })
+    }))
 }

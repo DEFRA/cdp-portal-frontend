@@ -255,12 +255,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <a class="app-breadcrumbs__link" href="/services/mock-service-with-terminal"
              data-testid="app-breadcrumbs-link">mock-service-with-terminal</a>
         </li>
-        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/services/mock-service-with-terminal/terminal"
-             data-testid="app-breadcrumbs-link">Terminal</a>
-        </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">Dev</li>
+            data-testid="app-breadcrumbs-list-item">Terminal</li>
   </ol>
 </nav>
 
@@ -536,74 +532,74 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   <div class="app-split-pane__content" data-testid="app-split-pane-content">
 
     <section class="app-content">
-              <section>
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-              data-testid="app-environment-header">Dev tools</h2>
-          <p>
-            Launch a short-lived tool in Dev, running as mock-service-with-terminal.
-          </p>
+            <section>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+            data-testid="app-environment-header">Dev tools</h2>
+        <p>
+          Launch a short-lived tool in Dev, running as mock-service-with-terminal.
+        </p>
 
-          <div class="app-grid app-grid--fluid">
+        <div class="app-grid app-grid--fluid">
 
 <div class="app-panel app-tool-card  app-panel--slim" data-testid="app-tool-card-terminal">
-                  <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Terminal</h3>
-                <p class="govuk-!-margin-bottom-2">A web shell in a container running with your service&#39;s permissions.</p>
-                <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-                    <li>Includes jq, curl, AWS CLI, redis-cli, mongosh and psql.</li>
-                    <li>Use the Files tab to upload files.</li>
-                    <li>Sessions last up to 2 hours.</li>
-                    <li>Changes in the container are lost when the session ends.</li>
-                </ul>
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Terminal</h3>
+              <p class="govuk-!-margin-bottom-2">A web shell in a container running with your service&#39;s permissions.</p>
+              <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+                  <li>Includes jq, curl, AWS CLI, redis-cli, mongosh and psql.</li>
+                  <li>Use the Files tab to upload files.</li>
+                  <li>Sessions last up to 2 hours.</li>
+                  <li>Changes in the container are lost when the session ends.</li>
+              </ul>
 
-                <form class="app-tool-card__action" method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
-                  <input type="hidden" name="csrfToken" value="test-token" />
-                  <input type="hidden" name="environment" value="dev" />
+              <form class="app-tool-card__action" method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
+                <input type="hidden" name="csrfToken" value="test-token" />
+                <input type="hidden" name="environment" value="dev" />
 
-                  <div class="govuk-button-group govuk-!-margin-bottom-0">
-                    <button type="submit" value="terminal" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--primary" data-module="govuk-button" aria-label="Launch Terminal in Dev">
+                <div class="govuk-button-group govuk-!-margin-bottom-0">
+                  <button type="submit" value="terminal" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--primary" data-module="govuk-button" aria-label="Launch Terminal in Dev">
   Launch
 </button>
 
-                      <button type="submit" value="terminal_latest" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--secondary" data-module="govuk-button" aria-label="Launch latest Terminal in Dev">
+                    <button type="submit" value="terminal_latest" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--secondary" data-module="govuk-button" aria-label="Launch latest Terminal in Dev">
   Launch latest
 </button>
-                  </div>
-                </form>
+                </div>
+              </form>
 
 </div>
 
 <div class="app-panel app-tool-card  app-panel--slim" data-testid="app-tool-card-pgweb">
-                  <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Postgres Web UI</h3>
-                <p class="govuk-!-margin-bottom-2">A browser UI for your service&#39;s Postgres database.</p>
-                <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-                    <li>Browse tables and run SQL queries.</li>
-                    <li>Export query results.</li>
-                    <li>Sessions last up to 6 hours.</li>
-                </ul>
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Postgres Web UI</h3>
+              <p class="govuk-!-margin-bottom-2">A browser UI for your service&#39;s Postgres database.</p>
+              <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+                  <li>Browse tables and run SQL queries.</li>
+                  <li>Export query results.</li>
+                  <li>Sessions last up to 6 hours.</li>
+              </ul>
 
-                <form class="app-tool-card__action" method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
-                  <input type="hidden" name="csrfToken" value="test-token" />
-                  <input type="hidden" name="environment" value="dev" />
+              <form class="app-tool-card__action" method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
+                <input type="hidden" name="csrfToken" value="test-token" />
+                <input type="hidden" name="environment" value="dev" />
 
-                  <div class="govuk-button-group govuk-!-margin-bottom-0">
-                    <button type="submit" value="pgweb" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--primary" data-module="govuk-button" aria-label="Launch Postgres Web UI in Dev">
+                <div class="govuk-button-group govuk-!-margin-bottom-0">
+                  <button type="submit" value="pgweb" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--primary" data-module="govuk-button" aria-label="Launch Postgres Web UI in Dev">
   Launch
 </button>
 
-                      <button type="submit" value="pgweb_latest" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--secondary" data-module="govuk-button" aria-label="Launch latest Postgres Web UI in Dev">
+                    <button type="submit" value="pgweb_latest" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--secondary" data-module="govuk-button" aria-label="Launch latest Postgres Web UI in Dev">
   Launch latest
 </button>
-                  </div>
-                </form>
+                </div>
+              </form>
 
 </div>
-          </div>
+        </div>
 
-          <p class="govuk-body-s govuk-!-margin-top-4">
-            Sessions idle for 20 minutes become a candidate to be closed.
-            Changes to external services such as S3, MongoDB and Redis persist.
-          </p>
-        </section>
+        <p class="govuk-body-s govuk-!-margin-top-4">
+          Sessions idle for 20 minutes become a candidate to be closed.
+          Changes to external services such as S3, MongoDB and Redis persist.
+        </p>
+      </section>
 
     </section>
   </div>

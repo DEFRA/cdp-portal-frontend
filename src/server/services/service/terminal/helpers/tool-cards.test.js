@@ -14,7 +14,7 @@ const fullEntity = {
 
 describe('#getToolCards', () => {
   test('admin sees one card per tool with a latest variant', () => {
-    const availableTools = getAvailableTools(fullEntity, [scopes.admin])
+    const availableTools = getAvailableTools(fullEntity, 'dev', [scopes.admin])
     const cards = getToolCards(availableTools)
 
     expect(
@@ -27,7 +27,7 @@ describe('#getToolCards', () => {
   })
 
   test('tenant without betaTester sees terminal card only', () => {
-    const availableTools = getAvailableTools(fullEntity, [scopes.tenant])
+    const availableTools = getAvailableTools(fullEntity, 'dev', [scopes.tenant])
     const cards = getToolCards(availableTools)
 
     expect(cards).toEqual([
@@ -46,7 +46,7 @@ describe('#getToolCards', () => {
       }
     }
 
-    const availableTools = getAvailableTools(postgresOnly, [
+    const availableTools = getAvailableTools(postgresOnly, 'dev', [
       'permission:betaTester'
     ])
     const cards = getToolCards(availableTools)
@@ -56,9 +56,7 @@ describe('#getToolCards', () => {
   })
 
   test('ignores tools without a description', () => {
-    const cards = getToolCards([
-      { text: 'Unknown', value: 'unknown', tool: 'unknown' }
-    ])
+    const cards = getToolCards([{ tool: 'unknown' }, { tool: 'toString' }])
 
     expect(cards).toEqual([])
   })

@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 import upperFirst from 'lodash/upperFirst.js'
 
 import { getTerminalEnvs } from '../helpers/get-terminal-envs.js'
+import { buildTerminalBreadcrumbs } from '../helpers/build-terminal-breadcrumbs.js'
 import { getAvailableTools } from '#server/services/service/terminal/helpers/get-available-tools.js'
 import { getToolCards } from '#server/services/service/terminal/helpers/tool-cards.js'
 
@@ -33,7 +34,7 @@ const terminalEnvironmentController = {
 
     const formattedEnvironment = upperFirst(environment)
     const toolCards = getToolCards(
-      getAvailableTools(request.app.entity, scopes)
+      getAvailableTools(request.app.entity, environment, scopes)
     )
 
     return h.view('services/service/terminal/views/terminal', {
@@ -49,25 +50,7 @@ const terminalEnvironmentController = {
         ),
         label: { text: upperFirst(env) }
       })),
-      breadcrumbs: [
-        {
-          text: 'Services',
-          href: '/services'
-        },
-        {
-          text: serviceName,
-          href: `/services/${serviceName}`
-        },
-        {
-          text: 'Terminal',
-          href: request.routeLookup('services/{serviceId}/terminal', {
-            params: { serviceId: serviceName }
-          })
-        },
-        {
-          text: formattedEnvironment
-        }
-      ]
+      breadcrumbs: buildTerminalBreadcrumbs(serviceName)
     })
   }
 }

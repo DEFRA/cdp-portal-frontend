@@ -124,6 +124,7 @@ describe('Service Terminal page', () => {
   test('page renders empty state when service is in no environments', async () => {
     const entity = await fetchEntity()
     fetchEntity.mockResolvedValue({ ...entity, environments: {} })
+    onTestFinished(() => fetchEntity.mockResolvedValue(entity))
 
     const { result, statusCode } = await mockAuthAndRenderUrl(server, {
       targetUrl: terminalUrl,
@@ -132,7 +133,5 @@ describe('Service Terminal page', () => {
     })
     expect(statusCode).toBe(statusCodes.ok)
     expect(result).toContain('does not exist in any environment')
-
-    fetchEntity.mockResolvedValue(entity)
   })
 })
