@@ -1,6 +1,6 @@
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import { environments } from '#config/environments.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
+import { environments } from '@defra/cdp-validation-kit'
 
 const teamDetailsFormController = {
   handler: (request, h) => {
@@ -17,7 +17,7 @@ const teamDetailsFormController = {
         text: formatText(env),
         checked:
           cdpTeam.alertEnvironments?.includes(env) === true ||
-          env === environments.prod.kebabName // prod checked by default when creating new team
+          env === environments.prod // prod checked by default when creating new team
       }
     })
 

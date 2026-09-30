@@ -5,16 +5,16 @@ import { formatText } from '#config/nunjucks/filters/filters.js'
 import { pagination } from '../../common/constants/pagination.js'
 import { databaseStatus } from '../constants/database-status.js'
 import { provideMigration } from '../helpers/pre/provide-migration.js'
-import { getAllEnvironmentKebabNames } from '../../common/helpers/environments/get-environments.js'
 import { transformMigrationToSummary } from '../transformers/migration-to-summary.js'
 import { databaseUpdateFaviconState } from '../helpers/database-update-favicon-state.js'
+import { orderedEnvironments } from '@defra/cdp-validation-kit'
 
 const databaseUpdateController = {
   options: {
     pre: [provideMigration],
     validate: {
       params: Joi.object({
-        environment: Joi.string().valid(...getAllEnvironmentKebabNames()),
+        environment: Joi.string().valid(...orderedEnvironments),
         migrationId: Joi.string()
       }),
       failAction: () => Boom.boomify(Boom.notFound())

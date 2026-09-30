@@ -2,9 +2,9 @@ import { fetchTestRuns } from '../../helpers/fetch/fetch-test-runs.js'
 import { sortByEnv } from '../../../common/helpers/sort/sort-by-env.js'
 import { formatISO, format, differenceInMinutes, subMinutes } from 'date-fns'
 import { testSuiteRunResults } from '../../transformers/test-suite-run-results.js'
-import { environments } from '#config/environments.js'
 import { buildOptions } from '../../../common/helpers/options/build-options.js'
 import Joi from 'joi'
+import { orderedEnvironments } from '@defra/cdp-validation-kit'
 
 const shortISO = "yyyy-MM-dd'T'HH:mm"
 
@@ -40,9 +40,9 @@ const runningTestsController = {
       )
       .map((t) => testSuiteRunResults(t, false))
 
-    const allEnvs = Object.values(environments).map(({ kebabName }) => ({
-      value: kebabName,
-      text: kebabName
+    const allEnvs = orderedEnvironments.map((env) => ({
+      value: env,
+      text: env
     }))
     const environmentOptions = buildOptions(allEnvs, true)
 

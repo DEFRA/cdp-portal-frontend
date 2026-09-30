@@ -1,4 +1,4 @@
-import { scopes } from '@defra/cdp-validation-kit'
+import { environments, scopes } from '@defra/cdp-validation-kit'
 import {
   commonServiceExtensions,
   provideNotFoundIfPrototypeExtension
@@ -6,7 +6,6 @@ import {
 import createAlertRows from '../../../../utils/createAlertRows.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
 import { promoteAlert } from '../../../../PlaygroundService.js'
-import { environments } from '#config/environments.js'
 
 export const ext = [
   ...commonServiceExtensions,
@@ -36,7 +35,7 @@ export default async function (request, h) {
     entity,
     alertRows: createAlertRows(
       playground.alerts.filter((alert) => alert.uid === uid),
-      environments.dev.kebabName
+      environments.dev
     )
   }
 }

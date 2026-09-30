@@ -5,7 +5,6 @@ import { formatText } from '#config/nunjucks/filters/filters.js'
 import { pagination } from '../../common/constants/pagination.js'
 import { deploymentStatus } from '../../common/constants/deployment.js'
 import { provideDeployment } from '../helpers/pre/provide-deployment.js'
-import { getAllEnvironmentKebabNames } from '../../common/helpers/environments/get-environments.js'
 import { transformSecrets } from '../../common/components/secrets-list/helpers/transform-secrets.js'
 import { provideEcsDeploymentStatus } from '../helpers/provide-ecs-deployment-status.js'
 import { allEnvironmentsOnlyForAdmin } from '../../common/helpers/ext/all-environments-only-for-admin.js'
@@ -14,6 +13,7 @@ import {
   transformDeploymentToStatusSummary,
   transformDeploymentToSummary
 } from '../transformers/deployment-to-summary.js'
+import { orderedEnvironments } from '@defra/cdp-validation-kit'
 
 const deploymentController = {
   options: {
@@ -24,7 +24,7 @@ const deploymentController = {
     pre: [provideDeployment],
     validate: {
       params: Joi.object({
-        environment: Joi.string().valid(...getAllEnvironmentKebabNames()),
+        environment: Joi.string().valid(...orderedEnvironments),
         deploymentId: Joi.string()
       }),
       failAction: () => Boom.boomify(Boom.notFound())
