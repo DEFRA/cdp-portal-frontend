@@ -547,7 +547,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
                   <li>Includes jq, curl, AWS CLI, redis-cli, mongosh and psql.</li>
                   <li>Use the Files tab to upload files.</li>
-                  <li>Sessions last up to 2 hours.</li>
                   <li>Changes in the container are lost when the session ends.</li>
               </ul>
 
@@ -570,11 +569,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 <div class="app-panel app-tool-card  app-panel--slim" data-testid="app-tool-card-pgweb">
                 <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Postgres Web UI</h3>
-              <p class="govuk-!-margin-bottom-2">A browser UI for your service&#39;s Postgres database.</p>
+              <p class="govuk-!-margin-bottom-2">Runs an instance of pgweb connected to your service&#39;s Postgres database.</p>
               <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
                   <li>Browse tables and run SQL queries.</li>
                   <li>Export query results.</li>
-                  <li>Sessions last up to 6 hours.</li>
               </ul>
 
               <form class="app-tool-card__action" method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">

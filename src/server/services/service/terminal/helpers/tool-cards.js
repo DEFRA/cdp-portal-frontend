@@ -6,27 +6,20 @@ const toolDescriptionsMap = {
     points: [
       'Includes jq, curl, AWS CLI, redis-cli, mongosh and psql.',
       'Use the Files tab to upload files.',
-      'Sessions last up to 2 hours.',
       'Changes in the container are lost when the session ends.'
     ]
   },
   pgweb: {
     title: 'Postgres Web UI',
-    summary: "A browser UI for your service's Postgres database.",
-    points: [
-      'Browse tables and run SQL queries.',
-      'Export query results.',
-      'Sessions last up to 6 hours.'
-    ]
+    summary:
+      "Runs an instance of pgweb connected to your service's Postgres database.",
+    points: ['Browse tables and run SQL queries.', 'Export query results.']
   },
   dbgate: {
     title: 'MongoDB Web UI',
-    summary: "A browser UI for your service's MongoDB database.",
-    points: [
-      'Browse collections and documents.',
-      'Run queries in the browser.',
-      'Sessions last up to 6 hours.'
-    ]
+    summary:
+      "Runs an instance of DBGate connected to your service's MongoDB database.",
+    points: ['Browse collections and documents.', 'Run queries in the browser.']
   }
 }
 
