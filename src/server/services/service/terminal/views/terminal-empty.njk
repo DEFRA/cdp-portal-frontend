@@ -1,0 +1,17 @@
+{% extends "layouts/tabbed-page.njk" %}
+
+{% block beforeTabContent %}
+  {{ appPageHeading({
+    caption: "Terminal",
+    text: serviceName
+  }) }}
+
+  {% include "partials/entity/messages.njk" %}
+{% endblock %}
+
+{% block tabContent %}
+  <section class="govuk-!-margin-top-6">
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
+    <p>{{ serviceName }} does not exist in any environment you can launch tools in.</p>
+  </section>
+{% endblock %}

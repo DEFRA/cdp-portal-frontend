@@ -98,3 +98,13 @@
   grid-area: db-details;
 }
 
+
+.app-tool-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-tool-card__action {
+  margin-top: auto;
+  padding-top: govuk-spacing(4);
+}

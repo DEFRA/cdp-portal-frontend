@@ -1,58 +1,6 @@
 {% extends "layouts/tabbed-page.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
-
-{% from "icons/aws-icon/macro.njk" import appAwsIcon %}
-{% from "icons/curl-icon/macro.njk" import appCurlIcon %}
-{% from "icons/info-icon/macro.njk" import appInfoIcon %}
-{% from "icons/mongo-db-icon/macro.njk" import appMongoDbIcon %}
-{% from "icons/redis-icon/macro.njk" import appRedisIcon %}
-{% from "icons/terminal-icon/macro.njk" import appTerminalIcon %}
-{% from "icons/warning-icon/macro.njk" import appWarningIcon %}
-{% from "info/macro.njk" import appInfo %}
-{% from "summary/macro.njk" import appSummary %}
-{% from "warning/macro.njk" import appWarning %}
-
-{# Construct table rows, tables and html contents #}
-{% set terminalTableRows = [] %}
-
-{% for terminalEnv in terminalEnvs %}
-  {% set launchFormHtml %}
-    {% set classes = [
-      "app-button app-button--primary app-button--small",
-      "app-button--significant" if terminalEnv == "prod"
-    ] | join(" ") | trim %}
-
-    {{ govukButton({
-      classes: classes,
-      name: 'environment',
-      text: "Launch",
-      value: terminalEnv
-    }) }}
-  {% endset %}
-
-  {{ terminalTableRows.push([
-    { text: terminalEnv | title },
-    { html: launchFormHtml }
-  ]) }}
-{% endfor %}
-
-{% set tips = [
-  "Behave as your service does, same permissions, same visibility",
-  "You can upload files",
-  "For a Backend service talk to MongoDb",
-  "For a Frontend service talk to Redis",
-  "Curl your Backend from your Frontend",
-  "Access your AWS services"
-] %}
-
-{% set warnings = [
-  "The connection is short-lived, lasting around 2 hours",
-  "Any changes you make to the container, will be lost when the terminal is closed",
-  "Changes to external services will persist. S3, MongoDb, Redis, etc",
-  "Maximum 20 GB of ephemeral storage"
-] %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -63,161 +11,70 @@
   {% include "partials/entity/messages.njk" %}
 {% endblock %}
 
+{% set formattedEnvironment = environment | title %}
+{% set launchClasses = [
+  "app-button app-button--small govuk-!-margin-bottom-0",
+  "app-button--significant" if environment == "prod"
+] | join(" ") | trim %}
+
 {% block tabContent %}
   <section class="govuk-!-margin-top-6">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
+    {% call appSplitPane() %}
+      <section>
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
+            data-testid="app-environment-header">{{ formattedEnvironment }} tools</h2>
+        <p>
+          Launch a short-lived tool in {{ formattedEnvironment }}, running as {{ serviceName }}.
+        </p>
 
-        <section class="govuk-!-margin-bottom-6">
-          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Terminal</h2>
-          <p class="govuk-!-margin-right-2">
-            Welcome to the CDP terminal for {{ serviceName }}. Launch a short-lived terminal in an environment
-            with the same permissions, visibility and security as your service.
-          </p>
-        </section>
+        <div class="app-grid app-grid--fluid">
+          {% for toolCard in toolCards %}
+            {% call appPanel({ classes: "app-tool-card", isSlim: true, testId: "app-tool-card-" + toolCard.value }) %}
+              <h3 class="govuk-heading-m govuk-!-margin-bottom-2">{{ toolCard.title }}</h3>
+              <p class="govuk-!-margin-bottom-2">{{ toolCard.summary }}</p>
+              <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+                {% for point in toolCard.points %}
+                  <li>{{ point }}</li>
+                {% endfor %}
+              </ul>
 
-        <article class="govuk-!-margin-bottom-6">
-          {% call appSummary({
-            heading: "Launch a terminal",
-            icon: appTerminalIcon({ classes: "app-icon--small"}),
-            intro: {
-              text: "Launch a secure terminal, as your service in an environment."
-            }
-          }) %}
+              <form class="app-tool-card__action" method="post" action="/services/{{ serviceName }}/terminal/launch" target="_blank">
+                <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+                <input type="hidden" name="environment" value="{{ environment }}" />
 
-            {% if canLaunchTerminal %}
-            <form method="post" action="/services/{{ serviceName }}/terminal/launch" target="_blank">
-              <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
+                <div class="govuk-button-group govuk-!-margin-bottom-0">
+                  {{ govukButton({
+                    classes: launchClasses + " app-button--primary",
+                    name: "tool",
+                    value: toolCard.value,
+                    text: "Launch",
+                    attributes: {
+                      "aria-label": "Launch " + toolCard.title + " in " + formattedEnvironment
+                    }
+                  }) }}
 
-              {%  if tools | length > 1 %}
-                {{ govukSelect({
-                  id: "tool",
-                  name: "tool",
-                  label: {
-                    text: "Tool",
-                    classes: "app-label"
-                  },
-                  classes: "app-select",
-                  value: formValues.eventType,
-                  items: tools,
-                  formGroup: {
-                    classes: "app-form-group app-form-group-js"
-                  }
-                }) }}
-              {% else %}
-                <input name="tool" type="hidden" value="{{ tools[0].value }}"/>
-              {%  endif %}
-
-              {{ govukTable({
-                classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-                attributes: {
-                  "data-testid": "govuk-table"
-                },
-                head: [{ text: "Environment" }, { text: "Action" }],
-                rows: terminalTableRows
-              }) }}
-            </form>
-            {% else %}
-              <p class="govuk-!-margin-bottom-2">
-                {{ serviceName if serviceName else "Your service" }} does not exist in any environment.
-              </p>
-            {% endif %}
-          {% endcall %}
-        </article>
-      </div>
-
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
-
-        {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Tooling</h2>
-
-          <p class="govuk-!-margin-bottom-2">
-            A number of tools are available to you in the CDP terminal.
-          </p>
-
-          <ul class="govuk-list">
-            <li>
-              <div class="app-!-layout-flex-start">
-                {{ appCurlIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
-                <strong class="govuk-!-margin-right-1">Curl</strong>
-                <a class="app-link" href="https://curl.se"
-                   target="_blank" rel="noopener noreferrer">
-                  https://curl.se</a>
-              </div>
-            </li>
-            <li>
-              <div class="app-!-layout-flex-start">
-                {{ appAwsIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
-                <strong class="govuk-!-margin-right-1">AWS Cli</strong>
-                <a class="app-link" href="https://aws.amazon.com/cli"
-                   target="_blank" rel="noopener noreferrer">
-                  https://aws.amazon.com/cli</a>
-              </div>
-            </li>
-            <li>
-              <div class="app-!-layout-flex-start">
-                {{ appRedisIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
-                <strong class="govuk-!-margin-right-1">Redis Cli</strong>
-                <a class="app-link" href="https://redis.io/docs/latest/develop/connect/cli"
-                   target="_blank" rel="noopener noreferrer">
-                  https://redis.io/docs/latest/develop/connect/cli</a>
-              </div>
-            </li>
-            <li>
-              <div class="app-!-layout-flex-start">
-                {{ appMongoDbIcon({ classes: "app-icon--small govuk-!-margin-right-1" }) }}
-                <strong class="govuk-!-margin-right-1">MongoDb Cli</strong>
-                <a class="app-link" href="https://www.mongodb.com/docs/mongocli/current"
-                   target="_blank" rel="noopener noreferrer">
-                  https://www.mongodb.com/docs/mongocli/current</a>
-              </div>
-            </li>
-          </ul>
-        {% endcall %}
-
-      </div>
-
-      <div class="govuk-grid-column-one-third-from-desktop-wide">
-
-        {% call appInfo({ classes: "govuk-!-margin-top-0" }) %}
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Info</h2>
-
-          <p class="govuk-!-margin-bottom-2">
-            The CDP Terminal is a web shell into a dedicated container running with the permissions that your service
-            has.
-          </p>
-          <ul class="govuk-list">
-            {% for tip in tips -%}
-              <li>
-                <div class="app-!-layout-flex-start">
-                  {{ appInfoIcon({
-                    classes: "app-icon--tiny govuk-!-margin-right-1",
-                    description: "Info"
-                  }) }} {{ tip }}
+                  {% if toolCard.latestValue %}
+                    {{ govukButton({
+                      classes: launchClasses + " app-button--secondary",
+                      name: "tool",
+                      value: toolCard.latestValue,
+                      text: "Launch latest",
+                      attributes: {
+                        "aria-label": "Launch latest " + toolCard.title + " in " + formattedEnvironment
+                      }
+                    }) }}
+                  {% endif %}
                 </div>
-              </li>
-            {% endfor %}
-          </ul>
+              </form>
+            {% endcall %}
+          {% endfor %}
+        </div>
 
-          <p class="govuk-!-margin-bottom-2">
-            The CDP Terminal also comes with a few things you need to be aware of.
-          </p>
-
-          <ul class="govuk-list">
-            {% for warning in warnings -%}
-              <li>
-                <div class="app-!-layout-flex-start">
-                  {{ appWarningIcon({
-                    classes: "app-icon--tiny govuk-!-margin-right-1",
-                    description: "Warning"
-                  }) }} {{ warning }}
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
-        {% endcall %}
-
-      </div>
-    </div>
+        <p class="govuk-body-s govuk-!-margin-top-4">
+          Sessions idle for 20 minutes become a candidate to be closed.
+          Changes to external services such as S3, MongoDB and Redis persist.
+        </p>
+      </section>
+    {% endcall %}
   </section>
 {% endblock %}

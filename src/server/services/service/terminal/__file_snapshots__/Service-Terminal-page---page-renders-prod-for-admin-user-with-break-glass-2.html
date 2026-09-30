@@ -2,7 +2,7 @@
 <html lang="en" class="govuk-template">
   <head>
     <meta charset="utf-8">
-    <title>  mock-service-with-terminal - Terminal - Dev | Core Delivery Platform - Portal
+    <title>  mock-service-with-terminal - Terminal - Prod | Core Delivery Platform - Portal
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#1d70b8">
@@ -162,7 +162,7 @@ Deployments
 
               
               <li class="govuk-service-navigation__item">
-                  <a class="govuk-service-navigation__link" href="/running-services?team=some-other-team-id" data-testid="nav-running-services">
+                  <a class="govuk-service-navigation__link" href="/running-services?team=mock-team-id" data-testid="nav-running-services">
                                     
 Running Services
                   </a>
@@ -499,7 +499,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </ul>
     <ul class="app-subnav__section">
 
-      <li class="app-subnav__section-item app-subnav__section-item--current"
+      <li class="app-subnav__section-item"
           data-testid="app-subnav-item-dev">
         <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
            href="/services/mock-service-with-terminal/terminal/dev"
@@ -527,6 +527,16 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         >Perf-test</a>
       </li>
     </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item app-subnav__section-item--current"
+          data-testid="app-subnav-item-prod">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-terminal/terminal/prod"
+           data-testid="app-subnav-link-prod"
+        >Prod</a>
+      </li>
+    </ul>
 </nav>
     </div>
   <div class="app-split-pane__content" data-testid="app-split-pane-content">
@@ -534,9 +544,9 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <section class="app-content">
             <section>
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2"
-            data-testid="app-environment-header">Dev tools</h2>
+            data-testid="app-environment-header">Prod tools</h2>
         <p>
-          Launch a short-lived tool in Dev, running as mock-service-with-terminal.
+          Launch a short-lived tool in Prod, running as mock-service-with-terminal.
         </p>
 
         <div class="app-grid app-grid--fluid">
@@ -552,14 +562,14 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
               <form class="app-tool-card__action" method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
                 <input type="hidden" name="csrfToken" value="test-token" />
-                <input type="hidden" name="environment" value="dev" />
+                <input type="hidden" name="environment" value="prod" />
 
                 <div class="govuk-button-group govuk-!-margin-bottom-0">
-                  <button type="submit" value="terminal" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--primary" data-module="govuk-button" aria-label="Launch Terminal in Dev">
+                  <button type="submit" value="terminal" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--significant app-button--primary" data-module="govuk-button" aria-label="Launch Terminal in Prod">
   Launch
 </button>
 
-                    <button type="submit" value="terminal_latest" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--secondary" data-module="govuk-button" aria-label="Launch latest Terminal in Dev">
+                    <button type="submit" value="terminal_latest" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--significant app-button--secondary" data-module="govuk-button" aria-label="Launch latest Terminal in Prod">
   Launch latest
 </button>
                 </div>
@@ -577,14 +587,14 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
               <form class="app-tool-card__action" method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
                 <input type="hidden" name="csrfToken" value="test-token" />
-                <input type="hidden" name="environment" value="dev" />
+                <input type="hidden" name="environment" value="prod" />
 
                 <div class="govuk-button-group govuk-!-margin-bottom-0">
-                  <button type="submit" value="pgweb" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--primary" data-module="govuk-button" aria-label="Launch Postgres Web UI in Dev">
+                  <button type="submit" value="pgweb" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--significant app-button--primary" data-module="govuk-button" aria-label="Launch Postgres Web UI in Prod">
   Launch
 </button>
 
-                    <button type="submit" value="pgweb_latest" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--secondary" data-module="govuk-button" aria-label="Launch latest Postgres Web UI in Dev">
+                    <button type="submit" value="pgweb_latest" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--significant app-button--secondary" data-module="govuk-button" aria-label="Launch latest Postgres Web UI in Prod">
   Launch latest
 </button>
                 </div>
