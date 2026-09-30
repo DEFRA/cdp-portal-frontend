@@ -12,7 +12,7 @@ import {
   entityTypes
 } from '@defra/cdp-validation-kit/src/constants/entities.js'
 import { statusTagClassMap } from '../../../helpers/status-tag-class-map.js'
-import { nonAdminEnvironments } from '#config/environments.js'
+import { nonAdminEnvironments } from '@defra/cdp-validation-kit/src/constants/environments.js'
 
 const stepsByEntityType = {
   [entityTypes.microservice]: [
@@ -33,10 +33,10 @@ function progressTable(entity) {
   if (!cols) return table
 
   for (const env of nonAdminEnvironments) {
-    const row = { env: env.kebabName, cols: [] }
+    const row = { env, cols: [] }
 
     for (const col of cols) {
-      const done = entity?.progress[env.kebabName]?.steps[col]
+      const done = entity?.progress[env]?.steps[col]
       row.cols.push(done)
     }
     table.push(row)

@@ -2,14 +2,14 @@ import Joi from 'joi'
 import Boom from '@hapi/boom'
 
 import { formatText } from '#config/nunjucks/filters/filters.js'
-import { getAllEnvironmentKebabNames } from '../../../common/helpers/environments/get-environments.js'
 import { fetchTestRun } from '../../helpers/fetch/fetch-test-run.js'
+import { orderedEnvironments } from '@defra/cdp-validation-kit'
 
 const testResultsController = {
   options: {
     validate: {
       params: Joi.object({
-        environment: Joi.string().valid(...getAllEnvironmentKebabNames()),
+        environment: Joi.string().valid(...orderedEnvironments),
         serviceId: Joi.string(),
         runId: Joi.string(),
         assetPath: Joi.string().required(),

@@ -1,6 +1,4 @@
-import { scopes } from '@defra/cdp-validation-kit'
-
-import { environments } from '#config/environments.js'
+import { environments, scopes } from '@defra/cdp-validation-kit'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 
 function allowedBreakGlassEnvironments({ userScopes, teams }) {
@@ -13,7 +11,7 @@ function allowedBreakGlassEnvironments({ userScopes, teams }) {
     [
       userScopes.includes(scopes.breakGlass),
       hasTeamBasedBreakGlass,
-      env !== environments.prod.kebabName
+      env !== environments.prod
     ].some((e) => e)
 
   return envs.filter(shouldIncludeEnvironment)

@@ -1,16 +1,6 @@
-import { environments } from '#config/environments.js'
+import { orderedEnvironments } from '@defra/cdp-validation-kit/src/constants/environments.js'
 
-const order = [
-  environments.infraDev.kebabName,
-  environments.management.kebabName,
-  environments.dev.kebabName,
-  environments.test.kebabName,
-  environments.perfTest.kebabName,
-  environments.extTest.kebabName,
-  environments.prod.kebabName
-]
+export const sortByEnv = (a, b) =>
+  orderedEnvironments.indexOf(a) - orderedEnvironments.indexOf(b)
 
-const sortByEnv = (a, b) => order.indexOf(a) - order.indexOf(b)
-const sortKeyByEnv = (key) => (a, b) => sortByEnv(a[key], b[key])
-
-export { sortByEnv, sortKeyByEnv }
+export const sortKeyByEnv = (key) => (a, b) => sortByEnv(a[key], b[key])

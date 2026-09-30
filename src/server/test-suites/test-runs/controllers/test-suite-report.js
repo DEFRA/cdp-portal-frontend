@@ -1,13 +1,13 @@
 import Joi from 'joi'
 import Boom from '@hapi/boom'
 import { iframeS3FileHandler } from '../../helpers/iframe-s3-file-handler.js'
-import { getAllEnvironmentKebabNames } from '../../../common/helpers/environments/get-environments.js'
+import { orderedEnvironments } from '@defra/cdp-validation-kit'
 
 const testSuiteReportController = {
   options: {
     validate: {
       params: Joi.object({
-        environment: Joi.string().valid(...getAllEnvironmentKebabNames()),
+        environment: Joi.string().valid(...orderedEnvironments),
         serviceId: Joi.string(),
         runId: Joi.string(),
         assetPath: Joi.string().required()

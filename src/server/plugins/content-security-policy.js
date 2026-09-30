@@ -1,12 +1,12 @@
 import Blankie from 'blankie'
 
 import { config } from '#config/config.js'
-import { getAllEnvironmentKebabNames } from '#server/common/helpers/environments/get-environments.js'
+import { orderedEnvironments } from '@defra/cdp-validation-kit'
 
 const terminalProxyUrl = config.get('terminalProxyUrl')
 const terminalProxyDomains = [
   ...new Set(
-    getAllEnvironmentKebabNames().map((environment) =>
+    orderedEnvironments.map((environment) =>
       terminalProxyUrl.replace('{environment}', environment)
     )
   )
@@ -15,7 +15,7 @@ const terminalProxyDomains = [
 const grafanaUrl = config.get('grafanaUrl')
 const grafanaDomains = [
   ...new Set(
-    getAllEnvironmentKebabNames().map((environment) =>
+    orderedEnvironments.map((environment) =>
       grafanaUrl.replace('{environment}', environment)
     )
   )

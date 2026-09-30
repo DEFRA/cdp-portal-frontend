@@ -1,10 +1,11 @@
-import {
-  environments,
-  performanceEnvironments,
-  prototypeEnvironments
-} from '#config/environments.js'
+import { environmentScope } from '#config/environment-scope.js'
 import { entitySubTypes } from '@defra/cdp-validation-kit'
 import { sortByEnv } from '#server/common/helpers/sort/sort-by-env.js'
+import {
+  performanceEnvironments,
+  prototypeEnvironments,
+  orderedEnvironments
+} from '@defra/cdp-validation-kit/src/constants/environments.js'
 
 function getEnvironmentValuesForEntitySubType(subType) {
   if (subType === entitySubTypes.prototype) {
@@ -15,28 +16,20 @@ function getEnvironmentValuesForEntitySubType(subType) {
     return performanceEnvironments
   }
 
-  return Object.values(environments)
+  return orderedEnvironments
 }
 
 export function getEnvironments(userScopes, entitySubType) {
   return getEnvironmentValuesForEntitySubType(entitySubType)
-    .filter(({ scope }) => {
-      if (scope == null) {
-        return true
-      } else {
-        return userScopes?.includes(scope)
-      }
+    .filter((env) => {
+      const scope = environmentScope[env]
+      return scope == null || userScopes?.includes(scope)
     })
-    .map(({ kebabName }) => kebabName)
     .sort(sortByEnv)
 }
 
 export function getEnvironmentsThatNeed(userScopes) {
-  return Object.values(environments)
-    .filter(({ scope }) => userScopes.includes(scope))
-    .map(({ kebabName }) => kebabName)
-}
-
-export function getAllEnvironmentKebabNames() {
-  return Object.values(environments).map(({ kebabName }) => kebabName)
+  return orderedEnvironments.filter((env) =>
+    userScopes.includes(environmentScope[env])
+  )
 }
