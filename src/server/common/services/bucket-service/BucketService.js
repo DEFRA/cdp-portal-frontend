@@ -110,6 +110,15 @@ export async function createEmptyFolder(request, basePath, path) {
   })
 }
 
+export async function deleteResource(request, basePath, path) {
+  const s3Path = formatAsS3Path(path)
+
+  const endpoint = `${config.get('portalBackendUrl')}${basePath}${encodePathSegments(s3Path)}`
+  await request.authedFetchJson(endpoint, {
+    method: 'DELETE'
+  })
+}
+
 function formatAsS3Path(path = '', withTrailingSlash) {
   let result = path
 

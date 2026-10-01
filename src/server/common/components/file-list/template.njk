@@ -89,14 +89,15 @@
 {% endmacro %}
 
 {% macro renderSelfActions(path) %}
-    <a href="{{ actionBasePath }}{{ path | encodePathSegments }}?action=create" data-no-xhr-link="true">Add sub folder</a>
+    <a href="{{ actionBasePath }}{{ path | encodePathSegments }}?action=create" data-no-xhr-link="true" class="app-link--underline">Add sub folder</a>
 {% endmacro %}
 
 {% macro renderActions(obj) %}
   {% if obj.isFolder %}
-    - - -
+    <a href="{{ actionBasePath }}{{ obj.path | encodePathSegments }}?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
   {% else %}
-    <a href="{{ downloadBasePath }}{{ obj.path | encodePathSegments }}" data-no-xhr-link="true" target="_blank">Download</a>
+    <a href="{{ downloadBasePath }}{{ obj.path | encodePathSegments }}" data-no-xhr-link="true" target="_blank" class="app-link--underline">Download</a>
+    <a href="{{ actionBasePath }}{{ obj.path | encodePathSegments }}?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
   {% endif %}
 {% endmacro %}
 

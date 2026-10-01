@@ -5,6 +5,15 @@ import {
 import Joi from 'joi'
 
 export default {
+  title() {
+    return 'Create sub folder'
+  },
+
+  description(request) {
+    const { path = '' } = request.params
+    return `Create a new folder under <strong>${path}/</strong>`
+  },
+
   async schema(request) {
     const { path = '' } = request.params
     const entity = request.app.entity
