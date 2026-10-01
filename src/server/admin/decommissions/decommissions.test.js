@@ -74,10 +74,14 @@ describe('Decommissions pages', () => {
     fetchEntities.mockResolvedValue(entityServicesFixture)
     fetchEntity.mockResolvedValue(entityServicesFixture[0])
     server = await initialiseServer()
+
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2026-09-20T00:00:00.000Z'))
   })
 
   afterAll(async () => {
     await server.stop({ timeout: 0 })
+    vi.useRealTimers()
   })
 
   describe('list view', () => {
