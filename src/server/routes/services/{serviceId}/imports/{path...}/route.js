@@ -5,6 +5,8 @@ import {
   folderTreeForPath
 } from '#server/common/services/bucket-service/BucketService.js'
 
+const IMPORT_FILE_EXTS = ['.dump']
+
 export const ext = [...commonServiceExtensions]
 
 export const options = {
@@ -43,11 +45,19 @@ export default async function (request) {
               text: 'Download',
               href: `/services/${entity.name}/imports-resource/${resource.path}`
             },
+            ...(hasImportExt(resource)
+              ? [
+                  {
+                    text: 'Import',
+                    href: `/services/${entity.name}/imports-action/${resource.path}?action=import`
+                  }
+                ]
+              : []),
             {
               text: 'Delete',
               href: `/services/${entity.name}/imports-action/${resource.path}?action=delete`
             }
-          ]
+        ]
     }
   })
 
@@ -93,4 +103,8 @@ export async function POST(request, h) {
     // TODO: Handle Server-side only upload if no client-side JS enabled?
   }
   return h.redirect(request.url)
+}
+
+function hasImportExt(resource) {
+  return IMPORT_FILE_EXTS.some((ext) => resource.name.endsWith(ext))
 }
