@@ -2,6 +2,7 @@ import { cwd } from 'node:process'
 
 import convict from 'convict'
 
+const twoHours = 1000 * 60 * 60 * 2
 const eightHours = 1000 * 60 * 60 * 8
 const oneDay = 1000 * 60 * 60 * 24
 const oneYear = 52 * 7 * 24 * 60 * 60 * 1000
@@ -129,26 +130,37 @@ const config = convict({
       env: 'SHELL_AUTH_COOKIE_ENABLED'
     },
     secret: {
-      doc: 'Shared secret for signing shell auth cookie',
+      doc: 'Shared secret for signing shell auth cookie. Must match webshell-proxy USER_AUTH_SECRET',
       format: '*',
-      default: isTest
-        ? 'test-shell-auth-cookie-secret'
-        : 'dev-shell-auth-cookie-secret',
+      nullable: true,
+      default: isProduction ? null : 'dev-terminal-auth-cookie-secret',
       sensitive: true,
       env: 'SHELL_AUTH_COOKIE_SECRET'
     },
     domain: {
-      doc: 'Cookie domain for terminal auth handoff',
+      doc: 'Cookie domain shared by the portal and webshell-proxy, e.g. .cdp-int.defra.cloud. Required when enabled in production. Leave unset locally for a host-only cookie on localhost',
       format: String,
       nullable: true,
-      default: isProduction ? '.cdp-int.defra.cloud' : null,
+      default: null,
       env: 'SHELL_AUTH_COOKIE_DOMAIN'
     },
+    isSecure: {
+      doc: 'Shell auth cookie isSecure flag',
+      format: Boolean,
+      default: isProduction,
+      env: 'SHELL_AUTH_COOKIE_IS_SECURE'
+    },
     ttlSeconds: {
-      doc: 'Shell auth cookie TTL in seconds',
-      format: Number,
+      doc: 'Shell auth cookie TTL in seconds. Matches the non-prod terminal max lifetime in cdp-self-service-ops',
+      format: 'nat',
       default: eightHours / 1000,
       env: 'SHELL_AUTH_COOKIE_TTL_SECONDS'
+    },
+    prodTtlSeconds: {
+      doc: 'Shell auth cookie TTL in seconds for prod. Matches the prod terminal max lifetime in cdp-self-service-ops',
+      format: 'nat',
+      default: twoHours / 1000,
+      env: 'SHELL_AUTH_COOKIE_PROD_TTL_SECONDS'
     }
   },
   grafanaUrl: {
@@ -486,5 +498,24 @@ const config = convict({
 })
 
 config.validate({ allowed: 'strict' })
+
+if (
+  config.get('shellAuthCookie.enabled') &&
+  !config.get('shellAuthCookie.secret')
+) {
+  throw new Error(
+    'SHELL_AUTH_COOKIE_ENABLED is true but SHELL_AUTH_COOKIE_SECRET is not set'
+  )
+}
+
+if (
+  isProduction &&
+  config.get('shellAuthCookie.enabled') &&
+  !config.get('shellAuthCookie.domain')
+) {
+  throw new Error(
+    'SHELL_AUTH_COOKIE_ENABLED is true but SHELL_AUTH_COOKIE_DOMAIN is not set'
+  )
+}
 
 export { config }

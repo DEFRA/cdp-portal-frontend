@@ -5,7 +5,7 @@ import {
   terminalBrowserParamsValidation,
   terminalBrowserQueryValidation
 } from '../helpers/schema/terminal-params-validation.js'
-import { signShellAuthCookie } from '../helpers/sign-shell-auth-cookie.js'
+import { setShellAuthCookie } from '../helpers/set-shell-auth-cookie.js'
 
 const terminalBrowserController = {
   options: {
@@ -56,29 +56,11 @@ const terminalBrowserController = {
       }
     )
 
-    if (config.get('shellAuthCookie.enabled')) {
-      const userId = request.auth.credentials.id
-      const ttlSeconds = config.get('shellAuthCookie.ttlSeconds')
-      const cookieValue = signShellAuthCookie({
-        oid: userId,
-        token,
-        ttlSeconds,
-        secret: config.get('shellAuthCookie.secret')
-      })
-      const cookieDomain = config.get('shellAuthCookie.domain') || undefined
-
-      response.state('cdpShellAuth', cookieValue, {
-        path: `/${token}`,
-        domain: cookieDomain,
-        ttl: ttlSeconds * 1000,
-        isSecure: config.get('session.cookie.isSecure'),
-        isHttpOnly: true,
-        isSameSite: 'Lax',
-        encoding: 'none',
-        clearInvalid: true,
-        strictHeader: true
-      })
-    }
+    setShellAuthCookie(response, {
+      oid: request.auth.credentials.id,
+      token,
+      environment
+    })
 
     return response
   }
