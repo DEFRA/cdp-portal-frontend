@@ -8,6 +8,11 @@ const component = `
   data-path="test"
   data-service="test-service"
   data-csrftoken="1234">
+  <script type="application/json">
+    {
+      "filenames": ["existing.txt"]
+    }
+  </script>
 </app-file-upload>`
 
 test('Renders correctly', async () => {
@@ -29,6 +34,23 @@ test('Prompts to select at least one file', async () => {
 
   await expect
     .element(getByText('Error: Please select at least one file.'))
+    .toBeInTheDocument()
+})
+
+test('Prompts if the filename already exists', async () => {
+  const { element, getByRole, getByText } = await page.render(component)
+  window.cdp.uploadManager.getUploads = vi.fn().mockReturnValue([])
+  element.render()
+
+  const file = new File([new Blob()], 'existing.txt')
+  const dt = new DataTransfer()
+  dt.items.add(file)
+  document.querySelector('input[name = "files"]').files = dt.files
+
+  await getByRole('button', { name: 'Upload' }).click()
+
+  await expect
+    .element(getByText('Error: Resource existing.txt already exists'))
     .toBeInTheDocument()
 })
 
