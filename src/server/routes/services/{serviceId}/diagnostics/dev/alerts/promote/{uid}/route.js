@@ -16,7 +16,7 @@ export const options = {
   auth: {
     mode: 'required',
     access: {
-      scope: [scopes.admin] // TODO: open to owners
+      scope: [scopes.admin, 'permission:betaTester'] // TODO: open to owners, remove betaTester
     }
   }
 }

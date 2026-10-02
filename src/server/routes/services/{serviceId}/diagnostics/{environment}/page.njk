@@ -57,7 +57,7 @@
                   {% endif %}
 
                   {{ dashboards(environment, resources.metrics | default([]), playground, createDashboardRows, userIsAdmin or userIsOwner) }}
-                  {{ alerts(environment, resources.alerts | default([]), playground, createAlertRows, userIsAdmin) }}
+                  {{ alerts(environment, resources.alerts | default([]), playground, createAlertRows, userIsAdmin or (userIsOwner and hasScope('permission:betaTester'))) }}
                 </div>
 
               {% endblock %}
