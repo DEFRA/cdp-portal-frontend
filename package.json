@@ -107,7 +107,8 @@
     "qs": "6.16.0",
     "spark-md5": "3.0.2",
     "string-strip-html": "13.5.3",
-    "svg-pan-zoom": "3.6.2"
+    "svg-pan-zoom": "3.6.2",
+    "uid": "2.0.2"
   },
   "devDependencies": {
     "@defra/hapi-connect": "1.0.1",

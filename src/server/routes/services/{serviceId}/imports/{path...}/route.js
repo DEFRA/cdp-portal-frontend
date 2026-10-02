@@ -28,11 +28,35 @@ export default async function (request) {
 
   const relativePathParts = path.split('/').filter((seg) => seg !== '')
 
+  const folderList = folderContents.map((resource) => {
+    return {
+      ...resource,
+      actions: resource.isFolder
+        ? [
+            {
+              text: 'Delete',
+              href: `/services/${entity.name}/imports-action/${resource.path}?action=delete`
+            }
+          ]
+        : [
+            {
+              text: 'Download',
+              href: `/services/${entity.name}/imports-resource/${resource.path}`
+            },
+            {
+              text: 'Delete',
+              href: `/services/${entity.name}/imports-action/${resource.path}?action=delete`
+            }
+          ]
+    }
+  })
+
   return {
     entity,
     path,
     relativePathParts,
-    folderContents,
+    folderList,
+    filenames: folderList.map(({ name }) => name),
     folderTree,
     pageTitle: 'Imports',
     breadcrumbs: [

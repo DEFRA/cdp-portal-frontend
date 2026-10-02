@@ -10,6 +10,7 @@ import startCase from 'lodash/startCase.js'
 import find from 'lodash/find.js'
 import pickBy from 'lodash/pickBy.js'
 import { formatDistanceToNow } from 'date-fns'
+import { uid } from 'uid'
 
 import { pluralise } from '#server/common/helpers/pluralise.js'
 import { formatDate } from '#server/common/helpers/date/format-date.js'
@@ -60,5 +61,6 @@ export {
   uppercaseMatch,
   isObject,
   formatFileSize,
-  encodePathSegments
+  encodePathSegments,
+  uid
 }

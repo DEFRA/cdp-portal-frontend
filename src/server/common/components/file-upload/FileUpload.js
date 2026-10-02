@@ -8,6 +8,9 @@ window.cdp = window.cdp ?? {}
 window.cdp.uploadManager = window.cdp.uploadManager ?? new UploadManager()
 
 export default class FileUpload extends NunjucksComponent {
+  #filesnames = []
+  #error = ''
+
   constructor() {
     super(template)
   }
@@ -23,6 +26,14 @@ export default class FileUpload extends NunjucksComponent {
     ]
   }
 
+  mounted() {
+    const jsonData = this.querySelector('script[type="application/json"]')
+    if (jsonData) {
+      const data = JSON.parse(jsonData.textContent)
+      this.#filesnames = data?.filenames ?? []
+    }
+  }
+
   render() {
     const uploads = window.cdp.uploadManager.getUploads()
     const isUploading = uploads?.some(({ status }) => status === 'uploading')
@@ -34,7 +45,8 @@ export default class FileUpload extends NunjucksComponent {
       uploads,
       ...this.dataset,
       isUploading,
-      showDone: !isUploading && hasFailedOrCancelled
+      showDone: !isUploading && hasFailedOrCancelled,
+      error: this.#error
     })
 
     // Force re-init for govukFileUpload component
@@ -51,7 +63,15 @@ export default class FileUpload extends NunjucksComponent {
     const files = $form.querySelector('input[name="files"]')?.files ?? []
 
     if (files.length === 0) {
-      this.render()
+      this.#error = 'Please select at least one file.'
+      return this.render()
+    }
+
+    for (const file of files) {
+      if (this.#filesnames.includes(file.name)) {
+        this.#error = `Resource ${file.name} already exists`
+        return this.render()
+      }
     }
 
     window.cdp.uploadManager.startUpload(

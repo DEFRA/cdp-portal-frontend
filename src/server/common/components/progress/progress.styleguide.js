@@ -35,6 +35,10 @@ export const progressStyleguide = {
     {
       title: 'Completed',
       params: { progress: 100, complete: 5, total: 5 }
+    },
+    {
+      title: 'Pending',
+      params: { complete: 0, total: 5 }
     }
   ]
 }

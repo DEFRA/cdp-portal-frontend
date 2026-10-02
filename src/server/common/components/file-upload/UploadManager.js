@@ -127,6 +127,7 @@ export default class UploadManager extends EventTarget {
         this.#dispatchFileEvent('cancelled', upload)
       } else {
         upload.status = 'failed'
+        upload.progress = 0
         this.#dispatchFileEvent('failed', upload)
       }
     }

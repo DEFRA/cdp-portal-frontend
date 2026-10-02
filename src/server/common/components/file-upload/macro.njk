@@ -6,5 +6,8 @@
     data-csrftoken="{{ params.csrfToken }}"
   >
     {%- include "./template.njk" -%}
+    <script type="application/json">
+      {{ { filenames: params.filenames } | dump | safe }}
+    </script>
   </app-file-upload>
 {% endmacro %}

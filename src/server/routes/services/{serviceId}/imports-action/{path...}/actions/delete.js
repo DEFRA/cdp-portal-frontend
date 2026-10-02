@@ -53,8 +53,14 @@ export default {
       }
 
       return Joi.object({
+        info: Joi.string()
+          .label('Folder name')
+          .description(`<pre class="govuk-hint app-hint">${name}</pre>`)
+          .meta({
+            component: 'informationField'
+          }),
         name: Joi.string()
-          .label(`Confirm folder name - ${name}`)
+          .label(`Confirm folder name`)
           .description('Enter the name of the folder to delete')
           .valid(name)
           .messages({
@@ -68,8 +74,14 @@ export default {
     }
 
     return Joi.object({
+      info: Joi.string()
+        .label('File name')
+        .description(`<pre class="govuk-hint app-hint">${name}</pre>`)
+        .meta({
+          component: 'informationField'
+        }),
       name: Joi.string()
-        .label(`Confirm file name - ${name}`)
+        .label(`Confirm file name`)
         .description('Enter the name of the file to delete')
         .valid(name)
         .messages({

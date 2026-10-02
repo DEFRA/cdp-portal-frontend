@@ -2,8 +2,8 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set errorMessage = "" %}
-{% if params.uploads and params.uploads.length == 0 %}
-  {% set errorMessage = { text: "Please select at least one file."} %}
+{% if params.error %}
+  {% set errorMessage = { text: params.error} %}
 {% endif %}
 
 <form method="post" data-js="file-upload">
