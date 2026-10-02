@@ -56,6 +56,7 @@ export default async function (request) {
     path,
     relativePathParts,
     folderList,
+    filenames: folderList.map(({ name }) => name),
     folderTree,
     pageTitle: 'Imports',
     breadcrumbs: [

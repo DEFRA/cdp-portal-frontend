@@ -10,7 +10,7 @@
   }) }}
 {% else %}
   {{ uploadForm({
-    uploads: params.uploads,
+    error: params.error,
     path: params.path,
     csrfToken: params.csrfToken
   }) }}
