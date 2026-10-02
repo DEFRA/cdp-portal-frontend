@@ -4,7 +4,7 @@ import { config } from '#config/config.js'
 import { signShellAuthCookie } from './sign-shell-auth-cookie.js'
 
 // Must match COOKIE_NAME in cdp-webshell-proxy src/user_auth.py
-const shellAuthCookieName = 'cdpTerminalAuth'
+const shellAuthCookieName = 'cdpShellAuth'
 
 function getTtlSeconds(environment, shellAuthCookieConfig) {
   const terminalTtlSeconds =

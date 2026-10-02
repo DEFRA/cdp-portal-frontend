@@ -120,7 +120,8 @@ const config = convict({
     format: String,
     default: isProduction
       ? 'https://webshell.{environment}.cdp-int.defra.cloud'
-      : 'http://localhost:8000'
+      : 'http://localhost:8000',
+    env: 'TERMINAL_PROXY_URL'
   },
   shellAuthCookie: {
     enabled: {
@@ -133,12 +134,12 @@ const config = convict({
       doc: 'Shared secret for signing shell auth cookie. Must match webshell-proxy USER_AUTH_SECRET',
       format: '*',
       nullable: true,
-      default: isProduction ? null : 'dev-terminal-auth-cookie-secret',
+      default: isProduction ? null : 'dev-shell-auth-cookie-secret',
       sensitive: true,
       env: 'SHELL_AUTH_COOKIE_SECRET'
     },
     domain: {
-      doc: 'Cookie domain shared by the portal and webshell-proxy, e.g. .cdp-int.defra.cloud. Required when enabled in production. Leave unset locally for a host-only cookie on localhost',
+      doc: 'Cookie domain shared by the portal and webshell-proxy, e.g. .cdp-int.defra.cloud. Required when the cookie is enabled. Locally use the portal host, e.g. cdp.127.0.0.1.sslip.io',
       format: String,
       nullable: true,
       default: null,
@@ -509,7 +510,6 @@ if (
 }
 
 if (
-  isProduction &&
   config.get('shellAuthCookie.enabled') &&
   !config.get('shellAuthCookie.domain')
 ) {
