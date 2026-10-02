@@ -9,8 +9,7 @@
 {% set path = params.path %}
 {% set basePath = params.basePath %}
 {% set parentPath = params.parentPath %}
-{% set downloadBasePath = params.downloadBasePath %}
-{% set actionBasePath = params.actionBasePath %}
+{% set actions = params.actions %}
 
 
 {% macro renderRows(rows, content) %}
@@ -83,22 +82,21 @@
         text: '- - -'
       },
       {
-        html: renderSelfActions(path)
+        html: renderSelfActions(actions)
       }
     ]) }}
 {% endmacro %}
 
-{% macro renderSelfActions(path) %}
-    <a href="{{ actionBasePath }}{{ path | encodePathSegments }}?action=create" data-no-xhr-link="true" class="app-link--underline">Add sub folder</a>
+{% macro renderSelfActions(actions) %}
+    {% for action in actions %}
+      <a href="{{ action.href | encodePathSegments }}" data-no-xhr-link="true" class="app-link--underline">{{ action.text }}</a>
+    {% endfor %}
 {% endmacro %}
 
 {% macro renderActions(obj) %}
-  {% if obj.isFolder %}
-    <a href="{{ actionBasePath }}{{ obj.path | encodePathSegments }}?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
-  {% else %}
-    <a href="{{ downloadBasePath }}{{ obj.path | encodePathSegments }}" data-no-xhr-link="true" target="_blank" class="app-link--underline">Download</a>
-    <a href="{{ actionBasePath }}{{ obj.path | encodePathSegments }}?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
-  {% endif %}
+  {% for action in obj.actions %}
+    <a href="{{ action.href | encodePathSegments }}" data-no-xhr-link="true" class="app-link--underline">{{ action.text }}</a>
+  {% endfor %}
 {% endmacro %}
 
 {% macro renderName(obj) %}
