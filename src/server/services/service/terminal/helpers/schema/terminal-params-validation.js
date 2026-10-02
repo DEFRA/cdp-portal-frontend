@@ -35,7 +35,8 @@ export function terminalBrowserParamsValidation(params, options) {
     environment: Joi.string()
       .valid(...allowedEnvironments)
       .required(),
-    token: Joi.string().required()
+    // cdp-self-service-ops generateTerminalToken(64). Also ends up in the shell auth cookie path
+    token: Joi.string().hex().length(64).required()
   }).validate(params, options)
 
   if (validationResult?.error) {

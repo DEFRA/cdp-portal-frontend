@@ -1,3 +1,5 @@
+import { createHmac } from 'node:crypto'
+
 import { entitySubTypes, scopes, statusCodes } from '@defra/cdp-validation-kit'
 
 import {
@@ -7,6 +9,8 @@ import {
   mockTeam
 } from '#test-helpers/common-page-rendering.js'
 import { fetchEntity } from '#server/common/helpers/fetch/fetch-entities.js'
+import { config } from '#config/config.js'
+import { shellAuthCookieName } from './helpers/set-shell-auth-cookie.js'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
@@ -14,6 +18,12 @@ vi.mock('../../helpers/fetch/fetch-shuttering-urls.js')
 
 const serviceName = 'mock-service-with-terminal'
 const terminalUrl = `/services/${serviceName}/terminal`
+
+const findCookie = (headers, name) =>
+  [headers['set-cookie']]
+    .flat()
+    .find((cookie) => cookie?.startsWith(`${name}=`))
+const cookieValue = (cookie) => cookie.split(';')[0].split('=')[1]
 
 describe('Service Terminal page', () => {
   /** @type {import('@hapi/hapi').Server} */
@@ -133,5 +143,90 @@ describe('Service Terminal page', () => {
     })
     expect(statusCode).toBe(statusCodes.ok)
     expect(result).toContain('does not exist in any environment')
+  })
+
+  describe('shell auth cookie', () => {
+    const secret = 'test-shell-auth-secret'
+    const token = 'a'.repeat(64)
+
+    function enableShellAuthCookie() {
+      const previous = config.get('shellAuthCookie')
+      config.set('shellAuthCookie', {
+        ...previous,
+        enabled: true,
+        secret,
+        isSecure: true,
+        domain: '.cdp-int.defra.cloud'
+      })
+      onTestFinished(() => config.set('shellAuthCookie', previous))
+    }
+
+    test('is signed and scoped to the shell token when enabled', async () => {
+      enableShellAuthCookie()
+
+      const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `${terminalUrl}/dev/${token}`,
+        isAdmin: true,
+        isTenant: true
+      })
+
+      expect(statusCode).toBe(statusCodes.ok)
+      const shellAuthCookie = findCookie(headers, shellAuthCookieName)
+      expect(shellAuthCookie).toContain(`Path=/${token}`)
+      expect(shellAuthCookie).toContain('Domain=.cdp-int.defra.cloud')
+      expect(shellAuthCookie).toContain('HttpOnly')
+      expect(shellAuthCookie).toContain('Secure')
+      expect(shellAuthCookie).toContain('SameSite=Lax')
+      expect(shellAuthCookie).toContain(`Max-Age=${8 * 60 * 60}`)
+
+      const [payload, signature] = cookieValue(shellAuthCookie).split('.')
+      expect(signature).toBe(
+        createHmac('sha256', secret).update(payload).digest('base64url')
+      )
+      expect(
+        JSON.parse(Buffer.from(payload, 'base64url').toString('utf-8'))
+      ).toEqual({ oid: expect.any(String), token, exp: expect.any(Number) })
+    })
+
+    test('uses the shorter prod ttl in prod', async () => {
+      enableShellAuthCookie()
+
+      const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `${terminalUrl}/prod/${token}`,
+        isAdmin: true,
+        isTenant: true,
+        teamScope: mockTeam.teamId,
+        additionalScopes: [`${scopes.breakGlass}:team:${mockTeam.teamId}`]
+      })
+
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(findCookie(headers, shellAuthCookieName)).toContain(
+        `Max-Age=${2 * 60 * 60}`
+      )
+    })
+
+    test('is not set when disabled', async () => {
+      const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `${terminalUrl}/dev/${token}`,
+        isAdmin: true,
+        isTenant: true
+      })
+
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(findCookie(headers, shellAuthCookieName)).toBeUndefined()
+    })
+
+    test('rejects a token that is not a 64 char hex string', async () => {
+      enableShellAuthCookie()
+
+      const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `${terminalUrl}/dev/abc%3Bdef`,
+        isAdmin: true,
+        isTenant: true
+      })
+
+      expect(statusCode).toBe(statusCodes.forbidden)
+      expect(findCookie(headers, shellAuthCookieName)).toBeUndefined()
+    })
   })
 })

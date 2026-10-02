@@ -5,6 +5,7 @@ import {
   terminalBrowserParamsValidation,
   terminalBrowserQueryValidation
 } from '../helpers/schema/terminal-params-validation.js'
+import { setShellAuthCookie } from '../helpers/set-shell-auth-cookie.js'
 
 const terminalBrowserController = {
   options: {
@@ -43,14 +44,25 @@ const terminalBrowserController = {
       }
     })
 
-    return h.view('services/service/terminal/views/terminal-browser', {
-      pageTitle: `${isTerminalTool ? 'Terminal' : 'Tool'} - ${environment} - ${serviceId}`,
-      serviceId,
-      environment,
-      terminalProxyUrl,
-      isTerminalTool,
-      tool
+    const response = h.view(
+      'services/service/terminal/views/terminal-browser',
+      {
+        pageTitle: `${isTerminalTool ? 'Terminal' : 'Tool'} - ${environment} - ${serviceId}`,
+        serviceId,
+        environment,
+        terminalProxyUrl,
+        isTerminalTool,
+        tool
+      }
+    )
+
+    setShellAuthCookie(response, {
+      oid: request.auth.credentials.id,
+      token,
+      environment
     })
+
+    return response
   }
 }
 
