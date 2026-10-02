@@ -7,6 +7,7 @@ import {
   mockTeam
 } from '#test-helpers/common-page-rendering.js'
 import { fetchEntity } from '#server/common/helpers/fetch/fetch-entities.js'
+import { config } from '#config/config.js'
 
 vi.mock('../../../common/helpers/fetch/fetch-entities.js')
 vi.mock('../../../common/helpers/auth/get-user-session.js')
@@ -133,5 +134,53 @@ describe('Service Terminal page', () => {
     })
     expect(statusCode).toBe(statusCodes.ok)
     expect(result).toContain('does not exist in any environment')
+  })
+
+  test('terminal browser route sets signed auth cookie when enabled', async () => {
+    config.set('shellAuthCookie.enabled', true)
+    config.set('shellAuthCookie.secret', 'test-shell-auth-secret')
+    config.set('shellAuthCookie.ttlSeconds', 1200)
+    config.set('shellAuthCookie.domain', '.cdp-int.defra.cloud')
+    onTestFinished(() => {
+      config.set('shellAuthCookie.enabled', false)
+      config.set('shellAuthCookie.domain', null)
+    })
+
+    const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `${terminalUrl}/dev/token-1`,
+      isAdmin: true,
+      isTenant: true
+    })
+
+    expect(statusCode).toBe(statusCodes.ok)
+    const cookies = Array.isArray(headers['set-cookie'])
+      ? headers['set-cookie']
+      : [headers['set-cookie']]
+    const shellAuthCookie = cookies.find((cookie) =>
+      cookie.startsWith('cdpShellAuth=')
+    )
+    expect(shellAuthCookie).toBeDefined()
+    expect(shellAuthCookie).toMatch(/Path=\/token-1/)
+    expect(shellAuthCookie).toMatch(/Domain=.cdp-int.defra.cloud/)
+    expect(shellAuthCookie).toMatch(/HttpOnly/)
+  })
+
+  test('terminal browser route does not set auth cookie when disabled', async () => {
+    config.set('shellAuthCookie.enabled', false)
+
+    const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
+      targetUrl: `${terminalUrl}/dev/token-1`,
+      isAdmin: true,
+      isTenant: true
+    })
+
+    expect(statusCode).toBe(statusCodes.ok)
+    const cookies = Array.isArray(headers['set-cookie'])
+      ? headers['set-cookie']
+      : [headers['set-cookie']]
+    const shellAuthCookie = cookies.find((cookie) =>
+      cookie.startsWith('cdpShellAuth=')
+    )
+    expect(shellAuthCookie).toBeUndefined()
   })
 })

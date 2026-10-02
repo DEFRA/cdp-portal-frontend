@@ -121,6 +121,36 @@ const config = convict({
       ? 'https://webshell.{environment}.cdp-int.defra.cloud'
       : 'http://localhost:8000'
   },
+  shellAuthCookie: {
+    enabled: {
+      doc: 'Enable signed shell auth cookie for webshell-proxy',
+      format: Boolean,
+      default: false,
+      env: 'SHELL_AUTH_COOKIE_ENABLED'
+    },
+    secret: {
+      doc: 'Shared secret for signing shell auth cookie',
+      format: '*',
+      default: isTest
+        ? 'test-shell-auth-cookie-secret'
+        : 'dev-shell-auth-cookie-secret',
+      sensitive: true,
+      env: 'SHELL_AUTH_COOKIE_SECRET'
+    },
+    domain: {
+      doc: 'Cookie domain for terminal auth handoff',
+      format: String,
+      nullable: true,
+      default: isProduction ? '.cdp-int.defra.cloud' : null,
+      env: 'SHELL_AUTH_COOKIE_DOMAIN'
+    },
+    ttlSeconds: {
+      doc: 'Shell auth cookie TTL in seconds',
+      format: Number,
+      default: eightHours / 1000,
+      env: 'SHELL_AUTH_COOKIE_TTL_SECONDS'
+    }
+  },
   grafanaUrl: {
     doc: 'Grafana base url',
     format: String,
