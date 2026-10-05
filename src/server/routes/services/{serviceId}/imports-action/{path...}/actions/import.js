@@ -70,7 +70,7 @@ export default {
               service: entity.name,
               environment,
               target,
-              s3File: `s3://${bucket}/entities/${entity.name}/imports/${path}`
+              s3File: `s3://${bucket}/${entity.name}/imports/${path}`
             }
           })
 
