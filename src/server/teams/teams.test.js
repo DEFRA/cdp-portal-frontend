@@ -19,13 +19,18 @@ vi.mock('../admin/teams/helpers/fetch/fetchers.js')
 describe('Teams page', () => {
   let server
 
-  beforeAll(() => {
+  // Relative times ("almost 3 years ago") are rendered into the snapshots, so freeze the clock.
+  // Per test, so each nested beforeAll starts its server on real timers first.
+  beforeEach(() => {
     vi.useFakeTimers({ advanceTimers: true })
     vi.setSystemTime(new Date('2026-10-02T15:00:00.000Z'))
   })
 
-  afterAll(async () => {
+  afterEach(() => {
     vi.useRealTimers()
+  })
+
+  afterAll(async () => {
     await server.stop({ timeout: 0 })
   })
 
