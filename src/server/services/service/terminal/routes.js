@@ -2,6 +2,7 @@ import { launchTerminalController } from './controllers/launch-terminal.js'
 import { terminalController } from './controllers/terminal.js'
 import { terminalEnvironmentController } from './controllers/terminal-environment.js'
 import { terminalBrowserController } from './controllers/terminal-browser.js'
+import { registerShellAuthCookie } from './helpers/set-shell-auth-cookie.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { authScope } from '../../../common/helpers/auth/auth-scope.js'
 import { provideFormContextValues } from '../../../common/helpers/form/provide-form-context-values.js'
@@ -15,10 +16,12 @@ const serviceOwnerOrAdminUserScope = authScope([
   scopes.serviceOwner
 ])
 
-const serviceTerminal = {
+export const serviceTerminal = {
   plugin: {
     name: 'serviceTerminal',
     register: (server) => {
+      registerShellAuthCookie(server)
+
       server.ext([
         ...commonServiceExtensions,
         provideNotFoundIfPrototypeExtension,
@@ -59,5 +62,3 @@ const serviceTerminal = {
     }
   }
 }
-
-export { serviceTerminal }

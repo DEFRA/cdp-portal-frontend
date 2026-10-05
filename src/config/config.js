@@ -119,7 +119,36 @@ const config = convict({
     format: String,
     default: isProduction
       ? 'https://webshell.{environment}.cdp-int.defra.cloud'
-      : 'http://localhost:8000'
+      : 'http://localhost:8000',
+    env: 'TERMINAL_PROXY_URL'
+  },
+  shellAuthCookie: {
+    secret: {
+      doc: 'Secret for signing the shell auth cookie. Reuses the session cookie password. webshell-proxy must be given the same value (USER_AUTH_SECRET, or cookie_secret in the cdp/platform/webshell-proxy secret)',
+      format: '*',
+      default: 'beepBoopBeepDevelopmentOnlyBeepBoop',
+      sensitive: true,
+      env: 'SESSION_COOKIE_PASSWORD' // reuse the session cookie password
+    },
+    domain: {
+      doc: 'Cookie domain shared by the portal and webshell-proxy, e.g. .cdp-int.defra.cloud. Must be set in deployed environments, otherwise the browser will not send the cookie to webshell-proxy. Unset gives a host-only cookie, which is fine locally. To test locally use the portal host, e.g. cdp.127.0.0.1.sslip.io',
+      format: String,
+      nullable: true,
+      default: null,
+      env: 'SHELL_AUTH_COOKIE_DOMAIN'
+    },
+    isSecure: {
+      doc: 'Shell auth cookie isSecure flag',
+      format: Boolean,
+      default: isProduction,
+      env: 'SHELL_AUTH_COOKIE_IS_SECURE'
+    },
+    ttl: {
+      doc: 'Shell auth cookie TTL in milliseconds. Defaults to the longest terminal max lifetime (8h, non-prod) in cdp-self-service-ops tool-config.js. The portal is a single deployment serving every environment, so this cannot differ per environment. The cookie may outlive a shorter prod shell (2h), which is harmless as the shell is gone by then',
+      format: 'nat',
+      default: eightHours,
+      env: 'SHELL_AUTH_COOKIE_TTL'
+    }
   },
   grafanaUrl: {
     doc: 'Grafana base url',
