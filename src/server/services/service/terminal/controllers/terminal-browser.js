@@ -8,7 +8,7 @@ import {
 import { shellAuthCookieName } from '../helpers/set-shell-auth-cookie.js'
 import { signShellAuthCookie } from '../helpers/sign-shell-auth-cookie.js'
 
-const terminalBrowserController = {
+export const terminalBrowserController = {
   options: {
     validate: {
       params: terminalBrowserParamsValidation,
@@ -67,5 +67,3 @@ const terminalBrowserController = {
       .state(shellAuthCookieName, cookieValue, { path: `/${token}`, ttl })
   }
 }
-
-export { terminalBrowserController }

@@ -16,7 +16,7 @@ const serviceOwnerOrAdminUserScope = authScope([
   scopes.serviceOwner
 ])
 
-const serviceTerminal = {
+export const serviceTerminal = {
   plugin: {
     name: 'serviceTerminal',
     register: (server) => {
@@ -62,5 +62,3 @@ const serviceTerminal = {
     }
   }
 }
-
-export { serviceTerminal }
