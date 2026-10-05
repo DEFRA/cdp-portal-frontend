@@ -57,7 +57,7 @@ export default async function (request) {
               text: 'Delete',
               href: `/services/${entity.name}/imports-action/${resource.path}?action=delete`
             }
-        ]
+          ]
     }
   })
 
