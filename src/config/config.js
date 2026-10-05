@@ -2,7 +2,6 @@ import { cwd } from 'node:process'
 
 import convict from 'convict'
 
-const twoHours = 1000 * 60 * 60 * 2
 const eightHours = 1000 * 60 * 60 * 8
 const oneDay = 1000 * 60 * 60 * 24
 const oneYear = 52 * 7 * 24 * 60 * 60 * 1000
@@ -124,22 +123,15 @@ const config = convict({
     env: 'TERMINAL_PROXY_URL'
   },
   shellAuthCookie: {
-    enabled: {
-      doc: 'Enable signed shell auth cookie for webshell-proxy',
-      format: Boolean,
-      default: false,
-      env: 'SHELL_AUTH_COOKIE_ENABLED'
-    },
     secret: {
-      doc: 'Shared secret for signing shell auth cookie. Must match webshell-proxy USER_AUTH_SECRET',
+      doc: 'Secret for signing the shell auth cookie. Reuses the session cookie password. webshell-proxy must be given the same value (USER_AUTH_SECRET, or cookie_secret in the cdp/platform/webshell-proxy secret)',
       format: '*',
-      nullable: true,
-      default: isProduction ? null : 'dev-shell-auth-cookie-secret',
+      default: 'beepBoopBeepDevelopmentOnlyBeepBoop',
       sensitive: true,
-      env: 'SHELL_AUTH_COOKIE_SECRET'
+      env: 'SESSION_COOKIE_PASSWORD' // reuse the session cookie password
     },
     domain: {
-      doc: 'Cookie domain shared by the portal and webshell-proxy, e.g. .cdp-int.defra.cloud. Required when the cookie is enabled. Locally use the portal host, e.g. cdp.127.0.0.1.sslip.io',
+      doc: 'Cookie domain shared by the portal and webshell-proxy, e.g. .cdp-int.defra.cloud. Must be set in deployed environments, otherwise the browser will not send the cookie to webshell-proxy. Unset gives a host-only cookie, which is fine locally. To test locally use the portal host, e.g. cdp.127.0.0.1.sslip.io',
       format: String,
       nullable: true,
       default: null,
@@ -152,16 +144,10 @@ const config = convict({
       env: 'SHELL_AUTH_COOKIE_IS_SECURE'
     },
     ttlSeconds: {
-      doc: 'Shell auth cookie TTL in seconds. Matches the non-prod terminal max lifetime in cdp-self-service-ops',
+      doc: 'Shell auth cookie TTL in seconds. Defaults to the non-prod terminal max lifetime (8h) in cdp-self-service-ops. Set it to 7200 in prod to match the prod terminal max lifetime',
       format: 'nat',
       default: eightHours / 1000,
       env: 'SHELL_AUTH_COOKIE_TTL_SECONDS'
-    },
-    prodTtlSeconds: {
-      doc: 'Shell auth cookie TTL in seconds for prod. Matches the prod terminal max lifetime in cdp-self-service-ops',
-      format: 'nat',
-      default: twoHours / 1000,
-      env: 'SHELL_AUTH_COOKIE_PROD_TTL_SECONDS'
     }
   },
   grafanaUrl: {
@@ -499,23 +485,5 @@ const config = convict({
 })
 
 config.validate({ allowed: 'strict' })
-
-if (
-  config.get('shellAuthCookie.enabled') &&
-  !config.get('shellAuthCookie.secret')
-) {
-  throw new Error(
-    'SHELL_AUTH_COOKIE_ENABLED is true but SHELL_AUTH_COOKIE_SECRET is not set'
-  )
-}
-
-if (
-  config.get('shellAuthCookie.enabled') &&
-  !config.get('shellAuthCookie.domain')
-) {
-  throw new Error(
-    'SHELL_AUTH_COOKIE_ENABLED is true but SHELL_AUTH_COOKIE_DOMAIN is not set'
-  )
-}
 
 export { config }

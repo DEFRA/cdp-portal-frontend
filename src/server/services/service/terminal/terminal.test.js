@@ -28,13 +28,21 @@ const cookieValue = (cookie) => cookie.split(';')[0].split('=')[1]
 describe('Service Terminal page', () => {
   /** @type {import('@hapi/hapi').Server} */
   let server
+  const previousShellAuthCookieConfig = config.get('shellAuthCookie')
 
   beforeAll(async () => {
+    // The cookie definition is registered when the server starts, so set these first
+    config.set('shellAuthCookie', {
+      ...previousShellAuthCookieConfig,
+      isSecure: true,
+      domain: '.cdp-int.defra.cloud'
+    })
     mockServiceEntityCallWithPostgres(serviceName, entitySubTypes.backend)
     server = await initialiseServer()
   })
 
   afterAll(async () => {
+    config.set('shellAuthCookie', previousShellAuthCookieConfig)
     await server.stop({ timeout: 0 })
   })
 
@@ -149,20 +157,14 @@ describe('Service Terminal page', () => {
     const secret = 'test-shell-auth-secret'
     const token = 'a'.repeat(64)
 
-    function enableShellAuthCookie() {
+    function overrideShellAuthCookieConfig(overrides) {
       const previous = config.get('shellAuthCookie')
-      config.set('shellAuthCookie', {
-        ...previous,
-        enabled: true,
-        secret,
-        isSecure: true,
-        domain: '.cdp-int.defra.cloud'
-      })
+      config.set('shellAuthCookie', { ...previous, ...overrides })
       onTestFinished(() => config.set('shellAuthCookie', previous))
     }
 
-    test('is signed and scoped to the shell token when enabled', async () => {
-      enableShellAuthCookie()
+    test('is signed and scoped to the shell token', async () => {
+      overrideShellAuthCookieConfig({ secret })
 
       const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `${terminalUrl}/dev/${token}`,
@@ -188,15 +190,13 @@ describe('Service Terminal page', () => {
       ).toEqual({ oid: expect.any(String), token, exp: expect.any(Number) })
     })
 
-    test('uses the shorter prod ttl in prod', async () => {
-      enableShellAuthCookie()
+    test('uses the configured ttl', async () => {
+      overrideShellAuthCookieConfig({ ttlSeconds: 2 * 60 * 60 })
 
       const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `${terminalUrl}/prod/${token}`,
+        targetUrl: `${terminalUrl}/dev/${token}`,
         isAdmin: true,
-        isTenant: true,
-        teamScope: mockTeam.teamId,
-        additionalScopes: [`${scopes.breakGlass}:team:${mockTeam.teamId}`]
+        isTenant: true
       })
 
       expect(statusCode).toBe(statusCodes.ok)
@@ -205,20 +205,7 @@ describe('Service Terminal page', () => {
       )
     })
 
-    test('is not set when disabled', async () => {
-      const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `${terminalUrl}/dev/${token}`,
-        isAdmin: true,
-        isTenant: true
-      })
-
-      expect(statusCode).toBe(statusCodes.ok)
-      expect(findCookie(headers, shellAuthCookieName)).toBeUndefined()
-    })
-
     test('rejects a token that is not a 64 char hex string', async () => {
-      enableShellAuthCookie()
-
       const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `${terminalUrl}/dev/abc%3Bdef`,
         isAdmin: true,

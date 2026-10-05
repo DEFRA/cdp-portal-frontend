@@ -58,8 +58,7 @@ const terminalBrowserController = {
 
     setShellAuthCookie(response, {
       oid: request.auth.credentials.id,
-      token,
-      environment
+      token
     })
 
     return response
