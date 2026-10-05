@@ -19,7 +19,13 @@ vi.mock('../admin/teams/helpers/fetch/fetchers.js')
 describe('Teams page', () => {
   let server
 
+  beforeAll(() => {
+    vi.useFakeTimers({ advanceTimers: true })
+    vi.setSystemTime(new Date('2026-10-02T15:00:00.000Z'))
+  })
+
   afterAll(async () => {
+    vi.useRealTimers()
     await server.stop({ timeout: 0 })
   })
 
