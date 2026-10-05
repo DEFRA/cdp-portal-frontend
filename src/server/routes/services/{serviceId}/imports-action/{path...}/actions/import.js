@@ -1,7 +1,7 @@
-import { createEmptyFolder } from '#server/common/services/bucket-service/BucketService.js'
 import Joi from 'joi'
-import { orderedEnvironments } from '@defra/cdp-validation-kit'
 import { formatText } from '#config/nunjucks/filters/filters.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { config } from '#config/config.js'
 
 const IMPORT_TYPES = ['postgres']
 
@@ -18,21 +18,24 @@ export default {
   async schema(request) {
     const { path = '' } = request.params
     const entity = request.app.entity
+    const userSession = request.auth.credentials
+
+    const environments = getEnvironments(userSession?.scope, entity?.subType)
 
     return Joi.object({
       environment: Joi.string()
         .label('Environment')
         .description('Target environment for import')
-        .valid(...orderedEnvironments)
+        .valid(...environments)
         .meta({
           component: 'selectField',
-          suggestions: orderedEnvironments.map((env) => ({
+          suggestions: environments.map((env) => ({
             text: formatText(env),
             value: env
           }))
         })
         .default('dev'),
-      type: Joi.string()
+      target: Joi.string()
         .label('Type')
         .description('Type of import to run')
         .valid(...IMPORT_TYPES)
@@ -48,26 +51,40 @@ export default {
 
   async actions(request) {
     const { path = '' } = request.params
+    const parentPath = path.split('/').slice(0, -1).join('/')
     const entity = request.app.entity
 
     return {
       submit: {
-        text: 'Create',
+        text: 'Import',
         async method(request, h, sanitisedFormValues) {
-          const { name } = sanitisedFormValues
+          const { environment, target } = sanitisedFormValues
 
-          await createEmptyFolder(
-            request,
-            `/entities/${entity.name}/imports/`,
-            `${path}/${name}`
+          const startDatabaseImportUrl =
+            config.get('selfServiceOpsUrl') + '/start-database-import'
+          const bucket = 'cdp-migrations'
+
+          const { payload } = await request.authedFetchJson(
+            startDatabaseImportUrl,
+            {
+              method: 'POST',
+              payload: {
+                service: entity.name,
+                environment,
+                target,
+                s3File: `S3://${bucket}/entities/${entity.name}/imports/${path}`
+              }
+            }
           )
 
-          return h.redirect(`/services/${entity.name}/imports/${path}`)
+          console.log(payload)
+
+          return h.redirect(`/services/${entity.name}/imports/${parentPath}`)
         }
       },
       cancel: {
         text: 'Cancel',
-        url: `/services/${entity.name}/imports/${path}`
+        url: `/services/${entity.name}/imports/${parentPath}`
       }
     }
   }
