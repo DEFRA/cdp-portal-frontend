@@ -62,7 +62,7 @@ export default {
 
           const startDatabaseImportUrl =
             config.get('selfServiceOpsUrl') + '/start-database-import'
-          const bucket = 'cdp-migrations'
+          const bucket = 'cdp-infra-dev-database-migrations'
 
           const { payload } = await request.authedFetchJson(
             startDatabaseImportUrl,
