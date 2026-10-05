@@ -5,7 +5,8 @@ import {
   terminalBrowserParamsValidation,
   terminalBrowserQueryValidation
 } from '../helpers/schema/terminal-params-validation.js'
-import { setShellAuthCookie } from '../helpers/set-shell-auth-cookie.js'
+import { shellAuthCookieName } from '../helpers/set-shell-auth-cookie.js'
+import { signShellAuthCookie } from '../helpers/sign-shell-auth-cookie.js'
 
 const terminalBrowserController = {
   options: {
@@ -44,24 +45,26 @@ const terminalBrowserController = {
       }
     })
 
-    const response = h.view(
-      'services/service/terminal/views/terminal-browser',
-      {
+    // Signed cookie webshell-proxy uses to let only the shell's owner through.
+    // Scoped to the shell's token path. TTL should match the shell's max lifetime.
+    const { ttl, secret } = config.get('shellAuthCookie')
+    const cookieValue = signShellAuthCookie({
+      oid: request.auth.credentials.id,
+      token,
+      ttl,
+      secret
+    })
+
+    return h
+      .view('services/service/terminal/views/terminal-browser', {
         pageTitle: `${isTerminalTool ? 'Terminal' : 'Tool'} - ${environment} - ${serviceId}`,
         serviceId,
         environment,
         terminalProxyUrl,
         isTerminalTool,
         tool
-      }
-    )
-
-    setShellAuthCookie(response, {
-      oid: request.auth.credentials.id,
-      token
-    })
-
-    return response
+      })
+      .state(shellAuthCookieName, cookieValue, { path: `/${token}`, ttl })
   }
 }
 
