@@ -12,7 +12,7 @@ describe('#signShellAuthCookie', () => {
     const cookieValue = signShellAuthCookie({
       oid: 'oid-1',
       token: 'token-1',
-      ttlSeconds: 300,
+      ttl: 300 * 1000,
       secret: 'my-secret',
       nowEpochSeconds: 1000
     })

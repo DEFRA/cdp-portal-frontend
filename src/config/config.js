@@ -143,11 +143,11 @@ const config = convict({
       default: isProduction,
       env: 'SHELL_AUTH_COOKIE_IS_SECURE'
     },
-    ttlSeconds: {
-      doc: 'Shell auth cookie TTL in seconds. Defaults to the non-prod terminal max lifetime (8h) in cdp-self-service-ops. Set it to 7200 in prod to match the prod terminal max lifetime',
+    ttl: {
+      doc: 'Shell auth cookie TTL in milliseconds. Defaults to the non-prod terminal max lifetime (8h) in cdp-self-service-ops. Set it to 7200000 (2h) in prod to match the prod terminal max lifetime',
       format: 'nat',
-      default: eightHours / 1000,
-      env: 'SHELL_AUTH_COOKIE_TTL_SECONDS'
+      default: eightHours,
+      env: 'SHELL_AUTH_COOKIE_TTL'
     }
   },
   grafanaUrl: {

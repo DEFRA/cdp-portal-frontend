@@ -26,26 +26,22 @@ function registerShellAuthCookie(server) {
 /**
  * Sets the signed cookie webshell-proxy uses to allow only the shell's owner through.
  * Scoped to the shell's token path, so each shell gets its own cookie.
- * Lives for the configured TTL, but never longer than the portal session.
+ * Lives for the configured TTL, which should match the shell's max lifetime.
  */
 function setShellAuthCookie(response, { oid, token }) {
   const shellAuthCookieConfig = config.get('shellAuthCookie')
 
-  const sessionTtlSeconds = Math.floor(config.get('session.cookie.ttl') / 1000)
-  const ttlSeconds = Math.min(
-    shellAuthCookieConfig.ttlSeconds,
-    sessionTtlSeconds
-  )
+  const ttl = shellAuthCookieConfig.ttl
   const cookieValue = signShellAuthCookie({
     oid,
     token,
-    ttlSeconds,
+    ttl,
     secret: shellAuthCookieConfig.secret
   })
 
   response.state(shellAuthCookieName, cookieValue, {
     path: `/${token}`,
-    ttl: ttlSeconds * 1000
+    ttl
   })
 }
 

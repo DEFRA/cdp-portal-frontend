@@ -191,7 +191,7 @@ describe('Service Terminal page', () => {
     })
 
     test('uses the configured ttl', async () => {
-      overrideShellAuthCookieConfig({ ttlSeconds: 2 * 60 * 60 })
+      overrideShellAuthCookieConfig({ ttl: 2 * 60 * 60 * 1000 })
 
       const { headers, statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `${terminalUrl}/dev/${token}`,
