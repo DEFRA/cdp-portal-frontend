@@ -16,7 +16,7 @@ export default {
   },
 
   async schema(request) {
-    const { path = '' } = request.params
+    // const { path = '' } = request.params
     const entity = request.app.entity
     const userSession = request.auth.credentials
 
@@ -64,20 +64,15 @@ export default {
             config.get('selfServiceOpsUrl') + '/start-database-import'
           const bucket = 'cdp-infra-dev-database-migrations'
 
-          const { payload } = await request.authedFetchJson(
-            startDatabaseImportUrl,
-            {
-              method: 'POST',
-              payload: {
-                service: entity.name,
-                environment,
-                target,
-                s3File: `S3://${bucket}/entities/${entity.name}/imports/${path}`
-              }
+          await request.authedFetchJson(startDatabaseImportUrl, {
+            method: 'POST',
+            payload: {
+              service: entity.name,
+              environment,
+              target,
+              s3File: `S3://${bucket}/entities/${entity.name}/imports/${path}`
             }
-          )
-
-          console.log(payload)
+          })
 
           return h.redirect(`/services/${entity.name}/imports/${parentPath}`)
         }
