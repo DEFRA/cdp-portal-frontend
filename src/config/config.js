@@ -144,7 +144,7 @@ const config = convict({
       env: 'SHELL_AUTH_COOKIE_IS_SECURE'
     },
     ttl: {
-      doc: 'Shell auth cookie TTL in milliseconds. Defaults to the non-prod terminal max lifetime (8h) in cdp-self-service-ops. Set it to 7200000 (2h) in prod to match the prod terminal max lifetime',
+      doc: 'Shell auth cookie TTL in milliseconds. Defaults to the longest terminal max lifetime (8h, non-prod) in cdp-self-service-ops tool-config.js. The portal is a single deployment serving every environment, so this cannot differ per environment. The cookie may outlive a shorter prod shell (2h), which is harmless as the shell is gone by then',
       format: 'nat',
       default: eightHours,
       env: 'SHELL_AUTH_COOKIE_TTL'
