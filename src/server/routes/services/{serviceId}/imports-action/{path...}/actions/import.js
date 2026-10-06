@@ -64,17 +64,22 @@ export default {
             config.get('selfServiceOpsUrl') + '/start-database-import'
           const bucket = 'cdp-infra-dev-database-migrations'
 
-          await request.authedFetchJson(startDatabaseImportUrl, {
-            method: 'POST',
-            payload: {
-              service: entity.name,
-              environment,
-              target,
-              s3File: `s3://${bucket}/${entity.name}/imports/${path}`
+          const { payload } = await request.authedFetchJson(
+            startDatabaseImportUrl,
+            {
+              method: 'POST',
+              payload: {
+                service: entity.name,
+                environment,
+                target,
+                s3File: `s3://${bucket}/${entity.name}/imports/${path}`
+              }
             }
-          })
+          )
 
-          return h.redirect(`/services/${entity.name}/imports/${parentPath}`)
+          return h.redirect(
+            `/deployments/database-updates/${environment}/${payload.importId}`
+          )
         }
       },
       cancel: {
