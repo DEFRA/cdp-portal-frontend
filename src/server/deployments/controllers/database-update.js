@@ -31,10 +31,10 @@ const databaseUpdateController = {
       faviconState: databaseUpdateFaviconState(migration.status),
       pageTitle: `${migration.service} ${migration.version} database update - ${formattedEnvironment}`,
       pageHeading: {
-        caption: isImport ? 'Database import' : 'Database update',
+        caption: isImport ? 'Database update - import' : 'Database update',
         text: migration.service,
         intro: isImport
-          ? `Database import for <strong>${migration.service}</strong> in <strong>${migration.environment}</strong>`
+          ? `Database update - import for <strong>${migration.service}</strong> in <strong>${migration.environment}</strong>`
           : `Database update for <strong>${migration.service}</strong>, changelog version <strong>${migration.version}</strong> in <strong>${migration.environment}</strong>`
       },
       migration,

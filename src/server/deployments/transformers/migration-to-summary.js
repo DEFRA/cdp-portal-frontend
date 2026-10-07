@@ -89,7 +89,7 @@ function transformMigrationToSummary(migration) {
         value: {
           html: `<div class="app-!-layout-centered">
                   ${renderIcon('database-icon', { classes: 'app-icon--small govuk-!-margin-right-1' })}
-                  ${isImport ? renderTag({ text: 'Import' }) : renderTag({ text: 'Update' })}
+                  ${renderTag({ text: 'Update' })}
                 </div>`
         }
       },
