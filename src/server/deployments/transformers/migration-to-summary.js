@@ -52,8 +52,8 @@ function transformMigrationToSummary(migration) {
               value: {
                 html: migration.version
                   ? buildLink({
-                      href: `/services/${migration.service}/imports/${dirname(migration.dataImportFile)}`,
-                      text: basename(migration.migration.dataImportFile),
+                      href: `/services/${migration.service}/imports/${dirname(migration.importPath)}`,
+                      text: basename(migration.migration.importPath),
                       newTab: true
                     })
                   : noValue

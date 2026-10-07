@@ -50,7 +50,9 @@ const databaseUpdateController = {
           href: `/deployments/${environment}?page=${pagination.page}&size=${pagination.size}`
         },
         {
-          text: `${migration.service} - ${migration.version}`
+          text: isImport
+            ? migration.service
+            : `${migration.service} - ${migration.version}`
         }
       ]
     })
