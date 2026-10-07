@@ -50,10 +50,10 @@ function transformMigrationToSummary(migration) {
             {
               key: { text: 'Import file' },
               value: {
-                html: migration.version
+                html: migration.importPath
                   ? buildLink({
                       href: `/services/${migration.service}/imports/${dirname(migration.importPath)}`,
-                      text: basename(migration.migration.importPath),
+                      text: basename(migration.importPath),
                       newTab: true
                     })
                   : noValue

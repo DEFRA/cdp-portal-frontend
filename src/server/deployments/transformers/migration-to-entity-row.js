@@ -9,8 +9,10 @@ function migrationToEntityRow(migration) {
     isOwner: migration.isOwner,
     service: migration.service,
     version: migration.version,
-    importFolder: isImport ? dirname(migration.importPath) : null,
-    importFile: isImport ? basename(migration.importPath) : null,
+    importFolder:
+      isImport && migration.importPath ? dirname(migration.importPath) : null,
+    importFile:
+      isImport && migration.importPath ? basename(migration.importPath) : null,
     environment: migration.environment,
     deploymentId: migration.cdpMigrationId,
     kind: 'update',
