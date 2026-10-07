@@ -46,7 +46,8 @@ async function getFilters() {
 
   const uiTextDisplayMap = {
     deployment: 'Deployment',
-    migration: 'Update'
+    migration: 'Update',
+    import: 'Import'
   }
 
   const kindFilters = buildSuggestions(
@@ -135,11 +136,11 @@ const deploymentsListController = {
     const rows = deploymentsWithTeams?.map(rowBuilder) ?? []
 
     return h.view('deployments/views/list', {
-      pageTitle: `${formattedEnvironment} microservice deployments and database updates`,
+      pageTitle: `${formattedEnvironment} microservice deployments and database changes`,
       pageHeading: {
         caption: formattedEnvironment,
-        text: 'Deployments and updates',
-        intro: `${formattedEnvironment} microservice deployments and database updates`
+        text: 'Deployments and database changes',
+        intro: `${formattedEnvironment} microservice deployments and database changes`
       },
       serviceFilters,
       userFilters,
@@ -157,7 +158,7 @@ const deploymentsListController = {
             width: '20',
             isLeftAligned: true
           },
-          { id: 'version', text: 'Version', width: '10' },
+          { id: 'version', text: 'Version / Import', width: '10' },
           { id: 'status', text: 'Status', width: '10' },
           { id: 'kind', text: 'Kind', width: '10' },
           { id: 'by', text: 'By', width: '20' },
