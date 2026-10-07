@@ -20,6 +20,16 @@ const toolDescriptionsMap = {
     summary:
       "Runs an instance of DBGate connected to your service's MongoDB database.",
     points: ['Browse collections and documents.', 'Run queries in the browser.']
+  },
+  sqs_tool: {
+    title: 'SQS Web UI',
+    summary:
+      "Lists your service's dead letter queues and lets you redrive messages.",
+    points: [
+      'Shows queue metrics and running redrive task status.',
+      'Redrives from DLQ back to the source queue.',
+      'In prod, message content is hidden unless you have break glass access.'
+    ]
   }
 }
 

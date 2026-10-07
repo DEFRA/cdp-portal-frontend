@@ -5,7 +5,8 @@ import { allowedBreakGlassEnvironments } from '../allowed-break-glass-environmen
 const getAllowedEnvironments = (options) =>
   allowedBreakGlassEnvironments({
     userScopes: options.context.auth?.credentials?.scope,
-    teams: options.context.app?.request?.entity.teams
+    teams: options.context.app?.request?.entity.teams,
+    entity: options.context.app?.request?.entity
   })
 
 export const launchTerminalParamsValidation = Joi.object({

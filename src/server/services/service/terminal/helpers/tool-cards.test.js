@@ -4,10 +4,17 @@ import { getAvailableTools } from './get-available-tools.js'
 import { getToolCards } from './tool-cards.js'
 
 const fullEntity = {
+  teams: [{ teamId: 'platform' }],
   environments: {
     dev: {
       sql_database: { arn: 'arn:aws:rds:example' },
-      tenant_config: { mongo: true }
+      tenant_config: { mongo: true },
+      sqs_queues: [
+        {
+          deadletter_queue_arn:
+            'arn:aws:sqs:eu-west-2:123456789012:orders-deadletter'
+        }
+      ]
     }
   }
 }
@@ -22,7 +29,8 @@ describe('#getToolCards', () => {
     ).toEqual([
       { value: 'terminal', latestValue: 'terminal_latest' },
       { value: 'pgweb', latestValue: 'pgweb_latest' },
-      { value: 'dbgate', latestValue: 'dbgate_latest' }
+      { value: 'dbgate', latestValue: 'dbgate_latest' },
+      { value: 'sqs_tool', latestValue: 'sqs_tool_latest' }
     ])
   })
 
