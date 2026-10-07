@@ -9,6 +9,7 @@ import {
 } from '../../common/helpers/nunjucks/render-component.js'
 import { databaseStatus } from '../constants/database-status.js'
 import { renderTag } from '../../common/helpers/view/render-tag.js'
+import { dirname, basename } from 'node:path'
 
 function transformMigrationToSummary(migration) {
   const logsLinkDataAvailable = [
@@ -21,6 +22,8 @@ function transformMigrationToSummary(migration) {
   const hasResult =
     migration.status === databaseStatus.succeeded ||
     migration.status === databaseStatus.failed
+
+  const isImport = migration.kind === 'import'
 
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
@@ -42,17 +45,34 @@ function transformMigrationToSummary(migration) {
         key: { text: 'Environment' },
         value: { text: migration.environment ?? noValue }
       },
-      {
-        key: { text: 'Changelog version' },
-        value: {
-          html: migration.version
-            ? buildLink({
-                href: `https://github.com/DEFRA/${migration.service}/releases/tag/${migration.version}`,
-                text: migration.version
-              })
-            : noValue
-        }
-      },
+      ...(isImport
+        ? [
+            {
+              key: { text: 'Import file' },
+              value: {
+                html: migration.version
+                  ? buildLink({
+                      href: `/services/${migration.service}/imports/${dirname(migration.dataImportFile)}`,
+                      text: basename(migration.migration.dataImportFile),
+                      newTab: true
+                    })
+                  : noValue
+              }
+            }
+          ]
+        : [
+            {
+              key: { text: 'Changelog version' },
+              value: {
+                html: migration.version
+                  ? buildLink({
+                      href: `https://github.com/DEFRA/${migration.service}/releases/tag/${migration.version}`,
+                      text: migration.version
+                    })
+                  : noValue
+              }
+            }
+          ]),
       {
         key: {
           text: 'Status'
@@ -69,7 +89,7 @@ function transformMigrationToSummary(migration) {
         value: {
           html: `<div class="app-!-layout-centered">
                   ${renderIcon('database-icon', { classes: 'app-icon--small govuk-!-margin-right-1' })}
-                  ${renderTag({ text: 'Update' })}
+                  ${isImport ? renderTag({ text: 'Import' }) : renderTag({ text: 'Update' })}
                 </div>`
         }
       },
