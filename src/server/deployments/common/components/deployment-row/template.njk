@@ -42,9 +42,7 @@
 
   <td headers="version" class="app-entity-table__cell" data-label="Version">
     {% if params.migrationKind == 'import' %}
-      <a class="app-link" href="/services/{{ params.service }}/imports/{{ params.importFolder }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
-        {{ params.importFile }}
-      </a>
+      - - -
     {% else %}
       <a class="app-link" href="https://github.com/DEFRA/{{ params.service }}/releases/tag/{{ params.version }}" target="_blank" rel="noopener noreferrer" data-testid="app-entity-link">
         {{ params.version }}
