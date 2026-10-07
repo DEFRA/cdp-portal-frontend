@@ -73,6 +73,16 @@ function transformMigrationToSummary(migration) {
               }
             }
           ]),
+      ...(isImport
+        ? [
+            {
+              key: { text: 'Import target' },
+              value: {
+                text: formatText(migration.importTarget)
+              }
+            }
+          ]
+        : []),
       {
         key: {
           text: 'Status'
