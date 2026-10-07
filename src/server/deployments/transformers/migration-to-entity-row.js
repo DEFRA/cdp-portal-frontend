@@ -4,7 +4,7 @@ import { provideStatusClassname } from '../helpers/provide-status-classname.js'
 import { dirname, basename } from 'node:path'
 
 function migrationToEntityRow(migration) {
-  const isImport = migration.kind === 'import'
+  const isImport = migration.migrationKind === 'import'
   return {
     isOwner: migration.isOwner,
     service: migration.service,
@@ -13,8 +13,8 @@ function migrationToEntityRow(migration) {
     importFile: isImport ? basename(migration.importPath) : null,
     environment: migration.environment,
     deploymentId: migration.cdpMigrationId,
-    kind: isImport ? 'import' : 'update',
-    kindText: isImport ? 'Import' : 'Update',
+    kind: 'update',
+    kindText: 'Update',
     kindClass: 'govuk-tag--blue',
     statusText: formatText(migration.status),
     statusClass: provideStatusClassname(migration.status),

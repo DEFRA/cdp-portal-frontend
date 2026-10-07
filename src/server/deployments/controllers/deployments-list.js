@@ -46,8 +46,7 @@ async function getFilters() {
 
   const uiTextDisplayMap = {
     deployment: 'Deployment',
-    migration: 'Update',
-    import: 'Import'
+    migration: 'Update'
   }
 
   const kindFilters = buildSuggestions(

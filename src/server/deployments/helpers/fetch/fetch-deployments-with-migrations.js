@@ -10,7 +10,6 @@ async function fetchDeploymentsWithMigrations(environment, queryParams) {
     `/deployments-with-migrations?environment=${environment}${
       queryString ? `&${queryString}` : ''
     }`
-
   const { payload } = await fetchJson(endpoint)
   return payload
 }
