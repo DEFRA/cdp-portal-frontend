@@ -128,8 +128,7 @@ async function createServer() {
         throw new Error(`Slack channels request failed: ${response.status}`)
       }
 
-      const { body } = await response.json()
-      return body
+      return response.json()
     },
     options: {
       cache: {
