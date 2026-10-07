@@ -135,11 +135,11 @@ const deploymentsListController = {
     const rows = deploymentsWithTeams?.map(rowBuilder) ?? []
 
     return h.view('deployments/views/list', {
-      pageTitle: `${formattedEnvironment} microservice deployments and database changes`,
+      pageTitle: `${formattedEnvironment} microservice deployments and updates`,
       pageHeading: {
         caption: formattedEnvironment,
-        text: 'Deployments and database changes',
-        intro: `${formattedEnvironment} microservice deployments and database changes`
+        text: 'Deployments and updates',
+        intro: `${formattedEnvironment} microservice deployments and updates`
       },
       serviceFilters,
       userFilters,
@@ -157,7 +157,7 @@ const deploymentsListController = {
             width: '20',
             isLeftAligned: true
           },
-          { id: 'version', text: 'Version / Import', width: '10' },
+          { id: 'version', text: 'Version', width: '10' },
           { id: 'status', text: 'Status', width: '10' },
           { id: 'kind', text: 'Kind', width: '10' },
           { id: 'by', text: 'By', width: '20' },
