@@ -54,4 +54,29 @@ describe('#getTerminalEnvs', () => {
     })
     expect(result).toEqual(['dev'])
   })
+
+  test('Should include prod when service owner beta tester has prod DLQ', async () => {
+    const result = await getTerminalEnvs({
+      serviceName: 'cdp-portal-frontend',
+      userScopes: [
+        'permission:serviceOwner:team:platform',
+        'permission:betaTester'
+      ],
+      entity: {
+        teams: [{ teamId: 'platform' }],
+        environments: {
+          dev: {},
+          prod: {
+            sqs_queues: [
+              {
+                deadletter_queue_arn:
+                  'arn:aws:sqs:eu-west-2:123456789012:orders-deadletter'
+              }
+            ]
+          }
+        }
+      }
+    })
+    expect(result).toEqual(['dev', 'prod'])
+  })
 })

@@ -7,7 +7,8 @@ async function getTerminalEnvs({ serviceName, userScopes = [], entity }) {
   }
   const environments = allowedBreakGlassEnvironments({
     userScopes,
-    teams: entity.teams
+    teams: entity.teams,
+    entity
   })
 
   return Object.keys(entity.environments)
