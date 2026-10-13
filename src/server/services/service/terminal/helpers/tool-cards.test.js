@@ -8,7 +8,7 @@ const fullEntity = {
   environments: {
     dev: {
       sql_database: { arn: 'arn:aws:rds:example' },
-      tenant_config: { mongo: true },
+      tenant_config: { mongo: true, redis: true },
       sqs_queues: [
         {
           deadletter_queue_arn:
@@ -30,6 +30,7 @@ describe('#getToolCards', () => {
       { value: 'terminal', latestValue: 'terminal_latest' },
       { value: 'pgweb', latestValue: 'pgweb_latest' },
       { value: 'dbgate', latestValue: 'dbgate_latest' },
+      { value: 'dbgate_redis', latestValue: 'dbgate_redis_latest' },
       { value: 'sqs_tool', latestValue: 'sqs_tool_latest' }
     ])
   })
