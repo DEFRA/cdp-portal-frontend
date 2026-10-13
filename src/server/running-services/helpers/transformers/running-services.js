@@ -4,8 +4,7 @@ import { provideDeploymentStatusClassname } from '../provide-deployment-status-c
 function transformRunningServices({
   runningServices,
   deployableServices,
-  userScopes,
-  decommissionedServices
+  userScopes
 }) {
   return Object.entries(
     runningServices?.sort(sortBy('service', 'asc')).reduce((acc, rs) => {
@@ -20,10 +19,7 @@ function transformRunningServices({
 
       let deployableService
       if (!acc[rs.service].teams) {
-        deployableService = [
-          ...deployableServices,
-          ...decommissionedServices
-        ].find(
+        deployableService = deployableServices?.find(
           (service) => service.name.toLowerCase() === rs.service.toLowerCase()
         )
 
@@ -38,16 +34,7 @@ function transformRunningServices({
           )
         }
 
-        const decommissionedService = decommissionedServices.find(
-          (service) => service.name.toLowerCase() === rs.service.toLowerCase()
-        )
-
-        acc[rs.service].tags = [
-          ...(deployableService?.tags ?? []),
-          ...(decommissionedService?.status
-            ? [decommissionedService?.status.toLowerCase()]
-            : [])
-        ]
+        acc[rs.service].tags = deployableService?.tags ?? []
       }
 
       if (!acc[rs.service].isOwner) {
