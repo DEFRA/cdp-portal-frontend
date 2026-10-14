@@ -21,6 +21,12 @@ const toolDescriptionsMap = {
       "Runs an instance of DBGate connected to your service's MongoDB database.",
     points: ['Browse collections and documents.', 'Run queries in the browser.']
   },
+  dbgate_redis: {
+    title: 'Redis Web UI',
+    summary:
+      "Runs an instance of DBGate connected to your service's Redis keys.",
+    points: ['Browse keys and values.', 'Edit keys and view TTL values.']
+  },
   sqs_tool: {
     title: 'SQS Web UI',
     summary:

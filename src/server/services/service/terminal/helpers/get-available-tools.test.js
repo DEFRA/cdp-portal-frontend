@@ -7,7 +7,7 @@ const fullEntity = {
   environments: {
     dev: {
       sql_database: { arn: 'arn:aws:rds:example' },
-      tenant_config: { mongo: true },
+      tenant_config: { mongo: true, redis: true },
       sqs_queues: [
         {
           name: 'orders',
@@ -17,7 +17,7 @@ const fullEntity = {
       ]
     },
     prod: {
-      tenant_config: {},
+      tenant_config: { mongo: true, redis: true },
       sqs_queues: [
         {
           name: 'orders',
@@ -36,6 +36,7 @@ describe('#getAvailableTools', () => {
       { tool: 'terminal', canLaunchLatest: true },
       { tool: 'pgweb', canLaunchLatest: true },
       { tool: 'dbgate', canLaunchLatest: true },
+      { tool: 'dbgate_redis', canLaunchLatest: true },
       { tool: 'sqs_tool', canLaunchLatest: true }
     ])
   })
@@ -48,6 +49,7 @@ describe('#getAvailableTools', () => {
       { tool: 'terminal', canLaunchLatest: false },
       { tool: 'pgweb', canLaunchLatest: false },
       { tool: 'dbgate', canLaunchLatest: false },
+      { tool: 'dbgate_redis', canLaunchLatest: false },
       { tool: 'sqs_tool', canLaunchLatest: false }
     ])
   })
@@ -57,7 +59,7 @@ describe('#getAvailableTools', () => {
     expect(tools).toEqual([{ tool: 'terminal', canLaunchLatest: false }])
   })
 
-  test('postgres and mongo visibility follows service capabilities', () => {
+  test('postgres, mongo and redis visibility follows service capabilities', () => {
     const postgresOnly = {
       environments: {
         dev: {
@@ -70,6 +72,13 @@ describe('#getAvailableTools', () => {
       environments: {
         dev: {
           tenant_config: { mongo: true }
+        }
+      }
+    }
+    const redisOnly = {
+      environments: {
+        dev: {
+          tenant_config: { redis: true }
         }
       }
     }
@@ -86,17 +95,32 @@ describe('#getAvailableTools', () => {
       { tool: 'terminal', canLaunchLatest: false },
       { tool: 'dbgate', canLaunchLatest: false }
     ])
+    expect(
+      getAvailableTools(redisOnly, 'dev', ['permission:betaTester'])
+    ).toEqual([
+      { tool: 'terminal', canLaunchLatest: false },
+      { tool: 'dbgate_redis', canLaunchLatest: false }
+    ])
   })
 
   test('database tools follow the requested environment only', () => {
-    const tools = getAvailableTools(fullEntity, 'prod', [
+    const devOnly = {
+      environments: {
+        dev: {
+          sql_database: { arn: 'arn:aws:rds:example' },
+          tenant_config: { mongo: true, redis: true }
+        },
+        prod: {
+          tenant_config: {}
+        }
+      }
+    }
+
+    const tools = getAvailableTools(devOnly, 'prod', [
       scopes.breakGlass,
       scopes.admin
     ])
-    expect(tools).toEqual([
-      { tool: 'terminal', canLaunchLatest: true },
-      { tool: 'sqs_tool', canLaunchLatest: true }
-    ])
+    expect(tools).toEqual([{ tool: 'terminal', canLaunchLatest: true }])
   })
 
   test('admin without breakglass only gets tools explicitly allowed in prod', () => {
@@ -126,6 +150,8 @@ describe('#getAvailableTools', () => {
     ])
     expect(tools).toEqual([
       { tool: 'terminal', canLaunchLatest: true },
+      { tool: 'dbgate', canLaunchLatest: true },
+      { tool: 'dbgate_redis', canLaunchLatest: true },
       { tool: 'sqs_tool', canLaunchLatest: true }
     ])
   })

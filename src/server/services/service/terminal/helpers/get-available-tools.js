@@ -6,6 +6,7 @@ export function getAvailableTools(entity, environment, userScopes) {
   const env = entity.environments?.[environment] ?? {}
   const hasPostgres = Boolean(env.sql_database?.arn)
   const hasMongo = Boolean(env.tenant_config?.mongo)
+  const hasRedis = Boolean(env.tenant_config?.redis)
   const hasDlq = Boolean(
     env.sqs_queues?.some((queue) => Boolean(queue.deadletter_queue_arn))
   )
@@ -26,6 +27,10 @@ export function getAvailableTools(entity, environment, userScopes) {
 
   if (canUseDatabaseWeb && hasMongo) {
     tools.push({ tool: 'dbgate', canLaunchLatest: isAdmin })
+  }
+
+  if (canUseDatabaseWeb && hasRedis) {
+    tools.push({ tool: 'dbgate_redis', canLaunchLatest: isAdmin })
   }
 
   if (canUseDatabaseWeb && hasDlq) {
