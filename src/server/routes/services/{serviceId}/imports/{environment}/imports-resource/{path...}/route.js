@@ -53,8 +53,7 @@ export async function POST(request) {
   const isFolder = path.endsWith('/')
 
   if (isFolder) {
-    // TOTO: createFolder()
-    return Boom.notFound('TODO')
+    return Boom.notFound('File only')
   }
 
   const { size } = request.payload

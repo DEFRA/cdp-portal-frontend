@@ -8,7 +8,7 @@ import {
 export const ext = [...commonServiceExtensions]
 
 export const options = {
-  id: 'services/{serviceId}/imports',
+  id: 'services/{serviceId}/imports/{environment}',
   auth: {
     mode: 'required',
     access: {
