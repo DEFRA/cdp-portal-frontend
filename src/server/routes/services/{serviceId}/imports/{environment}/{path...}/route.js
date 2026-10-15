@@ -3,6 +3,7 @@ import {
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
+import { formatText } from '#config/nunjucks/filters/filters.js'
 import {
   listPathContents,
   folderTreeForPath
@@ -50,17 +51,17 @@ export default async function (request) {
         ? [
             {
               text: 'Delete',
-              href: `/services/${entity.name}/imports-action/${resource.path}?action=delete`
+              href: `/services/${entity.name}/imports-action/${environment}/${resource.path}?action=delete`
             }
           ]
         : [
             {
               text: 'Download',
-              href: `/services/${entity.name}/imports-resource/${resource.path}`
+              href: `/services/${entity.name}/imports-resource/${environment}/${resource.path}`
             },
             {
               text: 'Delete',
-              href: `/services/${entity.name}/imports-action/${resource.path}?action=delete`
+              href: `/services/${entity.name}/imports-action/${environment}/${resource.path}?action=delete`
             }
           ]
     }
@@ -86,6 +87,10 @@ export default async function (request) {
       },
       {
         text: 'Imports',
+        href: `/services/${entity.name}/imports`
+      },
+      {
+        text: formatText(environment),
         href:
           path !== ''
             ? `/services/${entity.name}/imports/${environment}`
