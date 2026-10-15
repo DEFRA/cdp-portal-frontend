@@ -1,5 +1,7 @@
 import { defaultSquidDomains } from '#config/default-squid-domains.js'
 
+const stsDomainPostfix = '.tokens.sts.global.api.aws'
+
 /**
  *
  * @param {string} environment
@@ -54,7 +56,11 @@ export function transformProxyRulesToRows(environments, entity) {
     .sort()
 
   const allDefaultDomains = allDomains
-    .filter((domain) => defaultSquidDomains.includes(domain))
+    .filter(
+      (domain) =>
+        defaultSquidDomains.includes(domain) &&
+        !domain.endsWith(stsDomainPostfix)
+    )
     .sort()
 
   const domainsByEnv = Object.fromEntries(
@@ -79,6 +85,33 @@ export function transformProxyRulesToRows(environments, entity) {
       isDefault: true
     }))
   }))
+
+  // Special case to group sts domains
+  let stsDomainFound = false
+  const stsDomainRow = {
+    envs: environments.map((env) => {
+      const match = domainsByEnv[env].find((dom) =>
+        dom.endsWith(stsDomainPostfix)
+      )
+      if (!stsDomainFound && match) {
+        stsDomainFound = true
+      }
+
+      return {
+        id: env,
+        domain: match ?? '',
+        isDefault: true
+      }
+    })
+  }
+
+  if (stsDomainFound) {
+    defaultRows.push(stsDomainRow)
+    // Approx sort based on first value
+    defaultRows.sort((a, b) =>
+      a?.envs[0]?.domain?.localeCompare(b?.envs[0]?.domain)
+    )
+  }
 
   return { allowedRows, defaultRows }
 }

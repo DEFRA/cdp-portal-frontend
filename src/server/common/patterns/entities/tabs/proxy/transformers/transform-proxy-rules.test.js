@@ -78,12 +78,22 @@ describe('transformProxyRulesToRows', () => {
     environments: {
       dev: {
         squid: {
-          domains: ['.browserstack.com', '.cdp-int.defra.cloud', '.example.com']
+          domains: [
+            '.browserstack.com',
+            '.cdp-int.defra.cloud',
+            '.example.com',
+            'a1927cb9-3f34-4982-a9bd-b638154692a1.tokens.sts.global.api.aws'
+          ]
         }
       },
       test: {
         squid: {
-          domains: ['.browserstack.com', '.example.com', '.test.com']
+          domains: [
+            '.browserstack.com',
+            '.example.com',
+            '.test.com',
+            'a128e3b1-9566-4e55-abbd-370709e9ffac.tokens.sts.global.api.aws'
+          ]
         }
       }
     }
@@ -145,6 +155,22 @@ describe('transformProxyRulesToRows', () => {
             },
             {
               domain: '',
+              id: 'test',
+              isDefault: true
+            }
+          ]
+        },
+        {
+          envs: [
+            {
+              domain:
+                'a1927cb9-3f34-4982-a9bd-b638154692a1.tokens.sts.global.api.aws',
+              id: 'dev',
+              isDefault: true
+            },
+            {
+              domain:
+                'a128e3b1-9566-4e55-abbd-370709e9ffac.tokens.sts.global.api.aws',
               id: 'test',
               isDefault: true
             }

@@ -16,7 +16,6 @@ import { fetchDeploymentsWithMigrations } from '../helpers/fetch/fetch-deploymen
 import { migrationToEntityRow } from '../transformers/migration-to-entity-row.js'
 import {
   environmentValidation,
-  repositoryNameValidation,
   teamIdValidation,
   userIdValidation
 } from '@defra/cdp-validation-kit'
@@ -74,7 +73,7 @@ const deploymentsListController = {
         environment: environmentValidation
       }),
       query: Joi.object({
-        service: repositoryNameValidation.allow('').optional(),
+        service: Joi.string().allow(''),
         user: userIdValidation.allow('').optional(),
         status: Joi.string().allow(''),
         team: teamIdValidation.allow('').optional(),
