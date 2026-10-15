@@ -17,51 +17,55 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full" data-js="xhr-nav" >
 
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
-        <p class="govuk-!-margin-bottom-6">
-          Manage imported data associated with <strong>{{entity.name}}</strong>, including uploading and downloading.
-        </p>
+        {% call appSplitPane() %}
+          <span class="govuk-caption-l">{{environment | formatText}}</span>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
+          <p class="govuk-!-margin-bottom-6">
+            Manage imported data associated with <strong>{{entity.name}}</strong>, including uploading and downloading.
+          </p>
 
-        {% block xhrContent %}
+          {% block xhrContent %}
 
-          <div class="govuk-grid-row">
-            <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
-              {{ appFolderTree({
-                tree: folderTree,
-                basePath: "/services/" + entity.name + "/imports/"
-              }) }}
-            </div>
-
-            <div class="govuk-grid-column-three-quarters">
-
-              <div data-xhr="folder-contents">
-                {{ appFileList({
-                  files: folderList,
-                  path: path,
-                  basePath: "/services/" + entity.name + "/imports/",
-                  parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null,
-                  actions: [
-                    {
-                      text: "Add sub folder",
-                      href: "/services/" + entity.name + "/imports-action/" + path + "?action=create"
-                    }
-                  ]
+            <div class="govuk-grid-row">
+              <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
+                {{ appFolderTree({
+                  tree: folderTree,
+                  basePath: "/services/" + entity.name + "/imports/"
                 }) }}
               </div>
 
-              <div data-xhr="file-upload">
-                {{ appFileUpload({
-                  path: path,
-                  filenames: filenames,
-                  csrfToken: csrfToken,
-                  service: entity.name
-                }) }}
+              <div class="govuk-grid-column-three-quarters">
+
+                <div data-xhr="folder-contents">
+                  {{ appFileList({
+                    files: folderList,
+                    path: path,
+                    basePath: "/services/" + entity.name + "/imports/",
+                    parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null,
+                    actions: [
+                      {
+                        text: "Add sub folder",
+                        href: "/services/" + entity.name + "/imports-action/" + path + "?action=create"
+                      }
+                    ]
+                  }) }}
+                </div>
+
+                <div data-xhr="file-upload">
+                  {{ appFileUpload({
+                    path: path,
+                    filenames: filenames,
+                    csrfToken: csrfToken,
+                    service: entity.name
+                  }) }}
+                </div>
+
               </div>
-
             </div>
-          </div>
 
-        {% endblock %}
+          {% endblock %}
+
+        {% endcall %}
 
       </div>
     </div>

@@ -1,11 +1,26 @@
-import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
+import {
+  commonServiceExtensions,
+  provideNotFoundIfPrototypeExtension
+} from '#server/common/helpers/ext/extensions.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import {
   listPathContents,
   folderTreeForPath
 } from '#server/common/services/bucket-service/BucketService.js'
+import { provideSubNav } from '#server/helpers/provide-sub-navigation.js'
+import { SERVICE } from '#server/common/patterns/entities/tabs/constants.js'
 
-export const ext = [...commonServiceExtensions]
+export const ext = [
+  ...commonServiceExtensions,
+  provideNotFoundIfPrototypeExtension,
+  {
+    type: 'onPostHandler',
+    method: provideSubNav('imports', SERVICE, { withoutAll: true }),
+    options: {
+      sandbox: 'plugin'
+    }
+  }
+]
 
 export const options = {
   id: 'services/{serviceId}/imports/{environment}',
@@ -18,7 +33,7 @@ export const options = {
 }
 
 export default async function (request) {
-  const { path = '' } = request.params
+  const { path = '', environment } = request.params
   const entity = request.app.entity
 
   const [folderContents, folderTree] = await Promise.all([
@@ -53,6 +68,7 @@ export default async function (request) {
 
   return {
     entity,
+    environment,
     path,
     relativePathParts,
     folderList,
