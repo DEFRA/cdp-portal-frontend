@@ -22,7 +22,7 @@ export default {
   },
 
   async schema(request) {
-    const { path = '' } = request.params
+    const { path = '', environment } = request.params
     const isFolder = getRawPath(request).endsWith('/')
     const entity = request.app.entity
 
@@ -32,7 +32,7 @@ export default {
     if (isFolder) {
       const resources = await listPathContents(
         request,
-        `/entities/${entity.name}/imports/`,
+        `/entities/${entity.name}/imports/${environment}/`,
         path
       )
 
@@ -44,7 +44,7 @@ export default {
             .label('Folder is not empty')
             .description(
               `<p>Folder <strong>${name}</strong> can not deleted because it is not empty.</p>
-              <p>Delete the <a href="/services/${entity.name}/imports/${path}/">contents</a> of the folder first.</p>`
+              <p>Delete the <a href="/services/${entity.name}/imports/${environment}/${path}/">contents</a> of the folder first.</p>`
             )
             .meta({
               component: 'informationField'
@@ -95,7 +95,7 @@ export default {
   },
 
   async actions(request) {
-    const { path = '' } = request.params
+    const { path = '', environment } = request.params
     const entity = request.app.entity
     const parentPath = path.split('/').slice(0, -1).join('/')
     const isFolder = getRawPath(request).endsWith('/')
@@ -104,7 +104,7 @@ export default {
     if (isFolder) {
       const resources = await listPathContents(
         request,
-        `/entities/${entity.name}/imports/`,
+        `/entities/${entity.name}/imports/${environment}/`,
         path
       )
 
@@ -124,19 +124,19 @@ export default {
 
                 await deleteResource(
                   request,
-                  `/entities/${entity.name}/imports/`,
+                  `/entities/${entity.name}/imports/${environment}/`,
                   `${path}${isFolder ? '/' : ''}`
                 )
 
                 return h.redirect(
-                  `/services/${entity.name}/imports/${parentPath}`
+                  `/services/${entity.name}/imports/${environment}/${parentPath}`
                 )
               }
             }
           }),
       cancel: {
         text: 'Cancel',
-        url: `/services/${entity.name}/imports/${parentPath}`
+        url: `/services/${entity.name}/imports/${environment}/${parentPath}`
       }
     }
   }

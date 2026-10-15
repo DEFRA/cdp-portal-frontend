@@ -38,8 +38,16 @@ export default async function (request) {
   const entity = request.app.entity
 
   const [folderContents, folderTree] = await Promise.all([
-    listPathContents(request, `/entities/${entity.name}/imports/`, path),
-    folderTreeForPath(request, `/entities/${entity.name}/imports/`, path)
+    listPathContents(
+      request,
+      `/entities/${entity.name}/imports/${environment}/`,
+      path
+    ),
+    folderTreeForPath(
+      request,
+      `/entities/${entity.name}/imports/${environment}/`,
+      path
+    )
   ])
 
   const relativePathParts = path.split('/').filter((seg) => seg !== '')
