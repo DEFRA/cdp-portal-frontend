@@ -9,11 +9,11 @@ const limit = pLimit(20) // Limit concurrent upload requests
 export default class UploadManager extends EventTarget {
   #uploads = []
 
-  startUpload(service, path, files, csrfToken) {
+  startUpload(environment, service, path, files, csrfToken) {
     for (const file of [...files].sort((a, b) =>
       a.name?.localeCompare(b.name, 'en-GB')
     )) {
-      this.#uploadFile(service, path, file, csrfToken)
+      this.#uploadFile(service, `${environment}/${path}`, file, csrfToken)
     }
   }
 
