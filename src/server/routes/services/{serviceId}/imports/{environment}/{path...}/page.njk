@@ -30,7 +30,7 @@
               <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
                 {{ appFolderTree({
                   tree: folderTree,
-                  basePath: "/services/" + entity.name + "/imports/"
+                  basePath: "/services/" + entity.name + "/imports/" + environment + "/"
                 }) }}
               </div>
 
@@ -40,12 +40,12 @@
                   {{ appFileList({
                     files: folderList,
                     path: path,
-                    basePath: "/services/" + entity.name + "/imports/",
+                    basePath: "/services/" + entity.name + "/imports/" + environment + "/",
                     parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null,
                     actions: [
                       {
                         text: "Add sub folder",
-                        href: "/services/" + entity.name + "/imports-action/" + path + "?action=create"
+                        href: "/services/" + entity.name + "/imports-action/" + environment + "/" + path + "?action=create"
                       }
                     ]
                   }) }}

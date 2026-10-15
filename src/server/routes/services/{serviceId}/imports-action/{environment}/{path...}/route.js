@@ -26,7 +26,7 @@ export function register(routePath) {
         ext: [...commonServiceExtensions, provideLayoutContext()],
 
         layout:
-          'routes/services/{serviceId}/imports-action/{path...}/layout.njk',
+          'routes/services/{serviceId}/imports-action/{environment}/{path...}/layout.njk',
 
         async schema(request) {
           const { action } = request.query

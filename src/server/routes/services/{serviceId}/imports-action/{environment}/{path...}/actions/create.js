@@ -15,12 +15,12 @@ export default {
   },
 
   async schema(request) {
-    const { path = '' } = request.params
+    const { path = '', environment } = request.params
     const entity = request.app.entity
 
     const resources = await listPathContents(
       request,
-      `/entities/${entity.name}/imports/`,
+      `/entities/${entity.name}/imports/${environment}/`,
       path
     )
 
@@ -43,7 +43,7 @@ export default {
   },
 
   async actions(request) {
-    const { path = '' } = request.params
+    const { path = '', environment } = request.params
     const entity = request.app.entity
 
     return {
@@ -54,16 +54,18 @@ export default {
 
           await createEmptyFolder(
             request,
-            `/entities/${entity.name}/imports/`,
+            `/entities/${entity.name}/imports/${environment}/`,
             `${path}/${name}`
           )
 
-          return h.redirect(`/services/${entity.name}/imports/${path}`)
+          return h.redirect(
+            `/services/${entity.name}/imports/${environment}/${path}`
+          )
         }
       },
       cancel: {
         text: 'Cancel',
-        url: `/services/${entity.name}/imports/${path}`
+        url: `/services/${entity.name}/imports/${environment}/${path}`
       }
     }
   }

@@ -26,7 +26,7 @@ export const options = {
 }
 
 export async function GET(request, h) {
-  const { path = '/' } = request.params
+  const { path = '/', environment } = request.params
   const entity = request.app.entity
   const isFolder = path.endsWith('/')
 
@@ -36,7 +36,7 @@ export async function GET(request, h) {
 
   const url = await getFileUrl(
     request,
-    `/entities/${entity.name}/imports/`,
+    `/entities/${entity.name}/imports/${environment}/`,
     path
   )
 
@@ -48,7 +48,7 @@ export async function GET(request, h) {
 }
 
 export async function POST(request) {
-  const { path = '/' } = request.params
+  const { path = '/', environment } = request.params
   const entity = request.app.entity
   const isFolder = path.endsWith('/')
 
@@ -59,7 +59,7 @@ export async function POST(request) {
   const { size } = request.payload
   const response = await startMultipartUpload(
     request,
-    `/entities/${entity.name}/imports/`,
+    `/entities/${entity.name}/imports/${environment}/`,
     path,
     size
   )
@@ -68,14 +68,14 @@ export async function POST(request) {
 }
 
 export async function PUT(request, h) {
-  const { path = '/' } = request.params
+  const { path = '/', environment } = request.params
   const entity = request.app.entity
   const { uploadId, partNumber, contentMd5 } = request.query
 
   if (uploadId && partNumber && contentMd5) {
     const url = await getMultipartUploadPartUrl(
       request,
-      `/entities/${entity.name}/imports/`,
+      `/entities/${entity.name}/imports/${environment}/`,
       path,
       uploadId,
       partNumber,
@@ -106,7 +106,7 @@ export async function PUT(request, h) {
   const { uploadParts } = payload
   await completeMultipartUpload(
     request,
-    `/entities/${entity.name}/imports/`,
+    `/entities/${entity.name}/imports/${environment}/`,
     path,
     uploadId,
     uploadParts
