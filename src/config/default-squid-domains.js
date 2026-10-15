@@ -26,5 +26,6 @@ export const defaultSquidDomains = [
   'a10fb1ec-c92d-425d-a063-ca5b89094843.tokens.sts.global.api.aws',
   'a1eaece8-e6ff-4af3-9bc9-d01ac996ea79.tokens.sts.global.api.aws',
   'a155c736-5fdd-4135-adcf-9bddf2ce038b.tokens.sts.global.api.aws',
-  'a14ef9ed-f39e-4e3d-8d6f-2b422a7833a2.tokens.sts.global.api.aws'
+  'a14ef9ed-f39e-4e3d-8d6f-2b422a7833a2.tokens.sts.global.api.aws',
+  'www.googletagmanager.com'
 ].sort()
