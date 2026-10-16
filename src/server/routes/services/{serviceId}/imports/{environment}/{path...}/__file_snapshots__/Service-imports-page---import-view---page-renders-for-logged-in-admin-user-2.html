@@ -255,8 +255,12 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
           <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources"
              data-testid="app-breadcrumbs-link">mock-service-with-resources</a>
         </li>
+        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+          <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources/imports"
+             data-testid="app-breadcrumbs-link">Imports</a>
+        </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">Imports</li>
+            data-testid="app-breadcrumbs-list-item">Test</li>
   </ol>
 </nav>
 
@@ -474,15 +478,87 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full" data-js="xhr-nav" >
 
-        <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
-        <p class="govuk-!-margin-bottom-6">
-          Manage imported data associated with <strong>mock-service-with-resources</strong>, including uploading and downloading.
-        </p>
+
+<div class="app-split-pane" data-testid="app-split-pane">
+    <div class="app-split-pane__nav"
+         data-testid="app-split-pane-nav">
+<nav class="app-subnav" aria-labelledby="app-subnav-heading" data-testid="app-subnav">
+  <h2 class="govuk-visually-hidden" id="app-subnav-heading">Pages in this section</h2>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item"
+          data-testid="app-subnav-item-infra-dev">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-resources/imports/infra-dev"
+           data-testid="app-subnav-link-infra-dev"
+        >Infra-dev</a>
+      </li>
+    </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item"
+          data-testid="app-subnav-item-management">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-resources/imports/management"
+           data-testid="app-subnav-link-management"
+        >Management</a>
+      </li>
+    </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item"
+          data-testid="app-subnav-item-dev">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-resources/imports/dev"
+           data-testid="app-subnav-link-dev"
+        >Dev</a>
+      </li>
+    </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item app-subnav__section-item--current"
+          data-testid="app-subnav-item-test">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-resources/imports/test"
+           data-testid="app-subnav-link-test"
+        >Test</a>
+      </li>
+    </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item"
+          data-testid="app-subnav-item-perf-test">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-resources/imports/perf-test"
+           data-testid="app-subnav-link-perf-test"
+        >Perf-test</a>
+      </li>
+    </ul>
+    <ul class="app-subnav__section">
+
+      <li class="app-subnav__section-item"
+          data-testid="app-subnav-item-prod">
+        <a class="app-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+           href="/services/mock-service-with-resources/imports/prod"
+           data-testid="app-subnav-link-prod"
+        >Prod</a>
+      </li>
+    </ul>
+</nav>
+    </div>
+  <div class="app-split-pane__content" data-testid="app-split-pane-content">
+
+    <section class="app-content">
+                <span class="govuk-caption-l">Test</span>
+          <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Imports</h2>
+          <p class="govuk-!-margin-bottom-6">
+            Manage imported data associated with <strong>mock-service-with-resources</strong>, including uploading and downloading.
+          </p>
 
 
-          <div class="govuk-grid-row">
-            <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
-              
+            <div class="govuk-grid-row">
+              <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
+                
 
 
 
@@ -505,7 +581,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </svg>
 
 
-      <a href="/services/mock-service-with-resources/imports/">/</a>
+      <a href="/services/mock-service-with-resources/imports/test/">/</a>
   </span>
 
 
@@ -538,7 +614,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </svg>
 
 
-      <a href="/services/mock-service-with-resources/imports/batch-0002/">batch-0002</a>
+      <a href="/services/mock-service-with-resources/imports/test/batch-0002/">batch-0002</a>
   </span>
 
 
@@ -555,12 +631,12 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-            </div>
+              </div>
 
-            <div class="govuk-grid-column-three-quarters">
+              <div class="govuk-grid-column-three-quarters">
 
-              <div data-xhr="folder-contents">
-                
+                <div data-xhr="folder-contents">
+                  
 
 
 
@@ -600,7 +676,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <td class="govuk-table__cell">- - -</td>
       <td class="govuk-table__cell">- - -</td>
       <td class="govuk-table__cell">- - -</td>
-      <td class="govuk-table__cell">      <a href="/services/mock-service-with-resources/imports-action/?action=create" data-no-xhr-link="true" class="app-link--underline">Add sub folder</a>
+      <td class="govuk-table__cell">      <a href="/services/mock-service-with-resources/imports-action/test/?action=create" data-no-xhr-link="true" class="app-link--underline">Add sub folder</a>
 </td>
     </tr>
     <tr class="govuk-table__row">
@@ -612,7 +688,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
        <path d="M150-139q-37.17 0-64.09-27.09Q59-193.19 59-230v-500q0-37.23 26.91-64.61Q112.83-822 150-822h263l68 69h329q37.23 0 64.61 27.09Q902-698.81 902-662v432q0 36.81-27.39 63.91Q847.23-139 810-139z"/>
 </svg>
 
-      <a href="/services/mock-service-with-resources/imports/batch-0001/temp">temp</a>
+      <a href="/services/mock-service-with-resources/imports/test/batch-0001/temp">temp</a>
   </span>
 </td>
       <td class="govuk-table__cell">242.33 kB</td>
@@ -638,7 +714,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 </td>
       <td class="govuk-table__cell">- - -</td>
-      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-action/batch-0001/temp?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-action/test/batch-0001/temp?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
 </td>
     </tr>
     <tr class="govuk-table__row">
@@ -675,8 +751,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 </td>
       <td class="govuk-table__cell">- - -</td>
-      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/batch-0001/data-01.dat" data-no-xhr-link="true" class="app-link--underline">Download</a>
-    <a href="/services/mock-service-with-resources/imports-action/batch-0001/data-01.dat?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/test/batch-0001/data-01.dat" data-no-xhr-link="true" class="app-link--underline">Download</a>
+    <a href="/services/mock-service-with-resources/imports-action/test/batch-0001/data-01.dat?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
 </td>
     </tr>
     <tr class="govuk-table__row">
@@ -713,18 +789,19 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 </td>
       <td class="govuk-table__cell">- - -</td>
-      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/batch-0001/data-01.dat" data-no-xhr-link="true" class="app-link--underline">Download</a>
-    <a href="/services/mock-service-with-resources/imports-action/batch-0001/data-01.dat?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/test/batch-0001/data-01.dat" data-no-xhr-link="true" class="app-link--underline">Download</a>
+    <a href="/services/mock-service-with-resources/imports-action/test/batch-0001/data-01.dat?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
 </td>
     </tr>
   </tbody>
 </table>
 
 
-              </div>
+                </div>
 
-              <div data-xhr="file-upload">
-                  <app-file-upload
+                <div data-xhr="file-upload">
+                    <app-file-upload
+    data-environment="test"
     data-path=""
     data-service="mock-service-with-resources"
     data-csrftoken="test-token"
@@ -759,11 +836,16 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </script>
   </app-file-upload>
 
+                </div>
+
               </div>
-
             </div>
-          </div>
 
+
+
+    </section>
+  </div>
+</div>
 
       </div>
     </div>

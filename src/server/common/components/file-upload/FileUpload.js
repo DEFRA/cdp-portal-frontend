@@ -75,6 +75,7 @@ export default class FileUpload extends NunjucksComponent {
     }
 
     window.cdp.uploadManager.startUpload(
+      this.dataset.environment,
       this.dataset.service,
       this.dataset.path,
       files,

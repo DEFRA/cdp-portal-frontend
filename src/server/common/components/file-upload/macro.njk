@@ -1,6 +1,7 @@
 {% macro appFileUpload(params) %}
   <app-file-upload
     {% if params.id %}id={{ params.id }}{% endif %}
+    data-environment="{{ params.environment }}"
     data-path="{{ params.path }}"
     data-service="{{ params.service }}"
     data-csrftoken="{{ params.csrfToken }}"

@@ -68,7 +68,7 @@ describe('Service imports page', () => {
   describe('import view', () => {
     test('page renders for logged in admin user', async () => {
       const { result, statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}/imports`,
+        targetUrl: `/services/${serviceName}/imports/test`,
         isAdmin: true,
         isTenant: true
       })
@@ -78,7 +78,7 @@ describe('Service imports page', () => {
 
     test('page DOES NOT render for logged in tenant who doesnt own service', async () => {
       const { statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}/imports`,
+        targetUrl: `/services/${serviceName}/imports/test`,
         isAdmin: false,
         isTenant: true
       })
@@ -87,7 +87,7 @@ describe('Service imports page', () => {
 
     test('page DOES NOT renders for logged in service owner tenant', async () => {
       const { statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}/imports`,
+        targetUrl: `/services/${serviceName}/imports/test`,
         isAdmin: false,
         isTenant: true,
         teamScope: 'mock-team-id'
@@ -97,7 +97,7 @@ describe('Service imports page', () => {
 
     test('page errors with 401 for logged out user', async () => {
       const { statusCode } = await mockAuthAndRenderUrl(server, {
-        targetUrl: `/services/${serviceName}/imports`,
+        targetUrl: `/services/${serviceName}/imports/test`,
         isAdmin: false,
         isTenant: false
       })
