@@ -6,7 +6,7 @@ import {
   getMultipartUploadPartUrl,
   startMultipartUpload
 } from '#server/common/services/bucket-service/BucketService.js'
-import { Boom } from '@hapi/boom'
+import Boom from '@hapi/boom'
 import { parse } from '@hapi/subtext'
 
 export const ext = [...commonServiceExtensions]

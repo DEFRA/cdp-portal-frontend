@@ -10,6 +10,10 @@ import {
 } from '#server/common/services/bucket-service/BucketService.js'
 import { provideSubNav } from '#server/helpers/provide-sub-navigation.js'
 import { SERVICE } from '#server/common/patterns/entities/tabs/constants.js'
+import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import Boom from '@hapi/boom'
+
+const IMPORT_FILE_EXTS = ['.dump']
 
 export const ext = [
   ...commonServiceExtensions,
@@ -36,6 +40,13 @@ export const options = {
 export default async function (request) {
   const { path = '', environment } = request.params
   const entity = request.app.entity
+  const userSession = request.auth.credentials
+
+  const environments = getEnvironments(userSession?.scope, entity?.subType)
+
+  if (!environments.includes(environment)) {
+    return Boom.notFound('Invalid environment')
+  }
 
   const [folderContents, folderTree] = await Promise.all([
     listPathContents(
@@ -67,6 +78,14 @@ export default async function (request) {
               text: 'Download',
               href: `/services/${entity.name}/imports-resource/${environment}/${resource.path}`
             },
+            ...(hasImportExt(resource)
+              ? [
+                  {
+                    text: 'Import',
+                    href: `/services/${entity.name}/imports-action/${environment}/${resource.path}?action=import`
+                  }
+                ]
+              : []),
             {
               text: 'Delete',
               href: `/services/${entity.name}/imports-action/${environment}/${resource.path}?action=delete`
@@ -125,4 +144,8 @@ export async function POST(request, h) {
     // TODO: Handle Server-side only upload if no client-side JS enabled?
   }
   return h.redirect(request.url)
+}
+
+function hasImportExt(resource) {
+  return IMPORT_FILE_EXTS.some((ext) => resource.name.endsWith(ext))
 }
