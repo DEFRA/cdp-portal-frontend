@@ -16,6 +16,14 @@ export default {
 
   async schema() {
     return Joi.object({
+      info: Joi.string()
+        .label('Important')
+        .description(
+          'Production data must only be loaded into the Production environment.'
+        )
+        .meta({
+          component: 'informationField'
+        }),
       target: Joi.string()
         .label('Type')
         .description('Type of import to run')
