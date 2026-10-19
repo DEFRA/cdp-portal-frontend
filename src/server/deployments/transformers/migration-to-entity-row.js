@@ -7,6 +7,7 @@ function migrationToEntityRow(migration) {
     isOwner: migration.isOwner,
     service: migration.service,
     version: migration.version,
+    migrationKind: migration.migrationKind,
     environment: migration.environment,
     deploymentId: migration.cdpMigrationId,
     kind: 'update',
