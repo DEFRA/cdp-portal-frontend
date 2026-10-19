@@ -8,7 +8,7 @@ import {
 } from '#server/common/services/bucket-service/BucketService.js'
 import Boom from '@hapi/boom'
 import { parse } from '@hapi/subtext'
-import userHasBreakGlass from '#server/services/helpers/userHasBreakglass.js'
+import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
 
 export const ext = [...commonServiceExtensions]
 

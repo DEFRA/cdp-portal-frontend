@@ -3,7 +3,7 @@ import actions from '../actions/index.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import Boom from '@hapi/boom'
-import userHasBreakGlass from '#server/services/helpers/userHasBreakglass.js'
+import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
 
 export default function provideLayoutContext() {
   return {

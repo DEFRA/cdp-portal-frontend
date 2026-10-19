@@ -12,7 +12,7 @@ import { provideSubNav } from '#server/helpers/provide-sub-navigation.js'
 import { SERVICE } from '#server/common/patterns/entities/tabs/constants.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import Boom from '@hapi/boom'
-import userHasBreakGlass from '#server/services/helpers/userHasBreakglass.js'
+import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
 
 const IMPORT_FILE_EXTS = ['.dump']
 
