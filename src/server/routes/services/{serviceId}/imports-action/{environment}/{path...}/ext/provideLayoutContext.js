@@ -16,7 +16,7 @@ export default function provideLayoutContext() {
         ? response.source.context
         : {}
 
-      const { action } = request.query
+      const { action, target } = request.query
       const { path = '', environment } = request.params
       const entity = request.app.entity
       const isFolder = getRawPath(request).endsWith('/')
@@ -36,6 +36,10 @@ export default function provideLayoutContext() {
         actions[action]?.description(request) ?? ''
 
       response.source.context.pageTitle = `Import - ${response.source.context.actionTitle}`
+
+      if (action === 'import') {
+        response.source.context.importStep = target ? 2 : 1
+      }
 
       const relativePathParts = path.split('/').filter((seg) => seg !== '')
 
