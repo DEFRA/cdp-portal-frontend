@@ -3,6 +3,7 @@ import actions from '../actions/index.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import Boom from '@hapi/boom'
+import userHasBreakGlass from '#server/services/helpers/userHasBreakglass.js'
 
 export default function provideLayoutContext() {
   return {
@@ -26,6 +27,13 @@ export default function provideLayoutContext() {
 
       if (!environments.includes(environment)) {
         return Boom.notFound('Invalid environment')
+      }
+
+      const hasBreakGlass = userHasBreakGlass(entity, userSession)
+      const dataAccessAllowed = environment !== 'prod' || hasBreakGlass
+
+      if (action === 'import' && !dataAccessAllowed) {
+        return Boom.unauthorized('Break-glass required')
       }
 
       response.source.context.environment = environment

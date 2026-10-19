@@ -27,11 +27,19 @@
           {% block xhrContent %}
 
             <div class="govuk-grid-row">
-              <div data-xhr="folder-tree" class="govuk-grid-column-one-quarter">
-                {{ appFolderTree({
-                  tree: folderTree,
-                  basePath: "/services/" + entity.name + "/imports/" + environment + "/"
+              <div class="govuk-grid-column-one-quarter">
+                <div data-xhr="folder-tree">
+                  {{ appFolderTree({
+                    tree: folderTree,
+                    basePath: "/services/" + entity.name + "/imports/" + environment + "/"
+                  }) }}
+                </div>
+
+                {{ appInfo({
+                  html: '<h3 class="govuk-heading-m govuk-!-margin-bottom-2">Important</h3>Production data must only be loaded into the Production environment.',
+                  classes: 'govuk-!-margin-top-8'
                 }) }}
+
               </div>
 
               <div class="govuk-grid-column-three-quarters">
