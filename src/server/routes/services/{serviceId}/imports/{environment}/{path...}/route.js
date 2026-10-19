@@ -12,6 +12,7 @@ import { provideSubNav } from '#server/helpers/provide-sub-navigation.js'
 import { SERVICE } from '#server/common/patterns/entities/tabs/constants.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import Boom from '@hapi/boom'
+import userHasBreakGlass from '#server/services/helpers/userHasBreakglass.js'
 
 const IMPORT_FILE_EXTS = ['.dump']
 
@@ -43,10 +44,13 @@ export default async function (request) {
   const userSession = request.auth.credentials
 
   const environments = getEnvironments(userSession?.scope, entity?.subType)
+  const hasBreakGlass = userHasBreakGlass(entity, userSession)
 
   if (!environments.includes(environment)) {
     return Boom.notFound('Invalid environment')
   }
+
+  const dataAccessAllowed = environment !== 'prod' || hasBreakGlass
 
   const [folderContents, folderTree] = await Promise.all([
     listPathContents(
@@ -74,11 +78,15 @@ export default async function (request) {
             }
           ]
         : [
-            {
-              text: 'Download',
-              href: `/services/${entity.name}/imports-resource/${environment}/${resource.path}`
-            },
-            ...(hasImportExt(resource)
+            ...(dataAccessAllowed
+              ? [
+                  {
+                    text: 'Download',
+                    href: `/services/${entity.name}/imports-resource/${environment}/${resource.path}`
+                  }
+                ]
+              : []),
+            ...(hasImportExt(resource) && dataAccessAllowed
               ? [
                   {
                     text: 'Import',
