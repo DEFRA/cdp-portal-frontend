@@ -1,73 +1,74 @@
-<pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips" style="min-height: 600px;">  flowchart LR
-    subgraph network[" "]
-      style network fill:#fff,stroke-dasharray:10 5
-      direction TD
+<pre class="mermaid mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips" style="min-height: 600px;">
+  flowchart LR
 
-      subgraph ingress[Ingress - <a href="/documentation/architecture/architectural-overview.md#ingress" data-js="open-window">Documentation</a>]
-        direction LR
+  subgraph network[" "]
+    style network fill:#fff,stroke-dasharray:10 5
+    direction TD
 
-
-          frontend@{ icon: "logos:aws-fargate", label: "Frontend client"}
-          frontend frontend_link@--&gt; alb
-          frontend_link@{ animation: slow }
-
-
-        alb@{ img: "/public/assets/application-load-balancer-BdxPnliu.svg", h: 48, w: 48, constraint: 'on', label: "<span class="mermaid--label">ALB (Private)</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-alb" data-js="open-window">Logs</a>"}
-        alb alb_link@--&gt; nginx
-        alb_link@{ animation: slow }
-
-        nginx@{ icon: "logos:nginx", label: "<span class="mermaid--label">Nginx (Protected)</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-nginx-protected" data-js="open-window">Logs</a>"}
-        nginx nginx_link@--&gt; sslSidecar
-        nginx_link@{ animation: slow }
-
-        subgraph ingress_pod[cdp-portal-backend]
-          sslSidecar@{ icon: "logos:docker-icon", label: "<span class="mermaid--label">SSL Sidecar</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-ssl-sidecar" data-js="open-window">Logs</a>"}
-          sslSidecar sslSidecar_link@--&gt; service_ingress
-          sslSidecar_link@{ animation: slow }
-
-          service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
-        end
-
-      end
-
-      subgraph egress[Egress - <a href="/documentation/architecture/architectural-overview.md#egress" data-js="open-window">Documentation</a>]
-        direction RL
-
-        subgraph egress_pod[cdp-portal-backend]
-          service_egress@{ icon: "logos:aws-fargate", label: "Service"}
-
-          forwarder@{ icon: "logos:docker-icon", label: "<span class="mermaid--label">Forwarder Proxy</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-forwarder-proxy" data-js="open-window">Logs</a>"}
-        end
-
-        squid@{ img: "/public/assets/squid-B68QrTWp.jpeg", h: 48, w: 48, constraint: 'on', label: "<span class="mermaid--label">Squid proxy</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-squid-proxy" data-js="open-window">Logs</a>"}
-
-        internet@{ img: "/public/assets/cloud-B6Dp2GsA.svg", h: 40, w: 40, constraint: 'on', label: "Internet"}
-
-        service_egress service_egress_link@--&gt; forwarder
-        service_egress_link@{ animation: slow }
-
-        forwarder forwarder_link@--&gt; squid
-        forwarder_link@{ animation: slow }
-
-        squid squid_link@--&gt; internet
-        squid_link@{ animation: slow }
-      end
-
-      ingress ~~~ egress
-    end
-
-    subgraph app[Service / Resources]
+    subgraph ingress[Ingress - <a href="/documentation/architecture/architectural-overview.md#ingress" data-js="open-window">Documentation</a>]
       direction LR
 
-      service@{ icon: "logos:aws-fargate", label: "<span class="mermaid--label">cdp-portal-backend</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-app" data-js="open-window">Logs</a> | <a href="https://metrics.management.cdp-int.defra.cloud/d/cejsk22uj95ogd/cdp-portal-backend-service" data-js="open-window">Metrics</a>"}
 
-          mongo@{ icon: "logos:mongodb-icon", label: "<span class="mermaid--label">MongoDB</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-mongo" data-js="open-window">Logs</a> | <a href="https://metrics.management.cdp-int.defra.cloud/d/cdp-portal-backend-mongodb/cdp-portal-backend-mongodb" data-js="open-window">Metrics</a>"}
-          service -.- mongo
+        frontend@{ icon: "logos:aws-fargate", label: "Frontend client"}
+        frontend frontend_link@--&gt; alb
+        frontend_link@{ animation: slow }
 
+
+      alb@{ img: "src/client/images/application-load-balancer.svg", h: 48, w: 48, constraint: 'on', label: "<span class="mermaid--label">ALB (Private)</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-alb" data-js="open-window">Logs</a>"}
+      alb alb_link@--&gt; nginx
+      alb_link@{ animation: slow }
+
+      nginx@{ icon: "logos:nginx", label: "<span class="mermaid--label">Nginx (Protected)</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-nginx-protected" data-js="open-window">Logs</a>"}
+      nginx nginx_link@--&gt; sslSidecar
+      nginx_link@{ animation: slow }
+
+      subgraph ingress_pod[cdp-portal-backend]
+        sslSidecar@{ icon: "logos:docker-icon", label: "<span class="mermaid--label">SSL Sidecar</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-ssl-sidecar" data-js="open-window">Logs</a>"}
+        sslSidecar sslSidecar_link@--&gt; service_ingress
+        sslSidecar_link@{ animation: slow }
+
+        service_ingress@{ icon: "logos:aws-fargate", label: "Service"}
+      end
 
     end
 
-    network ~~~ app
+    subgraph egress[Egress - <a href="/documentation/architecture/architectural-overview.md#egress" data-js="open-window">Documentation</a>]
+      direction RL
+
+      subgraph egress_pod[cdp-portal-backend]
+        service_egress@{ icon: "logos:aws-fargate", label: "Service"}
+
+        forwarder@{ icon: "logos:docker-icon", label: "<span class="mermaid--label">Forwarder Proxy</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-forwarder-proxy" data-js="open-window">Logs</a>"}
+      end
+
+      squid@{ img: "src/client/images/squid.jpeg", h: 48, w: 48, constraint: 'on', label: "<span class="mermaid--label">Squid proxy</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-squid-proxy" data-js="open-window">Logs</a>"}
+
+      internet@{ img: "src/client/images/cloud.svg", h: 40, w: 40, constraint: 'on', label: "Internet"}
+
+      service_egress service_egress_link@--&gt; forwarder
+      service_egress_link@{ animation: slow }
+
+      forwarder forwarder_link@--&gt; squid
+      forwarder_link@{ animation: slow }
+
+      squid squid_link@--&gt; internet
+      squid_link@{ animation: slow }
+    end
+
+    ingress ~~~ egress
+  end
+
+  subgraph app[Service / Resources]
+    direction LR
+
+    service@{ icon: "logos:aws-fargate", label: "<span class="mermaid--label">cdp-portal-backend</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-app" data-js="open-window">Logs</a> | <a href="https://metrics.management.cdp-int.defra.cloud/d/cejsk22uj95ogd/cdp-portal-backend-service" data-js="open-window">Metrics</a>"}
+
+        mongo@{ icon: "logos:mongodb-icon", label: "<span class="mermaid--label">MongoDB</span><a href="https://logs.management.cdp-int.defra.cloud/_dashboards/app/discover#/view/cdp-portal-backend-mongo" data-js="open-window">Logs</a> | <a href="https://metrics.management.cdp-int.defra.cloud/d/cdp-portal-backend-mongodb/cdp-portal-backend-mongodb" data-js="open-window">Metrics</a>"}
+        service -.- mongo
 
 
-  </pre>
+  end
+
+  network ~~~ app
+
+</pre>
