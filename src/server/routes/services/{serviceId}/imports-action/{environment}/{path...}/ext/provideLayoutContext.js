@@ -3,6 +3,7 @@ import actions from '../actions/index.js'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import Boom from '@hapi/boom'
+import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
 
 export default function provideLayoutContext() {
   return {
@@ -16,7 +17,7 @@ export default function provideLayoutContext() {
         ? response.source.context
         : {}
 
-      const { action } = request.query
+      const { action, target } = request.query
       const { path = '', environment } = request.params
       const entity = request.app.entity
       const isFolder = getRawPath(request).endsWith('/')
@@ -28,6 +29,13 @@ export default function provideLayoutContext() {
         return Boom.notFound('Invalid environment')
       }
 
+      const hasBreakGlass = userHasBreakGlass(entity, userSession)
+      const dataAccessAllowed = environment !== 'prod' || hasBreakGlass
+
+      if (action === 'import' && !dataAccessAllowed) {
+        return Boom.unauthorized('Break-glass required')
+      }
+
       response.source.context.environment = environment
 
       response.source.context.actionTitle =
@@ -36,6 +44,10 @@ export default function provideLayoutContext() {
         actions[action]?.description(request) ?? ''
 
       response.source.context.pageTitle = `Import - ${response.source.context.actionTitle}`
+
+      if (action === 'import') {
+        response.source.context.importStep = target ? 2 : 1
+      }
 
       const relativePathParts = path.split('/').filter((seg) => seg !== '')
 

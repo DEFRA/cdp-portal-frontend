@@ -25,13 +25,17 @@ const databaseUpdateController = {
     const environment = migration.environment
     const formattedEnvironment = formatText(environment)
 
+    const isImport = migration.kind === 'import'
+
     return h.view('deployments/views/database-update', {
       faviconState: databaseUpdateFaviconState(migration.status),
       pageTitle: `${migration.service} ${migration.version} database update - ${formattedEnvironment}`,
       pageHeading: {
-        caption: 'Database update',
+        caption: isImport ? 'Database update - import' : 'Database update',
         text: migration.service,
-        intro: `Database update for <strong>${migration.service}</strong>, changelog version <strong>${migration.version}</strong> in <strong>${migration.environment}</strong>`
+        intro: isImport
+          ? `Database update - import for <strong>${migration.service}</strong> in <strong>${migration.environment}</strong>`
+          : `Database update for <strong>${migration.service}</strong>, changelog version <strong>${migration.version}</strong> in <strong>${migration.environment}</strong>`
       },
       migration,
       shouldPoll: migration.status !== databaseStatus.succeeded,
@@ -46,7 +50,9 @@ const databaseUpdateController = {
           href: `/deployments/${environment}?page=${pagination.page}&size=${pagination.size}`
         },
         {
-          text: `${migration.service} - ${migration.version}`
+          text: isImport
+            ? migration.service
+            : `${migration.service} - ${migration.version}`
         }
       ]
     })

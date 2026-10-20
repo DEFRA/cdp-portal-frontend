@@ -15,7 +15,18 @@
 {% block tabContent %}
   <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full" data-js="xhr-nav" >
+      <div class="govuk-grid-column-one-third-from-desktop-wide" data-js="xhr-nav" >
+
+        {% if importStep != null %}
+          {{ appStepNavigation({
+            "classes":"app-step-navigation--slim govuk-!-margin-bottom-8",
+            "width": 0 if importStep == 1 else 100,
+            "steps":[
+              {url: "/create/resources/detail", isCurrent: importStep == 1, isComplete: importStep == 2, text: "Import"},
+              {isCurrent: importStep == 2, text: "Summary"}
+            ]
+          }) }}
+        {% endif %}
 
         <h2 class="govuk-heading-l govuk-!-margin-bottom-2">{{ actionTitle }}</h2>
         <p class="govuk-!-margin-bottom-6">

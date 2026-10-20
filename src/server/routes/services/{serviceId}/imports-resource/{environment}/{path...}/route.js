@@ -8,6 +8,7 @@ import {
 } from '#server/common/services/bucket-service/BucketService.js'
 import Boom from '@hapi/boom'
 import { parse } from '@hapi/subtext'
+import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
 
 export const ext = [...commonServiceExtensions]
 
@@ -29,9 +30,17 @@ export async function GET(request, h) {
   const { path = '/', environment } = request.params
   const entity = request.app.entity
   const isFolder = path.endsWith('/')
+  const userSession = request.auth.credentials
 
   if (isFolder) {
     return Boom.notFound('Folders are not downloadable')
+  }
+
+  const hasBreakGlass = userHasBreakGlass(entity, userSession)
+  const dataAccessAllowed = environment !== 'prod' || hasBreakGlass
+
+  if (!dataAccessAllowed) {
+    return Boom.unauthorized('Break-glass required')
   }
 
   const url = await getFileUrl(

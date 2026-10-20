@@ -78,7 +78,8 @@ export default {
         .label('File name')
         .description(`<pre class="govuk-hint app-hint">${name}</pre>`)
         .meta({
-          component: 'informationField'
+          component: 'informationField',
+          classes: 'govuk-!-margin-bottom-6'
         }),
       name: Joi.string()
         .label(`Confirm file name`)

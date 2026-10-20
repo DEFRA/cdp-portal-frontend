@@ -9,6 +9,7 @@ import {
 } from '../../common/helpers/nunjucks/render-component.js'
 import { databaseStatus } from '../constants/database-status.js'
 import { renderTag } from '../../common/helpers/view/render-tag.js'
+import { dirname, basename } from 'node:path'
 
 function transformMigrationToSummary(migration) {
   const logsLinkDataAvailable = [
@@ -21,6 +22,8 @@ function transformMigrationToSummary(migration) {
   const hasResult =
     migration.status === databaseStatus.succeeded ||
     migration.status === databaseStatus.failed
+
+  const isImport = migration.kind === 'import'
 
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
@@ -42,17 +45,44 @@ function transformMigrationToSummary(migration) {
         key: { text: 'Environment' },
         value: { text: migration.environment ?? noValue }
       },
-      {
-        key: { text: 'Changelog version' },
-        value: {
-          html: migration.version
-            ? buildLink({
-                href: `https://github.com/DEFRA/${migration.service}/releases/tag/${migration.version}`,
-                text: migration.version
-              })
-            : noValue
-        }
-      },
+      ...(isImport
+        ? [
+            {
+              key: { text: 'Import file' },
+              value: {
+                html: migration.importPath
+                  ? buildLink({
+                      href: `/services/${migration.service}/imports//${migration.environment}/${dirname(migration.importPath)}`,
+                      text: basename(migration.importPath),
+                      newTab: true
+                    })
+                  : noValue
+              }
+            }
+          ]
+        : [
+            {
+              key: { text: 'Changelog version' },
+              value: {
+                html: migration.version
+                  ? buildLink({
+                      href: `https://github.com/DEFRA/${migration.service}/releases/tag/${migration.version}`,
+                      text: migration.version
+                    })
+                  : noValue
+              }
+            }
+          ]),
+      ...(isImport
+        ? [
+            {
+              key: { text: 'Import target' },
+              value: {
+                text: formatText(migration.importTarget)
+              }
+            }
+          ]
+        : []),
       {
         key: {
           text: 'Status'

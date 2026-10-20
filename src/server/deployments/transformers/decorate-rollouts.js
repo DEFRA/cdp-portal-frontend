@@ -16,7 +16,8 @@ function decorateRollouts({ deployableServices, userScopes }) {
           userScopes.includes(`team:${team.teamId}`)
         ),
         ...rollout,
-        kind: deployment ? 'deployment' : 'migration'
+        kind: deployment ? 'deployment' : 'migration',
+        migrationKind: rollout.kind
       }
     })
 }
