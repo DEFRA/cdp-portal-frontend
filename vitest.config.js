@@ -64,10 +64,12 @@ export default mergeConfig(
               enabled: true,
               headless: true,
               provider: playwright(),
-              instances: [{
-                browser: 'chromium',
-                viewport: { width: 1280, height: 1280 * 5 },
-              }]
+              instances: [
+                {
+                  browser: 'chromium',
+                  viewport: { width: 1280, height: 1280 * 5 }
+                }
+              ]
             }
           }
         }
