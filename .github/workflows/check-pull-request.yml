@@ -78,7 +78,7 @@ jobs:
           if: always()
           uses: actions/upload-artifact@v7
           with:
-            name: screenshots
+            name: vitest-attachments
             path: .vitest/attachments/
 
   test:
