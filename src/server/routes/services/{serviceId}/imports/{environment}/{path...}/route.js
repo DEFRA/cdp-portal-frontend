@@ -13,15 +13,23 @@ import { SERVICE } from '#server/common/patterns/entities/tabs/constants.js'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
 import Boom from '@hapi/boom'
 import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
+import { config } from '#config/config.js'
 
 const IMPORT_FILE_EXTS = ['.dump']
+
+const showAllEnvs = config.get('imports.showAllEnvs') ?? false
 
 export const ext = [
   ...commonServiceExtensions,
   provideNotFoundIfPrototypeExtension,
   {
     type: 'onPostHandler',
-    method: provideSubNav('imports', SERVICE, { withoutAll: true }),
+    method: provideSubNav('imports', SERVICE, {
+      withoutAll: true,
+      envFilter: (env) => {
+        return showAllEnvs || env === 'infra-dev'
+      }
+    }),
     options: {
       sandbox: 'plugin'
     }

@@ -487,6 +487,14 @@ const config = convict({
     format: Number,
     default: 24 * 60 * 60 * 1000,
     env: 'CHANGE_REQUEST_RECENT_WINDOW_MS'
+  },
+  imports: {
+    showAllEnvs: {
+      doc: 'Show all envs in Imports i.e. for Management',
+      format: Boolean,
+      default: false,
+      env: 'IMPORTS_SHOW_ALL_ENVS'
+    }
   }
 })
 
