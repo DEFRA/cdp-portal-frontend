@@ -4,7 +4,8 @@ import { sortByEnv } from '#server/common/helpers/sort/sort-by-env.js'
 import {
   performanceEnvironments,
   prototypeEnvironments,
-  orderedEnvironments
+  orderedEnvironments,
+  environments
 } from '@defra/cdp-validation-kit/src/constants/environments.js'
 
 function getEnvironmentValuesForEntitySubType(subType) {
@@ -33,3 +34,8 @@ export function getEnvironmentsThatNeed(userScopes) {
     userScopes.includes(environmentScope[env])
   )
 }
+
+export const changeRequestEnvironments = [
+  environments.infraDev,
+  environments.prod
+]

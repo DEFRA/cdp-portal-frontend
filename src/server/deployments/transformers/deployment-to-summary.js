@@ -12,6 +12,8 @@ import {
   renderIcon
 } from '../../common/helpers/nunjucks/render-component.js'
 import { renderTag } from '../../common/helpers/view/render-tag.js'
+import { changeRequestEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { formatChangeRecord } from '#server/deployments/helpers/format-change-record.js'
 
 const instanceIcon = (classes) =>
   renderIcon('instance-icon', {
@@ -95,6 +97,21 @@ export function transformDeploymentToSummary(deployment) {
       })
     )
 
+  const showChangeRecords = changeRequestEnvironments.includes(
+    deployment.environment
+  )
+  const changeRecord = formatChangeRecord(deployment)
+  const changeRecordValue = changeRecord.class
+    ? {
+        html: `<div class="app-!-layout-centered">
+              ${renderTag({
+                text: changeRecord.text,
+                classes: `app-tag ${changeRecord.class}`
+              })}
+            </div>`
+      }
+    : { text: changeRecord.text }
+
   return {
     classes: 'app-summary-list govuk-!-margin-bottom-0',
     attributes: {
@@ -126,6 +143,14 @@ export function transformDeploymentToSummary(deployment) {
             : noValue
         }
       },
+      ...(showChangeRecords
+        ? [
+            {
+              key: { text: 'Change Record' },
+              value: changeRecordValue
+            }
+          ]
+        : []),
       {
         key: { text: 'Kind' },
         value: {

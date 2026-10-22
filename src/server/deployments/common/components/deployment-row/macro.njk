@@ -13,7 +13,11 @@
 @param {string} statusText - Status of deployment
 @param {string} statusClass - Display class of status
 @param {object}[] teams - Teams who own the service
-@param {string} started - Date deployment started #}
+@param {string} started - Date deployment started
+@param {boolean} showChangeRecords - Display change records column
+@param {string} changeRecordText - Display version of change record text
+@param {string} changeRecordClass - Display class of change record
+#}
 
 {% macro appDeploymentRow(params) %}
   {%- include "./template.njk" -%}

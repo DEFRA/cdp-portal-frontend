@@ -51,6 +51,22 @@
   </td>
 
 
+  {% if params.showChangeRecords %}
+    <td headers="cr" class="app-entity-table__cell" data-label="Change Record">
+      {% if params.changeRecordText %}
+        {% if params.changeRecordClass %}
+          {{ govukTag({
+            text: params.changeRecordText,
+            classes: 'app-tag ' + params.changeRecordClass,
+            attributes: { "data-testid": "govuk-tag" }
+          }) }}
+        {% else %}
+          {{ params.changeRecordText }}
+        {% endif %}
+      {% endif %}
+    </td>
+  {% endif %}
+
   <td headers="status" class="app-entity-table__cell" data-label="Status">
     {{ govukTag({
       text: params.statusText,
