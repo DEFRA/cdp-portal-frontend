@@ -481,6 +481,12 @@ const config = convict({
         env: 'SLACK_CHANNELS_CACHE_STALE_IN'
       }
     }
+  },
+  changeRequestRecentWindowMs: {
+    doc: 'How long a deployment is considered recent for a ServiceNow change request in milliseconds',
+    format: Number,
+    default: 24 * 60 * 60 * 1000,
+    env: 'CHANGE_REQUEST_RECENT_WINDOW_MS'
   }
 })
 

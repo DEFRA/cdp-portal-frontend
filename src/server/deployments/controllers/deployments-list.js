@@ -20,6 +20,7 @@ import {
   userIdValidation
 } from '@defra/cdp-validation-kit'
 import { fetchServices } from '../../common/helpers/fetch/fetch-entities.js'
+import { changeRequestEnvironments } from '#server/common/helpers/environments/get-environments.js'
 
 async function getFilters() {
   const response = await fetchDeploymentFilters()
@@ -131,7 +132,11 @@ const deploymentsListController = {
 
       return rowBuilderMap[entity.kind](entity)
     }
-    const rows = deploymentsWithTeams?.map(rowBuilder) ?? []
+    const showChangeRecords = changeRequestEnvironments.includes(environment)
+    const rows =
+      deploymentsWithTeams
+        ?.map(rowBuilder)
+        .map((row) => ({ ...row, showChangeRecords })) ?? []
 
     return h.view('deployments/views/list', {
       pageTitle: `${formattedEnvironment} microservice deployments and database updates`,
@@ -157,6 +162,9 @@ const deploymentsListController = {
             isLeftAligned: true
           },
           { id: 'version', text: 'Version', width: '10' },
+          ...(showChangeRecords
+            ? [{ id: 'cr', text: 'Change Record', width: '10' }]
+            : []),
           { id: 'status', text: 'Status', width: '10' },
           { id: 'kind', text: 'Kind', width: '10' },
           { id: 'by', text: 'By', width: '20' },
