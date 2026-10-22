@@ -1,0 +1,52 @@
+<pre class="mermaid mermaid--pan-zoom  mermaid--no-label-background mermaid--light-links mermaid--icon-tooltips">              flowchart TD
+                subgraph platformTeam[Platform]
+                  style platformTeam fill:#fff,stroke-dasharray:10 5
+
+                    subgraph cdp-portal-backendContainer[ ]
+                      direction TD
+
+                      cdp-portal-backend@{ icon: "logos:logos:aws-fargate", label: "<strong>cdp-portal-backend</strong>"}
+                        click cdp-portal-backend call noop() "Backend Service"
+
+                        cdp-portal-backend_sns_cdp_platform_portal_events@{ icon: "logos:aws-sns", label: "<span class="mermaid--label ">cdp_platform_portal_events</span>"}
+                        cdp-portal-backend -.- cdp-portal-backend_sns_cdp_platform_portal_events
+                        cdp-portal-backend_sns_cdp_workflow_events@{ icon: "logos:aws-sns", label: "<span class="mermaid--label ">cdp_workflow_events</span>"}
+                        cdp-portal-backend -.- cdp-portal-backend_sns_cdp_workflow_events
+                        cdp-portal-backend_sns_ecr_image_push@{ icon: "logos:aws-sns", label: "<span class="mermaid--label ">ecr_image_push</span>"}
+                        cdp-portal-backend -.- cdp-portal-backend_sns_ecr_image_push
+                        cdp-portal-backend_sqs_cdp_platform_portal_events@{ icon: "logos:aws-sqs", label: "<span class="mermaid--label ">cdp_platform_portal_events</span>"}
+                        cdp-portal-backend -.- cdp-portal-backend_sqs_cdp_platform_portal_events
+                        cdp-portal-backend_sqs_cdp_workflow_events@{ icon: "logos:aws-sqs", label: "<span class="mermaid--label ">cdp_workflow_events</span>"}
+                        cdp-portal-backend -.- cdp-portal-backend_sqs_cdp_workflow_events
+                        cdp-portal-backend_sqs_ecr_image_push@{ icon: "logos:aws-sqs", label: "<span class="mermaid--label ">ecr_image_push</span>"}
+                        cdp-portal-backend -.- cdp-portal-backend_sqs_ecr_image_push
+                        cdp-portal-backend_sqs_ecs_deployments@{ icon: "logos:aws-sqs", label: "<span class="mermaid--label ">ecs_deployments</span>"}
+                        cdp-portal-backend -.- cdp-portal-backend_sqs_ecs_deployments
+                    end
+
+                end
+                subgraph amazonTeam[Amazon]
+                  style amazonTeam fill:#fff,stroke-dasharray:10 5
+
+                    subgraph AWSContainer[ ]
+                      direction TD
+
+                      AWS@{ icon: "logos:aws", label: "AWS"}
+
+                    end
+
+                end
+
+
+                        cdp-portal-backend_sqs_cdp_platform_portal_events cdp-portal-backend_sqs_cdp_platform_portal_events_link0@--&gt;|<span class="mermaid--label ">Subscription</span>| cdp-portal-backend_sns_cdp_platform_portal_events
+                          cdp-portal-backend_sqs_cdp_platform_portal_events_link0@{ animation: slow }
+
+                        cdp-portal-backend_sqs_cdp_workflow_events cdp-portal-backend_sqs_cdp_workflow_events_link0@--&gt;|<span class="mermaid--label ">Subscription</span>| cdp-portal-backend_sns_cdp_workflow_events
+                          cdp-portal-backend_sqs_cdp_workflow_events_link0@{ animation: slow }
+
+                        cdp-portal-backend_sqs_ecr_image_push cdp-portal-backend_sqs_ecr_image_push_link0@--&gt;|<span class="mermaid--label ">Subscription</span>| cdp-portal-backend_sns_ecr_image_push
+                          cdp-portal-backend_sqs_ecr_image_push_link0@{ animation: slow }
+
+                        cdp-portal-backend_sqs_ecs_deployments cdp-portal-backend_sqs_ecs_deployments_link0@--&gt;|<span class="mermaid--label ">Subscription</span>| AWS
+                          cdp-portal-backend_sqs_ecs_deployments_link0@{ animation: slow }
+            </pre>

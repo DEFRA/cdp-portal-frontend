@@ -1,25 +1,5 @@
-import nunjucks from 'nunjucks/browser/nunjucks-slim.js'
-import path from 'path'
 import { Idiomorph } from 'idiomorph'
-import * as filters from '#config/nunjucks/filters/filters.js'
-
-const nunjucksEnvironment = nunjucks.configure()
-nunjucksEnvironment.addGlobal('govukRebrand', true)
-
-for (const filter of Object.keys(filters)) {
-  nunjucksEnvironment.addFilter(filter, filters[filter])
-}
-
-/*
- * Patch loader due to missing `path` reference
- */
-nunjucks.PrecompiledLoader.prototype.resolve = function patchedResolve(
-  from,
-  to
-) {
-  const result = path.resolve(path.dirname(from), to)
-  return result.startsWith('/') ? result.replace('/', '') : result
-}
+import { nunjucksEnvironment } from '#config/nunjucks/client.js'
 
 export default class NunjucksComponent extends HTMLElement {
   #connected = false

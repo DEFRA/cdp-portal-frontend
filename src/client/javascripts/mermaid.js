@@ -48,7 +48,7 @@ mermaid.registerIconPacks([
   }
 ])
 
-async function run() {
+window._mermaidRun = async function run() {
   await mermaid.run()
 
   document.querySelectorAll('pre.mermaid').forEach((pre) => {
@@ -89,4 +89,4 @@ async function run() {
       })
     })
 }
-run()
+window._mermaidRun()

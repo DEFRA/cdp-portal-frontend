@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import esquery from 'esquery'
 
 /**
- * Precompiles nunjucks templates imported from JS as `import 'my-template.njk'`
+ * Precompiles nunjucks templates imported from JS as `import template from 'my-template.njk'`
  *
  * Resolves imported and included sub templates using `paths` option
  */

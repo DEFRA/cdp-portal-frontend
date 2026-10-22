@@ -36,6 +36,7 @@
     "test:client": "npm run playwrite:install && NODE_ENV=test TZ=UTC vitest --project browser",
     "test:client:ui": "npm run playwrite:install && NODE_ENV=test TZ=UTC vitest --project browser --browser.headless false",
     "test:server": "NODE_ENV=test TZ=UTC vitest --coverage --project server",
+    "test:vrt": "npm run playwrite:install && NODE_ENV=test TZ=UTC vitest --project vrt",
     "test:watch": "npm run playwrite:install && npm run test"
   },
   "imports": {

@@ -16,7 +16,7 @@ export default mergeConfig(
           test: {
             name: 'server',
             include: ['src/**/*.test.js'],
-            exclude: ['src/**/*.browser.test.js'],
+            exclude: ['src/**/*.browser.test.js', 'src/**/*.vrt.test.js'],
             environment: 'jsdom',
             snapshotSerializers: ['./test-helpers/snapshot-serializer.js'],
             setupFiles: [
@@ -52,6 +52,24 @@ export default mergeConfig(
               headless: true,
               provider: playwright(),
               instances: [{ browser: 'chromium' }]
+            }
+          }
+        },
+        {
+          test: {
+            name: 'vrt',
+            include: ['src/**/*.vrt.test.js'],
+            setupFiles: ['.vite/browser-setup-files.js'],
+            browser: {
+              enabled: true,
+              headless: true,
+              provider: playwright(),
+              instances: [
+                {
+                  browser: 'chromium',
+                  viewport: { width: 1280, height: 1280 * 5 }
+                }
+              ]
             }
           }
         }
