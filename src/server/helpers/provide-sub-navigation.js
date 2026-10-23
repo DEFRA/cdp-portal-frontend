@@ -2,7 +2,13 @@ import upperFirst from 'lodash/upperFirst.js'
 import { getEnvironments } from '../common/helpers/environments/get-environments.js'
 import { pluralise } from '../common/helpers/pluralise.js'
 
-function provideSubNav(subTitle, entityType, { withoutAll = false } = {}) {
+const noopEnvFiler = (_env) => true
+
+function provideSubNav(
+  subTitle,
+  entityType,
+  { withoutAll = false, envFilter = noopEnvFiler } = {}
+) {
   return function provideSubNavigation(request, h) {
     const response = request.response
 
@@ -16,7 +22,7 @@ function provideSubNav(subTitle, entityType, { withoutAll = false } = {}) {
       const environments = getEnvironments(
         request.auth.credentials?.scope,
         entity?.subType
-      )
+      ).filter(envFilter)
 
       response.source.context.subNavigation = [
         ...(withoutAll
