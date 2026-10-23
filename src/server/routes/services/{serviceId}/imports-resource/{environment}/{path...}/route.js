@@ -36,7 +36,7 @@ export async function GET(request, h) {
     return Boom.notFound('Folders are not downloadable')
   }
 
-  const hasBreakGlass = userHasBreakGlass(entity, userSession)
+  const hasBreakGlass = userHasBreakGlass(userSession, entity)
   const dataAccessAllowed = environment !== 'prod' || hasBreakGlass
 
   if (!dataAccessAllowed) {

@@ -52,7 +52,7 @@ export default async function (request) {
   const userSession = request.auth.credentials
 
   const environments = getEnvironments(userSession?.scope, entity?.subType)
-  const hasBreakGlass = userHasBreakGlass(entity, userSession)
+  const hasBreakGlass = userHasBreakGlass(userSession, entity)
 
   if (!environments.includes(environment)) {
     return Boom.notFound('Invalid environment')

@@ -14,31 +14,39 @@ test('Return false for no break-glass', () => {
   expect(
     userHasBreakGlass(
       {
+        scope: [scopes.tenant]
+      },
+      {
         teams: [
           {
             teamId: 'test'
           }
         ]
-      },
-      {
-        scope: [scopes.tenant]
       }
     )
   ).equals(false)
+})
+
+test('Return true for user only break-glass', () => {
+  expect(
+    userHasBreakGlass({
+      scope: [scopes.tenant, scopes.breakGlass]
+    })
+  ).equals(true)
 })
 
 test('Return false for break-glass with non-owning team', () => {
   expect(
     userHasBreakGlass(
       {
+        scope: [scopes.tenant, `${scopes.breakGlass}:team:another`]
+      },
+      {
         teams: [
           {
             teamId: 'test'
           }
         ]
-      },
-      {
-        scope: [scopes.tenant, `${scopes.breakGlass}:team:another`]
       }
     )
   ).equals(false)
@@ -48,14 +56,14 @@ test('Return true for break-glass with for owning team', () => {
   expect(
     userHasBreakGlass(
       {
+        scope: [scopes.tenant, `${scopes.breakGlass}:team:test`]
+      },
+      {
         teams: [
           {
             teamId: 'test'
           }
         ]
-      },
-      {
-        scope: [scopes.tenant, `${scopes.breakGlass}:team:test`]
       }
     )
   ).equals(true)
