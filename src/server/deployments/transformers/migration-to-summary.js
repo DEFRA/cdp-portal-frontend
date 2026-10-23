@@ -52,7 +52,7 @@ function transformMigrationToSummary(migration) {
               value: {
                 html: migration.importPath
                   ? buildLink({
-                      href: `/services/${migration.service}/imports//${migration.environment}/${dirname(migration.importPath)}`,
+                      href: `/services/${migration.service}/imports/${migration.environment}/${dirname(migration.importPath)}`,
                       text: basename(migration.importPath),
                       newTab: true
                     })
