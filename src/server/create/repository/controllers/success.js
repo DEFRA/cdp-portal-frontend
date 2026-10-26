@@ -10,8 +10,6 @@ const repositorySuccessController = {
 
     return h.view('create/repository/views/success', {
       pageTitle: 'Status',
-      heading: 'Status',
-      caption: 'Your repository is being created',
       repositoryLink: buildLink({
         href: `https://github.com/${githubOrg}/${repositoryName}`,
         text: repositoryName
