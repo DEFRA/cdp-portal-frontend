@@ -18,8 +18,7 @@ $scrollbar-width: 15px;
 }
 
 .app-iframe--terminal {
-  min-height: 85vh;
-  width: 100%;
+  flex: 1;
 }
 
 .app-iframe--grafana-snapshot {
