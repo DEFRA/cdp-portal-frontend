@@ -12,6 +12,7 @@ import { kindDetailFormController } from './controllers/kind/detail-form.js'
 import { kindDetailController } from './controllers/kind/detail.js'
 import { kindSummaryController } from './controllers/kind/summary.js'
 import { kindCreateController } from './controllers/kind/create.js'
+import { repositorySuccessController } from './repository/controllers/success.js'
 
 const serviceTeamAndAdminUserScope = authScope([scopes.tenant, scopes.admin])
 
@@ -68,6 +69,11 @@ const create = {
               method: 'GET',
               path: '/create/{kind}/summary',
               ...kindSummaryController
+            },
+            {
+              method: 'GET',
+              path: '/create/repository/success',
+              ...repositorySuccessController
             },
             {
               method: 'POST',
