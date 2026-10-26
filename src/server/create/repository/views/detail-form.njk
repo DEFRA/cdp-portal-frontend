@@ -15,6 +15,13 @@
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third-from-desktop-wide">
+
+        {{ appWarning({
+          html: '<h3 class="govuk-!-margin-top-0">Don\'t use this for microservices</h3><p>If you are wanting to create a microservice on CDP, please use the create <a href="/create/microservice/detail">Microservice</a> flow.</p>',
+          classes: "govuk-!-margin-bottom-5 govuk-!-margin-top-0"
+        }) }}
+
+
         <form action="/create/repository/detail" method="post" data-js="app-form-errors"
               class="govuk-!-margin-bottom-4">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
