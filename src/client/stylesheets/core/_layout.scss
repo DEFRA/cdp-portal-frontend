@@ -1,5 +1,17 @@
 @use "govuk-frontend" as *;
 
+.app-tool-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-tool-page__main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
 .app-width-container {
   padding-top: govuk-spacing(4);
   padding-bottom: govuk-spacing(4);
