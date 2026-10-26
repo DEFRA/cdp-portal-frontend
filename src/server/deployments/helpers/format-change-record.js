@@ -37,7 +37,7 @@ export function formatChangeRecord(deployment) {
   if (status === 'failed') {
     return {
       text: 'Not Created',
-      class: 'app-tag--orange'
+      class: 'govuk-tag--orange'
     }
   }
 
