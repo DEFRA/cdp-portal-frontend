@@ -14,12 +14,12 @@
 
 {% set infoHtml %}
   Your {{ entityKind }} has been created successfully.
-  {% if entityKind != 'repository' %}
-    Refresh the page to access your {{ entityKind }}'s portal page
-    <a class="govuk-button app-button app-button--primary app-button--small"
-       role="button"
-       href="{{ routeLookup(pluralEntityKind + '/{serviceId}', { params: { serviceId : entity.name } }) }}">Refresh</a>
-  {% endif %}
+
+  Refresh the page to access your {{ entityKind }}'s portal page
+  <a class="govuk-button app-button app-button--primary app-button--small"
+      role="button"
+      href="{{ routeLookup(pluralEntityKind + '/{serviceId}', { params: { serviceId : entity.name } }) }}">Refresh</a>
+
 {% endset %}
 
 {% block content %}

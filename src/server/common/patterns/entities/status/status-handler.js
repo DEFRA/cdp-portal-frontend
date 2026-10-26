@@ -6,7 +6,6 @@ import { transformServiceToSummary } from '#server/services/service/about/transf
 import { fetchRepository } from '../../../helpers/fetch/fetch-repository.js'
 import { nullify404 } from '../../../helpers/nullify-404.js'
 import { pluralise } from '../../../helpers/pluralise.js'
-import { REPOSITORY } from '../tabs/constants.js'
 import {
   entityStatuses,
   entityTypes
@@ -110,7 +109,7 @@ export async function entityStatusHandler(request, h, entityKind) {
     breadcrumbs: [
       {
         text: `${pluralise(startCase(entityType))}`,
-        href: entityKind === REPOSITORY ? '' : `/${pluralise(entityKind)}`
+        href: `/${pluralise(entityKind)}`
       },
       {
         text: serviceName
