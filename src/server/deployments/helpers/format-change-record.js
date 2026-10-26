@@ -1,4 +1,5 @@
 import { config } from '#config/config.js'
+import { deploymentStatus } from '#server/common/constants/deployment.js'
 
 const changeRequestRecentWindowMs = config.get('changeRequestRecentWindowMs')
 
@@ -14,10 +15,29 @@ export function formatChangeRecord(deployment) {
     created &&
     Date.now() - new Date(created).getTime() < changeRequestRecentWindowMs
 
+  if (
+    isRecent &&
+    [deploymentStatus.requested, deploymentStatus.pending].includes(
+      deployment.status
+    )
+  ) {
+    return {
+      text: 'Pending',
+      class: 'app-tag--purple'
+    }
+  }
+
   if (isRecent && ['requested', 'pending'].includes(status)) {
     return {
       text: 'Requested',
       class: 'app-tag--purple'
+    }
+  }
+
+  if (status === 'failed') {
+    return {
+      text: 'Not Created',
+      class: 'app-tag--orange'
     }
   }
 
