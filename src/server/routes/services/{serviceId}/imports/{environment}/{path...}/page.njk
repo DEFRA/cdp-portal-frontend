@@ -28,12 +28,14 @@
 
             <div class="govuk-grid-row">
               <div class="govuk-grid-column-one-quarter">
-                <div data-xhr="folder-tree">
-                  {{ appFolderTree({
-                    tree: folderTree,
-                    basePath: "/services/" + entity.name + "/imports/" + environment + "/"
-                  }) }}
-                </div>
+                <hx-partial data-hx-target="#folder-tree">
+                  <div id="folder-tree" data-hx-boost:inherited="target:#folder-tree swap:show:no-scroll">
+                    {{ appFolderTree({
+                      tree: folderTree,
+                      basePath: "/services/" + entity.name + "/imports/" + environment + "/"
+                    }) }}
+                  </div>
+                </hx-partial>
 
                 {{ appInfo({
                   html: '<h3 class="govuk-heading-m govuk-!-margin-bottom-2">Important</h3>Production data must only be loaded into the Production environment.',
