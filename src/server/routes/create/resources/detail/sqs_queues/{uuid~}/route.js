@@ -61,10 +61,10 @@ export function register(routePath) {
             name: Joi.string()
               .label('Queue name')
               .description(
-                'When requesting a FIFO queue <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="/documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>.'
+                'Maximum 64 characters to leave room for the <strong>-deadletter</strong> DLQ suffix (and <strong>.fifo</strong> when FIFO). When requesting a FIFO queue <strong>.fifo</strong> will automatically be suffixed to the name. See <a href="/documentation/how-to/sqs-sns.md#types-of-sns-topics-and-sqs-queues-supported-by-the-cdp-platform">SQS/SNS Type documentation</a>.'
               )
               .min(3)
-              .max(256)
+              .max(64)
               .regex(/^[a-z0-9][a-z0-9_]+[a-z0-9]$/)
               .required(),
 
