@@ -91,8 +91,8 @@
 {% block headIcons %}
   {% block xhrHeadContent %}
     {% if faviconState %}
-      <hx-partial data-hx-target="page-state-icon">
-        <link id="page-state-icon" rel="icon" sizes="any"
+      <hx-partial id="page-state-icon">
+        <link rel="icon" sizes="any"
               href="{{ getAssetPath("src/client/images/" + faviconState + ".svg") }}" type="image/svg+xml"
               data-xhr="page-state-icon">
       </hx-partial>
@@ -190,7 +190,7 @@ read out the skiplink on every page and errors can be focused when they occur. A
 
   {% block xhrBeforeContent %}
     {% if breadcrumbs.length > 1 %}
-      <hx-partial data-hx-target="#breadcrumbs">
+      <hx-partial id="breadcrumbs">
         {{ appBreadcrumbs({
           items: breadcrumbs,
           classes: breadCrumbsClasses

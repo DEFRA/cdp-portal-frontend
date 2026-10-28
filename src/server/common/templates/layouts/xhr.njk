@@ -1,6 +1,6 @@
 {% block xhrPageTitle %}
-  <hx-partial data-hx-target="page-title">
-    <div id="page-title" data-xhr-page-title>
+  <hx-partial id="page-title">
+    <div data-xhr-page-title>
       {{ "Error : " if isError }}{{ pageTitle }} | {{ appServiceName }}
     </div>
   </hx-partial>
