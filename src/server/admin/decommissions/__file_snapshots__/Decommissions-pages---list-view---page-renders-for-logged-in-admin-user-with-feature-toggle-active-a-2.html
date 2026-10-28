@@ -10,9 +10,11 @@
   <link href="/public/src/client/stylesheets/application.scss" rel="stylesheet">
     <script type="module" src="/public/@vite/client"></script>
 
-      <link rel="icon" sizes="any"
-            href="/public/src/client/images/pending.svg" type="image/svg+xml"
-            data-xhr="page-state-icon">
+      <hx-partial data-hx-target="page-state-icon">
+        <link id="page-state-icon" rel="icon" sizes="any"
+              href="/public/src/client/images/pending.svg" type="image/svg+xml"
+              data-xhr="page-state-icon">
+      </hx-partial>
 
 
   </head>
