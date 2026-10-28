@@ -28,8 +28,8 @@
 
             <div class="govuk-grid-row">
               <div class="govuk-grid-column-one-quarter">
-                <hx-partial data-hx-target="#folder-tree">
-                  <div id="folder-tree" data-hx-boost:inherited="target:#folder-tree swap:show:no-scroll">
+                <hx-partial id="folder-tree">
+                  <div data-hx-boost:inherited="target:#folder-tree swap:show:no-scroll">
                     {{ appFolderTree({
                       tree: folderTree,
                       basePath: "/services/" + entity.name + "/imports/" + environment + "/"
@@ -46,8 +46,8 @@
 
               <div class="govuk-grid-column-three-quarters">
 
-                <hx-partial data-hx-target="#folder-contents">
-                  <div id="folder-contents" data-hx-boost:inherited="target:#folder-tree swap:show:no-scroll">
+                <hx-partial id="folder-contents">
+                  <div data-hx-boost:inherited="target:#folder-contents swap:show:no-scroll">
                     {{ appFileList({
                       files: folderList,
                       path: path,
@@ -63,7 +63,7 @@
                   </div>
                 </hx-partial>
 
-                <div>
+                <hx-partial id="file-upload">
                   {{ appFileUpload({
                     environment: environment,
                     path: path,
@@ -71,7 +71,7 @@
                     csrfToken: csrfToken,
                     service: entity.name
                   }) }}
-                </div>
+                </hx-partial>
 
               </div>
             </div>
