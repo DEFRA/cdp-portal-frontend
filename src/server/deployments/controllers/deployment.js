@@ -37,10 +37,9 @@ const deploymentController = {
     const secretDetail = transformSecrets(deployment?.secrets)
     const ecsDeployment = provideEcsDeploymentStatus(deployment)
     const shouldPoll =
-      deployment?.status &&
-      deployment.status !== deploymentStatus.running &&
-      deployment.status !== deploymentStatus.undeployed
-    // TODO: Sort out the above
+      deployment?.status === deploymentStatus.pending ||
+      deployment?.status === deploymentStatus.requested
+
     return h.view('deployments/views/deployment', {
       faviconState: deploymentFaviconState(deployment?.status),
       pageTitle: `${deployment?.service} ${deployment?.version} deployment - ${formattedEnvironment}`,
