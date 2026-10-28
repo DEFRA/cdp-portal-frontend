@@ -91,11 +91,9 @@
 {% block headIcons %}
   {% block xhrHeadContent %}
     {% if faviconState %}
-      <hx-partial id="page-state-icon">
-        <link rel="icon" sizes="any"
-              href="{{ getAssetPath("src/client/images/" + faviconState + ".svg") }}" type="image/svg+xml"
-              data-xhr="page-state-icon">
-      </hx-partial>
+      <link rel="icon" sizes="any"
+            href="{{ getAssetPath("src/client/images/" + faviconState + ".svg") }}" type="image/svg+xml"
+            data-xhr="page-state-icon">
     {% endif %}
   {% endblock %}
 
