@@ -91,9 +91,11 @@
 {% block headIcons %}
   {% block xhrHeadContent %}
     {% if faviconState %}
-      <link rel="icon" sizes="any"
-            href="{{ getAssetPath("src/client/images/" + faviconState + ".svg") }}" type="image/svg+xml"
-            data-xhr="page-state-icon">
+      <hx-partial data-hx-target="page-state-icon">
+        <link id="page-state-icon" rel="icon" sizes="any"
+              href="{{ getAssetPath("src/client/images/" + faviconState + ".svg") }}" type="image/svg+xml"
+              data-xhr="page-state-icon">
+      </hx-partial>
     {% endif %}
   {% endblock %}
 
@@ -186,12 +188,16 @@ read out the skiplink on every page and errors can be focused when they occur. A
     {% endfor %}
   {% endif %}
 
-  {% if breadcrumbs.length > 1 %}
-    {{ appBreadcrumbs({
-      items: breadcrumbs,
-      classes: breadCrumbsClasses
-    }) }}
-  {% endif %}
+  {% block xhrBeforeContent %}
+    {% if breadcrumbs.length > 1 %}
+      <hx-partial data-hx-target="#breadcrumbs">
+        {{ appBreadcrumbs({
+          items: breadcrumbs,
+          classes: breadCrumbsClasses
+        }) }}
+      </hx-partial>
+    {% endif %}
+  {% endblock %}
 {% endblock %}
 
 {% block content %}{% endblock %}

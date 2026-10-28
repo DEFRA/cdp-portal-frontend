@@ -1,7 +1,13 @@
 {% block xhrPageTitle %}
-  <div data-xhr-page-title>
-    {{ "Error : " if isError }}{{ pageTitle }} | {{ appServiceName }}
-  </div>
+  <hx-partial data-hx-target="page-title">
+    <div id="page-title" data-xhr-page-title>
+      {{ "Error : " if isError }}{{ pageTitle }} | {{ appServiceName }}
+    </div>
+  </hx-partial>
 {% endblock %}
+
 {% block xhrHeadContent %}{% endblock %}
+
+{% block xhrBeforeContent %}{% endblock %}
+
 {% block xhrContent %}{% endblock %}

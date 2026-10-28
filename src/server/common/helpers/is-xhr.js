@@ -1,5 +1,6 @@
-function isXhr() {
-  return this?.headers['x-requested-with'] === 'XMLHttpRequest'
+export function isXhr() {
+  return (
+    this?.headers['x-requested-with'] === 'XMLHttpRequest' ||
+    this?.headers['hx-request-type'] === 'partial'
+  )
 }
-
-export { isXhr }
