@@ -180,16 +180,18 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
     
-<nav class="app-breadcrumbs" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
-  <ol class="app-breadcrumbs__list">
-        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/test-suites"
-             data-testid="app-breadcrumbs-link">Test Suites</a>
-        </li>
-        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">mock-test-suite</li>
-  </ol>
-</nav>
+<hx-partial data-hx-target="#breadcrumbs">
+  <nav id="breadcrumbs" class="app-breadcrumbs" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
+    <ol class="app-breadcrumbs__list">
+          <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+            <a class="app-breadcrumbs__link" href="/test-suites"
+               data-testid="app-breadcrumbs-link">Test Suites</a>
+          </li>
+          <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
+              data-testid="app-breadcrumbs-list-item">mock-test-suite</li>
+    </ol>
+  </nav>
+</hx-partial>
 
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
     <span class="govuk-caption-l" data-testid="app-page-heading-caption">Test Suite</span>
@@ -690,5 +692,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
   <script type="module" src="/public/src/client/javascripts/application.js"></script>
   <script type="module" src="/public/src/client/javascripts/web-components.js"></script>
+  <script type="module" src="/public/src/client/javascripts/htmx.js"></script>
   </body>
 </html>

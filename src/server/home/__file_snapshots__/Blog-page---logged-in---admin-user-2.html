@@ -245,16 +245,18 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
     
-<nav class="app-breadcrumbs app-breadcrumbs--inverse" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
-  <ol class="app-breadcrumbs__list">
-        <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
-          <a class="app-breadcrumbs__link" href="/"
-             data-testid="app-breadcrumbs-link">Home</a>
-        </li>
-        <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
-            data-testid="app-breadcrumbs-list-item">Blog</li>
-  </ol>
-</nav>
+<hx-partial data-hx-target="#breadcrumbs">
+  <nav id="breadcrumbs" class="app-breadcrumbs app-breadcrumbs--inverse" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
+    <ol class="app-breadcrumbs__list">
+          <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
+            <a class="app-breadcrumbs__link" href="/"
+               data-testid="app-breadcrumbs-link">Home</a>
+          </li>
+          <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
+              data-testid="app-breadcrumbs-list-item">Blog</li>
+    </ol>
+  </nav>
+</hx-partial>
 
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
   
@@ -375,6 +377,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
     <script type="module" src="/public/src/client/javascripts/application.js"></script>
   <script type="module" src="/public/src/client/javascripts/web-components.js"></script>
+  <script type="module" src="/public/src/client/javascripts/htmx.js"></script>
 
   <script type="module" src="/public/src/client/javascripts/mermaid.js"></script>
   </body>
