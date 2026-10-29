@@ -13,7 +13,7 @@ htmx.on('htmx:response:error', (event) => {
 
 // Re-init GDS and CDP Modules
 htmx.on('htmx:after:process', (event) => {
-  if (event.detail?.ctx?.target) {
-    window.cdp.initAll(event.detail?.ctx?.target)
+  if (event.target !== document.body) {
+    window.cdp.initAll(event.target)
   }
 })
