@@ -10,11 +10,9 @@
   <link href="/public/src/client/stylesheets/application.scss" rel="stylesheet">
     <script type="module" src="/public/@vite/client"></script>
 
-      <hx-partial data-hx-target="page-state-icon">
-        <link id="page-state-icon" rel="icon" sizes="any"
-              href="/public/src/client/images/pending.svg" type="image/svg+xml"
-              data-xhr="page-state-icon">
-      </hx-partial>
+      <link rel="icon" sizes="any"
+            href="/public/src/client/images/pending.svg" type="image/svg+xml"
+            data-xhr="page-state-icon">
 
 
   </head>
@@ -230,9 +228,9 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-      <hx-partial data-hx-target="#breadcrumbs">
+      <hx-partial id="breadcrumbs">
         
-<nav id="breadcrumbs" class="app-breadcrumbs" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
+<nav class="app-breadcrumbs" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
   <ol class="app-breadcrumbs__list">
         <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
           <a class="app-breadcrumbs__link" href="/services"

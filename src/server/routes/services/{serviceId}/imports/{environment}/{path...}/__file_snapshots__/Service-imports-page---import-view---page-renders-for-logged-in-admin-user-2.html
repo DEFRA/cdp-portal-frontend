@@ -244,9 +244,9 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-      <hx-partial data-hx-target="#breadcrumbs">
+      <hx-partial id="breadcrumbs">
         
-<nav id="breadcrumbs" class="app-breadcrumbs" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
+<nav class="app-breadcrumbs" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
   <ol class="app-breadcrumbs__list">
         <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
           <a class="app-breadcrumbs__link" href="/services"
@@ -510,8 +510,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
             <div class="govuk-grid-row">
               <div class="govuk-grid-column-one-quarter">
-                <hx-partial data-hx-target="#folder-tree">
-                  <div id="folder-tree" data-hx-boost:inherited="target:#folder-tree swap:show:no-scroll">
+                <hx-partial id="folder-tree">
+                  <div data-hx-boost:inherited="target:#folder-tree swap:show:no-scroll">
                     
 
 
@@ -617,8 +617,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
               <div class="govuk-grid-column-three-quarters">
 
-                <hx-partial data-hx-target="#folder-contents">
-                  <div id="folder-contents" data-hx-boost:inherited="target:#folder-tree swap:show:no-scroll">
+                <hx-partial id="folder-contents">
+                  <div data-hx-boost:inherited="target:#folder-contents swap:show:no-scroll">
                     
 
 
@@ -783,7 +783,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
                   </div>
                 </hx-partial>
 
-                <div>
+                <hx-partial id="file-upload">
                     <app-file-upload
     data-environment="test"
     data-path=""
@@ -820,7 +820,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </script>
   </app-file-upload>
 
-                </div>
+                </hx-partial>
 
               </div>
             </div>
