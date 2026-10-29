@@ -1,5 +1,5 @@
 import 'vite/modulepreload-polyfill'
-import { initAll } from 'govuk-frontend'
+import { initAll as initGovUk } from 'govuk-frontend'
 
 import { Autocomplete } from '#server/common/components/autocomplete/autocomplete.js'
 import { AutocompleteAdvanced } from '#server/common/components/autocomplete/autocomplete-advanced.js'
@@ -33,8 +33,6 @@ import { fetchEnvironments } from '../common/helpers/fetch/autocomplete/fetch-en
 import autoRefresh from '../common/helpers/auto-refresh.js'
 import searchDependencyName from '../common/helpers/fetch/autocomplete/fetch-search-dependency-name.js'
 
-initAll()
-
 // ClientSide CDP namespace
 window.cdp = window.cdp || {}
 
@@ -49,58 +47,64 @@ window.cdp.clearFilters = clearFilters
 window.cdp.resizeIframe = resizeIframe
 window.cdp.searchDependencyName = searchDependencyName
 
-initModules('app-input-assistant', inputAssistant, '*=')
+window.cdp.initAll = function initAll(element) {
+  initGovUk(element)
 
-// Create multistep form flow, repository name availability
-initModules('app-availability', availability, '*=')
+  initModules('app-input-assistant', inputAssistant, '*=')
 
-// Form submit buttons with loaders. Create and Deploy service
-initModules('app-button', button)
+  // Create multistep form flow, repository name availability
+  initModules('app-availability', availability, '*=')
 
-// Copy button
-initModules('app-copy', copy)
+  // Form submit buttons with loaders. Create and Deploy service
+  initModules('app-button', button)
 
-// Populate select options from a separate controller input
-initModules('app-select-controller', populateSelectOptions)
+  // Copy button
+  initModules('app-copy', copy)
 
-// Remove server-side error messages on element blur
-initModules('app-form-errors', errorMessages, '*=')
+  // Populate select options from a separate controller input
+  initModules('app-select-controller', populateSelectOptions)
 
-// Focus on first error message on page
-initModule('app-error', focusOnErrorMessage)
+  // Remove server-side error messages on element blur
+  initModules('app-form-errors', errorMessages, '*=')
 
-// Add UX friction to editing inputs on a protected form
-initModules('app-protected-inputs', protectForm, '*=')
+  // Focus on first error message on page
+  initModule('app-error', focusOnErrorMessage)
 
-// Search
-initModules('app-search', search)
+  // Add UX friction to editing inputs on a protected form
+  initModules('app-protected-inputs', protectForm, '*=')
 
-// Autocomplete
-initClass('app-autocomplete', Autocomplete)
-initClass('app-autocomplete-advanced', AutocompleteAdvanced)
-initClass('app-autocomplete-search', AutocompleteSearch)
-initClass('app-autocomplete-doc-search', AutocompleteDocSearch)
+  // Search
+  initModules('app-search', search)
 
-// Xhr Container
-initModules('app-xhr-subscriber', xhrSubscriber)
+  // Autocomplete
+  initClass('app-autocomplete', Autocomplete)
+  initClass('app-autocomplete-advanced', AutocompleteAdvanced)
+  initClass('app-autocomplete-search', AutocompleteSearch)
+  initClass('app-autocomplete-doc-search', AutocompleteDocSearch)
 
-// Auto submit xhr functionality
-initModules('auto-submit', autoSubmit, '*=')
+  // Xhr Container
+  initModules('app-xhr-subscriber', xhrSubscriber)
 
-// Params to hidden inputs
-initModules('app-params', paramsToHiddenInputs, '*=')
+  // Auto submit xhr functionality
+  initModules('auto-submit', autoSubmit, '*=')
 
-// Poll
-initModules('app-poll', poll)
+  // Params to hidden inputs
+  initModules('app-params', paramsToHiddenInputs, '*=')
 
-// Notification banner
-initModules('app-notification', banner)
+  // Poll
+  initModules('app-poll', poll)
 
-// Filters
-initModules('app-filters', filters)
+  // Notification banner
+  initModules('app-notification', banner)
 
-// Tabs
-initModules('app-tabs', tabs)
+  // Filters
+  initModules('app-filters', filters)
 
-// Auto Refresh
-initModules('auto-refresh', autoRefresh, '*=')
+  // Tabs
+  initModules('app-tabs', tabs)
+
+  // Auto Refresh
+  initModules('auto-refresh', autoRefresh, '*=')
+}
+
+window.cdp.initAll()
