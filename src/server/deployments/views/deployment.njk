@@ -17,8 +17,6 @@
             data-hx-get="/deployments/{{ deployment.environment }}/{{ deployment.cdpDeploymentId }}"
             data-hx-trigger="every 6s [document.visibilityState === 'visible']"
             data-hx-target="html"
-
-            data-poll-limit="45"
           >
         {% else %}
           <div id="deploymentPoll">
