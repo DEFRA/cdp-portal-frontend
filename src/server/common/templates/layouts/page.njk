@@ -186,12 +186,16 @@ read out the skiplink on every page and errors can be focused when they occur. A
     {% endfor %}
   {% endif %}
 
-  {% if breadcrumbs.length > 1 %}
-    {{ appBreadcrumbs({
-      items: breadcrumbs,
-      classes: breadCrumbsClasses
-    }) }}
-  {% endif %}
+  {% block xhrBeforeContent %}
+    {% if breadcrumbs.length > 1 %}
+      <hx-partial id="breadcrumbs">
+        {{ appBreadcrumbs({
+          items: breadcrumbs,
+          classes: breadCrumbsClasses
+        }) }}
+      </hx-partial>
+    {% endif %}
+  {% endblock %}
 {% endblock %}
 
 {% block content %}{% endblock %}
@@ -203,4 +207,5 @@ read out the skiplink on every page and errors can be focused when they occur. A
 {% block bodyEnd %}
   <script type="module" src="{{ getAssetPath("src/client/javascripts/application.js") }}"></script>
   <script type="module" src="{{ getAssetPath("src/client/javascripts/web-components.js") }}"></script>
+  <script type="module" src="{{ getAssetPath("src/client/javascripts/htmx.js") }}"></script>
 {% endblock %}

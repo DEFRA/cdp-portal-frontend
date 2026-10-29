@@ -89,13 +89,13 @@
 
 {% macro renderSelfActions(actions) %}
     {% for action in actions %}
-      <a href="{{ action.href | encodePathSegments }}" data-no-xhr-link="true" class="app-link--underline">{{ action.text }}</a>
+      <a href="{{ action.href | encodePathSegments }}" data-hx-boost="false" class="app-link--underline">{{ action.text }}</a>
     {% endfor %}
 {% endmacro %}
 
 {% macro renderActions(obj) %}
   {% for action in obj.actions %}
-    <a href="{{ action.href | encodePathSegments }}" data-no-xhr-link="true" class="app-link--underline">{{ action.text }}</a>
+    <a href="{{ action.href | encodePathSegments }}" data-hx-boost="false" class="app-link--underline">{{ action.text }}</a>
   {% endfor %}
 {% endmacro %}
 

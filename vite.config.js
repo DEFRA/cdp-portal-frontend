@@ -36,7 +36,8 @@ export default defineConfig({
         application: 'src/client/javascripts/application.js',
         applicationCss: 'src/client/stylesheets/application.scss',
         mermaid: 'src/client/javascripts/mermaid.js',
-        webComponents: 'src/client/javascripts/web-components.js'
+        webComponents: 'src/client/javascripts/web-components.js',
+        htmx: 'src/client/javascripts/htmx.js'
       }
     },
     sourcemap: true

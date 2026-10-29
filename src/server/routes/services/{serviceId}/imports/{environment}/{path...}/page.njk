@@ -28,12 +28,14 @@
 
             <div class="govuk-grid-row">
               <div class="govuk-grid-column-one-quarter">
-                <div data-xhr="folder-tree">
-                  {{ appFolderTree({
-                    tree: folderTree,
-                    basePath: "/services/" + entity.name + "/imports/" + environment + "/"
-                  }) }}
-                </div>
+                <hx-partial id="folder-tree">
+                  <div data-hx-boost:inherited="target:#folder-tree swap:show:no-scroll">
+                    {{ appFolderTree({
+                      tree: folderTree,
+                      basePath: "/services/" + entity.name + "/imports/" + environment + "/"
+                    }) }}
+                  </div>
+                </hx-partial>
 
                 {{ appInfo({
                   html: '<h3 class="govuk-heading-m govuk-!-margin-bottom-2">Important</h3>Production data must only be loaded into the Production environment.',
@@ -44,22 +46,24 @@
 
               <div class="govuk-grid-column-three-quarters">
 
-                <div data-xhr="folder-contents">
-                  {{ appFileList({
-                    files: folderList,
-                    path: path,
-                    basePath: "/services/" + entity.name + "/imports/" + environment + "/",
-                    parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null,
-                    actions: [
-                      {
-                        text: "Add sub folder",
-                        href: "/services/" + entity.name + "/imports-action/" + environment + "/" + path + "?action=create"
-                      }
-                    ]
-                  }) }}
-                </div>
+                <hx-partial id="folder-contents">
+                  <div data-hx-boost:inherited="target:#folder-contents swap:show:no-scroll">
+                    {{ appFileList({
+                      files: folderList,
+                      path: path,
+                      basePath: "/services/" + entity.name + "/imports/" + environment + "/",
+                      parentPath: relativePathParts.slice(0, -1).join('/') if path != '' else null,
+                      actions: [
+                        {
+                          text: "Add sub folder",
+                          href: "/services/" + entity.name + "/imports-action/" + environment + "/" + path + "?action=create"
+                        }
+                      ]
+                    }) }}
+                  </div>
+                </hx-partial>
 
-                <div data-xhr="file-upload">
+                <hx-partial id="file-upload">
                   {{ appFileUpload({
                     environment: environment,
                     path: path,
@@ -67,7 +71,7 @@
                     csrfToken: csrfToken,
                     service: entity.name
                   }) }}
-                </div>
+                </hx-partial>
 
               </div>
             </div>

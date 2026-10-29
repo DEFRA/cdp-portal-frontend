@@ -244,26 +244,28 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-    
+      <hx-partial id="breadcrumbs">
+        
 <nav class="app-breadcrumbs" data-testid="app-breadcrumbs" aria-label="Breadcrumb">
   <ol class="app-breadcrumbs__list">
         <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
           <a class="app-breadcrumbs__link" href="/services"
-             data-testid="app-breadcrumbs-link">Services</a>
+              data-testid="app-breadcrumbs-link">Services</a>
         </li>
         <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
           <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources"
-             data-testid="app-breadcrumbs-link">mock-service-with-resources</a>
+              data-testid="app-breadcrumbs-link">mock-service-with-resources</a>
         </li>
         <li class="app-breadcrumbs__list-item" data-testid="app-breadcrumbs-list-item">
           <a class="app-breadcrumbs__link" href="/services/mock-service-with-resources/imports"
-             data-testid="app-breadcrumbs-link">Imports</a>
+              data-testid="app-breadcrumbs-link">Imports</a>
         </li>
         <li class="app-breadcrumbs__list-item app-breadcrumbs__list-item--current" aria-current="page"
             data-testid="app-breadcrumbs-list-item">Test</li>
   </ol>
 </nav>
 
+      </hx-partial>
         <main class="govuk-main-wrapper app-main-wrapper" id="main-content">
 
     <span class="govuk-caption-l" data-testid="app-page-heading-caption">Imports</span>
@@ -508,8 +510,9 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
             <div class="govuk-grid-row">
               <div class="govuk-grid-column-one-quarter">
-                <div data-xhr="folder-tree">
-                  
+                <hx-partial id="folder-tree">
+                  <div data-hx-boost:inherited="target:#folder-tree swap:show:no-scroll">
+                    
 
 
 
@@ -582,7 +585,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-                </div>
+                  </div>
+                </hx-partial>
 
                 
 
@@ -613,8 +617,9 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
               <div class="govuk-grid-column-three-quarters">
 
-                <div data-xhr="folder-contents">
-                  
+                <hx-partial id="folder-contents">
+                  <div data-hx-boost:inherited="target:#folder-contents swap:show:no-scroll">
+                    
 
 
 
@@ -654,7 +659,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
       <td class="govuk-table__cell">- - -</td>
       <td class="govuk-table__cell">- - -</td>
       <td class="govuk-table__cell">- - -</td>
-      <td class="govuk-table__cell">      <a href="/services/mock-service-with-resources/imports-action/test/?action=create" data-no-xhr-link="true" class="app-link--underline">Add sub folder</a>
+      <td class="govuk-table__cell">      <a href="/services/mock-service-with-resources/imports-action/test/?action=create" data-hx-boost="false" class="app-link--underline">Add sub folder</a>
 </td>
     </tr>
     <tr class="govuk-table__row">
@@ -692,7 +697,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 </td>
       <td class="govuk-table__cell">- - -</td>
-      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-action/test/batch-0001/temp?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-action/test/batch-0001/temp?action=delete" data-hx-boost="false" class="app-link--underline">Delete</a>
 </td>
     </tr>
     <tr class="govuk-table__row">
@@ -729,8 +734,8 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 </td>
       <td class="govuk-table__cell">- - -</td>
-      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/test/batch-0001/data-01.dat" data-no-xhr-link="true" class="app-link--underline">Download</a>
-    <a href="/services/mock-service-with-resources/imports-action/test/batch-0001/data-01.dat?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/test/batch-0001/data-01.dat" data-hx-boost="false" class="app-link--underline">Download</a>
+    <a href="/services/mock-service-with-resources/imports-action/test/batch-0001/data-01.dat?action=delete" data-hx-boost="false" class="app-link--underline">Delete</a>
 </td>
     </tr>
     <tr class="govuk-table__row">
@@ -767,17 +772,18 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 </td>
       <td class="govuk-table__cell">- - -</td>
-      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/test/batch-0001/data-01.dat" data-no-xhr-link="true" class="app-link--underline">Download</a>
-    <a href="/services/mock-service-with-resources/imports-action/test/batch-0001/data-01.dat?action=delete" data-no-xhr-link="true" class="app-link--underline">Delete</a>
+      <td class="govuk-table__cell">    <a href="/services/mock-service-with-resources/imports-resource/test/batch-0001/data-01.dat" data-hx-boost="false" class="app-link--underline">Download</a>
+    <a href="/services/mock-service-with-resources/imports-action/test/batch-0001/data-01.dat?action=delete" data-hx-boost="false" class="app-link--underline">Delete</a>
 </td>
     </tr>
   </tbody>
 </table>
 
 
-                </div>
+                  </div>
+                </hx-partial>
 
-                <div data-xhr="file-upload">
+                <hx-partial id="file-upload">
                     <app-file-upload
     data-environment="test"
     data-path=""
@@ -814,7 +820,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
     </script>
   </app-file-upload>
 
-                </div>
+                </hx-partial>
 
               </div>
             </div>
@@ -888,5 +894,6 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
   <script type="module" src="/public/src/client/javascripts/application.js"></script>
   <script type="module" src="/public/src/client/javascripts/web-components.js"></script>
+  <script type="module" src="/public/src/client/javascripts/htmx.js"></script>
   </body>
 </html>
