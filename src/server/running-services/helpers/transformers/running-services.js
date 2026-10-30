@@ -1,13 +1,22 @@
 import { sortBy } from '../../../common/helpers/sort/sort-by.js'
 import { provideDeploymentStatusClassname } from '../provide-deployment-status-classname.js'
 
-function transformRunningServices({
+export function transformRunningServices({
   runningServices,
   deployableServices,
+  decommissionedServices,
   userScopes
 }) {
+  // Filter out decommissioned services
+  const activeServices = runningServices.filter(
+    (rs) =>
+      !decommissionedServices?.some(
+        (service) => service.name.toLowerCase() === rs.service.toLowerCase()
+      )
+  )
+
   return Object.entries(
-    runningServices?.sort(sortBy('service', 'asc')).reduce((acc, rs) => {
+    activeServices?.sort(sortBy('service', 'asc')).reduce((acc, rs) => {
       if (!acc[rs.service]) {
         acc[rs.service] = { envs: {} }
       }
@@ -55,5 +64,3 @@ function transformRunningServices({
     }
   })
 }
-
-export { transformRunningServices }

@@ -4,6 +4,9 @@ import { withEnvironments } from './with-environments.js'
 describe('#withEnvironments', () => {
   test('Should provide expected running services transformation', () => {
     expect(withEnvironments(runningServicesFixture)).toEqual({
+      'cdp-decommissioned-service': {
+        management: '0.188.0'
+      },
       'cdp-portal-frontend': {
         infraDev: '0.356.0'
       },

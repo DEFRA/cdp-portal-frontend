@@ -104,6 +104,41 @@ const runningServicesFixture = [
     lastDeploymentMessage: null,
     deploymentTestRuns: [],
     taskDefinitionArn: null
+  },
+  {
+    cdpDeploymentId: '1cb3f2b1-b06c-44ff-a562-bfcaca7fe462',
+    lambdaId: 'ecs-svc/9630243607685993868',
+    environment: 'management',
+    service: 'cdp-decommissioned-service',
+    version: '0.188.0',
+    user: {
+      id: '0ddadf17-beaf-4aef-a415-ca044dbdd18d',
+      displayName: 'The Terminator'
+    },
+    cpu: '1024',
+    memory: '2048',
+    instanceCount: 1,
+    created: '2024-04-25T10:26:26.604Z',
+    updated: '2024-04-25T10:27:58Z',
+    instances: {
+      'arn:aws:ecs:eu-west-2:094954420758:task/management-ecs-protected/c3b56ff465cf4438b4f152c510625ac3':
+        {
+          status: 'running',
+          updated: '2024-04-25T10:27:58Z'
+        }
+    },
+    status: 'running',
+    unstable: false,
+    configVersion: null,
+    secrets: {
+      keys: [],
+      lastChangedDate: '',
+      createdDate: ''
+    },
+    lastDeploymentStatus: null,
+    lastDeploymentMessage: null,
+    deploymentTestRuns: [],
+    taskDefinitionArn: null
   }
 ]
 
