@@ -12,13 +12,12 @@ describe('transformRunningServices', () => {
     const runningServices = runningServicesFixture
     const deployableServices = entityServicesFixture
     const userScopes = [adminGroupId]
-    const decommissionedServices = decommissionedEntityServicesFixture
 
     const result = transformRunningServices({
       runningServices,
       deployableServices,
-      userScopes,
-      decommissionedServices
+      decommissionedServices: decommissionedEntityServicesFixture,
+      userScopes
     })
 
     expect(result).toEqual([
@@ -175,6 +174,7 @@ describe('transformRunningServices', () => {
     const result = transformRunningServices({
       runningServices,
       deployableServices,
+      decommissionedEntityServicesFixture,
       userScopes
     })
 
