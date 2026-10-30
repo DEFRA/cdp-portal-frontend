@@ -1,0 +1,14 @@
+{% set id = params.id %}
+{% set enabled = params.enabled %}
+{% set url = params.url %}
+{% set every = params.every %}
+
+<hx-partial id="polling-partial-{{ id }}">
+  <span
+  {% if enabled == true %}
+    data-hx-get="{{ url }}"
+    data-hx-trigger="every {{ every }} [document.visibilityState === 'visible']"
+    data-hx-target="html"
+  {% endif %}
+  ></span>
+</hx-partial>
