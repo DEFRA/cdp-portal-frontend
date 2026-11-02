@@ -51,12 +51,12 @@
       {{ appPolling({
         id: "decommission",
         enabled: shouldPoll,
-        url: routeLookup("admin/decommissions/" + repositoryName, { params: { repositoryName: entity.name } }),
+        url: routeLookup("admin/decommissions/{repositoryName}", { params: { repositoryName: entity.name } }),
         every: "10s"
       }) }}
 
       <div class="app-service-container">
-        <hx-partial id="decommission-{{ entity.name }}"
+        <hx-partial id="decommission-{{ entity.name }}">
           <article class="app-grid app-grid-admin app-grid-admin--decommission">
 
             <section class="app-grid-admin__details">
@@ -141,7 +141,6 @@
           </article>
         </hx-partial>
       </div>
-      {% if shouldPoll %}</div>{% endif %}
 
     {% endblock %}
 
