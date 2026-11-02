@@ -354,14 +354,15 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-        <div data-js="app-poll"
-        data-poll-url="/admin/decommissions"
-        data-poll-interval="6000"
-        data-poll-limit="200">
 
-      <article data-xhr="decommission-list"
-               data-xhr-stop="false">
-        
+<hx-partial id="polling-partial-decommission-list">
+  <div
+    data-hx-get="/admin/decommissions"
+    data-hx-trigger="every 6s [document.visibilityState === 'visible']"
+    data-hx-target="this"
+  >
+        <article>
+          
 
 
 <article>
@@ -678,9 +679,11 @@ width="15%"        >
 
 </article>
 
-      </article>
+        </article>
 
 </div>
+</hx-partial>
+
 
 
     </section>

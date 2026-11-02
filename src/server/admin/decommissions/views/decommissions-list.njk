@@ -14,19 +14,18 @@
 
     {% block xhrContent %}
 
-      {% if shouldPoll %}
-        <div data-js="app-poll"
-        data-poll-url="{{ routeLookup("admin/decommissions") }}"
-        data-poll-interval="6000"
-        data-poll-limit="200">
-      {% endif %}
+      {% call appPolling({
+        id: "decommission-list",
+        enabled: shouldPoll,
+        url: routeLookup("admin/decommissions"),
+        every: "6s"
+      }) %}
 
-      <article data-xhr="decommission-list"
-               data-xhr-stop="{{ not shouldPoll }}">
-        {{ appEntityTable(tableData) }}
-      </article>
+        <article>
+          {{ appEntityTable(tableData) }}
+        </article>
 
-      {% if shouldPoll %}</div>{% endif %}
+      {% endcall %}
 
     {% endblock %}
 
