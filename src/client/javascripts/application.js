@@ -20,7 +20,6 @@ import { focusOnErrorMessage } from '../common/helpers/focus-on-error-message.js
 import { filters } from '#server/common/components/filters/filters.js'
 import { inputAssistant } from '#server/common/components/input-assistant/input-assistant.js'
 import { paramsToHiddenInputs } from '../common/helpers/params-to-hidden-inputs.js'
-import { poll } from '../common/helpers/poll.js'
 import { populateSelectOptions } from '../common/helpers/populate-select-options.js'
 import { protectForm } from '../common/helpers/protect-form/index.js'
 import { search } from '#server/common/components/search/search.js'
@@ -90,9 +89,6 @@ window.cdp.initAll = function initAll(element) {
 
   // Params to hidden inputs
   initModules('app-params', paramsToHiddenInputs, '*=')
-
-  // Poll
-  initModules('app-poll', poll)
 
   // Notification banner
   initModules('app-notification', banner)
