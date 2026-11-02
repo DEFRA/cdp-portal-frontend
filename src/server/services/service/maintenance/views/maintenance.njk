@@ -173,145 +173,144 @@
   <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
 
-      {% if shouldPoll %}
-      <div data-js="app-poll"
-           data-poll-url="/services/{{ entity.name }}/maintenance"
-           data-poll-interval="3000"
-           data-poll-limit="45">
-        {% endif %}
-
         {% block xhrContent %}
-          <article data-xhr="maintenance-{{ entity.name }}"
-                   data-xhr-stop="{{ not shouldPoll }}">
 
-            {% if showShuttering %}
-              <div class="govuk-grid-column-one-half-from-desktop-massive govuk-!-margin-bottom-6">
-                <div class="app-section--extra-wide">
-                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
-                    Shuttering
-                  </h2>
-                  <p class="govuk-!-margin-bottom-2">
-                    Shutter your service on the following urls. Shuttering your service will mean all users who go to
-                    any of your services urls will be redirected to the shuttering page. This is useful when you want to
-                    close your service to investigate a serious problem or to make planned changes/updates to your
-                    service.
-                  </p>
+          {% call appPolling({
+            id: "maintenance-" + entity.name,
+            enabled: shouldPoll,
+            url: "/services/" + entity.name + "/maintenance",
+            every: "3s"
+          }) %}
 
-                  <h3 class="govuk-heading-m govuk-!-margin-bottom-2" data-testid="shuttering">
-                    Customise your shutter page
-                  </h3>
-                  <p>
-                    If you wish to customise your shuttering page, you can do so by following the instructions in the
-                    <a class="app-link app-link--underline app-link--text-colour"
-                       href="https://portal.cdp-int.defra.cloud/documentation/how-to/shuttering.md#customise-shutter-page-content"
-                       target="_blank"
-                       rel="noopener noreferrer">How-to Customise shutter page content</a> documentation.
-                  </p>
+            <article>
 
-                  {% if shouldPoll %}
-                    {{ appInfo({ html: infoHtml }) }}
+              {% if showShuttering %}
+                <div class="govuk-grid-column-one-half-from-desktop-massive govuk-!-margin-bottom-6">
+                  <div class="app-section--extra-wide">
+                    <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
+                      Shuttering
+                    </h2>
+                    <p class="govuk-!-margin-bottom-2">
+                      Shutter your service on the following urls. Shuttering your service will mean all users who go to
+                      any of your services urls will be redirected to the shuttering page. This is useful when you want to
+                      close your service to investigate a serious problem or to make planned changes/updates to your
+                      service.
+                    </p>
+
+                    <h3 class="govuk-heading-m govuk-!-margin-bottom-2" data-testid="shuttering">
+                      Customise your shutter page
+                    </h3>
+                    <p>
+                      If you wish to customise your shuttering page, you can do so by following the instructions in the
+                      <a class="app-link app-link--underline app-link--text-colour"
+                         href="https://portal.cdp-int.defra.cloud/documentation/how-to/shuttering.md#customise-shutter-page-content"
+                         target="_blank"
+                         rel="noopener noreferrer">How-to Customise shutter page content</a> documentation.
+                    </p>
+
+                    {% if shouldPoll %}
+                      {{ appInfo({ html: infoHtml }) }}
+                    {% endif %}
+                  </div>
+
+                  {% if shutteredUrlsTableRows | length %}
+
+                    {% call appPanel({ testId: "shuttering-panel", isSlim: true }) %}
+                      {% if shutteringDetails | length %}
+                        {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
+
+                        <section class="govuk-!-margin-bottom-6">
+                          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                            {{ "Service" if isFrontend else "API Gateway" }} {{ urlText }}</h2>
+                          <p class="govuk-!-margin-bottom-2">
+                            {% if isFrontend %}
+                              User-friendly custom {{ urlText }}
+                            {% else %}
+                              Publicly accessible {{ urlText }} for the service
+                            {% endif %}
+                          </p>
+
+                          {{ govukTable({
+                            classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                            head: [
+                              { text: "Service URL" if isFrontend else "API Gateway URL" },
+                              { text: "Environment" },
+                              { text: "Status" },
+                              { text: "Action",
+                                classes: "app-!-text-align-right"
+                              }
+                            ],
+                            rows: shutteredUrlsTableRows
+                          }) }}
+
+                        </section>
+                      {% endif %}
+                    {% endcall %}
+
+                  {% else %}
+
+                    {{ appInfo({ html: vanityUrlsInfoHtml }) }}
+
                   {% endif %}
                 </div>
+              {% endif %}
+            </article>
 
-                {% if shutteredUrlsTableRows | length %}
+            <article>
+              <div class="govuk-grid-column-one-half-from-desktop-massive">
+                <div class="app-section--extra-wide">
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
+                    Undeploy
+                  </h2>
+                  <p class="govuk-!-margin-bottom-2">
+                    To undeploy your service means to stop your service from running in the environment. This is useful
+                    when
+                    you want to completely stop your service from running due to a serious problem or to make planned
+                    changes/updates to your service or simply to reduce costs.
+                  </p>
+                </div>
 
-                  {% call appPanel({ testId: "shuttering-panel", isSlim: true }) %}
-                    {% if shutteringDetails | length %}
-                      {% set urlText = "URL" | pluralise(shutteringDetails | length) %}
+                {% call appPanel({ testId: "undeploy-panel", isSlim: true }) %}
+                  <section class="govuk-!-margin-bottom-6">
+                    {% if runningServices | length %}
+                      {% set titleText = "Deployment" | pluralise(runningServices | length) %}
 
-                      <section class="govuk-!-margin-bottom-6">
-                        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-                          {{ "Service" if isFrontend else "API Gateway" }} {{ urlText }}</h2>
-                        <p class="govuk-!-margin-bottom-2">
-                          {% if isFrontend %}
-                            User-friendly custom {{ urlText }}
-                          {% else %}
-                            Publicly accessible {{ urlText }} for the service
-                          {% endif %}
-                        </p>
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running {{ titleText }}</h2>
+                      <p class="govuk-!-margin-bottom-2">
+                        Deployments of your service, listed by environment
+                      </p>
 
-                        {{ govukTable({
-                          classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-                          head: [
-                            { text: "Service URL" if isFrontend else "API Gateway URL" },
-                            { text: "Environment" },
-                            { text: "Status" },
-                            { text: "Action",
-                              classes: "app-!-text-align-right"
-                            }
-                          ],
-                          rows: shutteredUrlsTableRows
-                        }) }}
-
-                      </section>
+                      {{ govukTable({
+                        classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
+                        head: [
+                          { text: "Environment" },
+                          { text: "Status" },
+                          { text: "Version" },
+                          { text: "CDP Service URL" },
+                          { text: "Action", classes: "app-!-text-align-right"}
+                        ],
+                        rows: undeployTableRows
+                      }) }}
+                    {% else %}
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">No Deployments</h2>
+                      <p class="govuk-!-margin-bottom-2">
+                        Currently, this service has no deployments on any CDP environments. To undeploy a service, one
+                        must
+                        first deploy a service. You can start your services journey via the
+                        <a href="{{ routeLookup('deploy-service') }}"
+                           role="button" class="app-link app-link--underline" data-testid="deploy-service">Deploy
+                          Service</a>
+                        flow.
+                      </p>
                     {% endif %}
-                  {% endcall %}
-
-                {% else %}
-
-                  {{ appInfo({ html: vanityUrlsInfoHtml }) }}
-
-                {% endif %}
-              </div>
-            {% endif %}
-          </article>
-
-          <article data-xhr="undeploy-{{ entity.name }}"
-                   data-xhr-stop="{{ not shouldPoll }}">
-            <div class="govuk-grid-column-one-half-from-desktop-massive">
-              <div class="app-section--extra-wide">
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
-                  Undeploy
-                </h2>
-                <p class="govuk-!-margin-bottom-2">
-                  To undeploy your service means to stop your service from running in the environment. This is useful
-                  when
-                  you want to completely stop your service from running due to a serious problem or to make planned
-                  changes/updates to your service or simply to reduce costs.
-                </p>
+                  </section>
+                {% endcall %}
               </div>
 
-              {% call appPanel({ testId: "undeploy-panel", isSlim: true }) %}
-                <section class="govuk-!-margin-bottom-6">
-                  {% if runningServices | length %}
-                    {% set titleText = "Deployment" | pluralise(runningServices | length) %}
+            </article>
+          {% endcall %}
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running {{ titleText }}</h2>
-                    <p class="govuk-!-margin-bottom-2">
-                      Deployments of your service, listed by environment
-                    </p>
-
-                    {{ govukTable({
-                      classes: "app-table app-table--inverse govuk-!-margin-bottom-4",
-                      head: [
-                        { text: "Environment" },
-                        { text: "Status" },
-                        { text: "Version" },
-                        { text: "CDP Service URL" },
-                        { text: "Action", classes: "app-!-text-align-right"}
-                      ],
-                      rows: undeployTableRows
-                    }) }}
-                  {% else %}
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">No Deployments</h2>
-                    <p class="govuk-!-margin-bottom-2">
-                      Currently, this service has no deployments on any CDP environments. To undeploy a service, one
-                      must
-                      first deploy a service. You can start your services journey via the
-                      <a href="{{ routeLookup('deploy-service') }}"
-                         role="button" class="app-link app-link--underline" data-testid="deploy-service">Deploy
-                        Service</a>
-                      flow.
-                    </p>
-                  {% endif %}
-                </section>
-              {% endcall %}
-            </div>
-
-          </article>
         {% endblock %}
-
-        {% if shouldPoll %}</div>{% endif %}
 
     </div>
   </section>
