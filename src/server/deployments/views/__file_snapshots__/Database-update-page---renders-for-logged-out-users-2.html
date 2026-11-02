@@ -212,20 +212,25 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
   <div class="govuk-main-wrapper app-main-wrapper">
-
-
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
 
 
 <div class="app-panel" >
-                <div data-xhr="migration--"
-                   data-xhr-stop="true">
+  
+            
+<hx-partial id="polling-partial-migration">
+  <span
+  ></span>
+</hx-partial>
 
-                <div class="app-!-layout-centered govuk-!-margin-bottom-2">
-                  <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Details</h2>
-                  <div>
-                    
+
+            <hx-partial id="migration">
+
+              <div class="app-!-layout-centered govuk-!-margin-bottom-2">
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Details</h2>
+                <div>
+                  
 
 
 
@@ -237,10 +242,10 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-                  </div>
                 </div>
+              </div>
 
-                <dl class="govuk-summary-list app-summary-list govuk-!-margin-bottom-0" data-testid="govuk-summary-list">
+              <dl class="govuk-summary-list app-summary-list govuk-!-margin-bottom-0" data-testid="govuk-summary-list">
   <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
       Microservice name
@@ -381,13 +386,12 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   </div>
 </dl>
 
-              </div>
+            </hx-partial>
 
 </div>
 
-        </div>
       </div>
-
+    </div>
   </div>
         </main>
       </div>
