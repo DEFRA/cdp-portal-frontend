@@ -7,7 +7,8 @@ function prependQueryParams($elem, params) {
   const hrefParts = $elem.href.split('?')
   const href = hrefParts.at(0)
 
-  $elem.href = href + qs.stringify(params, { addQueryPrefix: true })
+  $elem.href =
+    href + qs.stringify(params, { addQueryPrefix: true, arrayFormat: 'repeat' })
 }
 
 function tabs($module) {

@@ -9,60 +9,20 @@ import { allEnvironmentsOnlyForAdmin } from '../../common/helpers/ext/all-enviro
 import { buildSuggestions } from '../../common/components/autocomplete/helpers/build-suggestions.js'
 import { provideFormValues } from '../helpers/ext/provide-form-values.js'
 import { decorateRollouts } from '../transformers/decorate-rollouts.js'
-import { pagination } from '../../common/constants/pagination.js'
 import { fetchDeploymentFilters } from '../helpers/fetch/fetch-deployment-filters.js'
 import { deploymentToEntityRow } from '../transformers/deployment-to-entity-row.js'
 import { fetchDeploymentsWithMigrations } from '../helpers/fetch/fetch-deployments-with-migrations.js'
 import { migrationToEntityRow } from '../transformers/migration-to-entity-row.js'
 import {
   environmentValidation,
-  teamIdValidation,
   userIdValidation
 } from '@defra/cdp-validation-kit'
 import { fetchServices } from '../../common/helpers/fetch/fetch-entities.js'
 import { changeRequestEnvironments } from '#server/common/helpers/environments/get-environments.js'
+import { getUserTeamsUnexpanded } from '#server/common/helpers/user/get-users-teams.js'
+import { stringify } from 'qs'
 
-async function getFilters() {
-  const response = await fetchDeploymentFilters()
-  const {
-    filters: { services, users, statuses, teams, kinds }
-  } = response
-
-  const serviceFilters = buildSuggestions(
-    services.map((serviceName) => ({ text: serviceName, value: serviceName }))
-  )
-  const userFilters = buildSuggestions(
-    users.map((user) => ({ text: user.displayName, value: user.id }))
-  )
-  const statusFilters = buildSuggestions(
-    statuses.map((status) => ({
-      text: upperFirst(status.toLowerCase()),
-      value: status
-    }))
-  )
-  const teamFilters = buildSuggestions(
-    teams.map((team) => ({ text: team.name, value: team.teamId }))
-  )
-
-  const uiTextDisplayMap = {
-    deployment: 'Deployment',
-    migration: 'Update'
-  }
-
-  const kindFilters = buildSuggestions(
-    kinds.map((kind) => ({ text: uiTextDisplayMap[kind], value: kind }))
-  )
-
-  return {
-    serviceFilters,
-    userFilters,
-    statusFilters,
-    teamFilters,
-    kindFilters
-  }
-}
-
-const deploymentsListController = {
+export const deploymentsListController = {
   options: {
     id: 'deployments/{environment}',
     ext: {
@@ -77,7 +37,7 @@ const deploymentsListController = {
         service: Joi.string().allow(''),
         user: userIdValidation.allow('').optional(),
         status: Joi.string().allow(''),
-        team: teamIdValidation.allow('').optional(),
+        team: Joi.array().items(Joi.string()).single(),
         kind: Joi.string().allow(''),
         page: Joi.number(),
         size: Joi.number()
@@ -99,6 +59,39 @@ const deploymentsListController = {
       teamFilters,
       kindFilters
     } = await getFilters()
+
+    const userTeams = getUserTeamsUnexpanded(request)
+    const queryTeams = request.query.team ?? []
+
+    const queryMatchesUserTeams = sameTeams(userTeams, queryTeams)
+
+    let teamValue
+
+    if (queryTeams.length > 1) {
+      teamValue = queryMatchesUserTeams ? 'my-teams' : 'selected-teams'
+
+      if (!queryMatchesUserTeams) {
+        teamFilters.splice(1, 0, {
+          value: 'selected-teams',
+          text: 'Selected Teams',
+          queryParams: {
+            team: queryTeams
+          }
+        })
+      }
+    } else {
+      teamValue = queryTeams[0]
+    }
+
+    if (userTeams.length > 1) {
+      teamFilters.splice(1, 0, {
+        value: 'my-teams',
+        text: 'My Teams',
+        queryParams: {
+          team: userTeams
+        }
+      })
+    }
 
     const deploymentsResponse = await fetchDeploymentsWithMigrations(
       environment,
@@ -149,28 +142,12 @@ const deploymentsListController = {
       userFilters,
       statusFilters,
       teamFilters,
+      teamValue,
       kindFilters,
+      showChangeRecords,
       environment,
       hiddenInputs: { page, size: pageSize },
       tableData: {
-        headers: [
-          { id: 'owner', classes: 'app-entity-table__cell--owned' },
-          {
-            id: 'description',
-            text: 'Description',
-            width: '20',
-            isLeftAligned: true
-          },
-          { id: 'version', text: 'Version', width: '10' },
-          ...(showChangeRecords
-            ? [{ id: 'cr', text: 'Change Record', width: '10' }]
-            : []),
-          { id: 'status', text: 'Status', width: '10' },
-          { id: 'kind', text: 'Kind', width: '10' },
-          { id: 'by', text: 'By', width: '20' },
-          { id: 'team', text: 'Team', width: '15' },
-          { id: 'started', text: 'Started', width: '20' }
-        ],
         rows,
         noResult: `Nothing has matched what you are looking for in ${capitalize(
           environment
@@ -182,7 +159,7 @@ const deploymentsListController = {
       breadcrumbs: [
         {
           text: 'Deployments',
-          href: `/deployments?page=${pagination.page}&size=${pagination.size}`
+          href: `/deployments?${stringify({ ...request.query, page: 1 }, { arrayFormat: 'repeat' })}`
         },
         {
           text: formattedEnvironment
@@ -192,4 +169,49 @@ const deploymentsListController = {
   }
 }
 
-export { deploymentsListController }
+function sameTeams(a, b) {
+  const setA = new Set(a)
+  const setB = new Set(b)
+
+  return setA.size === setB.size && [...setA].every((team) => setB.has(team))
+}
+
+async function getFilters() {
+  const response = await fetchDeploymentFilters()
+  const {
+    filters: { services, users, statuses, teams, kinds }
+  } = response
+
+  const serviceFilters = buildSuggestions(
+    services.map((serviceName) => ({ text: serviceName, value: serviceName }))
+  )
+  const userFilters = buildSuggestions(
+    users.map((user) => ({ text: user.displayName, value: user.id }))
+  )
+  const statusFilters = buildSuggestions(
+    statuses.map((status) => ({
+      text: upperFirst(status.toLowerCase()),
+      value: status
+    }))
+  )
+  const teamFilters = buildSuggestions(
+    teams.map((team) => ({ text: team.name, value: team.teamId }))
+  )
+
+  const uiTextDisplayMap = {
+    deployment: 'Deployment',
+    migration: 'Update'
+  }
+
+  const kindFilters = buildSuggestions(
+    kinds.map((kind) => ({ text: uiTextDisplayMap[kind], value: kind }))
+  )
+
+  return {
+    serviceFilters,
+    userFilters,
+    statusFilters,
+    teamFilters,
+    kindFilters
+  }
+}

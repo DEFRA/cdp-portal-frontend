@@ -54,7 +54,7 @@ function getFilters(runningServicesFilters) {
   }
 }
 
-async function buildRunningServicesTableData(request) {
+export async function buildRunningServicesTableData(request) {
   const query = request.query
   const userSession = request.auth.credentials
   const environments = getEnvironments(userSession?.scope)
@@ -101,5 +101,3 @@ async function buildRunningServicesTableData(request) {
     teamFilters
   }
 }
-
-export { buildRunningServicesTableData }

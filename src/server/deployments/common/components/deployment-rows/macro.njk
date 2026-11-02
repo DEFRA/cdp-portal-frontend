@@ -1,0 +1,26 @@
+{# Renders deployment table rows
+
+@param {object[]} params - Deployments to render as table rows
+@param {string} params[].service - Name of the service
+@param {object} params[].versionRow - Version row containing rendered HTML
+@param {string} params[].versionRow.html - Rendered version HTML
+@param {boolean} params[].showChangeRecords - Whether to display the change records column
+@param {string} [params[].changeRecordText] - Display text for the change record
+@param {string} [params[].changeRecordClass] - CSS class for the change record
+@param {string} params[].statusText - Display text for deployment status
+@param {string} params[].statusClass - CSS class for deployment status
+@param {string} params[].kindText - Display text for deployment kind
+@param {string} params[].kindClass - CSS class for deployment kind
+@param {string} params[].by - Name of the user who initiated the deployment
+@param {object[]} params[].teams - Teams that own the service
+@param {string} params[].teams[].teamId - Team ID
+@param {string} params[].teams[].name - Team name
+@param {string} params[].started - Date the deployment started
+@param {string} noValue - Text displayed when no teams are assigned
+@param {string} noResult - Message displayed when there are no deployments
+@param {boolean} showChangeRecords - Whether to include the change records column in the empty state
+#}
+
+{% macro appDeploymentRows(params) %}
+  {%- include "./template.njk" -%}
+{% endmacro %}

@@ -141,12 +141,7 @@
           {% for row in rows %}
             {% set rowClasses = ["app-entity-table__row", row.classes if row.classes] | join(" ") | trim %}
             <tr class="{{ rowClasses }}" data-testid="app-entity-table-row-{{ loop.index }}">
-
-              <td headers="owner" class="app-entity-table__cell app-entity-table__cell--owned" data-label="Owner">
-                {% if row.isOwner %}
-                  {{ appStarIcon({classes: "app-icon--minuscule" }) }}
-                {% endif %}
-              </td>
+              <td></td>
 
               <td headers="service" class="app-entity-table__cell" data-label="Service">
                 <a class="app-link app-entity-table__row-header" href="/running-services/{{ row.serviceName }}"

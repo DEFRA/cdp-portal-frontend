@@ -43,7 +43,7 @@ const instancePendingIcon = (classes) =>
 
 export function getIcon(
   status,
-  unstable,
+  unstable = false,
   classes = 'app-icon--small govuk-!-margin-right-1'
 ) {
   if (status === 'running') {

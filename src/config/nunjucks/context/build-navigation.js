@@ -26,6 +26,14 @@ export async function buildNavigation(request, userSession) {
       { arrayFormat: 'repeat', addQueryPrefix: true }
     )
   const deployServicePath = request.routeLookup('deploy-service')
+
+  const deploymentsPath =
+    request.routeLookup('deployments') +
+    qs.stringify(
+      { team: teamIds },
+      { arrayFormat: 'repeat', addQueryPrefix: true }
+    )
+
   const createPath = request.routeLookup('create')
   const adminPath = request.routeLookup('admin')
   const removeTestAsTenantPath = request.routeLookup('admin/removeTestAsTenant')
@@ -115,7 +123,7 @@ export async function buildNavigation(request, userSession) {
       : []),
     {
       text: 'Deployments',
-      href: request.routeLookup('deployments'),
+      href: deploymentsPath,
       current: isActive('deployments'),
       attributes: {
         'data-testid': 'nav-deployments'

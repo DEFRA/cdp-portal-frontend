@@ -1,4 +1,4 @@
-{% from "deployments/common/components/deployment-row/macro.njk" import appDeploymentRow %}
+{% from "deployments/common/components/deployment-rows/macro.njk" import appDeploymentRows %}
 
 {% extends "layouts/tabbed-page.njk" %}
 
@@ -37,24 +37,8 @@
         value: formValues.service,
         suggestions: serviceFilters,
         typeahead: true,
-        placeholder: "Search by service"
-      }) }}
-    </div>
-
-    <div class="app-filters__item">
-      {{ appAutocomplete({
-        id: "filters-kind",
-        name: "kind",
-        classes: "app-autocomplete--small app-autocomplete--inline",
-        label: {
-          text: "Kind",
-          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-        },
-        formGroup: {
-          classes: "app-form-group--inline"
-        },
-        value: formValues.kind,
-        suggestions: kindFilters
+        placeholder: "Search by service",
+        allowReselection: true
       }) }}
     </div>
 
@@ -70,8 +54,9 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: formValues.team,
-        suggestions: teamFilters
+        value: teamValue,
+        suggestions: teamFilters,
+        allowReselection: true
       }) }}
     </div>
 
@@ -88,7 +73,8 @@
           classes: "app-form-group--inline"
         },
         value: formValues.user,
-        suggestions: userFilters
+        suggestions: userFilters,
+        allowReselection: true
       }) }}
     </div>
 
@@ -105,7 +91,26 @@
           classes: "app-form-group--inline"
         },
         value: formValues.status,
-        suggestions: statusFilters
+        suggestions: statusFilters,
+        allowReselection: true
+      }) }}
+    </div>
+
+    <div class="app-filters__item">
+      {{ appAutocomplete({
+        id: "filters-kind",
+        name: "kind",
+        classes: "app-autocomplete--small app-autocomplete--inline",
+        label: {
+          text: "Kind",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: formValues.kind,
+        suggestions: kindFilters,
+        allowReselection: true
       }) }}
     </div>
 
@@ -116,31 +121,85 @@
   {% block xhrContent %}
 
     <div data-xhr="deployments">
+      {% set tableClasses = [
+        "app-entity-table",
+        tableData.classes if tableData.classes,
+        "app-entity-table--wide" if tableData.isWide,
+        "app-entity-table--inverse" if tableData.isInverse
+      ] | join(" ") | trim %}
 
-      {% call(params) appEntityTable(tableData) %}
-        {{  appDeploymentRow({
-          rowClasses: params.rowClasses,
-          loopIndex: params.loopIndex,
-          isOwner:  params.row.isOwner,
-          service: params.row.service,
-          version: params.row.version,
-          deploymentId: params.row.deploymentId,
-          environment: params.row.environment,
-          kind: params.row.kind,
-          kindText: params.row.kindText,
-          kindClass: params.row.kindClass,
-          statusText: params.row.statusText,
-          statusClass: params.row.statusClass,
-          migrationKind: params.row.migrationKind,
-          teams: params.row.teams,
-          by: params.row.by,
-          started: params.row.started,
-          showChangeRecords: params.row.showChangeRecords,
-          changeRecordText: params.row.changeRecordText,
-          changeRecordClass: params.row.changeRecordClass
-        }) }}
-      {% endcall %}
+      <article>
+        <table class="{{ tableClasses }}" data-testid="app-entity-table">
+          <thead class="app-entity-table__head" data-testid="app-entity-table-head">
+          <tr>
+            <th id="owner" scope="col"
+                class="app-entity-table__heading app-entity-table__cell--owned"
+                data-testid="app-entity-table-header-1"
+                aria-labelledby="owner">
+              <span id="owner" class="govuk-visually-hidden">owner</span>
+            </th>
+            <th id="service" scope="col"
+                class="app-entity-table__heading app-entity-table__heading--left-aligned"
+                data-testid="app-entity-table-header-2"
+                width="20%">
+              Service
+            </th>
+            <th id="version" scope="col"
+                class="app-entity-table__heading"
+                data-testid="app-entity-table-header-3"
+                width="10%">
+              Version
+            </th>
+            {% if showChangeRecords %}
+              <th id="cr" scope="col"
+                  class="app-entity-table__heading"
+                  data-testid="app-entity-table-header-4"
+                  width="10%">
+                Change Record
+              </th>
+            {% endif %}
+            <th id="status" scope="col"
+                class="app-entity-table__heading"
+                data-testid="app-entity-table-header-{{ 5 if showChangeRecords else 4 }}"
+                width="10%">
+              Status
+            </th>
+            <th id="kind" scope="col"
+                class="app-entity-table__heading"
+                data-testid="app-entity-table-header-{{ 6 if showChangeRecords else 5 }}"
+                width="10%">
+              Kind
+            </th>
+            <th id="by" scope="col"
+                class="app-entity-table__heading"
+                data-testid="app-entity-table-header-{{ 7 if showChangeRecords else 6 }}"
+                width="20%">
+              By
+            </th>
+            <th id="team" scope="col"
+                class="app-entity-table__heading"
+                data-testid="app-entity-table-header-{{ 8 if showChangeRecords else 7 }}"
+                width="15%">
+              Team
+            </th>
+            <th id="started" scope="col"
+                class="app-entity-table__heading"
+                data-testid="app-entity-table-header-{{ 9 if showChangeRecords else 8 }}"
+                width="20%">
+              Started
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+            {{ appDeploymentRows(tableData.rows) }}
+          </tbody>
+          {% if params.pagination.items.length > 1 %}
+            <footer>
+              {{ govukPagination(tableData.pagination | assign({}, { classes: "app-pagination" }, tableData.pagination)) }}
+            </footer>
+          {% endif %}
+        </table>
+      </article>
     </div>
-
   {% endblock %}
 {% endblock %}
