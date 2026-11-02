@@ -68,45 +68,43 @@
 
           {% block xhrContent %}
 
-            <div data-xhr="resources-request" data-xhr-stop="{{ not hasGeneratingRequests }}">
-
-              {% if hasGeneratingRequests %}
-                <div data-js="app-poll"
-                data-poll-url=""
-                data-poll-interval="10000"
-                data-poll-limit="500">
-                  {% if hasGeneratingRequestsTakingTooLong %}
-
-                    <div class="govuk-!-margin-bottom-6">
-                      {% set warningHtml %}
-                        It looks like your resource request generation is taking a while, contact the Platform team via Slack
-                        <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
-                          rel="noopener noreferrer">#cdp-support</a> for help.
-                      {% endset %}
-                      {{ appWarning({ html: warningHtml }) }}
-                    </div>
-
-                  {% endif %}
-
-                  {% if hasGeneratingRequestsFailed %}
-
-                    <div class="govuk-!-margin-bottom-6">
-                      {% set warningHtml %}
-                        It looks like your resource request generation has failed, contact the Platform team via Slack
-                        <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
-                          rel="noopener noreferrer">#cdp-support</a> for help.
-                      {% endset %}
-                      {{ appWarning({ html: warningHtml }) }}
-                    </div>
-
-                  {% endif %}
-              {% else %}
-                <div>
-              {% endif %}
-
-              {% call appPanel({
-                classes: "govuk-!-margin-bottom-6"
+              {% call appPolling({
+                id: "resources-request",
+                enabled: hasGeneratingRequests,
+                url: "",
+                every: "10s"
               }) %}
+
+                {% if hasGeneratingRequestsTakingTooLong %}
+
+                  <div class="govuk-!-margin-bottom-6">
+                    {% set warningHtml %}
+                      It looks like your resource request generation is taking a while, contact the Platform team via Slack
+                      <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+                        rel="noopener noreferrer">#cdp-support</a> for help.
+                    {% endset %}
+                    {{ appWarning({ html: warningHtml }) }}
+                  </div>
+
+                {% endif %}
+
+                {% if hasGeneratingRequestsFailed %}
+
+                  <div class="govuk-!-margin-bottom-6">
+                    {% set warningHtml %}
+                      It looks like your resource request generation has failed, contact the Platform team via Slack
+                      <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+                        rel="noopener noreferrer">#cdp-support</a> for help.
+                    {% endset %}
+                    {{ appWarning({ html: warningHtml }) }}
+                  </div>
+
+                {% endif %}
+
+
+                {% call appPanel({
+                  classes: "govuk-!-margin-bottom-6"
+                }) %}
 
                 {{ govukTable({
                   classes: "app-table app-table--inverse govuk-!-margin-bottom-1",
@@ -128,8 +126,7 @@
 
               {% endcall %}
 
-            </div>
-
+            {% endcall %}
         {% endblock %}
 
         </section>
