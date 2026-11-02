@@ -15,14 +15,12 @@
         {% call appPanel() %}
           {% block xhrContent %}
 
-            {{ appPolling({
+            {% call appPolling({
               id: "migration",
               enabled: shouldPoll,
               url: "/deployments/database-updates/" + migration.environment + "/" + migration.cdpMigrationId,
               every: "6s"
-            }) }}
-
-            <hx-partial id="migration">
+            }) %}
 
               <div class="app-!-layout-centered govuk-!-margin-bottom-2">
                 <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Details</h2>
@@ -40,7 +38,7 @@
 
               {{ govukSummaryList(summaryList) }}
 
-            </hx-partial>
+            {% endcall %}
           {% endblock %}
         {% endcall %}
 

@@ -11,14 +11,13 @@
   <div class="govuk-main-wrapper app-main-wrapper">
     {% block xhrContent %}
 
-      {{ appPolling({
+      {% call appPolling({
         id: 'deployment',
         enabled: shouldPoll,
         url: "/deployments/" + deployment.environment + "/" + deployment.cdpDeploymentId,
         every: "6s"
-      }) }}
+      }) %}
 
-      <hx-partial id="deployment">
         {% if deployment.unstable %}
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-full">
@@ -114,7 +113,7 @@
             {% endcall %}
           </div>
         </div>
-      </hx-partial>
+      {% endcall %}
 
     {% endblock %}
   </div>

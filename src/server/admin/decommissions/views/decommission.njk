@@ -48,99 +48,99 @@
 
     {% block xhrContent %}
 
-      {{ appPolling({
+      {% call appPolling({
         id: "decommission",
         enabled: shouldPoll,
         url: routeLookup("admin/decommissions/{repositoryName}", { params: { repositoryName: entity.name } }),
         every: "10s"
-      }) }}
+      }) %}
 
-      <div class="app-service-container">
-        <hx-partial id="decommission-{{ entity.name }}">
+        <div class="app-service-container">
           <article class="app-grid app-grid-admin app-grid-admin--decommission">
 
-            <section class="app-grid-admin__details">
-              {% if takingTooLong %}
+              <section class="app-grid-admin__details">
+                {% if takingTooLong %}
+                  <div>
+                    {{ appWarning({
+                      html: warningHtml,
+                      isInverse: true
+                    }) }}
+                  </div>
+                {% endif %}
+
                 <div>
-                  {{ appWarning({
-                    html: warningHtml,
+                  {{ appInfo({
+                    classes: "govuk-!-margin-bottom-4",
+                    html: durationHtml,
                     isInverse: true
                   }) }}
                 </div>
-              {% endif %}
 
-              <div>
-                {{ appInfo({
-                  classes: "govuk-!-margin-bottom-4",
-                  html: durationHtml,
-                  isInverse: true
-                }) }}
-              </div>
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+                {{ govukSummaryList(summaryList) }}
+              </section>
 
-              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
-              {{ govukSummaryList(summaryList) }}
-            </section>
+              <section class="app-grid-admin__info">
+                {% call appPanel({ isInverse: true }) %}
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2">GitHub Actions</h2>
+                  <p class="app-!-layout-centered govuk-!-margin-bottom-2">
+                    The following actions are run during the decommission of a {{ entityType | lower }}:
+                  </p>
 
-            <section class="app-grid-admin__info">
-              {% call appPanel({ isInverse: true }) %}
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">GitHub Actions</h2>
-                <p class="app-!-layout-centered govuk-!-margin-bottom-2">
-                  The following actions are run during the decommission of a {{ entityType | lower }}:
-                </p>
+                  <ul class="govuk-list govuk-list--bullet">
+                    {% for actionLink in actionLinks %}
+                      <li>
+                        <a class="app-link"
+                           href="{{ actionLink.href }}"
+                           target="_blank" rel="noopener noreferrer">
+                          {{ actionLink.text }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
 
-                <ul class="govuk-list govuk-list--bullet">
-                  {% for actionLink in actionLinks %}
-                    <li>
-                      <a class="app-link"
-                         href="{{ actionLink.href }}"
-                         target="_blank" rel="noopener noreferrer">
-                        {{ actionLink.text }}
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
+                {% endcall %}
+              </section>
 
-              {% endcall %}
-            </section>
+              <section class="app-grid-admin__resources">
+                {% call appPanel({ isInverse: true }) %}
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
+                  <p class="govuk-!-margin-bottom-4">
+                    {% if entity.status == "Decommissioned" %}
+                      {{ entityType }} {{ entity.name }} has been decommissioned
+                    {% else %}
+                      {{ entityType }} {{ entity.name }} remaining resources are currently being decommissioned
+                    {% endif %}
+                  </p>
 
-            <section class="app-grid-admin__resources">
-              {% call appPanel({ isInverse: true }) %}
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
-                <p class="govuk-!-margin-bottom-4">
-                  {% if entity.status == "Decommissioned" %}
-                    {{ entityType }} {{ entity.name }} has been decommissioned
-                  {% else %}
-                    {{ entityType }} {{ entity.name }} remaining resources are currently being decommissioned
-                  {% endif %}
-                </p>
+                  <ul class="govuk-list">
+                    {%  for env in environments %}
+                       <li>
+                        <div class="app-!-layout-centered">
+                          {% if not entity.environments[env] %}
+                            {{ appTickIcon({
+                              classes: "app-icon--tiny govuk-!-margin-right-1",
+                              attributes: { "data-testid": env + "-created" }
+                            }) }}
+                          {% else %}
+                            {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                          {% endif %}
 
-                <ul class="govuk-list">
-                  {%  for env in environments %}
-                     <li>
-                      <div class="app-!-layout-centered">
-                        {% if not entity.environments[env] %}
-                          {{ appTickIcon({
-                            classes: "app-icon--tiny govuk-!-margin-right-1",
-                            attributes: { "data-testid": env + "-created" }
-                          }) }}
-                        {% else %}
-                          {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                        {% endif %}
+                          {{ env }}
+                        </div>
+                        <div class="govuk-hint govuk-!-margin-bottom-2">
+                          {{ resourceDescriptions[resource.name] }}
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ul>
 
-                        {{ env }}
-                      </div>
-                      <div class="govuk-hint govuk-!-margin-bottom-2">
-                        {{ resourceDescriptions[resource.name] }}
-                      </div>
-                    </li>
-                  {% endfor %}
-                </ul>
-
-              {% endcall %}
-            </section>
+                {% endcall %}
+              </section>
           </article>
-        </hx-partial>
-      </div>
+        </div>
+
+      {% endcall %}
 
     {% endblock %}
 
