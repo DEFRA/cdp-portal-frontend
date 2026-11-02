@@ -13,102 +13,99 @@
   <div class="govuk-main-wrapper app-main-wrapper">
     {% block xhrContent %}
 
-      {% if shouldPoll %}
-        <div data-js="app-poll"
-        data-poll-url="/test-suites/{{ testRun.testSuite }}/runs/{{ testRun.runId }}"
-        data-poll-interval="6000"
-        data-poll-limit="45">
-      {% endif %}
+      {% call appPolling({
+        id: "test-suite-failure-" + testRun.runId,
+        enabled: shouldPoll,
+        url: "",
+        every: "6s"
+      }) %}
 
-      {% if failureReasons %}
+        {% if failureReasons %}
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+              <article>
+
+                {% call appWarning({ isInverse: true }) %}
+                  {{ failureReasons }}
+                {% endcall %}
+
+              </article>
+            </div>
+          </div>
+        {% endif %}
+
         <div class="govuk-grid-row">
-          <div class="govuk-grid-column-full">
-            <article data-xhr="test-suite-failure-{{ testRun.runId }}"
-                     data-xhr-stop="{{ not shouldPoll }}">
+          <div class="govuk-grid-column-one-third-from-desktop-massive">
+            {% call appPanel({ testId: "test-suite-run-status-summary" }) %}
+              <article>
 
-              {% call appWarning({ isInverse: true }) %}
-                {{ failureReasons }}
-              {% endcall %}
+                <div class="app-!-layout-centered govuk-!-margin-bottom-2">
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Status</h2>
+                  <div>
+                    {{ appTag({
+                      text: testRun.taskStatus | title,
+                      classes: testRun.statusClass,
+                      isLoading: isLoading,
+                      attributes: {
+                        "data-testid": "test-run-status"
+                      }
+                    }) }}
+                  </div>
+                </div>
 
-            </article>
+                {{ govukSummaryList(statusList) }}
+
+              </article>
+            {% endcall %}
+
+            {% call appPanel({ classes: "govuk-!-margin-bottom-4", testId: "test-suite-run-summary" }) %}
+              <article>
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Details</h2>
+
+                {{ govukSummaryList(detailsList) }}
+              </article>
+            {% endcall %}
+          </div>
+
+          <div class="govuk-grid-column-one-third-from-desktop-massive govuk-!-margin-bottom-4">
+            {% call appPanel({ testId: "test-suite-run-summary" }) %}
+              <article>
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Secrets</h2>
+
+                {{ appSecretsList(secretDetail) }}
+              </article>
+            {% endcall %}
+
+            {% call appPanel({ testId: "deployments-summary" }) %}
+              <article>
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Deployments</h2>
+                <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                  Team services running during the test suite
+                {{ govukTable({
+
+                  firstCellIsHeader: false,
+                  classes: "govuk-table--small-text-until-tablet",
+                  head: [
+                    {
+                      text: "Service"
+                    },
+                    {
+                      text: "Version"
+                    },
+                    {
+                      text: "Started"
+                    },
+                    {
+                      text: "Last updated"
+                    }
+                  ],
+                  rows: runningServicesList.rows
+                }) }}
+              </article>
+            {% endcall %}
           </div>
         </div>
-      {% endif %}
-
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third-from-desktop-massive">
-          {% call appPanel({ testId: "test-suite-run-status-summary" }) %}
-            <article data-xhr="test-suite-run-status-{{ testRun.runId }}"
-                     data-xhr-stop="{{ not shouldPoll }}">
-
-              <div class="app-!-layout-centered govuk-!-margin-bottom-2">
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-right-2">Status</h2>
-                <div>
-                  {{ appTag({
-                    text: testRun.taskStatus | title,
-                    classes: testRun.statusClass,
-                    isLoading: isLoading,
-                    attributes: {
-                      "data-testid": "test-run-status"
-                    }
-                  }) }}
-                </div>
-              </div>
-
-              {{ govukSummaryList(statusList) }}
-
-            </article>
-          {% endcall %}
-
-          {% call appPanel({ classes: "govuk-!-margin-bottom-4", testId: "test-suite-run-summary" }) %}
-            <article data-xhr="test-suite-run-{{ testRun.runId }}"
-                     data-xhr-stop="{{ not shouldPoll }}">
-              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Details</h2>
-
-              {{ govukSummaryList(detailsList) }}
-            </article>
-          {% endcall %}
-        </div>
-
-        <div class="govuk-grid-column-one-third-from-desktop-massive govuk-!-margin-bottom-4">
-          {% call appPanel({ testId: "test-suite-run-summary" }) %}
-            <article>
-              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Secrets</h2>
-
-              {{ appSecretsList(secretDetail) }}
-            </article>
-          {% endcall %}
-
-          {% call appPanel({ testId: "deployments-summary" }) %}
-            <article>
-              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Deployments</h2>
-              <p class="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
-                Team services running during the test suite
-              {{ govukTable({
-
-                firstCellIsHeader: false,
-                classes: "govuk-table--small-text-until-tablet",
-                head: [
-                  {
-                    text: "Service"
-                  },
-                  {
-                    text: "Version"
-                  },
-                  {
-                    text: "Started"
-                  },
-                  {
-                    text: "Last updated"
-                  }
-                ],
-                rows: runningServicesList.rows
-              }) }}
-            </article>
-          {% endcall %}
-        </div>
-      </div>
-      {% if shouldPoll %}</div>{% endif %}
+      {% endcall %}
 
 
     <div class="govuk-grid-row">
