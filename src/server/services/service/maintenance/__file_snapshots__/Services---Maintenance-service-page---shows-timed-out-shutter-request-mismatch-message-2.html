@@ -458,38 +458,40 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
         <section class="govuk-!-margin-top-6">
     <div class="govuk-grid-row">
 
-      <div data-js="app-poll"
-           data-poll-url="/services/mock-service/maintenance"
-           data-poll-interval="3000"
-           data-poll-limit="45">
 
-          <article data-xhr="maintenance-mock-service"
-                   data-xhr-stop="false">
 
-              <div class="govuk-grid-column-one-half-from-desktop-massive govuk-!-margin-bottom-6">
-                <div class="app-section--extra-wide">
-                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
-                    Shuttering
-                  </h2>
-                  <p class="govuk-!-margin-bottom-2">
-                    Shutter your service on the following urls. Shuttering your service will mean all users who go to
-                    any of your services urls will be redirected to the shuttering page. This is useful when you want to
-                    close your service to investigate a serious problem or to make planned changes/updates to your
-                    service.
-                  </p>
+<hx-partial id="polling-partial-maintenance-mock-service">
+  <div
+    data-hx-get="/services/mock-service/maintenance"
+    data-hx-trigger="every 3s [document.visibilityState === 'visible']"
+    data-hx-target="this"
+  >
+            <article>
 
-                  <h3 class="govuk-heading-m govuk-!-margin-bottom-2" data-testid="shuttering">
-                    Customise your shutter page
-                  </h3>
-                  <p>
-                    If you wish to customise your shuttering page, you can do so by following the instructions in the
-                    <a class="app-link app-link--underline app-link--text-colour"
-                       href="https://portal.cdp-int.defra.cloud/documentation/how-to/shuttering.md#customise-shutter-page-content"
-                       target="_blank"
-                       rel="noopener noreferrer">How-to Customise shutter page content</a> documentation.
-                  </p>
+                <div class="govuk-grid-column-one-half-from-desktop-massive govuk-!-margin-bottom-6">
+                  <div class="app-section--extra-wide">
+                    <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="shuttering">
+                      Shuttering
+                    </h2>
+                    <p class="govuk-!-margin-bottom-2">
+                      Shutter your service on the following urls. Shuttering your service will mean all users who go to
+                      any of your services urls will be redirected to the shuttering page. This is useful when you want to
+                      close your service to investigate a serious problem or to make planned changes/updates to your
+                      service.
+                    </p>
 
-                    
+                    <h3 class="govuk-heading-m govuk-!-margin-bottom-2" data-testid="shuttering">
+                      Customise your shutter page
+                    </h3>
+                    <p>
+                      If you wish to customise your shuttering page, you can do so by following the instructions in the
+                      <a class="app-link app-link--underline app-link--text-colour"
+                         href="https://portal.cdp-int.defra.cloud/documentation/how-to/shuttering.md#customise-shutter-page-content"
+                         target="_blank"
+                         rel="noopener noreferrer">How-to Customise shutter page content</a> documentation.
+                    </p>
+
+                      
 
 
 <div
@@ -516,20 +518,20 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-                </div>
+                  </div>
 
 
 
 <div class="app-panel   app-panel--slim" data-testid="shuttering-panel">
   
-                      <section class="govuk-!-margin-bottom-6">
-                        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
-                          Service URL</h2>
-                        <p class="govuk-!-margin-bottom-2">
-                            User-friendly custom URL
-                        </p>
+                        <section class="govuk-!-margin-bottom-6">
+                          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                            Service URL</h2>
+                          <p class="govuk-!-margin-bottom-2">
+                              User-friendly custom URL
+                          </p>
 
-                        <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
+                          <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Service URL</th>
@@ -607,38 +609,37 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </table>
 
 
-                      </section>
+                        </section>
 
 </div>
 
-              </div>
-          </article>
+                </div>
+            </article>
 
-          <article data-xhr="undeploy-mock-service"
-                   data-xhr-stop="false">
-            <div class="govuk-grid-column-one-half-from-desktop-massive">
-              <div class="app-section--extra-wide">
-                <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
-                  Undeploy
-                </h2>
-                <p class="govuk-!-margin-bottom-2">
-                  To undeploy your service means to stop your service from running in the environment. This is useful
-                  when
-                  you want to completely stop your service from running due to a serious problem or to make planned
-                  changes/updates to your service or simply to reduce costs.
-                </p>
-              </div>
+            <article>
+              <div class="govuk-grid-column-one-half-from-desktop-massive">
+                <div class="app-section--extra-wide">
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="undeploy">
+                    Undeploy
+                  </h2>
+                  <p class="govuk-!-margin-bottom-2">
+                    To undeploy your service means to stop your service from running in the environment. This is useful
+                    when
+                    you want to completely stop your service from running due to a serious problem or to make planned
+                    changes/updates to your service or simply to reduce costs.
+                  </p>
+                </div>
 
 
 <div class="app-panel   app-panel--slim" data-testid="undeploy-panel">
-                  <section class="govuk-!-margin-bottom-6">
+                    <section class="govuk-!-margin-bottom-6">
 
-                    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running Deployments</h2>
-                    <p class="govuk-!-margin-bottom-2">
-                      Deployments of your service, listed by environment
-                    </p>
+                      <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Running Deployments</h2>
+                      <p class="govuk-!-margin-bottom-2">
+                        Deployments of your service, listed by environment
+                      </p>
 
-                    <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
+                      <table class="govuk-table app-table app-table--inverse govuk-!-margin-bottom-4">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Environment</th>
@@ -781,14 +782,16 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   </tbody>
 </table>
 
-                </section>
+                  </section>
 
 </div>
-            </div>
+              </div>
 
-          </article>
-
+            </article>
 </div>
+</hx-partial>
+
+
     </div>
   </section>
 

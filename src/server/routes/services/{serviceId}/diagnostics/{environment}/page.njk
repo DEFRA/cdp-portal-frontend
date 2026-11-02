@@ -33,32 +33,34 @@
 
               {% block xhrContent %}
 
-                <div
-                  class="govuk-grid-row govuk-!-margin-top-8"
-                  data-xhr="dashboards-load"
-                  data-xhr-stop="{{ false if playground.status == 'LOADING' or playground.status == 'PROMOTING'  else true }}" data-js="app-poll"
-                  data-poll-url=""
-                  data-poll-interval="3000"
-                  data-poll-limit="100"
-                >
-                  {% if hasPendingPromotionTakingTooLong %}
-                    <div
-                      class="govuk-grid-column-full"
-                    >
-                      <div class="govuk-!-margin-bottom-6">
-                        {% set warningHtml %}
-                          It looks like your promotion is taking a while, contact the Platform team via Slack
-                          <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
-                            rel="noopener noreferrer">#cdp-support</a> for help.
-                        {% endset %}
-                        {{ appWarning({ html: warningHtml }) }}
+                {% call appPolling({
+                  id: "playground-load",
+                  enabled: playground.status == 'LOADING' or playground.status == 'PROMOTING',
+                  url: "",
+                  every: "3s"
+                }) %}
+                  <div
+                    class="govuk-grid-row govuk-!-margin-top-8"
+                  >
+                    {% if hasPendingPromotionTakingTooLong %}
+                      <div
+                        class="govuk-grid-column-full"
+                      >
+                        <div class="govuk-!-margin-bottom-6">
+                          {% set warningHtml %}
+                            It looks like your promotion is taking a while, contact the Platform team via Slack
+                            <a class="app-link app-link--underline app-link--text-colour" href="{{ supportChannel }}" target="_blank"
+                              rel="noopener noreferrer">#cdp-support</a> for help.
+                          {% endset %}
+                          {{ appWarning({ html: warningHtml }) }}
+                        </div>
                       </div>
-                    </div>
-                  {% endif %}
+                    {% endif %}
 
-                  {{ dashboards(environment, resources.metrics | default([]), playground, createDashboardRows, userIsAdmin or userIsOwner) }}
-                  {{ alerts(environment, resources.alerts | default([]), playground, createAlertRows, userIsAdmin or userIsOwner) }}
-                </div>
+                    {{ dashboards(environment, resources.metrics | default([]), playground, createDashboardRows, userIsAdmin or userIsOwner) }}
+                    {{ alerts(environment, resources.alerts | default([]), playground, createAlertRows, userIsAdmin or userIsOwner) }}
+                  </div>
+                {% endcall %}
 
               {% endblock %}
 
