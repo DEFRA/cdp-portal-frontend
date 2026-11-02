@@ -48,100 +48,99 @@
 
     {% block xhrContent %}
 
-      {% if shouldPoll %}
-        <div data-js="app-poll"
-        data-poll-url="{{ routeLookup("admin/decommissions/{repositoryName}", { params: { repositoryName: entity.name } }) }}"
-        data-poll-interval="10000"
-        data-poll-limit="200">
-      {% endif %}
+      {% call appPolling({
+        id: "decommission",
+        enabled: shouldPoll,
+        url: routeLookup("admin/decommissions/{repositoryName}", { params: { repositoryName: entity.name } }),
+        every: "10s"
+      }) %}
 
-      <div class="app-service-container">
-        <article class="app-grid app-grid-admin app-grid-admin--decommission"
-                 data-xhr="decommission-{{ entity.name }}"
-                 data-xhr-stop="{{ not shouldPoll }}">
+        <div class="app-service-container">
+          <article class="app-grid app-grid-admin app-grid-admin--decommission">
 
-          <section class="app-grid-admin__details">
-            {% if takingTooLong %}
-              <div>
-                {{ appWarning({
-                  html: warningHtml,
-                  isInverse: true
-                }) }}
-              </div>
-            {% endif %}
-
-            <div>
-              {{ appInfo({
-                classes: "govuk-!-margin-bottom-4",
-                html: durationHtml,
-                isInverse: true
-              }) }}
-            </div>
-
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
-            {{ govukSummaryList(summaryList) }}
-          </section>
-
-          <section class="app-grid-admin__info">
-            {% call appPanel({ isInverse: true }) %}
-              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">GitHub Actions</h2>
-              <p class="app-!-layout-centered govuk-!-margin-bottom-2">
-                The following actions are run during the decommission of a {{ entityType | lower }}:
-              </p>
-
-              <ul class="govuk-list govuk-list--bullet">
-                {% for actionLink in actionLinks %}
-                  <li>
-                    <a class="app-link"
-                       href="{{ actionLink.href }}"
-                       target="_blank" rel="noopener noreferrer">
-                      {{ actionLink.text }}
-                    </a>
-                  </li>
-                {% endfor %}
-              </ul>
-
-            {% endcall %}
-          </section>
-
-          <section class="app-grid-admin__resources">
-            {% call appPanel({ isInverse: true }) %}
-              <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
-              <p class="govuk-!-margin-bottom-4">
-                {% if entity.status == "Decommissioned" %}
-                  {{ entityType }} {{ entity.name }} has been decommissioned
-                {% else %}
-                  {{ entityType }} {{ entity.name }} remaining resources are currently being decommissioned
+              <section class="app-grid-admin__details">
+                {% if takingTooLong %}
+                  <div>
+                    {{ appWarning({
+                      html: warningHtml,
+                      isInverse: true
+                    }) }}
+                  </div>
                 {% endif %}
-              </p>
 
-              <ul class="govuk-list">
-                {%  for env in environments %}
-                   <li>
-                    <div class="app-!-layout-centered">
-                      {% if not entity.environments[env] %}
-                        {{ appTickIcon({
-                          classes: "app-icon--tiny govuk-!-margin-right-1",
-                          attributes: { "data-testid": env + "-created" }
-                        }) }}
-                      {% else %}
-                        {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
-                      {% endif %}
+                <div>
+                  {{ appInfo({
+                    classes: "govuk-!-margin-bottom-4",
+                    html: durationHtml,
+                    isInverse: true
+                  }) }}
+                </div>
 
-                      {{ env }}
-                    </div>
-                    <div class="govuk-hint govuk-!-margin-bottom-2">
-                      {{ resourceDescriptions[resource.name] }}
-                    </div>
-                  </li>
-                {% endfor %}
-              </ul>
+                <h2 class="govuk-heading-l govuk-!-margin-bottom-2">About</h2>
+                {{ govukSummaryList(summaryList) }}
+              </section>
 
-            {% endcall %}
-          </section>
-        </article>
-      </div>
-      {% if shouldPoll %}</div>{% endif %}
+              <section class="app-grid-admin__info">
+                {% call appPanel({ isInverse: true }) %}
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2">GitHub Actions</h2>
+                  <p class="app-!-layout-centered govuk-!-margin-bottom-2">
+                    The following actions are run during the decommission of a {{ entityType | lower }}:
+                  </p>
+
+                  <ul class="govuk-list govuk-list--bullet">
+                    {% for actionLink in actionLinks %}
+                      <li>
+                        <a class="app-link"
+                           href="{{ actionLink.href }}"
+                           target="_blank" rel="noopener noreferrer">
+                          {{ actionLink.text }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+
+                {% endcall %}
+              </section>
+
+              <section class="app-grid-admin__resources">
+                {% call appPanel({ isInverse: true }) %}
+                  <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Resources</h2>
+                  <p class="govuk-!-margin-bottom-4">
+                    {% if entity.status == "Decommissioned" %}
+                      {{ entityType }} {{ entity.name }} has been decommissioned
+                    {% else %}
+                      {{ entityType }} {{ entity.name }} remaining resources are currently being decommissioned
+                    {% endif %}
+                  </p>
+
+                  <ul class="govuk-list">
+                    {%  for env in environments %}
+                       <li>
+                        <div class="app-!-layout-centered">
+                          {% if not entity.environments[env] %}
+                            {{ appTickIcon({
+                              classes: "app-icon--tiny govuk-!-margin-right-1",
+                              attributes: { "data-testid": env + "-created" }
+                            }) }}
+                          {% else %}
+                            {{ appPendingIcon({ classes: "app-icon--tiny govuk-!-margin-right-1" }) }}
+                          {% endif %}
+
+                          {{ env }}
+                        </div>
+                        <div class="govuk-hint govuk-!-margin-bottom-2">
+                          {{ resourceDescriptions[resource.name] }}
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ul>
+
+                {% endcall %}
+              </section>
+          </article>
+        </div>
+
+      {% endcall %}
 
     {% endblock %}
 

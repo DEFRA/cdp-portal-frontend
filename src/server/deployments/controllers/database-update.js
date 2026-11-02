@@ -38,7 +38,9 @@ const databaseUpdateController = {
           : `Database update for <strong>${migration.service}</strong>, changelog version <strong>${migration.version}</strong> in <strong>${migration.environment}</strong>`
       },
       migration,
-      shouldPoll: migration.status !== databaseStatus.succeeded,
+      shouldPoll:
+        migration.status === databaseStatus.requested ||
+        migration.status === databaseStatus.inProgress,
       summaryList: transformMigrationToSummary(migration),
       breadcrumbs: [
         {
