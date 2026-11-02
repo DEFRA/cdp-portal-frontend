@@ -183,15 +183,15 @@
           </div>
         </div>
 
-        {% if shouldPoll %}
-        <div data-js="app-poll"
-             data-poll-url="/test-suites/{{ entity.name }}"
-             data-poll-interval="3000"
-             data-poll-limit="45">
-          {% endif %}
+        {% call appPolling({
+          id: "test-suite-runs",
+          enabled: shouldPoll,
+          url: "/test-suites/" + entity.name,
+          every: "3s"
+        }) %}
 
           {% block xhrContent %}
-            <article data-xhr="test-suite-runs">
+            <article>
               <section class="govuk-!-margin-bottom-6">
                 <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Results</h2>
                 <p>
@@ -229,9 +229,7 @@
             </article>
           {% endblock %}
 
-          {% if shouldPoll %}
-        </div>
-        {% endif %}
+        {% endcall %}
 
       </div>
     </div>
