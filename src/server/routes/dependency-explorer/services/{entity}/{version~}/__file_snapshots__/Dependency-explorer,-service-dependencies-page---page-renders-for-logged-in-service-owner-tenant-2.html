@@ -270,7 +270,11 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
   </script>
 
-  <form id="versionForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+  <form id="versionForm" action="" method="POST"
+    data-hx-post=""
+    data-hx-indicator="[data-js=\"results-loader\"]"
+    data-hx-on::after:request="updatePath"
+  >
     <input type="hidden" name="csrfToken" value="test-token" />
 
 <fieldset class="govuk-fieldset">
@@ -755,7 +759,7 @@ data-js="search-dependency-loader">
 </form>
 
 
-    <div data-xhr="results">
+    <hx-partial id="results">
 
 
 
@@ -796,7 +800,7 @@ width="10%"        >
   </table>
 
 </article>
-    </div>
+    </hx-partial>
 
         </main>
       </div>
