@@ -17,9 +17,7 @@ const logoutController = {
     const referrer = request.info.referrer
     const loginHint = userSession?.loginHint
 
-    const logoutUrl = encodeURI(
-      `${logoutBaseUrl}?logout_hint=${loginHint}&post_logout_redirect_uri=${referrer}`
-    )
+    const logoutUrl = `${logoutBaseUrl}?logout_hint=${encodeURIComponent(loginHint)}&post_logout_redirect_uri=${encodeURIComponent(referrer)}`
 
     removeAuthenticatedUser(request)
 

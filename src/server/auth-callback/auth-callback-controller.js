@@ -56,6 +56,21 @@ export const authCallbackController = {
         )
     }
 
+    if (session && /^\/deployments\/[^/]+$/.test(redirect)) {
+      const { scopes } = await fetchScopes(session.token)
+      const teamIds = getUserTeamsUnexpanded({
+        auth: { credentials: { scope: scopes } }
+      })
+
+      const url = new URL(redirect, 'resolve://')
+      const query = qs.parse(url.search, { ignoreQueryPrefix: true })
+
+      redirect = `${url.pathname}${qs.stringify(
+        { ...query, team: teamIds },
+        { arrayFormat: 'repeat', addQueryPrefix: true }
+      )}`
+    }
+
     return redirectWithRefresh(h, redirect)
   }
 }

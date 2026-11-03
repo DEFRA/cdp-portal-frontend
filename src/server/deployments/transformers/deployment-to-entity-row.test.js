@@ -2,6 +2,7 @@ import { decorateRollouts } from './decorate-rollouts.js'
 import { deploymentToEntityRow } from './deployment-to-entity-row.js'
 import { deploymentsWithMigrationsFixture } from '../../../__fixtures__/deployments/deployments-with-migrations.js'
 import { entityServicesFixture } from '../../../__fixtures__/services/entities.js'
+import { renderIcon } from '#server/common/helpers/nunjucks/render-component.js'
 
 describe('#deploymentToEntityRow', () => {
   const adminGroupId = 'team:aabe63e7-87ef-4beb-a596-c810631fc474'
@@ -15,9 +16,30 @@ describe('#deploymentToEntityRow', () => {
   )
 
   test('Should provide expected table rows', () => {
-    expect(deploymentsWithTeams.map(deploymentToEntityRow)).toEqual([
+    expect(
+      deploymentsWithTeams.map(deploymentToEntityRow).map((row) => ({
+        ...row,
+        versionRow: row.versionRow && {
+          ...row.versionRow,
+          html: row.versionRow.html.replace(/\s+/g, ' ').trim()
+        }
+      }))
+    ).toEqual([
       {
         by: 'Mumm-ra',
+        versionRow: {
+          html: `
+          <div style="display: flex; align-items: center; justify-content: flex-start;">
+            ${renderIcon('instance-success-icon', {
+              description: 'Instance running',
+              classes: 'app-icon--small govuk-!-margin-right-1'
+            })}
+            <a class="app-link" href="/deployments/dev/3c439dc3-014f-47ef-9433-57ef0a10d8aa" target="_blank" rel="noopener noreferrer" data-testid="app-link" >0.356.0</a>
+          </div>
+        `
+            .replace(/\s+/g, ' ')
+            .trim()
+        },
         changeRecordClass: 'govuk-tag--red',
         changeRecordText: 'Not Requested',
         deploymentId: '3c439dc3-014f-47ef-9433-57ef0a10d8aa',
@@ -40,6 +62,9 @@ describe('#deploymentToEntityRow', () => {
       },
       {
         by: 'B. A. Baracus',
+        versionRow: {
+          html: expect.any(String)
+        },
         changeRecordClass: 'govuk-tag--red',
         changeRecordText: 'Not Requested',
         deploymentId: undefined,
@@ -62,6 +87,9 @@ describe('#deploymentToEntityRow', () => {
       },
       {
         by: 'The Terminator',
+        versionRow: {
+          html: expect.any(String)
+        },
         changeRecordClass: 'govuk-tag--red',
         changeRecordText: 'Not Requested',
         deploymentId: 'a7278885-b997-460f-8d4b-c78dec20ccea',
@@ -84,6 +112,9 @@ describe('#deploymentToEntityRow', () => {
       },
       {
         by: 'Mumm-ra',
+        versionRow: {
+          html: expect.any(String)
+        },
         changeRecordClass: 'govuk-tag--red',
         changeRecordText: 'Not Requested',
         deploymentId: '79d0c642-6758-40c3-af35-ba22697d33cf',
@@ -106,6 +137,9 @@ describe('#deploymentToEntityRow', () => {
       },
       {
         by: 'B. A. Baracus',
+        versionRow: {
+          html: expect.any(String)
+        },
         changeRecordClass: 'govuk-tag--red',
         changeRecordText: 'Not Requested',
         deploymentId: 'd209be38-adc7-4a53-a1d4-3d6b2b33d4a7',

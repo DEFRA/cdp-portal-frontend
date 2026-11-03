@@ -1,0 +1,86 @@
+{% from "time/macro.njk" import appTime %}
+{% from "icons/star-icon/macro.njk" import appStarIcon %}
+{% from "icons/instance-icon/macro.njk" import appInstanceIcon %}
+{% from "icons/database-icon/macro.njk" import appDatabaseIcon %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+
+{% for row in params %}
+  <tr class="app-entity-table__row" data-testid="app-entity-table-row-{{ loop.index }}">
+    <td></td>
+    <td headers="service" class="app-entity-table__cell" data-label="Service">
+        <a class="app-link app-entity-table__row-header"
+           href="/services/{{ row.service }}"
+           data-testid="app-link">{{ row.service }}</a>
+    </td>
+
+
+    <td headers="version" class="app-entity-table__cell" data-label="Version">
+        {{ row.versionRow.html | safe }}
+    </td>
+
+
+    {% if row.showChangeRecords %}
+      <td headers="cr" class="app-entity-table__cell" data-label="Change Record">
+        {% if row.changeRecordText %}
+          {% if row.changeRecordClass %}
+            {{ govukTag({
+              text: row.changeRecordText,
+              classes: 'app-tag ' + row.changeRecordClass,
+              attributes: { "data-testid": "govuk-tag" }
+            }) }}
+          {% else %}
+            {{ row.changeRecordText }}
+          {% endif %}
+        {% endif %}
+      </td>
+    {% endif %}
+
+    <td headers="status" class="app-entity-table__cell" data-label="Status">
+      {{ govukTag({
+        text: row.statusText,
+        classes: 'app-tag ' + row.statusClass,
+        attributes: { "data-testid": "govuk-tag" }
+      }) }}
+    </td>
+
+
+    <td headers="kind" class="app-entity-table__cell" data-label="Kind">
+      {{ govukTag({
+        text: row.kindText,
+        classes: 'app-tag ' + row.kindClass ,
+        attributes: { "data-testid": "govuk-tag" }
+      }) }}
+    </td>
+
+
+    <td headers="by" class="app-entity-table__cell" data-label="By">
+      <span data-testid="app-entity-text">{{ row.by }}</span>
+    </td>
+
+
+    <td headers="team" class="app-entity-table__cell" data-label="Team">
+      {% if row.teams | length %}
+        <ul class="app-entity__list">
+          {% for team in row.teams %}
+            <li><a class="app-link" href="/teams/{{ team.teamId }}" data-testid="app-entity-link">{{ team.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        {{ noValue }}
+      {% endif %}
+    </td>
+
+
+    <td headers="started" class="app-entity-table__cell" data-label="Started">
+      {{ appTime({ datetime: row.started }) }}
+    </td>
+  </tr>
+{% else %}
+  <tr class="app-entity-table__row--no-results">
+    <td class="app-entity-table__cell" colspan="{{ 9 if showChangeRecords else 8 }}">
+      {{ noResult | safe }}
+    </td>
+  </tr>
+{% endfor %}

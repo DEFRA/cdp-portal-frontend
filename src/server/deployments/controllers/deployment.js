@@ -36,9 +36,13 @@ const deploymentController = {
     const formattedEnvironment = formatText(environment)
     const secretDetail = transformSecrets(deployment?.secrets)
     const ecsDeployment = provideEcsDeploymentStatus(deployment)
-    const shouldPoll =
-      deployment?.status === deploymentStatus.pending ||
-      deployment?.status === deploymentStatus.requested
+
+    const shouldPoll = ![
+      deploymentStatus.running,
+      deploymentStatus.failed,
+      deploymentStatus.stopped,
+      deploymentStatus.undeployed
+    ].includes(deployment?.status)
 
     return h.view('deployments/views/deployment', {
       faviconState: deploymentFaviconState(deployment?.status),

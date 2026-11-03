@@ -3,6 +3,7 @@ import { deploymentController } from './controllers/deployment.js'
 import { deploymentsListController } from './controllers/deployments-list.js'
 import { pagination } from '../common/constants/pagination.js'
 import { databaseUpdateController } from './controllers/database-update.js'
+import qs from 'qs'
 
 const deployments = {
   plugin: {
@@ -25,10 +26,18 @@ const deployments = {
           options: {
             id: 'deployments'
           },
-          handler: (_request, h) =>
-            h.redirect(
-              `/deployments/dev?page=${pagination.page}&size=${pagination.size}`
+          handler: (request, h) => {
+            return h.redirect(
+              `/deployments/dev${qs.stringify(
+                {
+                  ...request.query,
+                  page: pagination.page,
+                  size: pagination.size
+                },
+                { arrayFormat: 'repeat', addQueryPrefix: true }
+              )}`
             )
+          }
         },
         {
           method: 'GET',
