@@ -2,6 +2,7 @@ import htmx from 'htmx.org'
 import 'htmx.org/dist/ext/hx-head.js'
 
 htmx.config.history = 'reload'
+htmx.config.requestClass = 'app-loader--is-loading'
 
 // Reload page on auth error
 htmx.on('htmx:response:error', (event) => {

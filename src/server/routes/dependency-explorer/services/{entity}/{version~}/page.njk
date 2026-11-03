@@ -18,7 +18,11 @@
 
   </script>
 
-  <form id="versionForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+  <form id="versionForm" action="" method="POST"
+    data-hx-post=""
+    data-hx-indicator="[data-js=\"results-loader\"]"
+    data-hx-on::after:request="updatePath"
+  >
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
     {% call govukFieldset() %}
@@ -165,9 +169,9 @@
   {% endcall %}
 
 
-    <div data-xhr="results">
+    <hx-partial id="results">
       {% call(params) appEntityTable(tableData) %}
-        {{  dependencyRow({
+        {{ dependencyRow({
           rowClasses: params.rowClasses,
           loopIndex: params.loopIndex,
           entityStage: params.row.entityStage,
@@ -176,7 +180,7 @@
           dependencyType: params.row.dependencyType
         }) }}
       {% endcall %}
-    </div>
+    </hx-partial>
   {% endblock %}
 
 {% endblock %}
