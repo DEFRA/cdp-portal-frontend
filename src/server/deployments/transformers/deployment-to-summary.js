@@ -143,6 +143,10 @@ export function transformDeploymentToSummary(deployment) {
             : noValue
         }
       },
+      {
+        key: { text: 'Deployment ID' },
+        value: { text: deployment.cdpDeploymentId ?? noValue }
+      },
       ...(showChangeRecords
         ? [
             {

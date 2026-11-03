@@ -84,6 +84,10 @@ function transformMigrationToSummary(migration) {
           ]
         : []),
       {
+        key: { text: 'Migration ID' },
+        value: { text: migration.cdpMigrationId ?? noValue }
+      },
+      {
         key: {
           text: 'Status'
         },
