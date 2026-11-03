@@ -69,7 +69,7 @@ export function register(routePath) {
               .meta({
                 component: 'autocompleteField',
                 suggestions: entityOptions,
-                dataHxPost: '.',
+                dataHxPost: '/create/resources/detail/sqs_sns_subscriptions',
                 dataHxIndicator: '[data-js="queue-loader"]'
               }),
 
@@ -95,7 +95,7 @@ export function register(routePath) {
               .meta({
                 component: 'autocompleteField',
                 suggestions: entityOptions,
-                dataHxPost: '.',
+                dataHxPost: '/create/resources/detail/sqs_sns_subscriptions',
                 dataHxIndicator: '[data-js="topic-loader"]'
               }),
 
