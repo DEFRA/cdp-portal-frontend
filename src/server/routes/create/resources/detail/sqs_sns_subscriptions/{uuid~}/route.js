@@ -69,8 +69,9 @@ export function register(routePath) {
               .meta({
                 component: 'autocompleteField',
                 suggestions: entityOptions,
-                dataJs: 'auto-refresh',
-                autoRefreshLoader: 'queue-loader'
+                dataHxPost: '/create/resources/detail/sqs_sns_subscriptions',
+                dataHxTarget: '#queue',
+                dataHxIndicator: '[data-js="queue-loader"]'
               }),
 
             queue: Joi.string()
@@ -95,8 +96,9 @@ export function register(routePath) {
               .meta({
                 component: 'autocompleteField',
                 suggestions: entityOptions,
-                dataJs: 'auto-refresh',
-                autoRefreshLoader: 'topic-loader'
+                dataHxPost: '/create/resources/detail/sqs_sns_subscriptions',
+                dataHxTarget: 'topic',
+                dataHxIndicator: '[data-js="topic-loader"]'
               }),
 
             topic: Joi.string()

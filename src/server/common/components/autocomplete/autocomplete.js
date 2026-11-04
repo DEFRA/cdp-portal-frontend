@@ -139,10 +139,18 @@ class Autocomplete {
     )
     $autocomplete.dataset.testid = 'app-autocomplete-input'
     $autocomplete.dataset.typeahead = this.typeahead
-    if (this.$select.dataset.autoRefreshLoader) {
-      $autocomplete.dataset.autoRefreshLoader =
-        this.$select.dataset.autoRefreshLoader
+
+    if (this.$select.dataset.hxPost) {
+      $autocomplete.dataset.hxPost = this.$select.dataset.hxPost
+      $autocomplete.dataset.hxTarget = this.$select.dataset.hxTarget
+      $autocomplete.dataset.hxSelect = this.$select.dataset.hxTarget
+      $autocomplete.dataset.hxTrigger = 'change'
+
+      if (this.$select.dataset.hxIndicator) {
+        $autocomplete.dataset.hxIndicator = this.$select.dataset.hxIndicator
+      }
     }
+
     $autocomplete.setAttribute('autocapitalize', 'none')
     $autocomplete.setAttribute('autocomplete', 'off')
     $autocomplete.setAttribute('role', 'combobox')

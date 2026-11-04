@@ -273,18 +273,13 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-  <script>
-
-    function updatePath() {
-      const filtersForm = document.querySelector("form[data-js='app-filters']")
-      if (filtersForm) {
-        filtersForm.setAttribute('action', window.location.pathname)
-      }
-    }
-
-  </script>
-
-  <form id="versionForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+  <form id="versionForm" action="" method="POST"
+    data-hx-post=""
+    data-hx-trigger="change"
+    data-hx-target="#results"
+    data-hx-indicator="[data-js='results-loader']"
+    data-hx-push-url="true"
+  >
     <input type="hidden" name="csrfToken" value="test-token" />
 
 <fieldset class="govuk-fieldset">
@@ -733,6 +728,7 @@ data-js="search-dependency-loader">
 
       <div class="app-filters__info" data-testid="app-filters-info">
           
+<hx-partial id="app-entity-data-list">
 
 <dl class="app-data-list" data-testid="app-data-list">
     <dt class="app-data-list-heading"
@@ -756,7 +752,7 @@ data-js="search-dependency-loader">
     </dd>
 
 </dl>
-
+</hx-partial>
 
       </div>
     </div>
@@ -769,7 +765,7 @@ data-js="search-dependency-loader">
 </form>
 
 
-    <div data-xhr="results">
+    <hx-partial id="results">
 
 
 
@@ -810,7 +806,7 @@ width="10%"        >
   </table>
 
 </article>
-    </div>
+    </hx-partial>
 
         </main>
       </div>

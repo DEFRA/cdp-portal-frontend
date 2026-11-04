@@ -87,12 +87,12 @@
                   },
                   errorMessage: errorMessageHelper(formErrors.eventType.message),
                   attributes: {
-                    'data-js': 'auto-refresh'
+                    'data-hx-post': ''
                   }
                 }) }}
 
                 {% block xhrContent %}
-                  <div data-xhr="notification-envs">
+                  <hx-partial id="notification-envs">
 
                     {{ govukCheckboxes({
                       name: "environments",
@@ -115,7 +115,7 @@
                       errorMessage: errorMessageHelper(formErrors.environments.message)
                     }) }}
 
-                  </div>
+                  </hx-partial>
                 {% endblock %}
 
                 {{ govukButton({

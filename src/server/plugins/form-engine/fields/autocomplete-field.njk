@@ -19,6 +19,8 @@
     value: params.formValues[params.name],
     errorMessage: errorMessageHelper(params.formErrors[params.name].message),
     dataJs: helpers.resolveMeta(params.def, 'dataJs'),
-    autoRefreshLoader: helpers.resolveMeta(params.def, 'autoRefreshLoader')
+    dataHxPost: helpers.resolveMeta(params.def, 'dataHxPost'),
+    dataHxTarget: helpers.resolveMeta(params.def, 'dataHxTarget'),
+    dataHxIndicator: helpers.resolveMeta(params.def, 'dataHxIndicator')
   }) }}
 {% endmacro %}

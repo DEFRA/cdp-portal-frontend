@@ -730,14 +730,14 @@ width="6%"        >
   <div id="eventType-hint" class="govuk-hint app-hint">
     Event which triggers the notification
   </div>
-  <select class="govuk-select app-select" id="eventType" name="eventType" aria-describedby="eventType-hint" data-js="auto-refresh">
+  <select class="govuk-select app-select" id="eventType" name="eventType" aria-describedby="eventType-hint" data-hx-post="">
     <option value="testfailed" selected>testfailed</option>
     <option value="testpassed">testpassed</option>
   </select>
 </div>
 
 
-                  <div data-xhr="notification-envs">
+                  <hx-partial id="notification-envs">
 
                     <div class="govuk-form-group app-form-group app-form-group-js">
   <fieldset class="govuk-fieldset" aria-describedby="environments-hint">
@@ -789,7 +789,7 @@ width="6%"        >
 </div>
 
 
-                  </div>
+                  </hx-partial>
 
                 <button type="submit" class="govuk-button app-button app-button--secondary js-hidden" data-module="govuk-button" formaction="" formnovalidate="true">
   Refresh List
