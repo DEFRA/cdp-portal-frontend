@@ -142,9 +142,13 @@ class Autocomplete {
 
     if (this.$select.dataset.hxPost) {
       $autocomplete.dataset.hxPost = this.$select.dataset.hxPost
-    }
-    if (this.$select.dataset.hxIndicator) {
-      $autocomplete.dataset.hxIndicator = this.$select.dataset.hxIndicator
+      $autocomplete.dataset.hxTarget = this.$select.dataset.hxTarget
+      $autocomplete.dataset.hxSelect = this.$select.dataset.hxTarget
+      $autocomplete.dataset.hxTrigger = 'change'
+
+      if (this.$select.dataset.hxIndicator) {
+        $autocomplete.dataset.hxIndicator = this.$select.dataset.hxIndicator
+      }
     }
 
     $autocomplete.setAttribute('autocapitalize', 'none')

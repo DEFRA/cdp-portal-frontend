@@ -70,6 +70,7 @@ export function register(routePath) {
                 component: 'autocompleteField',
                 suggestions: entityOptions,
                 dataHxPost: '/create/resources/detail/sqs_sns_subscriptions',
+                dataHxTarget: '#queue',
                 dataHxIndicator: '[data-js="queue-loader"]'
               }),
 
@@ -96,6 +97,7 @@ export function register(routePath) {
                 component: 'autocompleteField',
                 suggestions: entityOptions,
                 dataHxPost: '/create/resources/detail/sqs_sns_subscriptions',
+                dataHxTarget: 'topic',
                 dataHxIndicator: '[data-js="topic-loader"]'
               }),
 
