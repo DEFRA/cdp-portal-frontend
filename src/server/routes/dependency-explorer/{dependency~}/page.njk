@@ -195,23 +195,23 @@
     {% endcall %}
 
       <hx-partial id="results">
-      <div data-xhr="results">
-        {% call(params) appEntityTable(tableData) %}
-          {{  entityRow({
-            rowClasses: params.rowClasses,
-            loopIndex: params.loopIndex,
-            dependencyType: dependencyType,
-            dependencyName: dependencyName,
-            entity:  params.row.entity,
-            entityVersion: params.row.entityVersion,
-            entityStage: params.row.entityStage,
-            entityTags: params.row.entityTags,
-            teams: params.row.teams,
-            dependencyVersion: params.row.dependencyVersion,
-            envs: params.row.envs
-          }) }}
-        {% endcall %}
-      </div>
+        <div data-xhr="results">
+          {% call(params) appEntityTable(tableData) %}
+            {{  entityRow({
+              rowClasses: params.rowClasses,
+              loopIndex: params.loopIndex,
+              dependencyType: dependencyType,
+              dependencyName: dependencyName,
+              entity:  params.row.entity,
+              entityVersion: params.row.entityVersion,
+              entityStage: params.row.entityStage,
+              entityTags: params.row.entityTags,
+              teams: params.row.teams,
+              dependencyVersion: params.row.dependencyVersion,
+              envs: params.row.envs
+            }) }}
+          {% endcall %}
+        </div>
       </hx-partial>
     {% endblock %}
 

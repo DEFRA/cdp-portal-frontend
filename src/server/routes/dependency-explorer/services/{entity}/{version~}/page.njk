@@ -161,6 +161,7 @@
 
 
     <hx-partial id="results">
+      <div data-xhr="results">
       {% call(params) appEntityTable(tableData) %}
         {{ dependencyRow({
           rowClasses: params.rowClasses,
@@ -171,6 +172,7 @@
           dependencyType: params.row.dependencyType
         }) }}
       {% endcall %}
+      </div>
     </hx-partial>
   {% endblock %}
 
