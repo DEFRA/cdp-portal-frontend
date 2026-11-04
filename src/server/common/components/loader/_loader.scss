@@ -10,7 +10,7 @@
     margin-right: govuk-spacing(-2);
   }
 
-  .app-loader--is-loading {
+  .app-loader--is-loading, .htmx-request.app-loader, .htmx-request .app-loader {
     width: 18px;
     height: 18px;
     border: 3px solid $govuk-brand-colour;
