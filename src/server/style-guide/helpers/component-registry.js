@@ -40,6 +40,7 @@ import { inputAssistantStyleguide } from '../../common/components/input-assistan
 import { namingAdviceStyleguide } from '../../common/components/naming-advice/naming-advice.styleguide.js'
 import { searchStyleguide } from '../../common/components/search/search.styleguide.js'
 import { stepNavigationStyleguide } from '../../common/components/step-navigation/step-navigation.styleguide.js'
+import { comboboxStyleguide } from '../../common/components/combobox/combobox.styleguide.js'
 
 // Data
 import { databaseDetailStyleguide } from '../../common/components/database-detail/database-detail.styleguide.js'
@@ -92,6 +93,7 @@ const componentRegistry = [
   namingAdviceStyleguide,
   searchStyleguide,
   stepNavigationStyleguide,
+  comboboxStyleguide,
 
   // Data
   databaseDetailStyleguide,
