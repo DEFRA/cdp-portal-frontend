@@ -57,6 +57,43 @@ export const comboboxStyleguide = {
           }
         ]
       }
+    },
+    {
+      title: 'Web Component',
+      params: {
+        new: true, // TODO: Remove
+        label: {
+          text: 'By'
+        },
+        hint: {
+          text: 'Choose a user'
+        },
+        id: 'user',
+        name: 'user',
+        suggestions: [
+          {
+            value: '',
+            text: ' - - select - - ',
+            disabled: true,
+            attributes: { selected: true }
+          },
+          {
+            text: 'RoboCop',
+            value: 'RoboCop',
+            helper: 'User Id: 12454878'
+          },
+          {
+            text: 'Roger Rabbit',
+            value: 'Roger Rabbit',
+            helper: 'User Id: 556456465'
+          },
+          {
+            text: 'Barbie',
+            value: 'Barbie',
+            helper: 'User Id: 67567576'
+          }
+        ]
+      }
     }
   ]
 }

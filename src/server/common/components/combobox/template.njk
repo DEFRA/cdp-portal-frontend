@@ -58,7 +58,6 @@
     name: params.name,
     id: params.id,
     class: [inputClasses, "govuk-select--error" if params.errorMessage.text] | join(" ") | trim,
-    "data-js": ["app-progressive-input", params.dataJs if params.dataJs] | join(" ") | trim,
     "data-subscribe-to": params.subscribeTo,
     "data-no-suggestions-message": params.noSuggestionsMessage,
     "data-remove-password-widgets": removePasswordWidgets,
@@ -81,7 +80,6 @@
   } | pickBy %}
 
   <div class="{{ classes }}"
-       data-js="app-combobox{% if params.template %}-{{ params.template }}{% endif %}"
        data-testid="app-combobox"
     {% if params.loader.name %} data-loader="{{ params.loader.name }}"{% endif %}
   >
@@ -131,7 +129,6 @@
       aria-labelledby="{{ params.id }}-label"
       aria-expanded="false"
       role="listbox"
-      data-js="app-combobox-suggestions"
       data-testid="app-combobox-suggestions"></ul>
   </div>
   {{ caller() if caller else content }}

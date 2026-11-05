@@ -1,5 +1,9 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 
 {% macro appCombobox(params) %}
-  {%- include "./template.njk" -%}
+  {% if params.new == true %}
+    {%- include "./template.njk" -%}
+  {% else %}
+    {%- include "./old-template.njk" -%}
+  {% endif %}
 {% endmacro %}
