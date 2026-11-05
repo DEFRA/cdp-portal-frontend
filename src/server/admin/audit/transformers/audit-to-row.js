@@ -15,6 +15,17 @@ function tagMap(action) {
   }
 }
 
+function details(audit) {
+  switch (audit.action) {
+    case 'TerminalAccess':
+      return audit.details?.tool ? `Ran ${audit.details?.tool}` : ''
+    case 'Granted':
+      return audit.details?.reason
+    default:
+      return ''
+  }
+}
+
 export function transformAuditToRow(audit) {
   const { startDate, endDate } = audit.details
   const hasDuration = startDate && endDate
@@ -77,10 +88,10 @@ export function transformAuditToRow(audit) {
         }
       },
       {
-        headers: 'reason',
+        headers: 'details',
         entity: {
           kind: 'text',
-          value: audit.details?.reason
+          value: details(audit)
         }
       }
     ]
