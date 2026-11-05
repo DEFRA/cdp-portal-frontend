@@ -30,6 +30,7 @@ import { fetchMigrations } from '../common/helpers/fetch/autocomplete/fetch-migr
 import { initClass, initModules, initModule } from '../common/helpers/init.js'
 import { fetchEnvironments } from '../common/helpers/fetch/autocomplete/fetch-environments.js'
 import searchDependencyName from '../common/helpers/fetch/autocomplete/fetch-search-dependency-name.js'
+import { Combobox } from '#server/common/components/combobox/combobox.js'
 
 // ClientSide CDP namespace
 window.cdp = window.cdp || {}
@@ -79,6 +80,9 @@ window.cdp.initAll = function initAll(element) {
   initClass('app-autocomplete-advanced', AutocompleteAdvanced)
   initClass('app-autocomplete-search', AutocompleteSearch)
   initClass('app-autocomplete-doc-search', AutocompleteDocSearch)
+
+  // Temp
+  initClass('app-combobox', Combobox)
 
   // Xhr Container
   initModules('app-xhr-subscriber', xhrSubscriber)
