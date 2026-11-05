@@ -42,7 +42,7 @@ export class Combobox {
     this.name = this.$select.name
     this.$hiddenInputs = []
 
-    this.enhanceSelectWithcombobox()
+    this.enhanceSelectWithCombobox()
 
     this.$combobox = this.$module.querySelector(
       '[data-js*="app-combobox-input"]'
@@ -84,7 +84,7 @@ export class Combobox {
     this.addEventListeners()
   }
 
-  enhanceSelectWithcombobox() {
+  enhanceSelectWithCombobox() {
     const $select = this.$select
     const suggestionsContainerId = `app-combobox-${$select.id}-suggestions`
     const $combobox = document.createElement('input')
