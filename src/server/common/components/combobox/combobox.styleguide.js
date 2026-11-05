@@ -35,6 +35,12 @@ export const comboboxStyleguide = {
         name: 'user',
         suggestions: [
           {
+            value: '',
+            text: ' - - select - - ',
+            disabled: true,
+            attributes: { selected: true }
+          },
+          {
             text: 'RoboCop',
             value: 'RoboCop',
             helper: 'User Id: 12454878'
