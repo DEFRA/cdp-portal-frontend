@@ -20,7 +20,7 @@ const auditListController = {
           { id: 'team', text: 'Team', width: '8' },
           { id: 'service', text: 'Service', width: '10' },
           { id: 'duration', text: 'Duration', width: '10' },
-          { id: 'reason', text: 'Reason', width: '15' }
+          { id: 'details', text: 'Details', width: '15' }
         ],
         rows,
         noResult: 'No audit found'

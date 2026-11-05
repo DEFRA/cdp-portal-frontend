@@ -61,7 +61,8 @@ describe('Audit page', () => {
         performedAt: '2024-09-10T12:31:35.166Z',
         details: {
           environment: 'prod',
-          service: 'cdp-postgres-service'
+          service: 'cdp-postgres-service',
+          tool: 'cdp-webshell'
         }
       },
       {
