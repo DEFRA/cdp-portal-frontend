@@ -1,0 +1,138 @@
+
+{% from "govuk/components/hint/macro.njk" import govukHint %}
+{% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
+
+{% from "icons/chevron-icon/macro.njk" import appChevronIcon %}
+{% from "icons/cancel-icon/macro.njk" import appCancelIcon %}
+{% from "loader/macro.njk" import appLoader %}
+
+{% set suggestions = params.suggestions if params.suggestions else [] %}
+
+<script data-testid="app-combobox-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["{{ params.name }}"] = {{ suggestions | dump | safe }}
+</script>
+
+{% set content = params.html | safe if params.html else params.text %}
+{% set removePasswordWidgets = params.removePasswordWidgets | default("true") %}
+
+<div
+  class="govuk-form-group app-form-group{% if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}{% if params.errorMessage.text %}govuk-form-group--error{% endif %}"
+  data-js="app-form-group" data-testid="app-combobox-group">
+
+  <label class="govuk-label{% if params.label.classes %} {{ params.label.classes }}{% endif %}"
+         id="{{ params.id }}-label"
+         for="{{ params.id }}"
+         data-testid="app-combobox-label">
+    {{ params.label.text }}
+  </label>
+
+  {% if params.hint.text or params.hint.html %}
+    {{ govukHint({
+      text: params.hint.text if params.hint.text,
+      html: params.hint.html if params.hint.html,
+      classes: "app-hint",
+      attributes: {
+        "data-testid": "app-combobox-hint"
+      }
+    }) }}
+  {% endif %}
+
+  {% if params.errorMessage.text %}
+    {{ govukErrorMessage({
+      id: params.id + "-error",
+      classes: "govuk-!-margin-bottom-1 app-error-message",
+      attributes: {
+        "data-js": "app-error",
+        "tabindex": "-1"
+      },
+      text: params.errorMessage.text
+    }) }}
+  {% endif %}
+
+  {% set classes = ["app-combobox", params.classes if params.classes, "app-combobox--with-icon" if params.icon] | join(" ") | trim %}
+  {% set inputClasses = "govuk-select app-select" %}
+
+  {% set attributes = {
+    name: params.name,
+    id: params.id,
+    class: [inputClasses, "govuk-select--error" if params.errorMessage.text] | join(" ") | trim,
+    "data-js": ["app-progressive-input", params.dataJs if params.dataJs] | join(" ") | trim,
+    "data-subscribe-to": params.subscribeTo,
+    "data-no-suggestions-message": params.noSuggestionsMessage,
+    "data-remove-password-widgets": removePasswordWidgets,
+    "data-placeholder": params.placeholder,
+    "data-fetcher-name": params.dataFetcher.name,
+    "data-fetcher-loader": params.dataFetcher.loader,
+    "data-sibling-data-fetcher-names": params.siblingDataFetcher.names,
+    "data-sibling-data-fetcher-targets": params.siblingDataFetcher.targets,
+    "data-sibling-data-fetcher-target-loaders": params.siblingDataFetcher.targetLoaders,
+    "data-hx-post": params.dataHxPost,
+    "data-hx-target": params.dataHxTarget,
+    "data-hx-indicator": params.dataHxIndicator,
+    "data-publish-to": params.publishTo,
+    "data-typeahead": true if params.typeahead == true,
+    "data-testid": "app-progressive-input",
+    "data-suggestion-classes": params.suggestionClasses,
+    "data-disable-lunr-special-characters-filter": true if params.disableLunrSpecialCharactersFilter == true,
+    "data-disable-auto-submit": true if params.disableAutoSubmit == true,
+    "data-allow-reselection": true if params.allowReselection == true
+  } | pickBy %}
+
+  <div class="{{ classes }}"
+       data-js="app-combobox{% if params.template %}-{{ params.template }}{% endif %}"
+       data-testid="app-combobox"
+    {% if params.loader.name %} data-loader="{{ params.loader.name }}"{% endif %}
+  >
+    <div class="app-combobox__control">
+      {% if params.icon %}
+        {{ params.icon | safe }}
+      {% endif %}
+
+      <select {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>
+      {% for suggestion in params.suggestions %}
+        <option value="{{ suggestion.value }}"
+                {% if params.value == suggestion.value %}selected="selected"{% endif %}>
+          {{ suggestion.text }}{{ " - " + suggestion.hint if suggestion.hint }}
+        </option>
+      {% endfor %}
+      </select>
+
+      <button class="app-combobox__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-combobox-{{ params.id }}-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
+      >
+        {{ appChevronIcon() }}
+      </button>
+
+      <button class="app-combobox__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-combobox-clear-button"
+              data-testid="app-combobox-clear-button"
+      >
+        {{ appCancelIcon({ description: "Clear" }) }}
+      </button>
+
+      {% if params.loader.name %}
+        {{ appLoader({ name: params.loader.name }) }}
+      {% endif %}
+    </div>
+
+    <ul
+      class="app-combobox__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}"
+      id="app-combobox-{{ params.id }}-suggestions"
+      aria-labelledby="{{ params.id }}-label"
+      aria-expanded="false"
+      role="listbox"
+      data-js="app-combobox-suggestions"
+      data-testid="app-combobox-suggestions"></ul>
+  </div>
+  {{ caller() if caller else content }}
+</div>
