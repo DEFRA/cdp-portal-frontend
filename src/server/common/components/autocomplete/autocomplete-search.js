@@ -72,10 +72,12 @@ class AutocompleteSearch extends Autocomplete {
   clearButtonClickEvent() {
     super.clearButtonClickEvent()
 
-    const currentUrl = new URL(location)
-    currentUrl.search = ''
-    currentUrl.hash = ''
-    history.replace(currentUrl.toString())
+    if (!this.disableAutoSubmit) {
+      const currentUrl = new URL(location)
+      currentUrl.search = ''
+      currentUrl.hash = ''
+      history.replace(currentUrl.toString())
+    }
   }
 
   createSuggestionElementTemplate() {
