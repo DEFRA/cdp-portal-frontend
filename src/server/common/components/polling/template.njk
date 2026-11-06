@@ -9,6 +9,7 @@
     data-hx-get="{{ url }}"
     data-hx-trigger="every {{ every }} [document.visibilityState === 'visible']"
     data-hx-target="this"
+    data-hx-indicator="false"
   {% endif %}
   >{{ caller() }}</div>
 </hx-partial>
