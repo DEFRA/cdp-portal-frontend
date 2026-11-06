@@ -7,13 +7,18 @@
     intro: 'Dependencies'
   }) }}
 
-  <form id="versionForm" action="" method="POST"
-    data-hx-post=""
-    data-hx-trigger="change"
-    data-hx-target="#results"
-    data-hx-indicator="[data-js='results-loader']"
-    data-hx-push-url="true"
-  >
+  <script>
+
+    function updatePath() {
+      const filtersForm = document.querySelector("form[data-js='app-filters']")
+      if (filtersForm) {
+        filtersForm.setAttribute('action', window.location.pathname)
+      }
+    }
+
+  </script>
+
+  <form id="versionForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
     {% call govukFieldset() %}
@@ -160,10 +165,9 @@
   {% endcall %}
 
 
-    <hx-partial id="results">
-      <div data-xhr="results">
+    <div data-xhr="results">
       {% call(params) appEntityTable(tableData) %}
-        {{ dependencyRow({
+        {{  dependencyRow({
           rowClasses: params.rowClasses,
           loopIndex: params.loopIndex,
           entityStage: params.row.entityStage,
@@ -172,8 +176,7 @@
           dependencyType: params.row.dependencyType
         }) }}
       {% endcall %}
-      </div>
-    </hx-partial>
+    </div>
   {% endblock %}
 
 {% endblock %}

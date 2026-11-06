@@ -7,13 +7,18 @@
     intro: "View the services which are using a dependency"
   }) }}
 
-  <form id="dependencyForm" action="" method="POST"
-    data-hx-post=""
-    data-hx-trigger="change"
-    data-hx-target="#results"
-    data-hx-indicator="[data-js='results-loader']"
-    data-hx-push-url="true"
-  >
+  <script>
+
+    function updatePath() {
+      const filtersForm = document.querySelector("form[data-js='app-filters']")
+      if (filtersForm) {
+        filtersForm.setAttribute('action', window.location.pathname)
+      }
+    }
+
+  </script>
+
+  <form id="dependencyForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
     {% call govukFieldset() %}
@@ -32,7 +37,7 @@
           classes: "app-form-group--inline"
         },
         value: dependencyType + ':' + dependencyName if dependencyType or dependencyName,
-        template: "search",
+        template: 'search',
         disableLunrSpecialCharactersFilter: true,
         disableAutoSubmit: true,
         suggestionClasses: "app-autocomplete__suggestion--leading-hint",
@@ -194,25 +199,24 @@
 
     {% endcall %}
 
-      <hx-partial id="results">
-        <div data-xhr="results">
-          {% call(params) appEntityTable(tableData) %}
-            {{  entityRow({
-              rowClasses: params.rowClasses,
-              loopIndex: params.loopIndex,
-              dependencyType: dependencyType,
-              dependencyName: dependencyName,
-              entity:  params.row.entity,
-              entityVersion: params.row.entityVersion,
-              entityStage: params.row.entityStage,
-              entityTags: params.row.entityTags,
-              teams: params.row.teams,
-              dependencyVersion: params.row.dependencyVersion,
-              envs: params.row.envs
-            }) }}
-          {% endcall %}
-        </div>
-      </hx-partial>
+
+      <div data-xhr="results">
+        {% call(params) appEntityTable(tableData) %}
+          {{  entityRow({
+            rowClasses: params.rowClasses,
+            loopIndex: params.loopIndex,
+            dependencyType: dependencyType,
+            dependencyName: dependencyName,
+            entity:  params.row.entity,
+            entityVersion: params.row.entityVersion,
+            entityStage: params.row.entityStage,
+            entityTags: params.row.entityTags,
+            teams: params.row.teams,
+            dependencyVersion: params.row.dependencyVersion,
+            envs: params.row.envs
+          }) }}
+        {% endcall %}
+      </div>
     {% endblock %}
 
 {% endblock %}
