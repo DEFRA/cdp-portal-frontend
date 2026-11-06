@@ -210,13 +210,18 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-  <form id="versionForm" action="" method="POST"
-    data-hx-post=""
-    data-hx-trigger="change"
-    data-hx-target="#results"
-    data-hx-indicator="[data-js='results-loader']"
-    data-hx-push-url="true"
-  >
+  <script>
+
+    function updatePath() {
+      const filtersForm = document.querySelector("form[data-js='app-filters']")
+      if (filtersForm) {
+        filtersForm.setAttribute('action', window.location.pathname)
+      }
+    }
+
+  </script>
+
+  <form id="versionForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
     <input type="hidden" name="csrfToken" value="test-token" />
 
 <fieldset class="govuk-fieldset">
@@ -702,8 +707,7 @@ data-js="search-dependency-loader">
 </form>
 
 
-    <hx-partial id="results">
-      <div data-xhr="results">
+    <div data-xhr="results">
 
 
 
@@ -744,8 +748,7 @@ width="10%"        >
   </table>
 
 </article>
-      </div>
-    </hx-partial>
+    </div>
 
         </main>
       </div>
