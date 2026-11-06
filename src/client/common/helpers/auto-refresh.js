@@ -1,0 +1,49 @@
+import getFormData from 'get-form-data'
+import debounce from 'lodash/debounce.js'
+import { xhrPostRequest } from './xhr.js'
+import { clientNotification } from './client-notification.js'
+
+export default function autoRefresh($input) {
+  if (!$input) {
+    return
+  }
+
+  $input.addEventListener('change', debounce(refresh, 300))
+}
+
+async function refresh(event) {
+  const $form = event.target.closest('form')
+  if ($form.dataset.isSubmitting === 'true') {
+    return
+  }
+
+  const loaderName =
+    event.target.dataset.autoRefreshLoader ?? $form.dataset.autoRefreshLoader
+  const onRefreshHandler = $form.dataset.onRefresh
+
+  let loader
+  if (loaderName) {
+    loader = document.querySelector(`[data-js="${loaderName}"]`)
+    loader.classList.add('app-loader--is-loading')
+  }
+
+  $form.dataset.isSubmitting = 'true'
+
+  const payload = getFormData($form)
+
+  const result = await xhrPostRequest(location.href, payload)
+
+  if (loader) {
+    loader.classList.remove('app-loader--is-loading')
+  }
+
+  if (onRefreshHandler) {
+    window[onRefreshHandler]?.()
+  }
+
+  if (!result.ok) {
+    clientNotification('Loading failed, please refresh the page')
+  }
+
+  $form.dataset.isSubmitting = 'false'
+}
