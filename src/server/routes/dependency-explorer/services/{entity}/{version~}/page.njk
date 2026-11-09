@@ -1,4 +1,5 @@
 {% extends "layouts/page.njk" %}
+{% from "filter-group/macro.njk" import appFilterGroup %}
 {% from "./components/dependency-row/macro.njk" import dependencyRow %}
 
 {% block content %}
@@ -7,18 +8,14 @@
     intro: 'Dependencies'
   }) }}
 
-  <script>
 
-    function updatePath() {
-      const filtersForm = document.querySelector("form[data-js='app-filters']")
-      if (filtersForm) {
-        filtersForm.setAttribute('action', window.location.pathname)
-      }
-    }
-
-  </script>
-
-  <form id="versionForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+  <form id="versionForm" action="" method="POST"
+    data-hx-post=""
+    data-hx-trigger="change"
+    data-hx-target="#results"
+    data-hx-indicator="[data-js='results-loader']"
+    data-hx-push-url="true"
+  >
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
     {% call govukFieldset() %}
@@ -56,7 +53,8 @@
   </form>
 
   {% block xhrContent %}
-    {% call appFilters({
+    <hx-partial id="filters">
+    {% call appFilterGroup({
       action: pageUrl,
       clear: {
         url: pageUrl
@@ -82,90 +80,90 @@
       loader: 'rows-loader'
     }) %}
 
-    <div class="app-filters__item">
-      {{ appAutocomplete({
-      id: "dependencyType",
-      name: "dependencyType",
-      classes: "app-autocomplete--tiny app-autocomplete--inline",
-      label: {
-        text: "Dependency type",
-        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      },
-      formGroup: {
-        classes: "app-form-group--inline"
-      },
-      value: query.dependencyType,
-      suggestions: dependencyTypeOptions
-      }) }}
-    </div>
-
-
-    {{ appAutocomplete({
-      id: "dependencyName",
-      name: "dependencyName",
-      classes: "app-autocomplete--search-medium app-autocomplete--inline",
-      label: {
-        text: "Dependency name",
-        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      },
-      icon: appSearchIcon(),
-      formGroup: {
-        classes: "app-form-group--inline"
-      },
-      value: dependencyName,
-      disableLunrSpecialCharactersFilter: true,
-      suggestionClasses: "app-autocomplete__suggestion--leading-hint",
-      dataFetcher: {
-        name: "searchDependencyName",
-        loader: "search-dependency-loader"
-      },
-      loader: {
-        name: "search-dependency-loader"
-      },
-      placeholder: "Search by dependency"
-    }) }}
-
-
-    <div class="app-filters__item">
-      {{ govukInput({
-        id: "dependencyVersion",
-        name: "dependencyVersion",
-        classes: "app-input app-input--tiny app-input--block",
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+        id: "dependencyType",
+        name: "dependencyType",
+        classes: "app-autocomplete--tiny app-autocomplete--inline",
         label: {
-          text: "Dependency version",
+          text: "Dependency type",
           classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
         },
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: query.dependencyVersion,
-        attributes: {
-          placeholder: "Version"
-        }
-      }) }}
-    </div>
+        value: query.dependencyType,
+        suggestions: dependencyTypeOptions
+        }) }}
+      </div>
 
-    <div class="app-filters__item">
+
       {{ appAutocomplete({
-      id: "entityStage",
-      name: "entityStage",
-      classes: "app-autocomplete--tiny app-autocomplete--inline",
-      label: {
-        text: "Stage",
-        classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      },
-      formGroup: {
-        classes: "app-form-group--inline"
-      },
-      value: query.entityStage,
-      suggestions: entityStageOptions
+        id: "dependencyName",
+        name: "dependencyName",
+        classes: "app-autocomplete--search-medium app-autocomplete--inline",
+        label: {
+          text: "Dependency name",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        icon: appSearchIcon(),
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: dependencyName,
+        disableLunrSpecialCharactersFilter: true,
+        suggestionClasses: "app-autocomplete__suggestion--leading-hint",
+        dataFetcher: {
+          name: "searchDependencyName",
+          loader: "search-dependency-loader"
+        },
+        loader: {
+          name: "search-dependency-loader"
+        },
+        placeholder: "Search by dependency"
       }) }}
-    </div>
-
-  {% endcall %}
 
 
-    <div data-xhr="results">
+      <div class="app-filters__item">
+        {{ govukInput({
+          id: "dependencyVersion",
+          name: "dependencyVersion",
+          classes: "app-input app-input--tiny app-input--block",
+          label: {
+            text: "Dependency version",
+            classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          value: query.dependencyVersion,
+          attributes: {
+            placeholder: "Version"
+          }
+        }) }}
+      </div>
+
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+        id: "entityStage",
+        name: "entityStage",
+        classes: "app-autocomplete--tiny app-autocomplete--inline",
+        label: {
+          text: "Stage",
+          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+        },
+        formGroup: {
+          classes: "app-form-group--inline"
+        },
+        value: query.entityStage,
+        suggestions: entityStageOptions
+        }) }}
+      </div>
+
+    {% endcall %}
+    </hx-partial>
+
+    <hx-partial id="results">
       {% call(params) appEntityTable(tableData) %}
         {{  dependencyRow({
           rowClasses: params.rowClasses,
@@ -176,7 +174,7 @@
           dependencyType: params.row.dependencyType
         }) }}
       {% endcall %}
-    </div>
+    </hx-partial>
   {% endblock %}
 
 {% endblock %}
