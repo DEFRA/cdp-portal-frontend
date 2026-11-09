@@ -1,4 +1,5 @@
 {% extends "layouts/page.njk" %}
+{% from "filter-group/macro.njk" import appFilterGroup %}
 {% from "./components/entity-row/macro.njk" import entityRow %}
 
 {% block content %}
@@ -6,17 +7,6 @@
     text: "Dependency Explorer",
     intro: "View the services which are using a dependency"
   }) }}
-
-  <script>
-
-    function updatePath() {
-      const filtersForm = document.querySelector("form[data-js='app-filters']")
-      if (filtersForm) {
-        filtersForm.setAttribute('action', window.location.pathname)
-      }
-    }
-
-  </script>
 
   <form id="dependencyForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
@@ -65,7 +55,7 @@
   </form>
 
   {% block xhrContent %}
-    {% call appFilters({
+    {% call appFilterGroup({
       action: pageUrl,
       clear: {
         url: pageUrl
