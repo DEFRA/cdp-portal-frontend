@@ -4,9 +4,17 @@
 {% set method = params.method | default("get") %}
 
 <form action="{{ params.action }}" method="{{ method }}" class="{{ classes }}"
-      data-testid="app-filter-group-form"{% if params.loader %} data-loader-name="{{ params.loader }}" {% endif %}>
+  data-hx-action="{{ params.action }}"
+  data-hx-method="{{ method }}"
+  data-hx-trigger="change"
+  data-hx-target="#app-filter-group-filters"
+  data-hx-select="#app-filter-group-filters"
+  {% if params.loader %} data-hx-indicator="[data-js='{{ params.loader }}']" {% endif %}
+  data-hx-push-url="true"
+  data-testid="app-filter-group-form"
+>
   <fieldset class="govuk-fieldset {%- if params.fieldset.classes %} {{ params.fieldset.classes }}{% endif %}">
-    <div class="app-filter-group">
+    <div id="app-filter-group-filters" class="app-filter-group">
       {{ caller() }}
 
       <p class="govuk-body-m govuk-!-margin-bottom-0 app-filter-group__clear-all">
