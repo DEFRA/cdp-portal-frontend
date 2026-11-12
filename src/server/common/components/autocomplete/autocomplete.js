@@ -39,6 +39,11 @@ class Autocomplete {
     this.$select = this.$module.querySelector(
       `[data-js*="app-progressive-input"]`
     )
+
+    if (!this.$select) {
+      return
+    }
+
     this.allowReselection = this.$select.dataset.allowReselection === 'true'
     this.name = this.$select.name
     this.$hiddenInputs = []
