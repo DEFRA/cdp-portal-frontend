@@ -80,7 +80,8 @@
     "data-allow-reselection": true if params.allowReselection == true
   } | pickBy %}
 
-  <div class="{{ classes }}"
+  <div id="app-autocomplete-{{ params.id }}" class="{{ classes }}"
+       data-hx-preserve="true"
        data-js="app-autocomplete{% if params.template %}-{{ params.template }}{% endif %}"
        data-testid="app-autocomplete"
     {% if params.loader.name %} data-loader="{{ params.loader.name }}"{% endif %}
