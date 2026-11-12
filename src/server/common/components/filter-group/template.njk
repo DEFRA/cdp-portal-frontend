@@ -11,7 +11,7 @@
   data-hx-select="#app-filter-group-filters"
   {% if params.loader %} data-hx-indicator="[data-js='{{ params.loader }}']" {% endif %}
   data-hx-push-url="true"
-  data-testid="app-filter-group-form"
+  data-testid="app-filters-form"
 >
   <fieldset class="govuk-fieldset {%- if params.fieldset.classes %} {{ params.fieldset.classes }}{% endif %}">
     <div id="app-filter-group-filters" class="app-filter-group">
@@ -20,7 +20,7 @@
       <p class="govuk-body-m govuk-!-margin-bottom-0 app-filter-group__clear-all">
         <a href="{{ params.clear.url }}"
            class="govuk-link govuk-link--text-colour"
-           data-testid="app-filter-group-clear-all"
+           data-testid="app-filters-clear-all"
            data-clear-all="clearFilters">
           Clear all
         </a>
@@ -34,14 +34,14 @@
     </div>
 
     {% for key, value in params.hiddenInputs %}
-      <input type="hidden" name="{{ key }}" value="{{ value }}" data-testid="app-filter-group-hidden-input-{{ key }}">
+      <input type="hidden" name="{{ key }}" value="{{ value }}" data-testid="app-filters-hidden-input-{{ key }}">
     {% endfor %}
 
     {{ govukButton({
       classes: "app-button app-button--secondary js-hidden govuk-!-margin-top-2",
       text: "Search",
       attributes: {
-        "data-testid": "app-filter-group-submit-button"
+        "data-testid": "app-filters-submit-button"
       }
     }) }}
   </fieldset>
