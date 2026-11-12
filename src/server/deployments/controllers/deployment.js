@@ -40,7 +40,6 @@ const deploymentController = {
     const shouldPoll = ![
       deploymentStatus.running,
       deploymentStatus.failed,
-      deploymentStatus.stopped,
       deploymentStatus.undeployed
     ].includes(deployment?.status)
 
