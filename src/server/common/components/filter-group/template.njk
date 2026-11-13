@@ -6,7 +6,7 @@
 <form action="{{ params.action }}" method="{{ method }}" class="{{ classes }}"
   data-hx-action="{{ params.action }}"
   data-hx-method="{{ method }}"
-  data-hx-trigger="change, submit halt"
+  data-hx-trigger="change target:'.app-autocomplete__input', submit halt"
   data-hx-target="#app-filter-group-filters"
   data-hx-select="#app-filter-group-filters"
   {% if params.loader %} data-hx-indicator="[data-js='{{ params.loader }}']" {% endif %}
