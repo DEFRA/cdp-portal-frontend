@@ -273,18 +273,14 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </div>
 
 
-  <script>
 
-    function updatePath() {
-      const filtersForm = document.querySelector("form[data-js='app-filters']")
-      if (filtersForm) {
-        filtersForm.setAttribute('action', window.location.pathname)
-      }
-    }
-
-  </script>
-
-  <form id="versionForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+  <form id="versionForm" action="" method="POST"
+    data-hx-post=""
+    data-hx-trigger="change"
+    data-hx-target="#results"
+    data-hx-indicator="[data-js='results-loader']"
+    data-hx-push-url="true"
+  >
     <input type="hidden" name="csrfToken" value="test-token" />
 
 <fieldset class="govuk-fieldset">
@@ -315,7 +311,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
 
 
-  <div class="app-autocomplete app-autocomplete--search-medium app-autocomplete--inline  app-autocomplete--with-icon"
+  <div id="app-autocomplete-versionInput" class="app-autocomplete app-autocomplete--search-medium app-autocomplete--inline  app-autocomplete--with-icon"
        data-js="app-autocomplete"
        data-testid="app-autocomplete"
   >
@@ -408,15 +404,23 @@ data-js="results-loader">
 
   </form>
 
+    <hx-partial id="filters">
 
 
-<form action="/dependency-explorer/services/test-service/1.0.0" method="get" class="app-filters-form" data-js="app-filters"
-      data-testid="app-filters-form" data-loader-name="rows-loader" >
+<form action="/dependency-explorer/services/test-service/1.0.0" method="get" class="app-filter-group-form"
+  data-hx-action="/dependency-explorer/services/test-service/1.0.0"
+  data-hx-method="get"
+  data-hx-trigger="change target:'.app-autocomplete__input', submit halt"
+  data-hx-target="#app-filter-group-filters"
+  data-hx-select="#app-filter-group-filters"
+ data-hx-indicator="[data-js='rows-loader']"   data-hx-push-url="true"
+  data-testid="app-filters-form"
+>
   <fieldset class="govuk-fieldset">
-    <div class="app-filters">
+    <div id="app-filter-group-filters" class="app-filter-group">
       
-    <div class="app-filters__item">
-      
+      <div class="app-filters__item">
+        
 
 
 <script data-testid="app-autocomplete-suggestions">
@@ -441,7 +445,7 @@ data-js="results-loader">
 
 
 
-  <div class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
+  <div id="app-autocomplete-dependencyType" class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
        data-js="app-autocomplete"
        data-testid="app-autocomplete"
   >
@@ -510,10 +514,10 @@ data-js="results-loader">
   
 </div>
 
-    </div>
+      </div>
 
-
-    
+      <div class="app-filters__item">
+      
 
 
 <script data-testid="app-autocomplete-suggestions">
@@ -538,7 +542,7 @@ data-js="results-loader">
 
 
 
-  <div class="app-autocomplete app-autocomplete--search-medium app-autocomplete--inline  app-autocomplete--with-icon"
+  <div id="app-autocomplete-dependencyName" class="app-autocomplete app-autocomplete--search-medium app-autocomplete--inline  app-autocomplete--with-icon"
        data-js="app-autocomplete"
        data-testid="app-autocomplete"
  data-loader="search-dependency-loader"  >
@@ -610,20 +614,21 @@ data-js="search-dependency-loader">
   
 </div>
 
+      </div>
 
 
-    <div class="app-filters__item">
-      <div class="govuk-form-group app-form-group--inline">
+      <div class="app-filters__item">
+        <div class="govuk-form-group app-form-group--inline">
   <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1" for="dependencyVersion">
     Dependency version
   </label>
   <input class="govuk-input app-input app-input--tiny app-input--block" id="dependencyVersion" name="dependencyVersion" type="text" placeholder="Version">
 </div>
 
-    </div>
+      </div>
 
-    <div class="app-filters__item">
-      
+      <div class="app-filters__item">
+        
 
 
 <script data-testid="app-autocomplete-suggestions">
@@ -648,7 +653,7 @@ data-js="search-dependency-loader">
 
 
 
-  <div class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
+  <div id="app-autocomplete-entityStage" class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
        data-js="app-autocomplete"
        data-testid="app-autocomplete"
   >
@@ -717,23 +722,20 @@ data-js="search-dependency-loader">
   
 </div>
 
-    </div>
+      </div>
 
 
 
-      <p class="govuk-body-m govuk-!-margin-bottom-0 app-filters__clear-all">
+      <p class="govuk-body-m govuk-!-margin-bottom-0 app-filter-group__clear-all">
         <a href="/dependency-explorer/services/test-service/1.0.0"
            class="govuk-link govuk-link--text-colour"
-           data-testid="app-filters-clear-all"
-           data-clear-all="clearFilters"
-           data-js="app-filters-clear-all">
+           data-testid="app-filters-clear-all">
           Clear all
         </a>
       </p>
 
-      <div class="app-filters__info" data-testid="app-filters-info">
+      <div class="app-filter-group__info" data-testid="app-filter-group-info">
           
-<hx-partial id="app-entity-data-list">
 
 <dl class="app-data-list" data-testid="app-data-list">
     <dt class="app-data-list-heading"
@@ -744,7 +746,7 @@ data-js="search-dependency-loader">
         data-testid="app-data-list-item-1">
       
 
-<div class="app-entity" data-testid="app-entity" data-xhr="resultsCount"  data-js="rows-loader" >
+<div class="app-entity app-loader app-loader--visiable" data-testid="app-entity" data-js="rows-loader" >
 
 
 
@@ -757,20 +759,19 @@ data-js="search-dependency-loader">
     </dd>
 
 </dl>
-</hx-partial>
 
       </div>
     </div>
 
 
-    <button type="submit" class="govuk-button app-button app-button--secondary js-hidden govuk-!-margin-top-2" data-module="govuk-button" data-testid="app-filters-submit-button" data-js="app-no-js-submit-button">
+    <button type="submit" class="govuk-button app-button app-button--secondary js-hidden govuk-!-margin-top-2" data-module="govuk-button" data-testid="app-filters-submit-button">
   Search
 </button>
   </fieldset>
 </form>
+    </hx-partial>
 
-
-    <div data-xhr="results">
+    <hx-partial id="results">
 
 
 
@@ -811,7 +812,7 @@ width="10%"        >
   </table>
 
 </article>
-    </div>
+    </hx-partial>
 
         </main>
       </div>

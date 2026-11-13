@@ -1,4 +1,5 @@
 {% extends "layouts/page.njk" %}
+{% from "filter-group/macro.njk" import appFilterGroup %}
 {% from "./components/entity-row/macro.njk" import entityRow %}
 
 {% block content %}
@@ -7,18 +8,13 @@
     intro: "View the services which are using a dependency"
   }) }}
 
-  <script>
-
-    function updatePath() {
-      const filtersForm = document.querySelector("form[data-js='app-filters']")
-      if (filtersForm) {
-        filtersForm.setAttribute('action', window.location.pathname)
-      }
-    }
-
-  </script>
-
-  <form id="dependencyForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+  <form id="dependencyForm" action="" method="POST"
+    data-hx-post=""
+    data-hx-trigger="change"
+    data-hx-target="#results"
+    data-hx-indicator="[data-js='results-loader']"
+    data-hx-push-url="true"
+  >
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
     {% call govukFieldset() %}
@@ -65,7 +61,8 @@
   </form>
 
   {% block xhrContent %}
-    {% call appFilters({
+  <hx-partial id="filters">
+    {% call appFilterGroup({
       action: pageUrl,
       clear: {
         url: pageUrl
@@ -81,8 +78,8 @@
                 kind: 'text',
                 value: totalItems | formatNumber,
                 title: totalItems,
-                dataXhr: "resultsCount",
-                dataJs: 'rows-loader'
+                dataJs: 'rows-loader',
+                classes: 'app-loader app-loader--visiable'
               }
             }
           ]
@@ -91,22 +88,22 @@
       loader: 'rows-loader'
     }) %}
 
-    <div class="app-filters__item">
-      {{ appAutocomplete({
-        id: "entity",
-        name: "entity",
-        classes: "app-autocomplete--small app-autocomplete--inline",
-        label: {
-          text: "Service name",
-          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-        },
-        formGroup: {
-          classes: "app-form-group--inline"
-        },
-        value: query.entity,
-        suggestions: entityOptions
-      }) }}
-    </div>
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+          id: "entity",
+          name: "entity",
+          classes: "app-autocomplete--small app-autocomplete--inline",
+          label: {
+            text: "Service name",
+            classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          value: query.entity,
+          suggestions: entityOptions
+        }) }}
+      </div>
 
       <div class="app-filters__item">
         {{ govukInput({
@@ -197,10 +194,10 @@
         }) }}
       </div>
 
-    {% endcall %}
+      {% endcall %}
+      </hx-partial>
 
-
-      <div data-xhr="results">
+      <hx-partial id="results">
         {% call(params) appEntityTable(tableData) %}
           {{  entityRow({
             rowClasses: params.rowClasses,
@@ -216,7 +213,7 @@
             envs: params.row.envs
           }) }}
         {% endcall %}
-      </div>
+      </hx-partial>
     {% endblock %}
 
-{% endblock %}
+  {% endblock %}
