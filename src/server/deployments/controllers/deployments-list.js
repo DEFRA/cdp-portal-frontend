@@ -102,7 +102,7 @@ export const deploymentsListController = {
         service: request.query.service,
         user: request.query.user,
         status: request.query.status,
-        team: request.query.team,
+        teamId: request.query.team,
         kind: request.query.kind
       }
     )
