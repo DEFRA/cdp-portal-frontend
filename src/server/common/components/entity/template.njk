@@ -6,7 +6,7 @@
 
 {% set element = 'li' if params.isChild else 'div' %}
 
-<{{ element }} {% if params.isChild %}class="app-entity__list-item" {% else %}class="app-entity" {% endif %}
+<{{ element }} {% if params.isChild %}class="app-entity__list-item" {% else %}class="app-entity{% if params.classes %} {{ params.classes }}{% endif %}" {% endif %}
 data-testid="app-entity{% if params.index %}-{{ params.index }}{% endif %}"{% if params.dataXhr %} data-xhr="{{ params.dataXhr }}" {% endif %}
 {% if params.dataJs %} data-js="{{ params.dataJs }}" {% endif %}>
 

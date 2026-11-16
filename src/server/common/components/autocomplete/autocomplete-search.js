@@ -8,6 +8,11 @@ import { Autocomplete } from './autocomplete.js'
  */
 class AutocompleteSearch extends Autocomplete {
   constructor($module) {
+    if (!$module.querySelector(`[data-js*="app-progressive-input"]`)) {
+      // eslint-disable-next-line constructor-super
+      return super($module, { includeInput: true })
+    }
+
     const disableLunrSpecialCharactersFilter = $module.querySelector(
       `[data-js*="app-progressive-input"]`
     ).dataset.disableLunrSpecialCharactersFilter

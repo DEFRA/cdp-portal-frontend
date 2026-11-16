@@ -1,6 +1,5 @@
 {% from "entity/macro.njk" import appEntity with context %}
 
-<hx-partial id="app-entity-data-list">
 {% if params.heading %}
   <h2 class="govuk-heading-l govuk-!-margin-bottom-2" data-testid="app-data-list-heading">
     {{ params.heading }}
@@ -20,4 +19,3 @@
 
   {% endfor %}
 </dl>
-</hx-partial>

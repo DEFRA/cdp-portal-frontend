@@ -1,4 +1,5 @@
 {% extends "layouts/page.njk" %}
+{% from "filter-group/macro.njk" import appFilterGroup %}
 {% from "./components/entity-row/macro.njk" import entityRow %}
 
 {% block content %}
@@ -7,18 +8,13 @@
     intro: "View the services which are using a dependency"
   }) }}
 
-  <script>
-
-    function updatePath() {
-      const filtersForm = document.querySelector("form[data-js='app-filters']")
-      if (filtersForm) {
-        filtersForm.setAttribute('action', window.location.pathname)
-      }
-    }
-
-  </script>
-
-  <form id="dependencyForm" action="" method="POST" data-js="auto-refresh" data-auto-refresh-loader="results-loader" data-on-refresh="updatePath">
+  <form id="dependencyForm" action="" method="POST"
+    data-hx-post=""
+    data-hx-trigger="change"
+    data-hx-target="#filtersAndResults"
+    data-hx-indicator="[data-js='results-loader']"
+    data-hx-push-url="true"
+  >
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}" />
 
     {% call govukFieldset() %}
@@ -65,48 +61,50 @@
   </form>
 
   {% block xhrContent %}
-    {% call appFilters({
-      action: pageUrl,
-      clear: {
-        url: pageUrl
-      },
-      info: {
-        html: appEntityDataList({
-          items:  [
-            {
-              heading: {
-                text: 'Count'
-              },
-              entity: {
-                kind: 'text',
-                value: totalItems | formatNumber,
-                title: totalItems,
-                dataXhr: "resultsCount",
-                dataJs: 'rows-loader'
+    <div id="filtersAndResults">
+      {% call appFilterGroup({
+        action: pageUrl,
+        target: '#results',
+        clear: {
+          url: pageUrl
+        },
+        info: {
+          html: appEntityDataList({
+            items:  [
+              {
+                heading: {
+                  text: 'Count'
+                },
+                entity: {
+                  kind: 'text',
+                  value: totalItems | formatNumber,
+                  title: totalItems,
+                  dataJs: 'rows-loader',
+                  classes: 'app-loader app-loader--visiable'
+                }
               }
-            }
-          ]
-        })
-      },
-      loader: 'rows-loader'
-    }) %}
+            ]
+          })
+        },
+        loader: 'rows-loader'
+      }) %}
 
-    <div class="app-filters__item">
-      {{ appAutocomplete({
-        id: "entity",
-        name: "entity",
-        classes: "app-autocomplete--small app-autocomplete--inline",
-        label: {
-          text: "Service name",
-          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-        },
-        formGroup: {
-          classes: "app-form-group--inline"
-        },
-        value: query.entity,
-        suggestions: entityOptions
-      }) }}
-    </div>
+      <div class="app-filters__item">
+        {{ appAutocomplete({
+          id: "entity",
+          name: "entity",
+          classes: "app-autocomplete--small app-autocomplete--inline",
+          label: {
+            text: "Service name",
+            classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+          },
+          formGroup: {
+            classes: "app-form-group--inline"
+          },
+          value: query.entity,
+          suggestions: entityOptions
+        }) }}
+      </div>
 
       <div class="app-filters__item">
         {{ govukInput({
@@ -199,8 +197,7 @@
 
     {% endcall %}
 
-
-      <div data-xhr="results">
+      <div id="results">
         {% call(params) appEntityTable(tableData) %}
           {{  entityRow({
             rowClasses: params.rowClasses,
@@ -217,6 +214,7 @@
           }) }}
         {% endcall %}
       </div>
-    {% endblock %}
+    </div>
+  {% endblock %}
 
 {% endblock %}

@@ -120,7 +120,7 @@ export async function POST(request, h) {
     request.routeLookup('dependency-version-list', {
       params: {
         entity: encodeURIComponent(entity),
-        version: encodeURIComponent(version)
+        version: version ? encodeURIComponent(version) : ''
       },
       query: request.query
     })
