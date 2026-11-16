@@ -14,7 +14,7 @@ export default class ComboBox extends NunjucksComponent {
   get managedListeners() {
     return [
       [this.#inputElement, 'focus', this.#onFocus],
-      [this.#inputElement, 'blur', this.#onBlur],
+      // [this.#inputElement, 'blur', this.#onBlur],
       [this.#inputElement, 'input', this.#onInput]
     ]
   }
@@ -64,9 +64,13 @@ export default class ComboBox extends NunjucksComponent {
 
   #getSuggestions(value) {
     const testValue = value.trim().toLowerCase()
-    return this.#options.filter((option) =>
+    const suggestions = this.#options.filter((option) =>
       option.text?.toLowerCase()?.includes(testValue)
     )
+
+    if (suggestions.length) return suggestions
+
+    return testValue ? [{ text: '- - no results - - ', disabled: true }] : []
   }
 }
 
