@@ -5,6 +5,7 @@ export default class ComboBox extends NunjucksComponent {
   #options = []
   #suggestions = []
   #inputElement
+  #selectedValue
 
   constructor() {
     super(template)
@@ -13,7 +14,8 @@ export default class ComboBox extends NunjucksComponent {
   get managedListeners() {
     return [
       [this.#inputElement, 'focus', this.#onFocus],
-      [this.#inputElement, 'blur', this.#onBlur]
+      [this.#inputElement, 'blur', this.#onBlur],
+      [this.#inputElement, 'input', this.#onInput]
     ]
   }
 
@@ -27,6 +29,10 @@ export default class ComboBox extends NunjucksComponent {
           value: $option.value,
           text: $option.textContent?.trim()
         })
+
+        if ($option.selected) {
+          this.#selectedValue = $option.value
+        }
       }
     })
   }
@@ -34,24 +40,33 @@ export default class ComboBox extends NunjucksComponent {
   render() {
     this.morph(template, {
       ...this.dataset,
+      suggestion: this.#inputElement.value,
+      value: this.#selectedValue,
       options: this.#options,
       suggestions: this.#suggestions
     })
   }
 
   #onFocus() {
-    //   this.populateSuggestions({
-    //     textValue,
-    //     suggestionIndex: null
-    //   })
-
-    this.#suggestions = this.#options
+    this.#suggestions = this.#getSuggestions(this.#inputElement.value)
     this.render()
   }
 
   #onBlur() {
     this.#suggestions = []
     this.render()
+  }
+
+  #onInput() {
+    this.#suggestions = this.#getSuggestions(this.#inputElement.value)
+    this.render()
+  }
+
+  #getSuggestions(value) {
+    const testValue = value.trim().toLowerCase()
+    return this.#options.filter((option) =>
+      option.text?.toLowerCase()?.includes(testValue)
+    )
   }
 }
 

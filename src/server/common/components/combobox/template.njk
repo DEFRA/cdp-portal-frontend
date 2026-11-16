@@ -8,6 +8,7 @@
 
 {% set options = params.options if params.options else [] %}
 {% set suggestions = params.suggestions if params.suggestions else [] %}
+{% set suggestion = params.suggestion if params.suggestion else '' %}
 
 {% set content = params.html | safe if params.html else params.text %}
 {% set removePasswordWidgets = params.removePasswordWidgets | default("true") %}
@@ -92,6 +93,7 @@
       <input
         id="{{ params.id }}-input"
         type="text"
+        value="{{ suggestion }}"
         class="govuk-input app-combobox__input js-visible"
         placeholder="{{ params.placeholder if params.placeholder else ' - - select - - ' }}"
         autocapitalize="none"
@@ -100,6 +102,8 @@
         aria-controls="app-combobox-{{ params.id }}-suggestions"
         aria-combobox="list"
         aria-expanded="false"
+        data-1p-ignore
+        data-lpignore="true"
       />
 
 
@@ -141,7 +145,7 @@
         data-is-match="false"
         role="option"
         tabindex="-1"
-        id="app-combobox-user-suggestion-1"
+        id="app-combobox-user-suggestion-{{ loop.index }}"
         aria-posinset="{{ loop.index }}"
         aria-setsize="{{ suggestions.length }}"
         data-value="{{ suggestion.value }}"
