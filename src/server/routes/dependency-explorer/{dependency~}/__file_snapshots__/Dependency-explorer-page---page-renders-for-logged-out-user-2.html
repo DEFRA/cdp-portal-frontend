@@ -755,7 +755,8 @@ data-js="results-loader">
       <div class="app-filter-group__info" data-testid="app-filter-group-info">
           
 
-<dl class="app-data-list" data-testid="app-data-list">
+
+<dl id="app-data-list" class="app-data-list" data-testid="app-data-list">
     <dt class="app-data-list-heading"
         data-testid="app-data-list-heading-1">
       Count
@@ -789,6 +790,36 @@ data-js="results-loader">
     </noscript>
   </fieldset>
 </form>
+
+
+    <hx-partial data-hx-target="#app-data-list" style="display: none;">
+      
+
+
+<dl id="app-data-list" class="app-data-list" data-testid="app-data-list">
+    <dt class="app-data-list-heading"
+        data-testid="app-data-list-heading-1">
+      Count
+    </dt>
+    <dd class="app-data-list-item"
+        data-testid="app-data-list-item-1">
+      
+
+<div class="app-entity app-loader app-loader--visiable" data-testid="app-entity" data-js="rows-loader" >
+
+
+
+      <span data-testid="app-entity-text"
+      >0</span>
+
+
+</div>
+
+    </dd>
+
+</dl>
+
+    </hx-partial>
 
       <div id="results">
 
