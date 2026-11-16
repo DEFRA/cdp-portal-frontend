@@ -11,7 +11,7 @@
   <form id="dependencyForm" action="" method="POST"
     data-hx-post=""
     data-hx-trigger="change"
-    data-hx-target="#results"
+    data-hx-target="#filtersAndResults"
     data-hx-indicator="[data-js='results-loader']"
     data-hx-push-url="true"
   >
@@ -61,32 +61,33 @@
   </form>
 
   {% block xhrContent %}
-  <hx-partial id="filters">
-    {% call appFilterGroup({
-      action: pageUrl,
-      clear: {
-        url: pageUrl
-      },
-      info: {
-        html: appEntityDataList({
-          items:  [
-            {
-              heading: {
-                text: 'Count'
-              },
-              entity: {
-                kind: 'text',
-                value: totalItems | formatNumber,
-                title: totalItems,
-                dataJs: 'rows-loader',
-                classes: 'app-loader app-loader--visiable'
+    <div id="filtersAndResults">
+      {% call appFilterGroup({
+        action: pageUrl,
+        target: '#results',
+        clear: {
+          url: pageUrl
+        },
+        info: {
+          html: appEntityDataList({
+            items:  [
+              {
+                heading: {
+                  text: 'Count'
+                },
+                entity: {
+                  kind: 'text',
+                  value: totalItems | formatNumber,
+                  title: totalItems,
+                  dataJs: 'rows-loader',
+                  classes: 'app-loader app-loader--visiable'
+                }
               }
-            }
-          ]
-        })
-      },
-      loader: 'rows-loader'
-    }) %}
+            ]
+          })
+        },
+        loader: 'rows-loader'
+      }) %}
 
       <div class="app-filters__item">
         {{ appAutocomplete({
@@ -194,10 +195,9 @@
         }) }}
       </div>
 
-      {% endcall %}
-      </hx-partial>
+    {% endcall %}
 
-      <hx-partial id="results">
+      <div id="results">
         {% call(params) appEntityTable(tableData) %}
           {{  entityRow({
             rowClasses: params.rowClasses,
@@ -213,7 +213,8 @@
             envs: params.row.envs
           }) }}
         {% endcall %}
-      </hx-partial>
-    {% endblock %}
-
+      </div>
+    </div>
   {% endblock %}
+
+{% endblock %}

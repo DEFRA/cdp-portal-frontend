@@ -7,8 +7,8 @@
   data-hx-action="{{ params.action }}"
   data-hx-method="{{ method }}"
   data-hx-trigger="change target:'.app-autocomplete__input', submit halt"
-  data-hx-target="#app-filter-group-filters"
-  data-hx-select="#app-filter-group-filters"
+  data-hx-target="{{ params.target }}"
+  data-hx-select="{{ params.target }}"
   {% if params.loader %} data-hx-indicator="[data-js='{{ params.loader }}']" {% endif %}
   data-hx-push-url="true"
   data-testid="app-filters-form"
