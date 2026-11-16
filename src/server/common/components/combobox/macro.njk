@@ -4,7 +4,10 @@
   {% if params.old == true %}
     {%- include "./old-template.njk" -%}
   {% else %}
-    <app-combobox>
+    <app-combobox
+      data-id={{ params.id }}
+      data-name={{ params.name }}
+    >
     {%- include "./template.njk" -%}
     </app-combobox>
   {% endif %}
