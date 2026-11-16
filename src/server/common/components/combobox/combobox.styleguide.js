@@ -70,7 +70,7 @@ export const comboboxStyleguide = {
         },
         id: 'user',
         name: 'user',
-        suggestions: [
+        options: [
           {
             value: '',
             text: ' - - select - - ',
