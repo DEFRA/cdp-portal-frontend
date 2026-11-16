@@ -30,7 +30,6 @@ import { fetchMigrations } from '../common/helpers/fetch/autocomplete/fetch-migr
 import { initClass, initModules, initModule } from '../common/helpers/init.js'
 import { fetchEnvironments } from '../common/helpers/fetch/autocomplete/fetch-environments.js'
 import searchDependencyName from '../common/helpers/fetch/autocomplete/fetch-search-dependency-name.js'
-import autoRefresh from '../common/helpers/auto-refresh.js'
 import { Combobox } from '#server/common/components/combobox/combobox.js'
 
 // ClientSide CDP namespace
@@ -102,9 +101,6 @@ window.cdp.initAll = function initAll(element) {
 
   // Tabs
   initModules('app-tabs', tabs)
-
-  // Auto Refresh
-  initModules('auto-refresh', autoRefresh, '*=')
 }
 
 window.cdp.initAll()
