@@ -214,7 +214,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   <form id="versionForm" action="" method="POST"
     data-hx-post=""
     data-hx-trigger="change"
-    data-hx-target="#results"
+    data-hx-target="#filtersAndResults"
     data-hx-indicator="[data-js='results-loader']"
     data-hx-push-url="true"
   >
@@ -341,23 +341,23 @@ data-js="results-loader">
 
   </form>
 
-    <hx-partial id="filters">
+    <div id="filtersAndResults">
 
 
 <form action="/dependency-explorer/services/test-service/1.0.0" method="get" class="app-filter-group-form"
   data-hx-action="/dependency-explorer/services/test-service/1.0.0"
   data-hx-method="get"
   data-hx-trigger="change target:'.app-autocomplete__input', submit halt"
-  data-hx-target="#app-filter-group-filters"
-  data-hx-select="#app-filter-group-filters"
+  data-hx-target="#results"
+  data-hx-select="#results"
  data-hx-indicator="[data-js='rows-loader']"   data-hx-push-url="true"
   data-testid="app-filters-form"
 >
   <fieldset class="govuk-fieldset">
     <div id="app-filter-group-filters" class="app-filter-group">
       
-      <div class="app-filters__item">
-        
+        <div class="app-filters__item">
+          
 
 
 <script data-testid="app-autocomplete-suggestions">
@@ -451,10 +451,10 @@ data-js="results-loader">
   
 </div>
 
-      </div>
+        </div>
 
-      <div class="app-filters__item">
-      
+        <div class="app-filters__item">
+        
 
 
 <script data-testid="app-autocomplete-suggestions">
@@ -551,21 +551,21 @@ data-js="search-dependency-loader">
   
 </div>
 
-      </div>
+        </div>
 
 
-      <div class="app-filters__item">
-        <div class="govuk-form-group app-form-group--inline">
+        <div class="app-filters__item">
+          <div class="govuk-form-group app-form-group--inline">
   <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1" for="dependencyVersion">
     Dependency version
   </label>
   <input class="govuk-input app-input app-input--tiny app-input--block" id="dependencyVersion" name="dependencyVersion" type="text" placeholder="Version">
 </div>
 
-      </div>
+        </div>
 
-      <div class="app-filters__item">
-        
+        <div class="app-filters__item">
+          
 
 
 <script data-testid="app-autocomplete-suggestions">
@@ -659,7 +659,7 @@ data-js="search-dependency-loader">
   
 </div>
 
-      </div>
+        </div>
 
 
 
@@ -706,9 +706,9 @@ data-js="search-dependency-loader">
 </button>
   </fieldset>
 </form>
-    </hx-partial>
 
-    <hx-partial id="results">
+
+      <div id="results">
 
 
 
@@ -749,7 +749,8 @@ width="10%"        >
   </table>
 
 </article>
-    </hx-partial>
+      </div>
+    </div>
 
         </main>
       </div>

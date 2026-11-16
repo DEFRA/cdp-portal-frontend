@@ -259,7 +259,7 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
   <form id="dependencyForm" action="" method="POST"
     data-hx-post=""
     data-hx-trigger="change"
-    data-hx-target="#results"
+    data-hx-target="#filtersAndResults"
     data-hx-indicator="[data-js='results-loader']"
     data-hx-push-url="true"
   >
@@ -382,15 +382,15 @@ data-js="results-loader">
 
   </form>
 
-  <hx-partial id="filters">
+    <div id="filtersAndResults">
 
 
 <form action="/dependency-explorer/undefined%3Aundefined" method="get" class="app-filter-group-form"
   data-hx-action="/dependency-explorer/undefined%3Aundefined"
   data-hx-method="get"
   data-hx-trigger="change target:'.app-autocomplete__input', submit halt"
-  data-hx-target="#app-filter-group-filters"
-  data-hx-select="#app-filter-group-filters"
+  data-hx-target="#results"
+  data-hx-select="#results"
  data-hx-indicator="[data-js='rows-loader']"   data-hx-push-url="true"
   data-testid="app-filters-form"
 >
@@ -858,9 +858,8 @@ data-js="results-loader">
 </button>
   </fieldset>
 </form>
-      </hx-partial>
 
-      <hx-partial id="results">
+      <div id="results">
 
 
 
@@ -943,7 +942,8 @@ width="4%"        >
   </table>
 
 </article>
-      </hx-partial>
+      </div>
+    </div>
 
         </main>
       </div>
