@@ -140,20 +140,20 @@
       data-testid="app-combobox-suggestions"
     >
       {% for suggestion in suggestions %}
-      <li
-        class="app-combobox__suggestion"
-        data-is-match="false"
-        role="option"
-        tabindex="-1"
-        id="app-combobox-user-suggestion-{{ loop.index }}"
-        aria-posinset="{{ loop.index }}"
-        aria-setsize="{{ suggestions.length }}"
-        aria-selected="{{'true' if suggestion.value == params.value else 'false'}}"
-        data-has-highlight="false"
-      >
-        <span class="app-suggestion__value">{{ suggestion.text | replace(suggestionText, '<strong>' + suggestionText + '</strong>') | safe }}</span>
-        <span class="app-suggestion__action"></span>
-      </li>
+        <li
+          class="app-combobox__suggestion{% if suggestion.disabled %} app-combobox__suggestion--disabled{% endif %}"
+          data-is-match="false"
+          role="option"
+          tabindex="-1"
+          id="app-combobox-user-suggestion-{{ loop.index }}"
+          aria-posinset="{{ loop.index }}"
+          aria-setsize="{{ suggestions.length }}"
+          aria-selected="{{'true' if suggestion.value == params.value else 'false'}}"
+          data-has-highlight="false"
+        >
+          <span class="app-suggestion__value">{{ suggestion.text | replace(suggestionText, '<strong>' + suggestionText + '</strong>') | safe }}</span>
+          <span class="app-suggestion__action"></span>
+        </li>
       {% endfor %}
     </ul>
   </div>

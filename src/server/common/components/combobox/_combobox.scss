@@ -89,7 +89,7 @@ $large-width: 40em;
     }
   }
 
-  .app-combobox__suggestion--no-results {
+  .app-combobox__suggestion--disabled {
     display: flex;
     align-items: center;
   }
@@ -103,7 +103,7 @@ $large-width: 40em;
     align-items: start;
     padding-left: govuk-spacing(3);
 
-    &.app-combobox__suggestion--no-results {
+    &.app-combobox__suggestion--disabled {
       display: block;
     }
 
@@ -344,7 +344,7 @@ $large-width: 40em;
   }
 }
 
-.app-combobox__suggestion--no-results {
+.app-combobox__suggestion--disabled {
   color: govuk-colour('black', $variant: 'tint-25');
 }
 
