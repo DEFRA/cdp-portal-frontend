@@ -15,13 +15,13 @@ export default class NunjucksComponent extends HTMLElement {
   connectedCallback() {
     this.#connected = true
 
+     this.mounted()
+
     this.managedListeners?.forEach(([target, event, handler]) => {
       const boundHandler = handler.bind(this)
       target.addEventListener(event, boundHandler)
       this.#boundListeners.push([target, event, boundHandler])
     })
-
-    this.mounted()
   }
 
   disconnectedCallback() {

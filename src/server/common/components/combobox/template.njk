@@ -47,7 +47,7 @@
   {% endif %}
 
   {% set classes = ["app-combobox", params.classes if params.classes, "app-combobox--with-icon" if params.icon] | join(" ") | trim %}
-  {% set inputClasses = "govuk-select app-select" %}
+  {% set inputClasses = "govuk-select app-select js-hidden" %}
 
   {% set attributes = {
     name: params.name,
@@ -76,22 +76,21 @@
         {{ params.icon | safe }}
       {% endif %}
 
-      <noscript>
-        <select {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>
-        {% for option in options %}
-          <option
-            value="{{ option.value }}"
-            {% if params.value == option.value %}selected="selected"{% endif %}
-          >
-            {{ option.text }}{{ " - " + option.hint if option.hint }}
-          </option>
-        {% endfor %}
-        </select>
-      </noscript>
+
+      <select {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>
+      {% for option in options %}
+        <option
+          value="{{ option.value }}"
+          {% if params.value == option.value %}selected="selected"{% endif %}
+        >
+          {{ option.text }}{{ " - " + option.hint if option.hint }}
+        </option>
+      {% endfor %}
+      </select>
+
 
       <input
-        id="{{ params.id }}"
-        name="{{ params.name }}"
+        id="{{ params.id }}-input"
         type="text"
         class="govuk-input app-combobox__input js-visible"
         placeholder="{{ params.placeholder if params.placeholder else ' - - select - - ' }}"

@@ -9,7 +9,7 @@ export const comboboxStyleguide = {
   },
   params: [
     {
-      name: 'suggestions',
+      name: 'options',
       type: 'array',
       required: true,
       description: 'Options for the picker'
