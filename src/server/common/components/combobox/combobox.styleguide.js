@@ -25,6 +25,7 @@ export const comboboxStyleguide = {
     {
       title: 'User picker',
       params: {
+        old: true, // TODO: Remove
         label: {
           text: 'By'
         },
@@ -61,7 +62,6 @@ export const comboboxStyleguide = {
     {
       title: 'Web Component',
       params: {
-        new: true, // TODO: Remove
         label: {
           text: 'By'
         },
