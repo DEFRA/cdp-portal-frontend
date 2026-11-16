@@ -6,7 +6,7 @@
 <form action="{{ params.action }}" method="{{ method }}" class="{{ classes }}"
   data-hx-action="{{ params.action }}"
   data-hx-method="{{ method }}"
-  data-hx-trigger="change target:'.app-autocomplete__input', submit halt"
+  data-hx-trigger="change, submit halt"
   data-hx-target="{{ params.target }}"
   data-hx-select="{{ params.target }}"
   {% if params.loader %} data-hx-indicator="[data-js='{{ params.loader }}']" {% endif %}
@@ -36,12 +36,14 @@
       <input type="hidden" name="{{ key }}" value="{{ value }}" data-testid="app-filters-hidden-input-{{ key }}">
     {% endfor %}
 
-    {{ govukButton({
-      classes: "app-button app-button--secondary js-hidden govuk-!-margin-top-2",
-      text: "Search",
-      attributes: {
-        "data-testid": "app-filters-submit-button"
-      }
-    }) }}
+    <noscript>
+      {{ govukButton({
+        classes: "app-button app-button--secondary js-hidden govuk-!-margin-top-2",
+        text: "Search",
+        attributes: {
+          "data-testid": "app-filters-submit-button"
+        }
+      }) }}
+    </noscript>
   </fieldset>
 </form>

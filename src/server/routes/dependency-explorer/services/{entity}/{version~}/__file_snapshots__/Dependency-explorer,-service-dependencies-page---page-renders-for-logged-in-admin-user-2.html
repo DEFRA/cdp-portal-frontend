@@ -410,7 +410,7 @@ data-js="results-loader">
 <form action="/dependency-explorer/services/test-service/1.0.0" method="get" class="app-filter-group-form"
   data-hx-action="/dependency-explorer/services/test-service/1.0.0"
   data-hx-method="get"
-  data-hx-trigger="change target:'.app-autocomplete__input', submit halt"
+  data-hx-trigger="change, submit halt"
   data-hx-target="#results"
   data-hx-select="#results"
  data-hx-indicator="[data-js='rows-loader']"   data-hx-push-url="true"
@@ -737,14 +737,15 @@ data-js="search-dependency-loader">
       <div class="app-filter-group__info" data-testid="app-filter-group-info">
           
 
-<dl class="app-data-list" data-testid="app-data-list">
-    <dt class="app-data-list-heading"
-        data-testid="app-data-list-heading-1">
-      Count
-    </dt>
-    <dd class="app-data-list-item"
-        data-testid="app-data-list-item-1">
-      
+<hx-partial id="app-data-list">
+  <dl class="app-data-list" data-testid="app-data-list">
+      <dt class="app-data-list-heading"
+          data-testid="app-data-list-heading-1">
+        Count
+      </dt>
+      <dd class="app-data-list-item"
+          data-testid="app-data-list-item-1">
+        
 
 <div class="app-entity app-loader app-loader--visiable" data-testid="app-entity" data-js="rows-loader" >
 
@@ -756,17 +757,20 @@ data-js="search-dependency-loader">
 
 </div>
 
-    </dd>
+      </dd>
 
-</dl>
+  </dl>
+</hx-partial>
 
       </div>
     </div>
 
 
-    <button type="submit" class="govuk-button app-button app-button--secondary js-hidden govuk-!-margin-top-2" data-module="govuk-button" data-testid="app-filters-submit-button">
+    <noscript>
+      <button type="submit" class="govuk-button app-button app-button--secondary js-hidden govuk-!-margin-top-2" data-module="govuk-button" data-testid="app-filters-submit-button">
   Search
 </button>
+    </noscript>
   </fieldset>
 </form>
 
