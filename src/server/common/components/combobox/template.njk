@@ -17,7 +17,7 @@
 {% set content = params.html | safe if params.html else params.text %}
 {% set removePasswordWidgets = params.removePasswordWidgets | default("true") %}
 
-<div
+<div id="app-autocomplete-{{ params.id }}"
   class="govuk-form-group app-form-group{% if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}{% if params.errorMessage.text %}govuk-form-group--error{% endif %}"
   data-js="app-form-group" data-testid="app-combobox-group">
 
@@ -58,20 +58,13 @@
     name: params.name,
     id: params.id,
     class: [inputClasses, "govuk-select--error" if params.errorMessage.text] | join(" ") | trim,
-    "data-subscribe-to": params.subscribeTo,
     "data-no-suggestions-message": params.noSuggestionsMessage,
-    "data-remove-password-widgets": removePasswordWidgets,
     "data-placeholder": params.placeholder,
     "data-fetcher-name": params.dataFetcher.name,
     "data-fetcher-loader": params.dataFetcher.loader,
-    "data-sibling-data-fetcher-names": params.siblingDataFetcher.names,
-    "data-sibling-data-fetcher-targets": params.siblingDataFetcher.targets,
-    "data-sibling-data-fetcher-target-loaders": params.siblingDataFetcher.targetLoaders,
     "data-hx-post": params.dataHxPost,
     "data-hx-target": params.dataHxTarget,
     "data-hx-indicator": params.dataHxIndicator,
-    "data-publish-to": params.publishTo,
-    "data-typeahead": true if params.typeahead == true,
     "data-testid": "app-progressive-input",
     "data-suggestion-classes": params.suggestionClasses,
     "data-disable-lunr-special-characters-filter": true if params.disableLunrSpecialCharactersFilter == true,
@@ -88,14 +81,31 @@
         {{ params.icon | safe }}
       {% endif %}
 
-      <select {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>
-      {% for suggestion in params.suggestions %}
-        <option value="{{ suggestion.value }}"
-                {% if params.value == suggestion.value %}selected="selected"{% endif %}>
-          {{ suggestion.text }}{{ " - " + suggestion.hint if suggestion.hint }}
-        </option>
-      {% endfor %}
-      </select>
+      <noscript>
+        <select {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>
+        {% for suggestion in params.suggestions %}
+          <option value="{{ suggestion.value }}"
+                  {% if params.value == suggestion.value %}selected="selected"{% endif %}>
+            {{ suggestion.text }}{{ " - " + suggestion.hint if suggestion.hint }}
+          </option>
+        {% endfor %}
+        </select>
+      </noscript>
+
+      <input
+        id="{{ params.id }}"
+        name="{{ params.name }}"
+        type="text"
+        class="govuk-input app-combobox__input"
+        placeholder="{{ params.placeholder if params.placeholder else ' - - select - - ' }}"
+        autocapitalize="none"
+        combobox="off"
+        role="combobox"
+        aria-controls="app-combobox-{{ params.id }}-suggestions"
+        aria-combobox="list"
+        aria-expanded="false"
+      />
+
 
       <button class="app-combobox__chevron-button js-visible"
               type="button"
