@@ -6,18 +6,16 @@
   </h2>
 {% endif %}
 
-<hx-partial id="app-data-list">
-  <dl class="app-data-list" data-testid="app-data-list">
-    {% for item in params.items %}
-      <dt class="app-data-list-heading{% if item.heading.classes %} {{ item.heading.classes }}{% endif %}"
-          data-testid="app-data-list-heading-{{ loop.index }}">
-        {{ item.heading.text }}
-      </dt>
-      <dd class="app-data-list-item"
-          data-testid="app-data-list-item-{{ loop.index }}">
-        {{ appEntity(item.entity) }}
-      </dd>
+<dl class="app-data-list" data-testid="app-data-list">
+  {% for item in params.items %}
+    <dt class="app-data-list-heading{% if item.heading.classes %} {{ item.heading.classes }}{% endif %}"
+        data-testid="app-data-list-heading-{{ loop.index }}">
+      {{ item.heading.text }}
+    </dt>
+    <dd class="app-data-list-item"
+        data-testid="app-data-list-item-{{ loop.index }}">
+      {{ appEntity(item.entity) }}
+    </dd>
 
-    {% endfor %}
-  </dl>
-</hx-partial>
+  {% endfor %}
+</dl>
