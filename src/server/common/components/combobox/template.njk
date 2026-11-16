@@ -34,7 +34,7 @@
       html: params.hint.html if params.hint.html,
       classes: "app-hint",
       attributes: {
-        "data-testid": "app-autocomplete-hint"
+        "data-testid": "app-combobox-hint"
       }
     }) }}
   {% endif %}
@@ -51,7 +51,7 @@
     }) }}
   {% endif %}
 
-  {% set classes = ["app-combobox", params.classes if params.classes, "app-autocomplete--with-icon" if params.icon] | join(" ") | trim %}
+  {% set classes = ["app-combobox", params.classes if params.classes, "app-combobox--with-icon" if params.icon] | join(" ") | trim %}
   {% set inputClasses = "govuk-select app-select" %}
 
   {% set attributes = {
@@ -81,7 +81,7 @@
   } | pickBy %}
 
   <div class="{{ classes }}"
-       data-js="app-autocomplete{% if params.template %}-{{ params.template }}{% endif %}"
+       data-js="app-combobox{% if params.template %}-{{ params.template }}{% endif %}"
        data-testid="app-combobox"
     {% if params.loader.name %} data-loader="{{ params.loader.name }}"{% endif %}
   >
@@ -102,7 +102,7 @@
       <button class="app-combobox__chevron-button js-visible"
               type="button"
               tabindex="-1"
-              aria-owns="app-autocomplete-{{ params.id }}-suggestions"
+              aria-owns="app-combobox-{{ params.id }}-suggestions"
               aria-label="Show"
               data-js="app-chevron-button"
               data-testid="app-chevron-button"
@@ -114,7 +114,7 @@
               type="button"
               aria-hidden="true"
               tabindex="-1"
-              data-js="app-autocomplete-clear-button"
+              data-js="app-combobox-clear-button"
               data-testid="app-combobox-clear-button"
       >
         {{ appCancelIcon({ description: "Clear" }) }}
@@ -126,12 +126,12 @@
     </div>
 
     <ul
-      class="app-autocomplete__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}"
-      id="app-autocomplete-{{ params.id }}-suggestions"
+      class="app-combobox__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}"
+      id="app-combobox-{{ params.id }}-suggestions"
       aria-labelledby="{{ params.id }}-label"
       aria-expanded="false"
       role="listbox"
-      data-js="app-autocomplete-suggestions"
+      data-js="app-combobox-suggestions"
       data-testid="app-combobox-suggestions"></ul>
   </div>
   {{ caller() if caller else content }}
