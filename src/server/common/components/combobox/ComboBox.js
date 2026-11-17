@@ -14,8 +14,9 @@ export default class ComboBox extends NunjucksComponent {
   get managedListeners() {
     return [
       [this.#inputElement, 'focus', this.#onFocus],
-      [document, 'click', this.#onDocumentClick],
-      [this.#inputElement, 'input', this.#onInput]
+      [this.#inputElement, 'keydown', this.#onKeyDown],
+      [this.#inputElement, 'input', this.#onInput],
+      [document, 'click', this.#onDocumentClick]
     ]
   }
 
@@ -60,16 +61,33 @@ export default class ComboBox extends NunjucksComponent {
     this.render()
   }
 
-  #onDocumentClick(event) {
-    if (!this.contains(event.target)) {
+  #onKeyDown(event) {
+    const code = event.code.toLowerCase()
+    const textValue = event.target.value
+
+    if ((code === 'backspace' && !textValue) || code === 'escape') {
       this.#suggestions = []
       this.render()
+      return
+    }
+
+    if (code === 'tab') {
+      this.#suggestions = []
+      this.render()
+      this.#inputElement.dispatchEvent(new Event('blur', { bubbles: true }))
     }
   }
 
   #onInput() {
     this.#suggestions = this.#getSuggestions(this.#inputElement.value)
     this.render()
+  }
+
+  #onDocumentClick(event) {
+    if (!this.contains(event.target)) {
+      this.#suggestions = []
+      this.render()
+    }
   }
 
   #getSuggestions(value) {

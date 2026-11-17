@@ -94,7 +94,7 @@
         id="{{ params.id }}-input"
         type="text"
         value="{{ suggestionText }}"
-        class="govuk-input app-combobox__input js-visible"
+        class="govuk-input app-combobox__input js-visible{% if suggestions.length != 0 %} app-combobox__focused{% endif %}"
         placeholder="{{ params.placeholder if params.placeholder else ' - - select - - ' }}"
         autocapitalize="none"
         combobox="off"
@@ -145,13 +145,15 @@
           data-is-match="false"
           role="option"
           tabindex="-1"
-          id="app-combobox-user-suggestion-{{ loop.index }}"
+          id="app-combobox-{{ params.id }}-suggestion-{{ loop.index }}"
           aria-posinset="{{ loop.index }}"
           aria-setsize="{{ suggestions.length }}"
           aria-selected="{{'true' if suggestion.value == params.value else 'false'}}"
-          data-has-highlight="false"
         >
-          <span class="app-suggestion__value">{{ suggestion.text | replace(suggestionText, '<strong>' + suggestionText + '</strong>') | safe }}</span>
+          <label class="app-suggestion__value">
+            <input type="radio" name="app-combobox-{{ params.id }}-option" value="{{ suggestion.value }}" />
+            {{ suggestion.text | replace(suggestionText, '<strong>' + suggestionText + '</strong>') | safe }}
+          </label>
           <span class="app-suggestion__action"></span>
         </li>
       {% endfor %}
