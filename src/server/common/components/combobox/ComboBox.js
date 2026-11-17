@@ -94,9 +94,9 @@ export default class ComboBox extends NunjucksComponent {
 
   #onSuggestionsKeyDown(event) {
     const code = event.code.toLowerCase()
-    const textValue = event.target.value
+    const optionValue = event.target.value
 
-    if ((code === 'backspace' && !textValue) || code === 'escape') {
+    if (code === 'escape') {
       this.#inputElement.focus()
       this.#suggestions = []
       this.render()
@@ -112,6 +112,12 @@ export default class ComboBox extends NunjucksComponent {
         ...this.querySelectorAll('input:not([type="text"])')
       ].at(-1)
       lastOption?.focus()
+    } else if (code === 'enter') {
+      this.#selectedValue = optionValue
+      this.#inputElement.value =
+        this.#options.find((option) => option.value === optionValue)?.text ?? ''
+      this.#suggestions = []
+      this.render()
     }
   }
 
