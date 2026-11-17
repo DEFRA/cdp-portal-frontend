@@ -65,6 +65,9 @@ export default class ComboBox extends NunjucksComponent {
         text: this.dataset.hintText,
         html: this.dataset.hintHtml
       },
+      formGroup: {
+        classes: this.dataset.formgroupClasses
+      },
       suggestionText: this.#inputElement.value,
       value: this.#selectedValue,
       options: this.#options,
