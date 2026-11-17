@@ -42,11 +42,11 @@ export default class NunjucksComponent extends HTMLElement {
   }
 
   // Renders a template update using a DOM morph https://github.com/bigskysoftware/idiomorph on the existing DOM
-  morph(template, params, idiomorphOptions = {}) {
+  async morph(template, params, idiomorphOptions = {}) {
     const html = nunjucksEnvironment.render(template, {
       params
     })
-    Idiomorph.morph(this, html, {
+    return Idiomorph.morph(this, html, {
       ...idiomorphOptions,
       morphStyle: 'innerHTML'
     })
@@ -70,8 +70,8 @@ export default class NunjucksComponent extends HTMLElement {
     // NOTE: Listeners can be auto cleaned up using `managedListeners`
   }
 
-  render() {
+  async render() {
     // Default render from `data-` attributes
-    this.morph(this.#template, this.dataset)
+    return this.morph(this.#template, this.dataset)
   }
 }
