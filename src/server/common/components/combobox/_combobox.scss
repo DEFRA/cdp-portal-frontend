@@ -274,7 +274,7 @@ $large-width: 40em;
 
 .app-combobox__suggestion {
   margin: 0;
-  padding: govuk-spacing(1) govuk-spacing(2);
+  padding: 0;
   display: flex;
   align-items: center;
   color: govuk-colour('black');
@@ -300,6 +300,7 @@ $large-width: 40em;
     order: 1;
     flex: 1.4;
     justify-content: flex-start;
+    padding: govuk-spacing(1) govuk-spacing(2);
   }
 
   .app-suggestion__hint {

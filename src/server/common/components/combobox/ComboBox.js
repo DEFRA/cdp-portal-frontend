@@ -6,6 +6,7 @@ export default class ComboBox extends NunjucksComponent {
   #suggestions = []
   #inputElement
   #suggestionsContainer
+  #clearButton
   #selectedValue
 
   constructor() {
@@ -19,6 +20,7 @@ export default class ComboBox extends NunjucksComponent {
       [this.#inputElement, 'input', this.#onInput],
       [this.#suggestionsContainer, 'keydown', this.#onSuggestionsKeyDown],
       [this.#suggestionsContainer, 'click', this.#onSuggestionsClick],
+      [this.#clearButton, 'click', this.#onClearButtonClick],
       [document, 'click', this.#onDocumentClick]
     ]
   }
@@ -27,6 +29,9 @@ export default class ComboBox extends NunjucksComponent {
     this.#inputElement = this.querySelector('input')
     this.#suggestionsContainer = this.querySelector(
       `#app-combobox-${this.dataset.id}-suggestions`
+    )
+    this.#clearButton = this.querySelector(
+      `#app-combobox-${this.dataset.id}-clear-button`
     )
 
     const $options = this.querySelectorAll('select > option') ?? []
@@ -144,6 +149,13 @@ export default class ComboBox extends NunjucksComponent {
     this.#inputElement.value =
       this.#options.find((option) => option.value === optionValue)?.text ?? ''
 
+    this.#suggestions = []
+    this.render()
+  }
+
+  #onClearButtonClick() {
+    this.#selectedValue = undefined
+    this.#inputElement.value = ''
     this.#suggestions = []
     this.render()
   }

@@ -107,21 +107,24 @@
       />
 
 
-      <button class="app-combobox__chevron-button js-visible{{ ' app-combobox__chevron-button--open' if suggestions.length != 0 }}"
-              type="button"
-              tabindex="-1"
-              aria-owns="app-combobox-{{ params.id }}-suggestions"
-              aria-label="Show"
-              data-testid="app-chevron-button"
+      <button
+        id="app-combobox-{{ params.id }}-chevron-button"
+        class="app-combobox__chevron-button js-visible{{ ' app-combobox__chevron-button--open' if suggestions.length != 0 }}"
+        type="button"
+        tabindex="-1"
+        aria-owns="app-combobox-{{ params.id }}-suggestions"
+        aria-label="Show"
+        data-testid="app-chevron-button"
       >
         {{ appChevronIcon() }}
       </button>
 
-      <button class="app-combobox__clear-button{{ ' app-combobox__clear-button--show' if suggestionText != '' }}"
-              type="button"
-              aria-hidden="{{ 'false' if suggestionText != '' else 'true' }}"
-              tabindex="-1"
-              data-testid="app-autocomplete-clear-button"
+      <button
+        id="app-combobox-{{ params.id }}-clear-button"
+        class="app-combobox__clear-button{{ ' app-combobox__clear-button--show' if suggestionText != '' }}"
+        type="button"
+        tabindex="-1"
+        data-testid="app-autocomplete-clear-button"
       >
         {{ appCancelIcon({ description: "Clear" }) }}
       </button>
@@ -155,7 +158,6 @@
               name="app-combobox-{{ params.id }}-option"
               value="{{ suggestion.value }}"
               class="app-combobox__option"
-              aria-hidden="true"
             />
             {{ suggestion.text | replaceIgnoreCase(suggestionText, '<strong>$&</strong>') | safe }}
           </label>
