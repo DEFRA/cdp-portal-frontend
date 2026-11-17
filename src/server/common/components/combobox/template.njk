@@ -151,7 +151,12 @@
           aria-selected="{{'true' if suggestion.value == params.value else 'false'}}"
         >
           <label class="app-suggestion__value">
-            <input type="radio" name="app-combobox-{{ params.id }}-option" value="{{ suggestion.value }}" />
+            <input
+              type="radio"
+              name="app-combobox-{{ params.id }}-option"
+              value="{{ suggestion.value }}"
+              class="app-combobox__option"
+            />
             {{ suggestion.text | replaceIgnoreCase(suggestionText, '<strong>$&</strong>') | safe }}
           </label>
           <span class="app-suggestion__action"></span>

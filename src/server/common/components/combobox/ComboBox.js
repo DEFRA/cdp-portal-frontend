@@ -18,6 +18,7 @@ export default class ComboBox extends NunjucksComponent {
       [this.#inputElement, 'keydown', this.#onKeyDown],
       [this.#inputElement, 'input', this.#onInput],
       [this.#suggestionsContainer, 'keydown', this.#onSuggestionsKeyDown],
+      [this.#suggestionsContainer, 'click', this.#onSuggestionsClick],
       [document, 'click', this.#onDocumentClick]
     ]
   }
@@ -76,15 +77,18 @@ export default class ComboBox extends NunjucksComponent {
     } else if (code === 'tab') {
       this.#suggestions = []
       this.render()
+
       this.#inputElement.dispatchEvent(new Event('blur', { bubbles: true }))
     } else if (code === 'arrowdown' || code === 'home') {
       event.preventDefault()
+
       const firstOption = [
         ...this.querySelectorAll('input:not([type="text"])')
       ].at(0)
       firstOption?.focus()
     } else if (code === 'end') {
       event.preventDefault()
+
       const lastOption = [
         ...this.querySelectorAll('input:not([type="text"])')
       ].at(-1)
@@ -92,22 +96,32 @@ export default class ComboBox extends NunjucksComponent {
     }
   }
 
+  #onInput() {
+    this.#suggestions = this.#getSuggestions(this.#inputElement.value)
+    this.render()
+  }
+
   #onSuggestionsKeyDown(event) {
+    if (!(event.target instanceof HTMLInputElement)) return
+
     const code = event.code.toLowerCase()
     const optionValue = event.target.value
 
     if (code === 'escape') {
       this.#inputElement.focus()
+
       this.#suggestions = []
       this.render()
     } else if (code === 'home') {
       event.preventDefault()
+
       const firstOption = [
         ...this.querySelectorAll('input:not([type="text"])')
       ].at(0)
       firstOption?.focus()
     } else if (code === 'end') {
       event.preventDefault()
+
       const lastOption = [
         ...this.querySelectorAll('input:not([type="text"])')
       ].at(-1)
@@ -116,13 +130,21 @@ export default class ComboBox extends NunjucksComponent {
       this.#selectedValue = optionValue
       this.#inputElement.value =
         this.#options.find((option) => option.value === optionValue)?.text ?? ''
+
       this.#suggestions = []
       this.render()
     }
   }
 
-  #onInput() {
-    this.#suggestions = this.#getSuggestions(this.#inputElement.value)
+  #onSuggestionsClick(event) {
+    if (!(event.target instanceof HTMLLabelElement)) return
+    const optionValue = event.target.control.value
+
+    this.#selectedValue = optionValue
+    this.#inputElement.value =
+      this.#options.find((option) => option.value === optionValue)?.text ?? ''
+
+    this.#suggestions = []
     this.render()
   }
 

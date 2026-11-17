@@ -316,7 +316,11 @@ $large-width: 40em;
     height: 20px;
   }
 
-  &.app-combobox__suggestion--highlight {
+  .app-combobox__option {
+    // display: none;
+  }
+
+  &:has(input:focus) {
     background-color: govuk-colour('blue', 'tint-25');
     color: govuk-colour('white');
 
