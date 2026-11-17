@@ -14,7 +14,7 @@ export default class ComboBox extends NunjucksComponent {
   get managedListeners() {
     return [
       [this.#inputElement, 'focus', this.#onFocus],
-      // [this.#inputElement, 'blur', this.#onBlur],
+      [document, 'click', this.#onDocumentClick],
       [this.#inputElement, 'input', this.#onInput]
     ]
   }
@@ -52,9 +52,11 @@ export default class ComboBox extends NunjucksComponent {
     this.render()
   }
 
-  #onBlur() {
-    this.#suggestions = []
-    this.render()
+  #onDocumentClick(event) {
+    if (!this.contains(event.target)) {
+      this.#suggestions = []
+      this.render()
+    }
   }
 
   #onInput() {
