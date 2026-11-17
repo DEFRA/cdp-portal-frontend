@@ -4,6 +4,7 @@ import template from './template.njk'
 export default class ComboBox extends NunjucksComponent {
   #options = []
   #suggestions = []
+  #selectElement
   #inputElement
   #suggestionsContainer
   #clearButton
@@ -28,6 +29,7 @@ export default class ComboBox extends NunjucksComponent {
   }
 
   mounted() {
+    this.#selectElement = this.querySelector('select')
     this.#inputElement = this.querySelector('input')
     this.#suggestionsContainer = this.querySelector(
       `#app-combobox-${this.dataset.id}-suggestions`
@@ -54,8 +56,8 @@ export default class ComboBox extends NunjucksComponent {
     })
   }
 
-  render() {
-    this.morph(template, {
+  async render() {
+    return this.morph(template, {
       ...this.dataset,
       label: {
         text: this.dataset.labelText,
@@ -80,7 +82,7 @@ export default class ComboBox extends NunjucksComponent {
     this.render()
   }
 
-  #onKeyDown(event) {
+  async #onKeyDown(event) {
     const code = event.code.toLowerCase()
     const textValue = event.target.value
 
@@ -89,7 +91,7 @@ export default class ComboBox extends NunjucksComponent {
       this.render()
     } else if (code === 'tab') {
       this.#suggestions = []
-      this.render()
+      await this.render()
 
       this.#inputElement.dispatchEvent(new Event('blur', { bubbles: true }))
     } else if (code === 'arrowdown' || code === 'home') {
@@ -114,7 +116,7 @@ export default class ComboBox extends NunjucksComponent {
     this.render()
   }
 
-  #onSuggestionsKeyDown(event) {
+  async #onSuggestionsKeyDown(event) {
     if (!(event.target instanceof HTMLInputElement)) return
 
     const code = event.code.toLowerCase()
@@ -145,11 +147,13 @@ export default class ComboBox extends NunjucksComponent {
         this.#options.find((option) => option.value === optionValue)?.text ?? ''
 
       this.#suggestions = []
-      this.render()
+      await this.render()
+
+      this.#selectElement.dispatchEvent(new Event('change', { bubbles: true }))
     }
   }
 
-  #onSuggestionsClick(event) {
+  async #onSuggestionsClick(event) {
     if (!(event.target instanceof HTMLLabelElement)) return
     const optionValue = event.target.control.value
 
@@ -158,14 +162,19 @@ export default class ComboBox extends NunjucksComponent {
       this.#options.find((option) => option.value === optionValue)?.text ?? ''
 
     this.#suggestions = []
-    this.render()
+    await this.render()
+
+    this.#selectElement.dispatchEvent(new Event('change', { bubbles: true }))
   }
 
-  #onClearButtonClick() {
+  async #onClearButtonClick() {
     this.#selectedValue = undefined
-    this.#inputElement.value = ''
+    this.#inputElement.value = '' // TODO: update state not element
+
     this.#suggestions = []
-    this.render()
+    await this.render()
+
+    this.#selectElement.dispatchEvent(new Event('change', { bubbles: true }))
   }
 
   #onChevronButtonClick() {
