@@ -4,6 +4,7 @@
 
 {% from "icons/chevron-icon/macro.njk" import appChevronIcon %}
 {% from "icons/cancel-icon/macro.njk" import appCancelIcon %}
+{% from "icons/tick-icon/macro.njk" import appTickIcon %}
 {% from "loader/macro.njk" import appLoader %}
 
 {% set options = params.options if params.options else [] %}
@@ -161,7 +162,13 @@
             />
             {{ suggestion.text | replaceIgnoreCase(suggestionText, '<strong>$&</strong>') | safe }}
           </label>
-          <span class="app-suggestion__action"></span>
+          <span class="app-suggestion__action">
+            {% if suggestion.value == params.value %}
+              {{ appTickIcon({
+                classes: 'app-icon--tiny'
+              }) }}
+            {% endif %}
+          </span>
         </li>
       {% endfor %}
     </ul>
