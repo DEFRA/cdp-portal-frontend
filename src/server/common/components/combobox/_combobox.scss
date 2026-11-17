@@ -317,7 +317,10 @@ $large-width: 40em;
   }
 
   .app-combobox__option {
-    // display: none;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
   }
 
   &:has(input:focus) {
