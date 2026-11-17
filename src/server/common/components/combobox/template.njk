@@ -152,7 +152,7 @@
         >
           <label class="app-suggestion__value">
             <input type="radio" name="app-combobox-{{ params.id }}-option" value="{{ suggestion.value }}" />
-            {{ suggestion.text | replace(suggestionText, '<strong>' + suggestionText + '</strong>') | safe }}
+            {{ suggestion.text | replaceIgnoreCase(suggestionText, '<strong>$&</strong>') | safe }}
           </label>
           <span class="app-suggestion__action"></span>
         </li>

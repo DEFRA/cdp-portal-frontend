@@ -19,6 +19,7 @@ import { sanitiseUser } from '#server/common/helpers/sanitisation/sanitise-user.
 import { partial } from 'filesize'
 
 import { encodePathSegments } from '#server/common/services/bucket-service/encodePathSegments.js'
+import escapeRegExp from 'lodash/escapeRegExp.js'
 
 const formatText = (value) => upperFirst(kebabCase(value))
 
@@ -39,6 +40,10 @@ function uppercaseMatch(value, matches = []) {
       matches.includes(word.toLowerCase()) ? word.toUpperCase() : word
     )
     .join(' ')
+}
+
+function replaceIgnoreCase(value, original, replacement) {
+  return value?.replace(new RegExp(escapeRegExp(original), 'gi'), replacement)
 }
 
 export {
@@ -62,5 +67,6 @@ export {
   isObject,
   formatFileSize,
   encodePathSegments,
-  uid
+  uid,
+  replaceIgnoreCase
 }
