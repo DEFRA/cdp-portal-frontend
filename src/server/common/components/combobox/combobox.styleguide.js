@@ -32,8 +32,8 @@ export const comboboxStyleguide = {
         hint: {
           text: 'Choose a user'
         },
-        id: 'user',
-        name: 'user',
+        id: 'old-user',
+        name: 'old-user',
         suggestions: [
           {
             value: '',

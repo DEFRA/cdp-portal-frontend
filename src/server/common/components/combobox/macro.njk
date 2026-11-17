@@ -5,9 +5,13 @@
     {%- include "./old-template.njk" -%}
   {% else %}
     <app-combobox
-      data-id={{ params.id }}
-      data-name={{ params.name }}
-      data-value={{ params.value }}
+      data-id="{{ params.id }}"
+      data-name="{{ params.name }}"
+      data-value="{{ params.value }}"
+      data-label-text="{{ params.label.text }}"
+      data-label-classes="{{ params.label.classes }}"
+      data-hint-text="{{ params.hint.text }}"
+      data-hint-html="{{ params.hint.html }}"
     >
     {%- include "./template.njk" -%}
     </app-combobox>
