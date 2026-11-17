@@ -193,6 +193,7 @@ $large-width: 40em;
     order: 2;
     flex: 3;
     justify-content: flex-start;
+    padding: govuk-spacing(1) govuk-spacing(2);
   }
 
   .app-suggestion__action {
@@ -201,6 +202,7 @@ $large-width: 40em;
     align-self: flex-end;
     width: 20px;
     height: 20px;
+    padding: govuk-spacing(1) govuk-spacing(2);
   }
 
   .app-combobox__option {
