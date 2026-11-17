@@ -10,9 +10,7 @@
 {% set options = params.options if params.options else [] %}
 {% set suggestions = params.suggestions if params.suggestions else [] %}
 {% set suggestionText = params.suggestionText if params.suggestionText else '' %}
-
-{% set content = params.html | safe if params.html else params.text %}
-{% set removePasswordWidgets = params.removePasswordWidgets | default("true") %}
+{% set attributes = params.attributes if params.attributes else {} %}
 
 <div id="app-autocomplete-{{ params.id }}"
   class="govuk-form-group app-form-group{% if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}{% if params.errorMessage.text %}govuk-form-group--error{% endif %}"
@@ -49,25 +47,6 @@
   {% endif %}
 
   {% set classes = ["app-combobox", params.classes if params.classes, "app-combobox--with-icon" if params.icon] | join(" ") | trim %}
-  {% set inputClasses = "govuk-select app-select js-hidden" %}
-
-  {% set attributes = {
-    name: params.name,
-    id: params.id,
-    class: [inputClasses, "govuk-select--error" if params.errorMessage.text] | join(" ") | trim,
-    "data-no-suggestions-message": params.noSuggestionsMessage,
-    "data-placeholder": params.placeholder,
-    "data-fetcher-name": params.dataFetcher.name,
-    "data-fetcher-loader": params.dataFetcher.loader,
-    "data-hx-post": params.dataHxPost,
-    "data-hx-target": params.dataHxTarget,
-    "data-hx-indicator": params.dataHxIndicator,
-    "data-testid": "app-progressive-input",
-    "data-suggestion-classes": params.suggestionClasses,
-    "data-disable-lunr-special-characters-filter": true if params.disableLunrSpecialCharactersFilter == true,
-    "data-disable-auto-submit": true if params.disableAutoSubmit == true,
-    "data-allow-reselection": true if params.allowReselection == true
-  } | pickBy %}
 
   <div class="{{ classes }}"
        data-testid="app-autocomplete"
@@ -79,7 +58,13 @@
       {% endif %}
 
 
-      <select {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}>
+      <select
+        {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
+        name="{{ params.name }}"
+        id="{{ params.id }}"
+        class="govuk-select app-select js-hidden{{ ' govuk-select--error' if params.errorMessage.text }}"
+        data-testid="app-progressive-input"
+      >
       {% for option in options %}
         <option
           value="{{ option.value }}"
@@ -92,6 +77,7 @@
 
 
       <input
+        {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
         id="{{ params.id }}-input"
         type="text"
         value="{{ suggestionText }}"
@@ -173,5 +159,4 @@
       {% endfor %}
     </ul>
   </div>
-  {{ caller() if caller else content }}
 </div>
