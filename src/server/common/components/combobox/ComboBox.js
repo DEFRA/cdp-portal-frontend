@@ -5,6 +5,7 @@ export default class ComboBox extends NunjucksComponent {
   #options = []
   #suggestions = []
   #inputElement
+  #suggestionsContainer
   #selectedValue
 
   constructor() {
@@ -16,12 +17,16 @@ export default class ComboBox extends NunjucksComponent {
       [this.#inputElement, 'focus', this.#onFocus],
       [this.#inputElement, 'keydown', this.#onKeyDown],
       [this.#inputElement, 'input', this.#onInput],
+      [this.#suggestionsContainer, 'keydown', this.#onSuggestionsKeyDown],
       [document, 'click', this.#onDocumentClick]
     ]
   }
 
   mounted() {
     this.#inputElement = this.querySelector('input')
+    this.#suggestionsContainer = this.querySelector(
+      `#app-combobox-${this.dataset.id}-suggestions`
+    )
 
     const $options = this.querySelectorAll('select > option') ?? []
     $options.forEach(($option) => {
@@ -68,13 +73,33 @@ export default class ComboBox extends NunjucksComponent {
     if ((code === 'backspace' && !textValue) || code === 'escape') {
       this.#suggestions = []
       this.render()
-      return
-    }
-
-    if (code === 'tab') {
+    } else if (code === 'tab') {
       this.#suggestions = []
       this.render()
       this.#inputElement.dispatchEvent(new Event('blur', { bubbles: true }))
+    } else if (code === 'arrowdown' || code === 'home') {
+      event.preventDefault()
+      const firstOption = [
+        ...this.querySelectorAll('input:not([type="text"])')
+      ].at(0)
+      firstOption?.focus()
+    }
+  }
+
+  #onSuggestionsKeyDown(event) {
+    const code = event.code.toLowerCase()
+    const textValue = event.target.value
+
+    if ((code === 'backspace' && !textValue) || code === 'escape') {
+      this.#inputElement.focus()
+      this.#suggestions = []
+      this.render()
+    } else if (code === 'home') {
+      event.preventDefault()
+      const firstOption = [
+        ...this.querySelectorAll('input:not([type="text"])')
+      ].at(0)
+      firstOption?.focus()
     }
   }
 
