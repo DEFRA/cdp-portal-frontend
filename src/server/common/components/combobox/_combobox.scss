@@ -232,7 +232,10 @@ $large-width: 40em;
   border-radius: $app-border-radius-min;
   border: 1px solid govuk-colour('black', $variant: 'tint-80');
 
-  &:focus {
+  &:focus, &.app-combobox__focused {
+    outline: 3px solid;
+    outline-color: var(--govuk-focus-colour, #ffdd00);
+    outline-offset: 0;
     border: 1px solid govuk-colour('black');
     box-shadow: none;
   }
