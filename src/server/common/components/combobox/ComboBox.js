@@ -83,6 +83,12 @@ export default class ComboBox extends NunjucksComponent {
         ...this.querySelectorAll('input:not([type="text"])')
       ].at(0)
       firstOption?.focus()
+    } else if (code === 'end') {
+      event.preventDefault()
+      const lastOption = [
+        ...this.querySelectorAll('input:not([type="text"])')
+      ].at(-1)
+      lastOption?.focus()
     }
   }
 
@@ -100,6 +106,12 @@ export default class ComboBox extends NunjucksComponent {
         ...this.querySelectorAll('input:not([type="text"])')
       ].at(0)
       firstOption?.focus()
+    } else if (code === 'end') {
+      event.preventDefault()
+      const lastOption = [
+        ...this.querySelectorAll('input:not([type="text"])')
+      ].at(-1)
+      lastOption?.focus()
     }
   }
 
