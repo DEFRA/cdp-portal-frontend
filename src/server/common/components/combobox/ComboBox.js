@@ -40,6 +40,14 @@ export default class ComboBox extends NunjucksComponent {
   render() {
     this.morph(template, {
       ...this.dataset,
+      label: {
+        text: this.dataset.labelText,
+        classes: this.dataset.labelClasses
+      },
+      hint: {
+        text: this.dataset.hintText,
+        html: this.dataset.hintHtml
+      },
       suggestionText: this.#inputElement.value,
       value: this.#selectedValue,
       options: this.#options,
