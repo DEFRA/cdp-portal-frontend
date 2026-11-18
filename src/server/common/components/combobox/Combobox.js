@@ -1,5 +1,7 @@
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
+import { nunjucksEnvironment } from '#config/nunjucks/client.js'
 import template from './template.njk'
+import suggestionsTemplate from './suggestions.njk'
 
 export default class Combobox extends NunjucksComponent {
   #options = []
@@ -83,10 +85,37 @@ export default class Combobox extends NunjucksComponent {
     })
   }
 
+  // Render optimized for speed
+  renderSuggestions() {
+    const html = nunjucksEnvironment.render(suggestionsTemplate, {
+      params: {
+        value: this.#selectedValue
+      },
+      suggestions: this.#suggestions,
+      suggestionText: this.#suggestionText
+    })
+
+    this.#suggestionsContainer.innerHTML = html
+
+    if (this.#suggestions.length) {
+      this.#suggestionsContainer.classList.add(
+        'app-combobox__suggestions--show'
+      )
+    } else {
+      this.#suggestionsContainer.classList.remove(
+        'app-combobox__suggestions--show'
+      )
+    }
+    this.#suggestionsContainer.setAttribute(
+      'aria-expanded',
+      this.#suggestions.length === 0 ? 'false' : 'true'
+    )
+  }
+
   #onFocus() {
     this.#suggestionText = this.#inputElement.value
     this.#suggestions = this.#getSuggestions(this.#suggestionText)
-    this.render()
+    this.renderSuggestions()
   }
 
   async #onKeyDown(event) {
@@ -95,10 +124,10 @@ export default class Combobox extends NunjucksComponent {
 
     if ((code === 'backspace' && !textValue) || code === 'escape') {
       this.#suggestions = []
-      this.render()
+      this.renderSuggestions()
     } else if (code === 'tab') {
       this.#suggestions = []
-      await this.render()
+      this.renderSuggestions()
 
       this.#inputElement.dispatchEvent(new Event('blur', { bubbles: true }))
     } else if (code === 'arrowdown' || code === 'home') {
@@ -121,7 +150,7 @@ export default class Combobox extends NunjucksComponent {
   #onInput() {
     this.#suggestionText = this.#inputElement.value
     this.#suggestions = this.#getSuggestions(this.#suggestionText)
-    this.render()
+    this.renderSuggestions()
   }
 
   async #onSuggestionsKeyDown(event) {
@@ -134,7 +163,7 @@ export default class Combobox extends NunjucksComponent {
       this.#inputElement.focus()
 
       this.#suggestions = []
-      this.render()
+      this.renderSuggestions()
     } else if (code === 'home') {
       event.preventDefault()
 
@@ -193,16 +222,16 @@ export default class Combobox extends NunjucksComponent {
     if (this.#suggestions.length) {
       this.#suggestions = []
     } else {
-      this.#suggestions = this.#getSuggestions(this.#inputElement.value)
+      this.#suggestions = this.#getSuggestions(this.#suggestionText)
     }
 
-    this.render()
+    this.renderSuggestions()
   }
 
   #onDocumentClick(event) {
     if (!this.contains(event.target)) {
       this.#suggestions = []
-      this.render()
+      this.renderSuggestions()
     }
   }
 

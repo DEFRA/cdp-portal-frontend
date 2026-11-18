@@ -4,7 +4,6 @@
 
 {% from "icons/chevron-icon/macro.njk" import appChevronIcon %}
 {% from "icons/cancel-icon/macro.njk" import appCancelIcon %}
-{% from "icons/tick-icon/macro.njk" import appTickIcon %}
 {% from "loader/macro.njk" import appLoader %}
 
 {% set options = params.options if params.options else [] %}
@@ -133,38 +132,11 @@
       class="app-combobox__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}{{ ' app-combobox__suggestions--show' if suggestions.length != 0 }}"
       id="app-combobox-{{ params.id }}-suggestions"
       aria-labelledby="{{ params.id }}-label"
-      aria-expanded="{{'true' if suggestion.length != 0 else 'false'}}"
+      aria-expanded="{{'false' if suggestions.length == 0 else 'true'}}"
       role="listbox"
       data-testid="app-autocomplete-suggestions"
     >
-      {% for suggestion in suggestions %}
-        <li
-          class="app-combobox__suggestion{% if suggestion.disabled %} app-combobox__suggestion--disabled{% endif %}"
-          role="option"
-          tabindex="-1"
-          id="app-combobox-{{ params.id }}-suggestion-{{ loop.index }}"
-          aria-posinset="{{ loop.index }}"
-          aria-setsize="{{ suggestions.length }}"
-          aria-selected="{{'true' if suggestion.value == params.value else 'false'}}"
-        >
-          <label class="app-suggestion__value">
-            <input
-              type="radio"
-              name="app-combobox-{{ params.id }}-option"
-              value="{{ suggestion.value }}"
-              class="app-combobox__option"
-            />
-            {{ suggestion.text | replaceIgnoreCase(suggestionText, '<strong>$&</strong>') | safe }}
-          </label>
-          <span class="app-suggestion__action">
-            {% if suggestion.value == params.value %}
-              {{ appTickIcon({
-                classes: 'app-icon--tiny'
-              }) }}
-            {% endif %}
-          </span>
-        </li>
-      {% endfor %}
+      {%- include "./suggestions.njk" -%}
     </ul>
   </div>
 </div>
