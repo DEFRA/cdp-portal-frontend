@@ -26,6 +26,7 @@ export default class ComboBox extends NunjucksComponent {
       [this.#inputElement, 'input', this.#onInput],
       [this.#suggestionsContainer, 'keydown', this.#onSuggestionsKeyDown],
       [this.#suggestionsContainer, 'click', this.#onSuggestionsClick],
+      [this.#suggestionsContainer, 'change', this.#onSuggestionsChange],
       [this.#clearButton, 'click', this.#onClearButtonClick],
       [this.#chevronButton, 'click', this.#onChevronButtonClick],
       [document, 'click', this.#onDocumentClick]
@@ -173,6 +174,10 @@ export default class ComboBox extends NunjucksComponent {
     await this.render()
 
     this.#selectElement.dispatchEvent(new Event('change', { bubbles: true }))
+  }
+
+  #onSuggestionsChange(event) {
+    event.stopPropagation()
   }
 
   async #onClearButtonClick() {
