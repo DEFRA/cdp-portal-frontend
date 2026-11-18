@@ -11,7 +11,7 @@
 {% set suggestions = params.suggestions if params.suggestions else [] %}
 
 {% set currentOption = options | find({ value: params.value }) %}
-{% set currentOptionText = currentOption.text if currentOption else '' %}
+{% set currentOptionText = currentOption.text if currentOption and currentOption.value != '' else '' %}
 {% set suggestionText = params.suggestionText if params.suggestionText else currentOptionText %}
 
 {% set attributes = params.attributes if params.attributes else {} %}
@@ -64,12 +64,15 @@
 
       <select
         {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
-        name="{{ params.name }}"
+        {% if params.value != '' and params.value != undefined %}
+          name="{{ params.name }}"
+        {% endif %}
         id="{{ params.id }}"
         class="govuk-select app-select js-hidden{{ ' govuk-select--error' if params.errorMessage.text }}"
         data-testid="app-progressive-input"
       >
       {% for option in options %}
+        <option value="" {% if params.value == '' or params.value == undefined %}selected="selected"{% endif %}>- - select - -</option>
         <option
           value="{{ option.value }}"
           {% if params.value == option.value %}selected="selected"{% endif %}
@@ -112,7 +115,7 @@
 
       <button
         id="app-combobox-{{ params.id }}-clear-button"
-        class="app-combobox__clear-button{{ ' app-combobox__clear-button--show' if suggestionText != '' }}"
+        class="app-combobox__clear-button{{ ' app-combobox__clear-button--show' if params.value != '' and params.value != undefined }}"
         type="button"
         tabindex="-1"
         data-testid="app-autocomplete-clear-button"

@@ -14,7 +14,6 @@ export default class ComboBox extends NunjucksComponent {
   #clearButton
   #chevronButton
 
-
   constructor() {
     super(template)
   }
