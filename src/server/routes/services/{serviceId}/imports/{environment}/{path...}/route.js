@@ -2,7 +2,6 @@ import {
   commonServiceExtensions,
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
-import { scopes } from '@defra/cdp-validation-kit'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import {
   listPathContents,
@@ -14,7 +13,7 @@ import { getEnvironments } from '#server/common/helpers/environments/get-environ
 import Boom from '@hapi/boom'
 import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
 import { config } from '#config/config.js'
-import { requireAdminOrBetaTester } from '../../helpers/require-admin-or-beta-tester.js'
+import { importsAuth } from '../../helpers/imports-auth.js'
 
 const IMPORT_FILE_EXTS = ['.dump']
 
@@ -23,13 +22,6 @@ const showAllEnvs = config.get('imports.showAllEnvs') ?? false
 export const ext = [
   ...commonServiceExtensions,
   provideNotFoundIfPrototypeExtension,
-  {
-    type: 'onPreHandler',
-    method: requireAdminOrBetaTester,
-    options: {
-      sandbox: 'plugin'
-    }
-  },
   {
     type: 'onPostHandler',
     method: provideSubNav('imports', SERVICE, {
@@ -46,12 +38,7 @@ export const ext = [
 
 export const options = {
   id: 'services/{serviceId}/imports/{environment}',
-  auth: {
-    mode: 'required',
-    access: {
-      scope: [scopes.admin, scopes.serviceOwner]
-    }
-  }
+  auth: importsAuth()
 }
 
 export default async function (request) {

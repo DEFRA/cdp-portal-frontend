@@ -117,6 +117,36 @@ describe('Service imports page', () => {
       expect(statusCode).toBe(statusCodes.forbidden)
     })
 
+    test('page shows prod write actions but no download for beta service owner without break-glass', async () => {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `/services/${serviceName}/imports/prod`,
+        isAdmin: false,
+        isTenant: true,
+        teamScope: 'mock-team-id',
+        additionalScopes: ['permission:betaTester']
+      })
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(result).toContain('action=delete')
+      expect(result).toContain('action=create')
+      expect(result).toContain('<app-file-upload')
+      expect(result).not.toContain('/imports-resource/prod/')
+    })
+
+    test('page shows prod download for beta service owner with team break-glass', async () => {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `/services/${serviceName}/imports/prod`,
+        isAdmin: false,
+        isTenant: true,
+        teamScope: 'mock-team-id',
+        additionalScopes: [
+          'permission:betaTester',
+          'permission:breakGlass:team:mock-team-id'
+        ]
+      })
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(result).toContain('/imports-resource/prod/')
+    })
+
     test('page errors with 401 for logged out user', async () => {
       const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/imports/test`,

@@ -1,9 +1,8 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
-import { scopes } from '@defra/cdp-validation-kit'
 import formEngine from '#server/plugins/form-engine/form-engine.js'
 import actions from './actions/index.js'
 import provideLayoutContext from './ext/provideLayoutContext.js'
-import { requireAdminOrBetaTester } from '../../../imports/helpers/require-admin-or-beta-tester.js'
+import { importsAuth } from '../../../imports/helpers/imports-auth.js'
 
 export function register(routePath) {
   return [
@@ -13,26 +12,11 @@ export function register(routePath) {
         route: {
           path: routePath,
           options: {
-            auth: {
-              mode: 'required',
-              access: {
-                scope: [scopes.admin, scopes.serviceOwner]
-              }
-            }
+            auth: importsAuth()
           }
         },
 
-        ext: [
-          ...commonServiceExtensions,
-          {
-            type: 'onPreHandler',
-            method: requireAdminOrBetaTester,
-            options: {
-              sandbox: 'plugin'
-            }
-          },
-          provideLayoutContext()
-        ],
+        ext: [...commonServiceExtensions, provideLayoutContext()],
 
         layout:
           'routes/services/{serviceId}/imports-action/{environment}/{path...}/layout.njk',

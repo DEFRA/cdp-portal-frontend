@@ -29,7 +29,7 @@ export default function provideLayoutContext() {
         return Boom.notFound('Invalid environment')
       }
 
-      const hasBreakGlass = userHasBreakGlass(entity, userSession)
+      const hasBreakGlass = userHasBreakGlass(userSession, entity)
       const dataAccessAllowed = environment !== 'prod' || hasBreakGlass
 
       if (action === 'import' && !dataAccessAllowed) {

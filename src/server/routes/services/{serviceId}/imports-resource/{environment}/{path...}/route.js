@@ -1,5 +1,4 @@
 import { commonServiceExtensions } from '#server/common/helpers/ext/extensions.js'
-import { scopes } from '@defra/cdp-validation-kit'
 import {
   completeMultipartUpload,
   getFileUrl,
@@ -8,27 +7,13 @@ import {
 } from '#server/common/services/bucket-service/BucketService.js'
 import Boom from '@hapi/boom'
 import { parse } from '@hapi/subtext'
+import { importsAuth } from '../../../imports/helpers/imports-auth.js'
 import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
-import { requireAdminOrBetaTester } from '../../../imports/helpers/require-admin-or-beta-tester.js'
 
-export const ext = [
-  ...commonServiceExtensions,
-  {
-    type: 'onPreHandler',
-    method: requireAdminOrBetaTester,
-    options: {
-      sandbox: 'plugin'
-    }
-  }
-]
+export const ext = [...commonServiceExtensions]
 
 export const options = {
-  auth: {
-    mode: 'required',
-    access: {
-      scope: [scopes.admin, scopes.serviceOwner]
-    }
-  },
+  auth: importsAuth(),
   plugins: {
     crumb: {
       restful: true

@@ -9,7 +9,7 @@ import { userIsAdminOrBetaTester } from '../../common/helpers/user/user-is-admin
  * @param {import('@hapi/hapi').ResponseToolkit} h
  * @returns {Promise<symbol>}
  */
-async function provideServiceTabs(request, h) {
+export async function provideServiceTabs(request, h) {
   const userSession = request?.auth?.credentials
   const isAdmin = userSession?.isAdmin
   const isTenant = userSession?.isTenant
@@ -68,10 +68,8 @@ async function provideServiceTabs(request, h) {
         buildTab(response, request, 'services', 'terminal', entityName)
       }
 
-      if (isBackend) {
-        if (userIsAdminOrBetaTester(userSession?.scope)) {
-          buildTab(response, request, 'services', 'imports', entityName)
-        }
+      if (isBackend && userIsAdminOrBetaTester(userSession?.scope)) {
+        buildTab(response, request, 'services', 'imports', entityName)
       }
     }
 
@@ -80,5 +78,3 @@ async function provideServiceTabs(request, h) {
 
   return h.continue
 }
-
-export { provideServiceTabs }
