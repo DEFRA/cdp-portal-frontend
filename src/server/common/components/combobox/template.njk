@@ -71,15 +71,15 @@
         class="govuk-select app-select js-hidden{{ ' govuk-select--error' if params.errorMessage.text }}"
         data-testid="app-progressive-input"
       >
-      {% for option in options %}
         <option value="" {% if params.value == '' or params.value == undefined %}selected="selected"{% endif %}>- - select - -</option>
-        <option
-          value="{{ option.value }}"
-          {% if params.value == option.value %}selected="selected"{% endif %}
-        >
-          {{ option.text }}{{ " - " + option.hint if option.hint }}
-        </option>
-      {% endfor %}
+        {% for option in options %}
+          <option
+            value="{{ option.value }}"
+            {% if params.value == option.value %}selected="selected"{% endif %}
+          >
+            {{ option.text }}{{ " - " + option.hint if option.hint }}
+          </option>
+        {% endfor %}
       </select>
 
 
