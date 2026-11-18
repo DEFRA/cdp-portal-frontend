@@ -1,7 +1,7 @@
 import { renderTestComponent } from '#test-helpers/component-helpers.js'
 
 const renderAutoComplete = (params = {}) => {
-  const $component = renderTestComponent('autocomplete', {
+  const $component = renderTestComponent('combobox', {
     params: {
       label: {
         text: 'By'
@@ -11,7 +11,7 @@ const renderAutoComplete = (params = {}) => {
       },
       id: 'user',
       name: 'user',
-      suggestions: [
+      options: [
         {
           text: 'RoboCop',
           value: 'RoboCop',
@@ -32,35 +32,32 @@ const renderAutoComplete = (params = {}) => {
     }
   })
 
-  const $autocompleteFromGroup = $component(
+  const $comboboxFromGroup = $component(
     '[data-testid="app-autocomplete-group"]'
   ).first()
 
-  const $input = $autocompleteFromGroup.find(
+  const $input = $comboboxFromGroup.find(
     '[data-testid="app-progressive-input"]'
   )
 
-  const $autocomplete = $autocompleteFromGroup.find(
-    '[data-testid="app-autocomplete"]'
-  )
+  const $combobox = $comboboxFromGroup.find('[data-testid="app-autocomplete"]')
 
   return {
     $component,
-    $autocompleteFromGroup,
+    $comboboxFromGroup,
     $input,
-    $autocomplete
+    $combobox
   }
 }
 
-describe('Autocomplete Component', () => {
-  let $autocomplete
-  let $autocompleteFromGroup
+describe('Combobox Component', () => {
+  let $combobox
+  let $comboboxFromGroup
   let $input
 
   describe('When rendering with default props', () => {
     beforeEach(() => {
-      ;({ $autocompleteFromGroup, $autocomplete, $input } =
-        renderAutoComplete())
+      ;({ $comboboxFromGroup, $combobox, $input } = renderAutoComplete())
     })
 
     test('Should render with expected select input', () => {
@@ -68,7 +65,7 @@ describe('Autocomplete Component', () => {
     })
 
     test('Autocomplete should render', () => {
-      expect($autocomplete).toHaveLength(1)
+      expect($combobox).toHaveLength(1)
     })
 
     test('Should render expected element type', () => {
@@ -76,19 +73,16 @@ describe('Autocomplete Component', () => {
     })
 
     test('Should render with expected classes', () => {
-      expect($input.attr('class')).toBe('govuk-select app-select')
+      expect($input.attr('class')).toBe('govuk-select app-select js-hidden')
     })
 
     test('Should render with expected attributes', () => {
-      expect($input.attr('name')).toBe('user')
       expect($input.attr('id')).toBe('user')
-      expect($input.data('js')).toBe('app-progressive-input')
-      expect($input.data('remove-password-widgets')).toBe(true)
       expect($input.data('testid')).toBe('app-progressive-input')
     })
 
     test('Should render with expected label', () => {
-      const $label = $autocompleteFromGroup.find(
+      const $label = $comboboxFromGroup.find(
         '[data-testid="app-autocomplete-label"]'
       )
 
@@ -97,7 +91,7 @@ describe('Autocomplete Component', () => {
     })
 
     test('Should render with expected hint input', () => {
-      const $hint = $autocompleteFromGroup.find(
+      const $hint = $comboboxFromGroup.find(
         '[data-testid="app-autocomplete-hint"]'
       )
 
@@ -108,135 +102,21 @@ describe('Autocomplete Component', () => {
     test('Should render with expected suggestions', () => {
       const $options = $input.children('option')
 
-      expect($options).toHaveLength(3)
-      expect($options.eq(0).text().trim()).toBe('RoboCop')
-      expect($options.eq(1).text().trim()).toBe('Roger Rabbit')
-      expect($options.eq(2).text().trim()).toBe('Barbie')
-    })
-
-    test('Autocomplete should render with expected data attributes', () => {
-      expect($autocomplete.data('js')).toBe('app-autocomplete')
+      expect($options).toHaveLength(4)
+      expect($options.eq(0).text().trim()).toBe('- - select - -')
+      expect($options.eq(1).text().trim()).toBe('RoboCop')
+      expect($options.eq(2).text().trim()).toBe('Roger Rabbit')
+      expect($options.eq(3).text().trim()).toBe('Barbie')
     })
 
     test('Autocomplete should render with expected class', () => {
-      expect($autocomplete.hasClass('app-autocomplete--search')).toBe(false)
-    })
-  })
-
-  describe('When rendering with template prop', () => {
-    beforeEach(() => {
-      ;({ $autocomplete, $input } = renderAutoComplete({
-        template: 'search'
-      }))
-    })
-
-    test('Should render with expected input', () => {
-      expect($input).toHaveLength(1)
-    })
-
-    test('Autocomplete should render', () => {
-      expect($autocomplete).toHaveLength(1)
-    })
-
-    test('Should render expected element type', () => {
-      expect($input.get(0).tagName).toBe('input')
-      expect($input.attr('type')).toBe('text')
-    })
-
-    test('Should render with expected classes', () => {
-      expect($input.attr('class')).toBe('govuk-input app-input')
-    })
-
-    test('Should render with expected attributes', () => {
-      expect($input.attr('name')).toBe('user')
-      expect($input.attr('id')).toBe('user')
-      expect($input.data('js')).toBe('app-progressive-input')
-      expect($input.data('remove-password-widgets')).toBe(true)
-      expect($input.data('testid')).toBe('app-progressive-input')
-    })
-
-    test('Autocomplete should render with expected data attributes', () => {
-      expect($autocomplete.data('js')).toBe('app-autocomplete-search')
-    })
-
-    test('Autocomplete should render with expected class', () => {
-      expect($autocomplete.hasClass('app-autocomplete--search')).toBe(true)
-    })
-  })
-
-  describe('When rendering with optional params', () => {
-    const noResults = 'no results'
-    const placeHolder = 'type here'
-    const dataFetcher = {
-      name: 'fetchMock',
-      loader: 'mock-loader'
-    }
-    const siblingDataFetcher = {
-      names: ['fetchVersions'],
-      targets: ['deploy-version'],
-      targetLoaders: ['deploy-version-loader']
-    }
-    const publishTo = 'autocompleteUpdate-version'
-    const suggestionClasses = 'app-autocomplete__suggestion--custom'
-
-    beforeEach(() => {
-      ;({ $autocomplete, $input } = renderAutoComplete({
-        noSuggestionsMessage: noResults,
-        removePasswordWidgets: true,
-        placeholder: placeHolder,
-        typeahead: true,
-        dataFetcher,
-        siblingDataFetcher,
-        publishTo,
-        suggestionClasses
-      }))
-    })
-
-    test('Should render with expected no suggestions message attribute', () => {
-      expect($input.data('no-suggestions-message')).toBe(noResults)
-    })
-
-    test('Should render with expected remove password widgets attribute', () => {
-      expect($input.data('remove-password-widgets')).toBe(true)
-    })
-
-    test('Should render with expected placeholder attribute', () => {
-      expect($input.data('placeholder')).toBe(placeHolder)
-    })
-
-    test('Should render with expected typeahead attribute', () => {
-      expect($input.data('typeahead')).toBe(true)
-    })
-
-    test('Should render with expected data fetcher attributes', () => {
-      expect($input.data('fetcher-name')).toBe(dataFetcher.name)
-      expect($input.data('fetcher-loader')).toBe(dataFetcher.loader)
-    })
-
-    test('Should render with expected data sibling fetcher attributes', () => {
-      expect($input.data('sibling-data-fetcher-names')).toBe(
-        siblingDataFetcher.names.at(0)
-      )
-      expect($input.data('sibling-data-fetcher-targets')).toBe(
-        siblingDataFetcher.targets.at(0)
-      )
-      expect($input.data('sibling-data-fetcher-target-loaders')).toBe(
-        siblingDataFetcher.targetLoaders.at(0)
-      )
-    })
-
-    test('Should render with expected publish to pub-sub attribute', () => {
-      expect($input.data('publish-to')).toBe(publishTo)
-    })
-
-    test('Should render with expected suggestionClasses attribute', () => {
-      expect($input.data('suggestion-classes')).toBe(suggestionClasses)
+      expect($combobox.hasClass('app-autocomplete--search')).toBe(false)
     })
   })
 
   describe('When rendering with loader', () => {
     beforeEach(() => {
-      ;({ $autocompleteFromGroup } = renderAutoComplete({
+      ;({ $comboboxFromGroup } = renderAutoComplete({
         loader: {
           name: 'mock-loader'
         }
@@ -244,7 +124,7 @@ describe('Autocomplete Component', () => {
     })
 
     test('Should render with expected loader', () => {
-      const $loader = $autocompleteFromGroup.find('[data-testid="app-loader"]')
+      const $loader = $comboboxFromGroup.find('[data-testid="app-loader"]')
 
       expect($loader).toHaveLength(1)
       expect($loader.attr('class')).toBe('app-loader')
@@ -254,17 +134,17 @@ describe('Autocomplete Component', () => {
 
   describe('When rendering with icon', () => {
     beforeEach(() => {
-      ;({ $autocompleteFromGroup, $autocomplete } = renderAutoComplete({
+      ;({ $comboboxFromGroup, $combobox } = renderAutoComplete({
         icon: '<svg data-testid="app-icon">Mock icon</svg>'
       }))
     })
 
     test('Autocomplete should render with expected class', () => {
-      expect($autocomplete.hasClass('app-autocomplete--with-icon')).toBe(true)
+      expect($combobox.hasClass('app-combobox--with-icon')).toBe(true)
     })
 
     test('Should render with expected icon', () => {
-      const $inputIcon = $autocompleteFromGroup.find('[data-testid="app-icon"]')
+      const $inputIcon = $comboboxFromGroup.find('[data-testid="app-icon"]')
 
       expect($inputIcon).toHaveLength(1)
     })
