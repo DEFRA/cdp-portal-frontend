@@ -15,7 +15,7 @@ export default class NunjucksComponent extends HTMLElement {
   connectedCallback() {
     this.#connected = true
 
-     this.mounted()
+    this.mounted()
 
     this.managedListeners?.forEach(([target, event, handler]) => {
       const boundHandler = handler.bind(this)
