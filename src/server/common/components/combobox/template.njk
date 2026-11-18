@@ -9,7 +9,11 @@
 
 {% set options = params.options if params.options else [] %}
 {% set suggestions = params.suggestions if params.suggestions else [] %}
-{% set suggestionText = params.suggestionText if params.suggestionText else '' %}
+
+{% set currentOption = options | find({ value: params.value }) %}
+{% set currentOptionText = currentOption.text if currentOption else '' %}
+{% set suggestionText = params.suggestionText if params.suggestionText else currentOptionText %}
+
 {% set attributes = params.attributes if params.attributes else {} %}
 
 <div id="app-autocomplete-{{ params.id }}"
