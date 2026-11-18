@@ -1,6 +1,7 @@
 import { sortBy } from '../../common/helpers/sort/sort-by.js'
 import { buildTab } from '../../common/patterns/entities/tabs/helpers/build-tab.js'
 import { entitySubTypes, entityTypes } from '@defra/cdp-validation-kit'
+import { userIsAdminOrBetaTester } from '../../common/helpers/user/user-is-admin-or-beta-tester.js'
 
 /**
  * Provides tabs for the service view based on user authentication.
@@ -8,7 +9,7 @@ import { entitySubTypes, entityTypes } from '@defra/cdp-validation-kit'
  * @param {import('@hapi/hapi').ResponseToolkit} h
  * @returns {Promise<symbol>}
  */
-async function provideServiceTabs(request, h) {
+export async function provideServiceTabs(request, h) {
   const userSession = request?.auth?.credentials
   const isAdmin = userSession?.isAdmin
   const isTenant = userSession?.isTenant
@@ -67,11 +68,8 @@ async function provideServiceTabs(request, h) {
         buildTab(response, request, 'services', 'terminal', entityName)
       }
 
-      if (isBackend) {
-        // TODO: Remove condition to open to serviceOwners
-        if (isAdmin) {
-          buildTab(response, request, 'services', 'imports', entityName)
-        }
+      if (isBackend && userIsAdminOrBetaTester(userSession?.scope)) {
+        buildTab(response, request, 'services', 'imports', entityName)
       }
     }
 
@@ -80,5 +78,3 @@ async function provideServiceTabs(request, h) {
 
   return h.continue
 }
-
-export { provideServiceTabs }

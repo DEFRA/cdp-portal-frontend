@@ -1,6 +1,8 @@
 import { authScope } from '../helpers/auth/auth-scope.js'
 import { scopes } from '@defra/cdp-validation-kit'
 
+export const betaTesterScope = 'permission:betaTester'
+
 export const serviceOwnerOrAdminUserScope = authScope([
   scopes.admin,
   scopes.serviceOwner

@@ -2,7 +2,6 @@ import {
   commonServiceExtensions,
   provideNotFoundIfPrototypeExtension
 } from '#server/common/helpers/ext/extensions.js'
-import { scopes } from '@defra/cdp-validation-kit'
 import { formatText } from '#config/nunjucks/filters/filters.js'
 import {
   listPathContents,
@@ -14,6 +13,7 @@ import { getEnvironments } from '#server/common/helpers/environments/get-environ
 import Boom from '@hapi/boom'
 import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
 import { config } from '#config/config.js'
+import { importsAuth } from '../../helpers/imports-auth.js'
 
 const IMPORT_FILE_EXTS = ['.dump']
 
@@ -38,12 +38,7 @@ export const ext = [
 
 export const options = {
   id: 'services/{serviceId}/imports/{environment}',
-  auth: {
-    mode: 'required',
-    access: {
-      scope: [/* scopes.serviceOwner, */ scopes.admin] // TODO: Open to owners
-    }
-  }
+  auth: importsAuth()
 }
 
 export default async function (request) {
