@@ -4,12 +4,16 @@ import template from './template.njk'
 export default class ComboBox extends NunjucksComponent {
   #options = []
   #suggestions = []
+
+  #selectedValue
+  #suggestionText
+
   #selectElement
   #inputElement
   #suggestionsContainer
   #clearButton
   #chevronButton
-  #selectedValue
+
 
   constructor() {
     super(template)
@@ -54,6 +58,8 @@ export default class ComboBox extends NunjucksComponent {
         }
       }
     })
+
+    this.#suggestionText = this.#inputElement.value
   }
 
   async render() {
@@ -70,7 +76,7 @@ export default class ComboBox extends NunjucksComponent {
       formGroup: {
         classes: this.dataset.formgroupClasses
       },
-      suggestionText: this.#inputElement.value,
+      suggestionText: this.#suggestionText,
       value: this.#selectedValue,
       options: this.#options,
       suggestions: this.#suggestions
@@ -78,7 +84,8 @@ export default class ComboBox extends NunjucksComponent {
   }
 
   #onFocus() {
-    this.#suggestions = this.#getSuggestions(this.#inputElement.value)
+    this.#suggestionText = this.#inputElement.value
+    this.#suggestions = this.#getSuggestions(this.#suggestionText)
     this.render()
   }
 
@@ -112,7 +119,8 @@ export default class ComboBox extends NunjucksComponent {
   }
 
   #onInput() {
-    this.#suggestions = this.#getSuggestions(this.#inputElement.value)
+    this.#suggestionText = this.#inputElement.value
+    this.#suggestions = this.#getSuggestions(this.#suggestionText)
     this.render()
   }
 
@@ -143,7 +151,7 @@ export default class ComboBox extends NunjucksComponent {
       lastOption?.focus()
     } else if (code === 'enter') {
       this.#selectedValue = optionValue
-      this.#inputElement.value =
+      this.#suggestionText =
         this.#options.find((option) => option.value === optionValue)?.text ?? ''
 
       this.#suggestions = []
@@ -158,7 +166,7 @@ export default class ComboBox extends NunjucksComponent {
     const optionValue = event.target.control.value
 
     this.#selectedValue = optionValue
-    this.#inputElement.value =
+    this.#suggestionText =
       this.#options.find((option) => option.value === optionValue)?.text ?? ''
 
     this.#suggestions = []
@@ -169,7 +177,7 @@ export default class ComboBox extends NunjucksComponent {
 
   async #onClearButtonClick() {
     this.#selectedValue = undefined
-    this.#inputElement.value = '' // TODO: update state not element
+    this.#suggestionText = ''
 
     this.#suggestions = []
     await this.render()
