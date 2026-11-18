@@ -1,6 +1,7 @@
 import { sortBy } from '../../common/helpers/sort/sort-by.js'
 import { buildTab } from '../../common/patterns/entities/tabs/helpers/build-tab.js'
 import { entitySubTypes, entityTypes } from '@defra/cdp-validation-kit'
+import { userIsAdminOrBetaTester } from '../../common/helpers/user/user-is-admin-or-beta-tester.js'
 
 /**
  * Provides tabs for the service view based on user authentication.
@@ -68,8 +69,7 @@ async function provideServiceTabs(request, h) {
       }
 
       if (isBackend) {
-        // TODO: Remove condition to open to serviceOwners
-        if (isAdmin) {
+        if (userIsAdminOrBetaTester(userSession?.scope)) {
           buildTab(response, request, 'services', 'imports', entityName)
         }
       }

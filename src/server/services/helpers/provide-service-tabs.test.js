@@ -1,6 +1,7 @@
 import { hasScopeDecorator } from '../../common/helpers/decorators/has-scope.js'
 import { provideServiceTabs } from './provide-service-tabs.js'
-import { entitySubTypes, entityTypes } from '@defra/cdp-validation-kit'
+import { entitySubTypes, entityTypes, scopes } from '@defra/cdp-validation-kit'
+import { betaTesterScope } from '../../common/constants/scopes.js'
 
 const mockServiceName = 'cdp-portal-frontend'
 const mockUserIsOwner = vi.fn()
@@ -50,7 +51,8 @@ describe('#provideServiceTabs', () => {
       mockUserIsOwner.mockResolvedValue(false)
       mockUserSession.mockReturnValue({
         isAdmin: true,
-        isTenant: true
+        isTenant: true,
+        scope: [scopes.admin]
       })
     })
 
@@ -238,7 +240,8 @@ describe('#provideServiceTabs', () => {
 
       mockUserSession.mockReturnValue({
         isAdmin: false,
-        isTenant: true
+        isTenant: true,
+        scope: []
       })
 
       await provideServiceTabs(
@@ -362,13 +365,95 @@ describe('#provideServiceTabs', () => {
     })
   })
 
+  describe('With a beta service owner', () => {
+    beforeEach(async () => {
+      mockUserIsOwner.mockResolvedValue(true)
+
+      mockUserSession.mockReturnValue({
+        isAdmin: false,
+        isTenant: true,
+        scope: [betaTesterScope]
+      })
+
+      await provideServiceTabs(
+        mockRequest({
+          response: mockResponse,
+          path: `/services/${mockServiceName}`
+        }),
+        mockViewHelper
+      )
+    })
+
+    test('Should provide expected context tabs', () => {
+      expect(mockResponse.source.context.tabDetails.tabs).toEqual([
+        {
+          isActive: true,
+          label: 'About',
+          url: `/services/${mockServiceName}`
+        },
+        {
+          isActive: false,
+          label: 'Automations',
+          url: `/services/${mockServiceName}/automations`
+        },
+        {
+          isActive: false,
+          label: 'Diagnostics',
+          url: '/services/cdp-portal-frontend/diagnostics'
+        },
+        {
+          isActive: false,
+          label: 'Imports',
+          url: '/services/cdp-portal-frontend/imports'
+        },
+        {
+          isActive: false,
+          label: 'Maintenance',
+          url: `/services/${mockServiceName}/maintenance`
+        },
+        {
+          isActive: false,
+          label: 'Notifications',
+          url: `/services/${mockServiceName}/notifications`
+        },
+        {
+          isActive: false,
+          label: 'Proxy',
+          url: `/services/${mockServiceName}/proxy`
+        },
+        {
+          isActive: false,
+          label: 'Resources',
+          url: `/services/${mockServiceName}/resources`
+        },
+        {
+          isActive: false,
+          label: 'Secrets',
+          url: `/services/${mockServiceName}/secrets`
+        },
+        {
+          isActive: false,
+          label: 'Terminal',
+          url: `/services/${mockServiceName}/terminal`
+        },
+        {
+          isActive: false,
+          label: 'Topology',
+          url: `/services/${mockServiceName}/topology`
+        }
+      ])
+      expect(mockResponse.source.context.tabDetails.tabs).toHaveLength(11)
+    })
+  })
+
   describe('With a tenant', () => {
     beforeEach(() => {
       mockUserIsOwner.mockResolvedValue(false)
 
       mockUserSession.mockReturnValue({
         isAdmin: false,
-        isTenant: true
+        isTenant: true,
+        scope: []
       })
     })
 

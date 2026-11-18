@@ -9,14 +9,24 @@ import {
 import Boom from '@hapi/boom'
 import { parse } from '@hapi/subtext'
 import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
+import { requireAdminOrBetaTester } from '../../../imports/helpers/require-admin-or-beta-tester.js'
 
-export const ext = [...commonServiceExtensions]
+export const ext = [
+  ...commonServiceExtensions,
+  {
+    type: 'onPreHandler',
+    method: requireAdminOrBetaTester,
+    options: {
+      sandbox: 'plugin'
+    }
+  }
+]
 
 export const options = {
   auth: {
     mode: 'required',
     access: {
-      scope: [/* scopes.serviceOwner, */ scopes.admin] // TODO: Open to owners
+      scope: [scopes.admin, scopes.serviceOwner]
     }
   },
   plugins: {

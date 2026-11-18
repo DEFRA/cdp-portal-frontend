@@ -85,12 +85,34 @@ describe('Service imports page', () => {
       expect(statusCode).toBe(statusCodes.forbidden)
     })
 
-    test('page DOES NOT renders for logged in service owner tenant', async () => {
+    test('page renders for logged in beta service owner tenant', async () => {
+      const { result, statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `/services/${serviceName}/imports/test`,
+        isAdmin: false,
+        isTenant: true,
+        teamScope: 'mock-team-id',
+        additionalScopes: ['permission:betaTester']
+      })
+      expect(statusCode).toBe(statusCodes.ok)
+      expect(result).toContain('Imports')
+    })
+
+    test('page DOES NOT render for logged in service owner tenant without beta scope', async () => {
       const { statusCode } = await mockAuthAndRenderUrl(server, {
         targetUrl: `/services/${serviceName}/imports/test`,
         isAdmin: false,
         isTenant: true,
         teamScope: 'mock-team-id'
+      })
+      expect(statusCode).toBe(statusCodes.forbidden)
+    })
+
+    test('page DOES NOT render for logged in beta tenant who does not own service', async () => {
+      const { statusCode } = await mockAuthAndRenderUrl(server, {
+        targetUrl: `/services/${serviceName}/imports/test`,
+        isAdmin: false,
+        isTenant: true,
+        additionalScopes: ['permission:betaTester']
       })
       expect(statusCode).toBe(statusCodes.forbidden)
     })

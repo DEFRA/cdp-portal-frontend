@@ -3,8 +3,7 @@ import { scopes } from '@defra/cdp-validation-kit'
 import formEngine from '#server/plugins/form-engine/form-engine.js'
 import actions from './actions/index.js'
 import provideLayoutContext from './ext/provideLayoutContext.js'
-
-export const ext = [...commonServiceExtensions]
+import { requireAdminOrBetaTester } from '../../../imports/helpers/require-admin-or-beta-tester.js'
 
 export function register(routePath) {
   return [
@@ -17,13 +16,23 @@ export function register(routePath) {
             auth: {
               mode: 'required',
               access: {
-                scope: [/* scopes.serviceOwner, */ scopes.admin] // TODO: Open to owners
+                scope: [scopes.admin, scopes.serviceOwner]
               }
             }
           }
         },
 
-        ext: [...commonServiceExtensions, provideLayoutContext()],
+        ext: [
+          ...commonServiceExtensions,
+          {
+            type: 'onPreHandler',
+            method: requireAdminOrBetaTester,
+            options: {
+              sandbox: 'plugin'
+            }
+          },
+          provideLayoutContext()
+        ],
 
         layout:
           'routes/services/{serviceId}/imports-action/{environment}/{path...}/layout.njk',

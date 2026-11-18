@@ -14,6 +14,7 @@ import { getEnvironments } from '#server/common/helpers/environments/get-environ
 import Boom from '@hapi/boom'
 import userHasBreakGlass from '#server/services/helpers/user-has-break-glass.js'
 import { config } from '#config/config.js'
+import { requireAdminOrBetaTester } from '../../helpers/require-admin-or-beta-tester.js'
 
 const IMPORT_FILE_EXTS = ['.dump']
 
@@ -22,6 +23,13 @@ const showAllEnvs = config.get('imports.showAllEnvs') ?? false
 export const ext = [
   ...commonServiceExtensions,
   provideNotFoundIfPrototypeExtension,
+  {
+    type: 'onPreHandler',
+    method: requireAdminOrBetaTester,
+    options: {
+      sandbox: 'plugin'
+    }
+  },
   {
     type: 'onPostHandler',
     method: provideSubNav('imports', SERVICE, {
@@ -41,7 +49,7 @@ export const options = {
   auth: {
     mode: 'required',
     access: {
-      scope: [/* scopes.serviceOwner, */ scopes.admin] // TODO: Open to owners
+      scope: [scopes.admin, scopes.serviceOwner]
     }
   }
 }
