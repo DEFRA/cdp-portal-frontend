@@ -1,7 +1,7 @@
-import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
-import { nunjucksEnvironment } from '#config/nunjucks/client.js'
 import template from './template.njk'
 import suggestionsTemplate from './suggestions.njk'
+import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
+import { nunjucksEnvironment } from '#config/nunjucks/client.js'
 
 export default class Combobox extends NunjucksComponent {
   #options = []
