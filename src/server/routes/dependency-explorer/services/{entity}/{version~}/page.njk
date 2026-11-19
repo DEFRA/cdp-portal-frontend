@@ -57,7 +57,7 @@
     <div id="filtersAndResults">
       {% call appFilterGroup({
         action: pageUrl,
-        target: '#filtersAndResults',
+        target: '#results',
         clear: {
           url: pageUrl
         },
@@ -164,6 +164,25 @@
         </div>
 
       {% endcall %}
+
+      <hx-partial data-hx-target="#app-data-list" style="display: none;">
+        {{ appEntityDataList({
+          items:  [
+            {
+              heading: {
+                text: 'Count'
+              },
+              entity: {
+                kind: 'text',
+                value: totalItems | formatNumber,
+                title: totalItems,
+                dataJs: 'rows-loader',
+                classes: 'app-loader app-loader--visiable'
+              }
+            }
+          ]
+        }) }}
+      </hx-partial>
 
 
       <div id="results">

@@ -411,8 +411,8 @@ data-js="results-loader">
   data-hx-action="/dependency-explorer/services/test-service/1.0.0"
   data-hx-method="get"
   data-hx-trigger="change, submit halt"
-  data-hx-target="#results"
-  data-hx-select="#results"
+  data-hx-target="#filtersAndResults"
+  data-hx-select="#filtersAndResults"
  data-hx-indicator="[data-js='rows-loader']"   data-hx-push-url="true"
   data-testid="app-filters-form"
 >
@@ -420,17 +420,24 @@ data-js="results-loader">
     <div id="app-filter-group-filters" class="app-filter-group">
       
         <div class="app-filters__item">
-          
+            <app-combobox
+    data-id="dependencyType"
+    data-name="dependencyType"
+    data-value=""
+    data-classes="app-combobox--tiny app-combobox--inline"
+    data-label-text="Dependency type"
+    data-label-classes="govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+    data-hint-text=""
+    data-hint-html=""
+    data-formgroup-classes="app-form-group--inline"
+    data-icon=""
+  >
 
 
-<script data-testid="app-autocomplete-suggestions">
-  window.cdp = window.cdp || {};
-  window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["dependencyType"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"npm","text":"npm"},{"value":"binary","text":"binary"}]
-</script>
 
 
-<div
+
+<div id="app-autocomplete-dependencyType"
   class="govuk-form-group app-form-group app-form-group--inline"
   data-js="app-form-group" data-testid="app-autocomplete-group">
 
@@ -444,35 +451,62 @@ data-js="results-loader">
 
 
 
-
-  <div id="app-autocomplete-dependencyType" class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
-       data-js="app-autocomplete"
+  <div class="app-combobox app-combobox--tiny app-combobox--inline"
        data-testid="app-autocomplete"
   >
-    <div class="app-autocomplete__control">
+    <div class="app-combobox__control">
 
-        <select name="dependencyType" id="dependencyType" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
-          <option value=""
->
+
+      <select
+        id="dependencyType"
+        class="govuk-select app-select js-hidden"
+        data-testid="app-progressive-input"
+      >
+        <option value="" selected="selected">- - select - -</option>
+          <option
+            value=""
+          >
              - - select - - 
           </option>
-          <option value="npm"
->
+          <option
+            value="npm"
+          >
             npm
           </option>
-          <option value="binary"
->
+          <option
+            value="binary"
+          >
             binary
           </option>
-        </select>
+      </select>
 
-      <button class="app-autocomplete__chevron-button js-visible"
-              type="button"
-              tabindex="-1"
-              aria-owns="app-autocomplete-dependencyType-suggestions"
-              aria-label="Show"
-              data-js="app-chevron-button"
-              data-testid="app-chevron-button"
+
+      <input
+        id="dependencyType-input"
+        type="text"
+        value=""
+        class="govuk-input app-combobox__input js-visible"
+        placeholder=" - - select - - "
+        autocapitalize="none"
+        combobox="off"
+        role="combobox"
+        aria-controls="app-combobox-dependencyType-suggestions"
+        aria-combobox="list"
+        aria-expanded="false"
+        data-1p-ignore
+        data-lpignore="true"
+        autocomplete="off"
+      />
+
+
+      <button
+        id="app-combobox-dependencyType-chevron-button"
+        class="app-combobox__chevron-button js-visible"
+        type="button"
+        tabindex="-1"
+        aria-owns="app-combobox-dependencyType-suggestions"
+        aria-label="Show"
+        data-testid="app-chevron-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
      viewBox="0 -960 960 960"
@@ -482,12 +516,12 @@ data-js="results-loader">
 
       </button>
 
-      <button class="app-autocomplete__clear-button"
-              type="button"
-              aria-hidden="true"
-              tabindex="-1"
-              data-js="app-autocomplete-clear-button"
-              data-testid="app-autocomplete-clear-button"
+      <button
+        id="app-combobox-dependencyType-clear-button"
+        class="app-combobox__clear-button"
+        type="button"
+        tabindex="-1"
+        data-testid="app-autocomplete-clear-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
      width="48"
@@ -503,16 +537,17 @@ data-js="results-loader">
     </div>
 
     <ul
-      class="app-autocomplete__suggestions"
-      id="app-autocomplete-dependencyType-suggestions"
+      class="app-combobox__suggestions"
+      id="app-combobox-dependencyType-suggestions"
       aria-labelledby="dependencyType-label"
       aria-expanded="false"
       role="listbox"
-      data-js="app-autocomplete-suggestions"
-      data-testid="app-autocomplete-suggestions"></ul>
+      data-testid="app-autocomplete-suggestions"
+    >
+</ul>
   </div>
-  
 </div>
+</app-combobox>
 
         </div>
 
@@ -628,17 +663,24 @@ data-js="search-dependency-loader">
         </div>
 
         <div class="app-filters__item">
-          
+            <app-combobox
+    data-id="entityStage"
+    data-name="entityStage"
+    data-value=""
+    data-classes="app-combobox--tiny app-combobox--inline"
+    data-label-text="Stage"
+    data-label-classes="govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+    data-hint-text=""
+    data-hint-html=""
+    data-formgroup-classes="app-form-group--inline"
+    data-icon=""
+  >
 
 
-<script data-testid="app-autocomplete-suggestions">
-  window.cdp = window.cdp || {};
-  window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["entityStage"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"dev","text":"dev"},{"value":"run","text":"run"}]
-</script>
 
 
-<div
+
+<div id="app-autocomplete-entityStage"
   class="govuk-form-group app-form-group app-form-group--inline"
   data-js="app-form-group" data-testid="app-autocomplete-group">
 
@@ -652,35 +694,62 @@ data-js="search-dependency-loader">
 
 
 
-
-  <div id="app-autocomplete-entityStage" class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
-       data-js="app-autocomplete"
+  <div class="app-combobox app-combobox--tiny app-combobox--inline"
        data-testid="app-autocomplete"
   >
-    <div class="app-autocomplete__control">
+    <div class="app-combobox__control">
 
-        <select name="entityStage" id="entityStage" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
-          <option value=""
->
+
+      <select
+        id="entityStage"
+        class="govuk-select app-select js-hidden"
+        data-testid="app-progressive-input"
+      >
+        <option value="" selected="selected">- - select - -</option>
+          <option
+            value=""
+          >
              - - select - - 
           </option>
-          <option value="dev"
->
+          <option
+            value="dev"
+          >
             dev
           </option>
-          <option value="run"
->
+          <option
+            value="run"
+          >
             run
           </option>
-        </select>
+      </select>
 
-      <button class="app-autocomplete__chevron-button js-visible"
-              type="button"
-              tabindex="-1"
-              aria-owns="app-autocomplete-entityStage-suggestions"
-              aria-label="Show"
-              data-js="app-chevron-button"
-              data-testid="app-chevron-button"
+
+      <input
+        id="entityStage-input"
+        type="text"
+        value=""
+        class="govuk-input app-combobox__input js-visible"
+        placeholder=" - - select - - "
+        autocapitalize="none"
+        combobox="off"
+        role="combobox"
+        aria-controls="app-combobox-entityStage-suggestions"
+        aria-combobox="list"
+        aria-expanded="false"
+        data-1p-ignore
+        data-lpignore="true"
+        autocomplete="off"
+      />
+
+
+      <button
+        id="app-combobox-entityStage-chevron-button"
+        class="app-combobox__chevron-button js-visible"
+        type="button"
+        tabindex="-1"
+        aria-owns="app-combobox-entityStage-suggestions"
+        aria-label="Show"
+        data-testid="app-chevron-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
      viewBox="0 -960 960 960"
@@ -690,12 +759,12 @@ data-js="search-dependency-loader">
 
       </button>
 
-      <button class="app-autocomplete__clear-button"
-              type="button"
-              aria-hidden="true"
-              tabindex="-1"
-              data-js="app-autocomplete-clear-button"
-              data-testid="app-autocomplete-clear-button"
+      <button
+        id="app-combobox-entityStage-clear-button"
+        class="app-combobox__clear-button"
+        type="button"
+        tabindex="-1"
+        data-testid="app-autocomplete-clear-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
      width="48"
@@ -711,16 +780,17 @@ data-js="search-dependency-loader">
     </div>
 
     <ul
-      class="app-autocomplete__suggestions"
-      id="app-autocomplete-entityStage-suggestions"
+      class="app-combobox__suggestions"
+      id="app-combobox-entityStage-suggestions"
       aria-labelledby="entityStage-label"
       aria-expanded="false"
       role="listbox"
-      data-js="app-autocomplete-suggestions"
-      data-testid="app-autocomplete-suggestions"></ul>
+      data-testid="app-autocomplete-suggestions"
+    >
+</ul>
   </div>
-  
 </div>
+</app-combobox>
 
         </div>
 
@@ -772,35 +842,6 @@ data-js="search-dependency-loader">
     </noscript>
   </fieldset>
 </form>
-
-      <hx-partial data-hx-target="#app-data-list" style="display: none;">
-        
-
-
-<dl id="app-data-list" class="app-data-list" data-testid="app-data-list">
-    <dt class="app-data-list-heading"
-        data-testid="app-data-list-heading-1">
-      Count
-    </dt>
-    <dd class="app-data-list-item"
-        data-testid="app-data-list-item-1">
-      
-
-<div class="app-entity app-loader app-loader--visiable" data-testid="app-entity" data-js="rows-loader" >
-
-
-
-      <span data-testid="app-entity-text"
-      >0</span>
-
-
-</div>
-
-    </dd>
-
-</dl>
-
-      </hx-partial>
 
 
       <div id="results">
