@@ -193,3 +193,25 @@ test('Dispatches change event on clear button click', async () => {
   await expect.element(getById('user')).toHaveValue('')
   expect(onChange).toHaveBeenCalled()
 })
+
+test('Filters options by input text', async () => {
+  const { getByRole } = await page.render(component)
+  const input = getByRole('combobox')
+  const suggestions = getByRole('listbox')
+
+  await input.click()
+  await expect.element(suggestions).toHaveAttribute('aria-expanded', 'true')
+  expect(suggestions.getByRole('option')).toHaveLength(3)
+
+  await input.fill('Ro')
+  expect(suggestions.getByRole('option')).toHaveLength(2)
+
+  await input.fill('Rob')
+  expect(suggestions.getByRole('option')).toHaveLength(1)
+
+  await input.fill('Robx')
+  expect(suggestions.getByRole('option')).toHaveLength(1)
+  await expect
+    .element(suggestions.getByText('- - no results - -'))
+    .toBeInTheDocument()
+})
