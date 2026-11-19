@@ -169,3 +169,27 @@ test('Dispatches change event on option enter key', async () => {
   await expect.element(getById('user')).toHaveValue('Roger Rabbit')
   expect(onChange).toHaveBeenCalled()
 })
+
+test('Dispatches change event on clear button click', async () => {
+  const { element, getByRole, getById, getByLabelText } =
+    await page.render(component)
+  const input = getByRole('combobox')
+  const suggestions = getByRole('listbox')
+
+  await input.click()
+
+  await expect.element(suggestions).toHaveAttribute('aria-expanded', 'true')
+
+  await userEvent.keyboard('{ArrowDown}')
+  await userEvent.keyboard('{Enter}')
+
+  await expect.element(getById('user')).toHaveValue('RoboCop')
+
+  const onChange = vi.fn()
+  element.addEventListener('change', onChange)
+
+  await getByLabelText('Clear').click()
+
+  await expect.element(getById('user')).toHaveValue('')
+  expect(onChange).toHaveBeenCalled()
+})
