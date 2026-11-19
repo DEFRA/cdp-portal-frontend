@@ -24,7 +24,7 @@
       {% endif %}
     </label>
     <span class="app-suggestion__action">
-      {% if suggestion.value == params.value %}
+      {% if suggestion.value and suggestion.value == params.value %}
         {{ appTickIcon({
           classes: 'app-icon--tiny'
         }) }}
