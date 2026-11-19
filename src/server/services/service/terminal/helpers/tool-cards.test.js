@@ -35,17 +35,7 @@ describe('#getToolCards', () => {
     ])
   })
 
-  test('tenant without betaTester sees terminal card only', () => {
-    const availableTools = getAvailableTools(fullEntity, 'dev', [scopes.tenant])
-    const cards = getToolCards(availableTools)
-
-    expect(cards).toEqual([
-      expect.objectContaining({ value: 'terminal', title: 'Terminal' })
-    ])
-    expect(cards[0]).not.toHaveProperty('latestValue')
-  })
-
-  test('betaTester only sees database cards for service capabilities', () => {
+  test('tenants only sees database cards for service capabilities', () => {
     const postgresOnly = {
       environments: {
         dev: {
@@ -55,9 +45,7 @@ describe('#getToolCards', () => {
       }
     }
 
-    const availableTools = getAvailableTools(postgresOnly, 'dev', [
-      'permission:betaTester'
-    ])
+    const availableTools = getAvailableTools(postgresOnly, 'dev', [])
     const cards = getToolCards(availableTools)
 
     expect(cards.map(({ value }) => value)).toEqual(['terminal', 'pgweb'])

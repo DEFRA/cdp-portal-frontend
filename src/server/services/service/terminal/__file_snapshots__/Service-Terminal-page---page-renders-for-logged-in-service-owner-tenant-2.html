@@ -514,6 +514,28 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
               </form>
 
 </div>
+
+<div class="app-panel app-tool-card  app-panel--slim" data-testid="app-tool-card-pgweb">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Postgres Web UI</h3>
+              <p class="govuk-!-margin-bottom-2">Runs an instance of pgweb connected to your service&#39;s Postgres database.</p>
+              <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+                  <li>Browse tables and run SQL queries.</li>
+                  <li>Export query results.</li>
+              </ul>
+
+              <form class="app-tool-card__action" method="post" action="/services/mock-service-with-terminal/terminal/launch" target="_blank">
+                <input type="hidden" name="csrfToken" value="test-token" />
+                <input type="hidden" name="environment" value="dev" />
+
+                <div class="govuk-button-group govuk-!-margin-bottom-0">
+                  <button type="submit" value="pgweb" name="tool" class="govuk-button app-button app-button--small govuk-!-margin-bottom-0 app-button--primary" data-module="govuk-button" aria-label="Launch Postgres Web UI in Dev">
+  Launch
+</button>
+
+                </div>
+              </form>
+
+</div>
         </div>
 
         <p class="govuk-body-s govuk-!-margin-top-4">

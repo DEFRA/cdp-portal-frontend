@@ -41,10 +41,8 @@ describe('#getAvailableTools', () => {
     ])
   })
 
-  test('beta tester gets database tools without latest', () => {
-    const tools = getAvailableTools(fullEntity, 'dev', [
-      'permission:betaTester'
-    ])
+  test('tenant gets database tools without latest', () => {
+    const tools = getAvailableTools(fullEntity, 'dev', [])
     expect(tools).toEqual([
       { tool: 'terminal', canLaunchLatest: false },
       { tool: 'pgweb', canLaunchLatest: false },
@@ -52,11 +50,6 @@ describe('#getAvailableTools', () => {
       { tool: 'dbgate_redis', canLaunchLatest: false },
       { tool: 'sqs_tool', canLaunchLatest: false }
     ])
-  })
-
-  test('plain tenant gets terminal only', () => {
-    const tools = getAvailableTools(fullEntity, 'dev', [scopes.tenant])
-    expect(tools).toEqual([{ tool: 'terminal', canLaunchLatest: false }])
   })
 
   test('postgres, mongo and redis visibility follows service capabilities', () => {
@@ -83,21 +76,15 @@ describe('#getAvailableTools', () => {
       }
     }
 
-    expect(
-      getAvailableTools(postgresOnly, 'dev', ['permission:betaTester'])
-    ).toEqual([
+    expect(getAvailableTools(postgresOnly, 'dev', [])).toEqual([
       { tool: 'terminal', canLaunchLatest: false },
       { tool: 'pgweb', canLaunchLatest: false }
     ])
-    expect(
-      getAvailableTools(mongoOnly, 'dev', ['permission:betaTester'])
-    ).toEqual([
+    expect(getAvailableTools(mongoOnly, 'dev', [])).toEqual([
       { tool: 'terminal', canLaunchLatest: false },
       { tool: 'dbgate', canLaunchLatest: false }
     ])
-    expect(
-      getAvailableTools(redisOnly, 'dev', ['permission:betaTester'])
-    ).toEqual([
+    expect(getAvailableTools(redisOnly, 'dev', [])).toEqual([
       { tool: 'terminal', canLaunchLatest: false },
       { tool: 'dbgate_redis', canLaunchLatest: false }
     ])
@@ -128,16 +115,8 @@ describe('#getAvailableTools', () => {
     expect(tools).toEqual([{ tool: 'sqs_tool', canLaunchLatest: true }])
   })
 
-  test('central-animal-store team scope alone no longer grants tools', () => {
-    const tools = getAvailableTools(fullEntity, 'dev', [
-      'team:central-animal-store'
-    ])
-    expect(tools).toEqual([{ tool: 'terminal', canLaunchLatest: false }])
-  })
-
   test('prod without breakglass only returns tools explicitly allowed in prod', () => {
     const tools = getAvailableTools(fullEntity, 'prod', [
-      'permission:betaTester',
       'permission:serviceOwner:team:platform'
     ])
     expect(tools).toEqual([{ tool: 'sqs_tool', canLaunchLatest: false }])

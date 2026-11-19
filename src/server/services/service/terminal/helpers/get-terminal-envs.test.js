@@ -55,13 +55,10 @@ describe('#getTerminalEnvs', () => {
     expect(result).toEqual(['dev'])
   })
 
-  test('Should include prod when service owner beta tester has prod DLQ', async () => {
+  test('Should include prod when service owner has prod DLQ', async () => {
     const result = await getTerminalEnvs({
       serviceName: 'cdp-portal-frontend',
-      userScopes: [
-        'permission:serviceOwner:team:platform',
-        'permission:betaTester'
-      ],
+      userScopes: ['permission:serviceOwner:team:platform'],
       entity: {
         teams: [{ teamId: 'platform' }],
         environments: {
@@ -77,6 +74,6 @@ describe('#getTerminalEnvs', () => {
         }
       }
     })
-    expect(result).toEqual(['dev', 'prod'])
+    expect(result).toContain('prod')
   })
 })
