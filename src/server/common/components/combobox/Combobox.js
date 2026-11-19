@@ -87,33 +87,36 @@ export default class Combobox extends NunjucksComponent {
 
   // Render optimized for speed
   renderSuggestions() {
-    return Promise.resolve(
-      (() => {
-        const html = nunjucksEnvironment.render(suggestionsTemplate, {
-          params: {
-            value: this.#selectedValue
-          },
-          suggestions: this.#suggestions,
-          suggestionText: this.#suggestionText
-        })
+    const html = nunjucksEnvironment.render(suggestionsTemplate, {
+      params: {
+        value: this.#selectedValue
+      },
+      suggestions: this.#suggestions,
+      suggestionText: this.#suggestionText
+    })
 
-        this.#suggestionsContainer.innerHTML = html
+    this.#suggestionsContainer.innerHTML = html
 
-        if (this.#suggestions.length) {
-          this.#suggestionsContainer.classList.add(
-            'app-combobox__suggestions--show'
-          )
-        } else {
-          this.#suggestionsContainer.classList.remove(
-            'app-combobox__suggestions--show'
-          )
-        }
-        this.#suggestionsContainer.setAttribute(
-          'aria-expanded',
-          this.#suggestions.length === 0 ? 'false' : 'true'
-        )
-      })()
+    if (this.#suggestions.length) {
+      this.#suggestionsContainer.classList.add(
+        'app-combobox__suggestions--show'
+      )
+    } else {
+      this.#suggestionsContainer.classList.remove(
+        'app-combobox__suggestions--show'
+      )
+    }
+
+    this.#suggestionsContainer.setAttribute(
+      'aria-expanded',
+      this.#suggestions.length === 0 ? 'false' : 'true'
     )
+
+    if (this.#suggestionText) {
+      this.#clearButton.classList.add('app-combobox__clear-button--show')
+    } else {
+      this.#clearButton.classList.remove('app-combobox__clear-button--show')
+    }
   }
 
   #onFocus() {
