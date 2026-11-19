@@ -1,7 +1,6 @@
 {% extends "layouts/page.njk" %}
 {% from "filter-group/macro.njk" import appFilterGroup %}
 {% from "./components/entity-row/macro.njk" import entityRow %}
-{% from "combobox/macro.njk" import appCombobox %}
 
 {% block content %}
   {{ appPageHeading({
@@ -65,7 +64,7 @@
     <div id="filtersAndResults">
       {% call appFilterGroup({
         action: pageUrl,
-        target: '#filtersAndResults',
+        target: '#results',
         clear: {
           url: pageUrl
         },
@@ -91,10 +90,10 @@
       }) %}
 
       <div class="app-filters__item">
-        {{ appCombobox({
+        {{ appAutocomplete({
           id: "entity",
           name: "entity",
-          classes: "app-combobox--small app-combobox--inline",
+          classes: "app-autocomplete--small app-autocomplete--inline",
           label: {
             text: "Service name",
             classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -103,7 +102,7 @@
             classes: "app-form-group--inline"
           },
           value: query.entity,
-          options: entityOptions
+          suggestions: entityOptions
         }) }}
       </div>
 
@@ -121,8 +120,7 @@
           },
           value: query.versionStart,
           attributes: {
-            placeholder: "Start version",
-            autocomplete: "off"
+            placeholder: "Start version"
           }
         }) }}
       </div>
@@ -141,17 +139,16 @@
           },
           value: query.versionEnd,
           attributes: {
-            placeholder: "End version",
-            autocomplete: "off"
+            placeholder: "End version"
           }
         }) }}
       </div>
 
       <div class="app-filters__item">
-        {{ appCombobox({
+        {{ appAutocomplete({
           id: "team",
           name: "team",
-          classes: "app-combobox--small app-combobox--inline",
+          classes: "app-autocomplete--small app-autocomplete--inline",
           label: {
             text: "Team",
             classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -160,15 +157,15 @@
             classes: "app-form-group--inline"
           },
           value: query.team,
-          options: teamOptions
+          suggestions: teamOptions
         }) }}
       </div>
 
       <div class="app-filters__item">
-        {{ appCombobox({
+        {{ appAutocomplete({
           id: "environment",
           name: "environment",
-          classes: "app-combobox--tiny app-combobox--inline",
+          classes: "app-autocomplete--tiny app-autocomplete--inline",
           label: {
             text: "Environment",
             classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -177,15 +174,15 @@
             classes: "app-form-group--inline"
           },
           value: query.environment,
-          options: environmentOptions
+          suggestions: environmentOptions
         }) }}
       </div>
 
       <div class="app-filters__item">
-        {{ appCombobox({
+        {{ appAutocomplete({
           id: "tag",
           name: "tag",
-          classes: "app-combobox--tiny app-combobox--inline",
+          classes: "app-autocomplete--tiny app-autocomplete--inline",
           label: {
             text: "Service tag",
             classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -194,12 +191,31 @@
             classes: "app-form-group--inline"
           },
           value: query.tag,
-          options: tagOptions
+          suggestions: tagOptions
         }) }}
       </div>
 
     {% endcall %}
 
+
+    <hx-partial data-hx-target="#app-data-list" style="display: none;">
+      {{ appEntityDataList({
+        items:  [
+          {
+            heading: {
+              text: 'Count'
+            },
+            entity: {
+              kind: 'text',
+              value: totalItems | formatNumber,
+              title: totalItems,
+              dataJs: 'rows-loader',
+              classes: 'app-loader app-loader--visiable'
+            }
+          }
+        ]
+      }) }}
+    </hx-partial>
 
       <div id="results">
         {% call(params) appEntityTable(tableData) %}
