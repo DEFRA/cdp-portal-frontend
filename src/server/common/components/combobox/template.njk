@@ -107,7 +107,7 @@
         type="button"
         tabindex="-1"
         aria-owns="app-combobox-{{ params.id }}-suggestions"
-        aria-label="Show"
+        aria-label="{{'Hide' if suggestions.length != 0 else 'Show'}}"
         data-testid="app-chevron-button"
       >
         {{ appChevronIcon() }}
