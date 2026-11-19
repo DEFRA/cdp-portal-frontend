@@ -1,6 +1,6 @@
 import { environments, scopes } from '@defra/cdp-validation-kit'
 import { getEnvironments } from '#server/common/helpers/environments/get-environments.js'
-import { userIsAdminOrBetaTester } from '#server/common/helpers/user/user-is-admin-or-beta-tester.js'
+import { userIsAdmin } from '#server/common/helpers/user/user-is-admin.js'
 
 export function allowedBreakGlassEnvironments({ userScopes, teams, entity }) {
   const envs = getEnvironments(userScopes)
@@ -11,14 +11,14 @@ export function allowedBreakGlassEnvironments({ userScopes, teams, entity }) {
   const hasTeamServiceOwner = teamIds.some((teamId) =>
     userScopes.includes(`${scopes.serviceOwner}:team:${teamId}`)
   )
-  const canUseWebTools = userIsAdminOrBetaTester(userScopes)
+  const hasAdminPermission = userIsAdmin(userScopes)
   const hasProdDlqs = Boolean(
     entity?.environments?.[environments.prod]?.sqs_queues?.some((queue) =>
       Boolean(queue.deadletter_queue_arn)
     )
   )
   const canUseProdSqsToolWithoutBreakGlass =
-    hasTeamServiceOwner && canUseWebTools && hasProdDlqs
+    (hasTeamServiceOwner || hasAdminPermission) && hasProdDlqs
 
   const shouldIncludeEnvironment = (env) =>
     [

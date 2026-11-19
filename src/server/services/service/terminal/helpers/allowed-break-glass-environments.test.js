@@ -40,12 +40,9 @@ describe('#allowedBreakGlassEnvironments', () => {
     expect(result).toEqual(['dev', 'test', 'perf-test'])
   })
 
-  test('Should include prod for service owner beta tester with prod DLQ', () => {
+  test('Should include prod for service owner with prod DLQ', () => {
     const result = allowedBreakGlassEnvironments({
-      userScopes: [
-        'permission:serviceOwner:team:platform',
-        'permission:betaTester'
-      ],
+      userScopes: ['permission:serviceOwner:team:platform'],
       teams: [{ teamId: 'platform' }],
       entity: {
         environments: {

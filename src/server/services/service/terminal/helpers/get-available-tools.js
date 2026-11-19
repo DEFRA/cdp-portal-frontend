@@ -1,5 +1,4 @@
 import { scopes } from '@defra/cdp-validation-kit'
-import { userIsAdminOrBetaTester } from '#server/common/helpers/user/user-is-admin-or-beta-tester.js'
 
 export function getAvailableTools(entity, environment, userScopes) {
   const isAdmin = userScopes.includes(scopes.admin)
@@ -16,24 +15,23 @@ export function getAvailableTools(entity, environment, userScopes) {
       userScopes.includes(`${scopes.breakGlass}:team:${teamId}`)
     )
 
-  const canUseDatabaseWeb = userIsAdminOrBetaTester(userScopes)
   const toolsAllowedWithoutBreakGlass = new Set(['sqs_tool'])
 
   const tools = [{ tool: 'terminal', canLaunchLatest: isAdmin }]
 
-  if (canUseDatabaseWeb && hasPostgres) {
+  if (hasPostgres) {
     tools.push({ tool: 'pgweb', canLaunchLatest: isAdmin })
   }
 
-  if (canUseDatabaseWeb && hasMongo) {
+  if (hasMongo) {
     tools.push({ tool: 'dbgate', canLaunchLatest: isAdmin })
   }
 
-  if (canUseDatabaseWeb && hasRedis) {
+  if (hasRedis) {
     tools.push({ tool: 'dbgate_redis', canLaunchLatest: isAdmin })
   }
 
-  if (canUseDatabaseWeb && hasDlq) {
+  if (hasDlq) {
     tools.push({ tool: 'sqs_tool', canLaunchLatest: isAdmin })
   }
 

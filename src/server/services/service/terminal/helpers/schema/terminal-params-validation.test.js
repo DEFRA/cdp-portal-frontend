@@ -25,10 +25,7 @@ const optionsFor = (scope, entity) => ({
   }
 })
 
-const ownerWithoutBreakGlass = [
-  'permission:betaTester',
-  'permission:serviceOwner:team:platform'
-]
+const ownerWithoutBreakGlass = ['permission:serviceOwner:team:platform']
 
 describe('#launchTerminalPayloadValidation', () => {
   test('Should allow prod without breakGlass when service has a prod DLQ', () => {
