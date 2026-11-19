@@ -35,10 +35,10 @@ export default class NunjucksComponent extends HTMLElement {
     this.dismounted()
   }
 
-  attributeChangedCallback() {
+  async attributeChangedCallback() {
     if (!this.#connected) return
 
-    this.render()
+    await this.render()
   }
 
   // Renders a template update using a DOM morph https://github.com/bigskysoftware/idiomorph on the existing DOM

@@ -2,7 +2,6 @@
 
 {% from "entity-data-list/macro.njk" import appEntityDataList with context %}
 {% from "services/common/components/service-row/macro.njk" import appEntityTableServiceRow %}
-{% from "combobox/macro.njk" import appCombobox %}
 
 {% block beforeTabContent %}
   {{ appPageHeading({
@@ -57,23 +56,6 @@
         },
         value: formValues.teamId,
         suggestions: teamFilters
-      }) }}
-    </div>
-
-    <div class="app-filters__item">
-      {{ appCombobox({
-        id: "filters-team-new",
-        name: "teamId",
-        classes: "app-combobox--small app-combobox--inline",
-        label: {
-          text: "Team",
-          classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-        },
-        formGroup: {
-          classes: "app-form-group--inline"
-        },
-        value: formValues.teamId,
-        options: teamFilters
       }) }}
     </div>
 
