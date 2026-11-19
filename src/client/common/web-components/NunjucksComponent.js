@@ -15,13 +15,13 @@ export default class NunjucksComponent extends HTMLElement {
   connectedCallback() {
     this.#connected = true
 
+    this.mounted()
+
     this.managedListeners?.forEach(([target, event, handler]) => {
       const boundHandler = handler.bind(this)
       target.addEventListener(event, boundHandler)
       this.#boundListeners.push([target, event, boundHandler])
     })
-
-    this.mounted()
   }
 
   disconnectedCallback() {
@@ -35,18 +35,18 @@ export default class NunjucksComponent extends HTMLElement {
     this.dismounted()
   }
 
-  attributeChangedCallback() {
+  async attributeChangedCallback() {
     if (!this.#connected) return
 
-    this.render()
+    await this.render()
   }
 
   // Renders a template update using a DOM morph https://github.com/bigskysoftware/idiomorph on the existing DOM
-  morph(template, params, idiomorphOptions = {}) {
+  async morph(template, params, idiomorphOptions = {}) {
     const html = nunjucksEnvironment.render(template, {
       params
     })
-    Idiomorph.morph(this, html, {
+    return Idiomorph.morph(this, html, {
       ...idiomorphOptions,
       morphStyle: 'innerHTML'
     })
@@ -70,8 +70,8 @@ export default class NunjucksComponent extends HTMLElement {
     // NOTE: Listeners can be auto cleaned up using `managedListeners`
   }
 
-  render() {
+  async render() {
     // Default render from `data-` attributes
-    this.morph(this.#template, this.dataset)
+    return this.morph(this.#template, this.dataset)
   }
 }
