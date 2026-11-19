@@ -375,8 +375,8 @@ data-js="results-loader">
   data-hx-action="/dependency-explorer/undefined%3Aundefined"
   data-hx-method="get"
   data-hx-trigger="change, submit halt"
-  data-hx-target="#filtersAndResults"
-  data-hx-select="#filtersAndResults"
+  data-hx-target="#results"
+  data-hx-select="#results"
  data-hx-indicator="[data-js='rows-loader']"   data-hx-push-url="true"
   data-testid="app-filters-form"
 >
@@ -384,24 +384,17 @@ data-js="results-loader">
     <div id="app-filter-group-filters" class="app-filter-group">
       
       <div class="app-filters__item">
-            <app-combobox
-      data-id="entity"
-      data-name="entity"
-      data-value=""
-      data-classes="app-combobox--small app-combobox--inline"
-      data-label-text="Service name"
-      data-label-classes="govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      data-hint-text=""
-      data-hint-html=""
-      data-formgroup-classes="app-form-group--inline"
-      data-icon=""
-    >
+        
 
 
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["entity"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}}]
+</script>
 
 
-
-<div id="app-autocomplete-entity"
+<div
   class="govuk-form-group app-form-group app-form-group--inline"
   data-js="app-form-group" data-testid="app-autocomplete-group">
 
@@ -415,52 +408,27 @@ data-js="results-loader">
 
 
 
-  <div class="app-combobox app-combobox--small app-combobox--inline"
+
+  <div id="app-autocomplete-entity" class="app-autocomplete app-autocomplete--small app-autocomplete--inline"
+       data-js="app-autocomplete"
        data-testid="app-autocomplete"
   >
-    <div class="app-combobox__control">
+    <div class="app-autocomplete__control">
 
-
-      <select
-        id="entity"
-        class="govuk-select app-select js-hidden"
-        data-testid="app-progressive-input"
-      >
-        <option value="" selected="selected">- - select - -</option>
-          <option
-            value=""
-          >
+        <select name="entity" id="entity" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
              - - select - - 
           </option>
-      </select>
+        </select>
 
-
-      <input
-        id="entity-input"
-        type="text"
-        value=""
-        class="govuk-input app-combobox__input js-visible"
-        placeholder=" - - select - - "
-        autocapitalize="none"
-        combobox="off"
-        role="combobox"
-        aria-controls="app-combobox-entity-suggestions"
-        aria-combobox="list"
-        aria-expanded="false"
-        data-1p-ignore
-        data-lpignore="true"
-        autocomplete="off"
-      />
-
-
-      <button
-        id="app-combobox-entity-chevron-button"
-        class="app-combobox__chevron-button js-visible"
-        type="button"
-        tabindex="-1"
-        aria-owns="app-combobox-entity-suggestions"
-        aria-label="Show"
-        data-testid="app-chevron-button"
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-entity-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
      viewBox="0 -960 960 960"
@@ -470,12 +438,12 @@ data-js="results-loader">
 
       </button>
 
-      <button
-        id="app-combobox-entity-clear-button"
-        class="app-combobox__clear-button"
-        type="button"
-        tabindex="-1"
-        data-testid="app-autocomplete-clear-button"
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
      width="48"
@@ -491,17 +459,16 @@ data-js="results-loader">
     </div>
 
     <ul
-      class="app-combobox__suggestions"
-      id="app-combobox-entity-suggestions"
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-entity-suggestions"
       aria-labelledby="entity-label"
       aria-expanded="false"
       role="listbox"
-      data-testid="app-autocomplete-suggestions"
-    >
-</ul>
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
   </div>
+  
 </div>
-</app-combobox>
 
       </div>
 
@@ -510,7 +477,7 @@ data-js="results-loader">
   <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1" for="versionStart">
     Dependency version from
   </label>
-  <input class="govuk-input app-input app-input--medium app-input--block" id="versionStart" name="versionStart" type="text" placeholder="Start version" autocomplete="off">
+  <input class="govuk-input app-input app-input--medium app-input--block" id="versionStart" name="versionStart" type="text" placeholder="Start version">
 </div>
 
       </div>
@@ -520,30 +487,23 @@ data-js="results-loader">
   <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1" for="versionEnd">
     Dependency version to
   </label>
-  <input class="govuk-input app-input app-input--medium app-input--block" id="versionEnd" name="versionEnd" type="text" placeholder="End version" autocomplete="off">
+  <input class="govuk-input app-input app-input--medium app-input--block" id="versionEnd" name="versionEnd" type="text" placeholder="End version">
 </div>
 
       </div>
 
       <div class="app-filters__item">
-            <app-combobox
-      data-id="team"
-      data-name="team"
-      data-value=""
-      data-classes="app-combobox--small app-combobox--inline"
-      data-label-text="Team"
-      data-label-classes="govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      data-hint-text=""
-      data-hint-html=""
-      data-formgroup-classes="app-form-group--inline"
-      data-icon=""
-    >
+        
 
 
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["team"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"fish-and-octopus","text":"Fish-and-octopus"},{"value":"trees-and-forests","text":"Trees-and-forests"},{"value":"bees","text":"Bees"},{"value":"platform","text":"Platform"}]
+</script>
 
 
-
-<div id="app-autocomplete-team"
+<div
   class="govuk-form-group app-form-group app-form-group--inline"
   data-js="app-form-group" data-testid="app-autocomplete-group">
 
@@ -557,72 +517,43 @@ data-js="results-loader">
 
 
 
-  <div class="app-combobox app-combobox--small app-combobox--inline"
+
+  <div id="app-autocomplete-team" class="app-autocomplete app-autocomplete--small app-autocomplete--inline"
+       data-js="app-autocomplete"
        data-testid="app-autocomplete"
   >
-    <div class="app-combobox__control">
+    <div class="app-autocomplete__control">
 
-
-      <select
-        id="team"
-        class="govuk-select app-select js-hidden"
-        data-testid="app-progressive-input"
-      >
-        <option value="" selected="selected">- - select - -</option>
-          <option
-            value=""
-          >
+        <select name="team" id="team" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
              - - select - - 
           </option>
-          <option
-            value="fish-and-octopus"
-          >
+          <option value="fish-and-octopus"
+>
             Fish-and-octopus
           </option>
-          <option
-            value="trees-and-forests"
-          >
+          <option value="trees-and-forests"
+>
             Trees-and-forests
           </option>
-          <option
-            value="bees"
-          >
+          <option value="bees"
+>
             Bees
           </option>
-          <option
-            value="platform"
-          >
+          <option value="platform"
+>
             Platform
           </option>
-      </select>
+        </select>
 
-
-      <input
-        id="team-input"
-        type="text"
-        value=""
-        class="govuk-input app-combobox__input js-visible"
-        placeholder=" - - select - - "
-        autocapitalize="none"
-        combobox="off"
-        role="combobox"
-        aria-controls="app-combobox-team-suggestions"
-        aria-combobox="list"
-        aria-expanded="false"
-        data-1p-ignore
-        data-lpignore="true"
-        autocomplete="off"
-      />
-
-
-      <button
-        id="app-combobox-team-chevron-button"
-        class="app-combobox__chevron-button js-visible"
-        type="button"
-        tabindex="-1"
-        aria-owns="app-combobox-team-suggestions"
-        aria-label="Show"
-        data-testid="app-chevron-button"
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-team-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
      viewBox="0 -960 960 960"
@@ -632,12 +563,12 @@ data-js="results-loader">
 
       </button>
 
-      <button
-        id="app-combobox-team-clear-button"
-        class="app-combobox__clear-button"
-        type="button"
-        tabindex="-1"
-        data-testid="app-autocomplete-clear-button"
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
      width="48"
@@ -653,39 +584,31 @@ data-js="results-loader">
     </div>
 
     <ul
-      class="app-combobox__suggestions"
-      id="app-combobox-team-suggestions"
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-team-suggestions"
       aria-labelledby="team-label"
       aria-expanded="false"
       role="listbox"
-      data-testid="app-autocomplete-suggestions"
-    >
-</ul>
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
   </div>
+  
 </div>
-</app-combobox>
 
       </div>
 
       <div class="app-filters__item">
-            <app-combobox
-      data-id="environment"
-      data-name="environment"
-      data-value=""
-      data-classes="app-combobox--tiny app-combobox--inline"
-      data-label-text="Environment"
-      data-label-classes="govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      data-hint-text=""
-      data-hint-html=""
-      data-formgroup-classes="app-form-group--inline"
-      data-icon=""
-    >
+        
 
 
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["environment"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"dev","text":"Dev"},{"value":"test","text":"Test"},{"value":"perf-test","text":"Perf-test"},{"value":"prod","text":"Prod"}]
+</script>
 
 
-
-<div id="app-autocomplete-environment"
+<div
   class="govuk-form-group app-form-group app-form-group--inline"
   data-js="app-form-group" data-testid="app-autocomplete-group">
 
@@ -699,72 +622,43 @@ data-js="results-loader">
 
 
 
-  <div class="app-combobox app-combobox--tiny app-combobox--inline"
+
+  <div id="app-autocomplete-environment" class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
+       data-js="app-autocomplete"
        data-testid="app-autocomplete"
   >
-    <div class="app-combobox__control">
+    <div class="app-autocomplete__control">
 
-
-      <select
-        id="environment"
-        class="govuk-select app-select js-hidden"
-        data-testid="app-progressive-input"
-      >
-        <option value="" selected="selected">- - select - -</option>
-          <option
-            value=""
-          >
+        <select name="environment" id="environment" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
              - - select - - 
           </option>
-          <option
-            value="dev"
-          >
+          <option value="dev"
+>
             Dev
           </option>
-          <option
-            value="test"
-          >
+          <option value="test"
+>
             Test
           </option>
-          <option
-            value="perf-test"
-          >
+          <option value="perf-test"
+>
             Perf-test
           </option>
-          <option
-            value="prod"
-          >
+          <option value="prod"
+>
             Prod
           </option>
-      </select>
+        </select>
 
-
-      <input
-        id="environment-input"
-        type="text"
-        value=""
-        class="govuk-input app-combobox__input js-visible"
-        placeholder=" - - select - - "
-        autocapitalize="none"
-        combobox="off"
-        role="combobox"
-        aria-controls="app-combobox-environment-suggestions"
-        aria-combobox="list"
-        aria-expanded="false"
-        data-1p-ignore
-        data-lpignore="true"
-        autocomplete="off"
-      />
-
-
-      <button
-        id="app-combobox-environment-chevron-button"
-        class="app-combobox__chevron-button js-visible"
-        type="button"
-        tabindex="-1"
-        aria-owns="app-combobox-environment-suggestions"
-        aria-label="Show"
-        data-testid="app-chevron-button"
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-environment-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
      viewBox="0 -960 960 960"
@@ -774,12 +668,12 @@ data-js="results-loader">
 
       </button>
 
-      <button
-        id="app-combobox-environment-clear-button"
-        class="app-combobox__clear-button"
-        type="button"
-        tabindex="-1"
-        data-testid="app-autocomplete-clear-button"
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
      width="48"
@@ -795,39 +689,31 @@ data-js="results-loader">
     </div>
 
     <ul
-      class="app-combobox__suggestions"
-      id="app-combobox-environment-suggestions"
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-environment-suggestions"
       aria-labelledby="environment-label"
       aria-expanded="false"
       role="listbox"
-      data-testid="app-autocomplete-suggestions"
-    >
-</ul>
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
   </div>
+  
 </div>
-</app-combobox>
 
       </div>
 
       <div class="app-filters__item">
-            <app-combobox
-      data-id="tag"
-      data-name="tag"
-      data-value=""
-      data-classes="app-combobox--tiny app-combobox--inline"
-      data-label-text="Service tag"
-      data-label-classes="govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-      data-hint-text=""
-      data-hint-html=""
-      data-formgroup-classes="app-form-group--inline"
-      data-icon=""
-    >
+        
 
 
+<script data-testid="app-autocomplete-suggestions">
+  window.cdp = window.cdp || {};
+  window.cdp.suggestions = window.cdp.suggestions || {};
+  window.cdp.suggestions["tag"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}}]
+</script>
 
 
-
-<div id="app-autocomplete-tag"
+<div
   class="govuk-form-group app-form-group app-form-group--inline"
   data-js="app-form-group" data-testid="app-autocomplete-group">
 
@@ -841,52 +727,27 @@ data-js="results-loader">
 
 
 
-  <div class="app-combobox app-combobox--tiny app-combobox--inline"
+
+  <div id="app-autocomplete-tag" class="app-autocomplete app-autocomplete--tiny app-autocomplete--inline"
+       data-js="app-autocomplete"
        data-testid="app-autocomplete"
   >
-    <div class="app-combobox__control">
+    <div class="app-autocomplete__control">
 
-
-      <select
-        id="tag"
-        class="govuk-select app-select js-hidden"
-        data-testid="app-progressive-input"
-      >
-        <option value="" selected="selected">- - select - -</option>
-          <option
-            value=""
-          >
+        <select name="tag" id="tag" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-testid="app-progressive-input" >
+          <option value=""
+>
              - - select - - 
           </option>
-      </select>
+        </select>
 
-
-      <input
-        id="tag-input"
-        type="text"
-        value=""
-        class="govuk-input app-combobox__input js-visible"
-        placeholder=" - - select - - "
-        autocapitalize="none"
-        combobox="off"
-        role="combobox"
-        aria-controls="app-combobox-tag-suggestions"
-        aria-combobox="list"
-        aria-expanded="false"
-        data-1p-ignore
-        data-lpignore="true"
-        autocomplete="off"
-      />
-
-
-      <button
-        id="app-combobox-tag-chevron-button"
-        class="app-combobox__chevron-button js-visible"
-        type="button"
-        tabindex="-1"
-        aria-owns="app-combobox-tag-suggestions"
-        aria-label="Show"
-        data-testid="app-chevron-button"
+      <button class="app-autocomplete__chevron-button js-visible"
+              type="button"
+              tabindex="-1"
+              aria-owns="app-autocomplete-tag-suggestions"
+              aria-label="Show"
+              data-js="app-chevron-button"
+              data-testid="app-chevron-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
      viewBox="0 -960 960 960"
@@ -896,12 +757,12 @@ data-js="results-loader">
 
       </button>
 
-      <button
-        id="app-combobox-tag-clear-button"
-        class="app-combobox__clear-button"
-        type="button"
-        tabindex="-1"
-        data-testid="app-autocomplete-clear-button"
+      <button class="app-autocomplete__clear-button"
+              type="button"
+              aria-hidden="true"
+              tabindex="-1"
+              data-js="app-autocomplete-clear-button"
+              data-testid="app-autocomplete-clear-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
      width="48"
@@ -917,17 +778,16 @@ data-js="results-loader">
     </div>
 
     <ul
-      class="app-combobox__suggestions"
-      id="app-combobox-tag-suggestions"
+      class="app-autocomplete__suggestions"
+      id="app-autocomplete-tag-suggestions"
       aria-labelledby="tag-label"
       aria-expanded="false"
       role="listbox"
-      data-testid="app-autocomplete-suggestions"
-    >
-</ul>
+      data-js="app-autocomplete-suggestions"
+      data-testid="app-autocomplete-suggestions"></ul>
   </div>
+  
 </div>
-</app-combobox>
 
       </div>
 
@@ -980,6 +840,35 @@ data-js="results-loader">
   </fieldset>
 </form>
 
+
+    <hx-partial data-hx-target="#app-data-list" style="display: none;">
+      
+
+
+<dl id="app-data-list" class="app-data-list" data-testid="app-data-list">
+    <dt class="app-data-list-heading"
+        data-testid="app-data-list-heading-1">
+      Count
+    </dt>
+    <dd class="app-data-list-item"
+        data-testid="app-data-list-item-1">
+      
+
+<div class="app-entity app-loader app-loader--visiable" data-testid="app-entity" data-js="rows-loader" >
+
+
+
+      <span data-testid="app-entity-text"
+      >0</span>
+
+
+</div>
+
+    </dd>
+
+</dl>
+
+    </hx-partial>
 
       <div id="results">
 
