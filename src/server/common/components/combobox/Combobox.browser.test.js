@@ -1,5 +1,5 @@
 import { test, expect, vi } from 'vitest'
-import { page } from 'vitest/browser'
+import { page, userEvent } from 'vitest/browser'
 
 import './Combobox.js'
 
@@ -147,5 +147,25 @@ test('Dispatches change event on option click', async () => {
   await suggestions.getByText('RoboCop').click()
 
   await expect.element(getById('user')).toHaveValue('RoboCop')
+  expect(onChange).toHaveBeenCalled()
+})
+
+test('Dispatches change event on option enter key', async () => {
+  const { element, getByRole, getById } = await page.render(component)
+  const input = getByRole('combobox')
+  const suggestions = getByRole('listbox')
+
+  const onChange = vi.fn()
+  element.addEventListener('change', onChange)
+
+  await input.click()
+
+  await expect.element(suggestions).toHaveAttribute('aria-expanded', 'true')
+
+  await userEvent.keyboard('{ArrowDown}') // first option
+  await userEvent.keyboard('{ArrowDown}') // second option
+  await userEvent.keyboard('{Enter}')
+
+  await expect.element(getById('user')).toHaveValue('Roger Rabbit')
   expect(onChange).toHaveBeenCalled()
 })
