@@ -1,22 +1,18 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 
 {% macro appCombobox(params) %}
-  {% if params.old == true %}
-    {%- include "./old-template.njk" -%}
-  {% else %}
-    <app-combobox
-      data-id="{{ params.id }}"
-      data-name="{{ params.name }}"
-      data-value="{{ params.value }}"
-      data-classes="{{ params.classes }}"
-      data-label-text="{{ params.label.text }}"
-      data-label-classes="{{ params.label.classes }}"
-      data-hint-text="{{ params.hint.text }}"
-      data-hint-html="{{ params.hint.html }}"
-      data-formgroup-classes="{{ params.formGroup.classes }}"
-      data-icon="{{ params.icon }}"
-    >
-    {%- include "./template.njk" -%}
-    </app-combobox>
-  {% endif %}
+  <app-combobox
+    data-id="{{ params.id }}"
+    data-name="{{ params.name }}"
+    data-value="{{ params.value }}"
+    data-classes="{{ params.classes }}"
+    data-label-text="{{ params.label.text }}"
+    data-label-classes="{{ params.label.classes }}"
+    data-hint-text="{{ params.hint.text }}"
+    data-hint-html="{{ params.hint.html }}"
+    data-formgroup-classes="{{ params.formGroup.classes }}"
+    data-icon="{{ params.icon }}"
+  >
+  {%- include "./template.njk" -%}
+  </app-combobox>
 {% endmacro %}
