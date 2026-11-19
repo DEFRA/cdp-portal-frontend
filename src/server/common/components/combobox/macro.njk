@@ -11,7 +11,7 @@
     data-hint-text="{{ params.hint.text }}"
     data-hint-html="{{ params.hint.html }}"
     data-formgroup-classes="{{ params.formGroup.classes }}"
-    data-icon="{{ params.icon }}"
+    data-icon="{{ params.icon | replace("\"", "&quot;") | safe }}"
   >
   {%- include "./template.njk" -%}
   </app-combobox>
