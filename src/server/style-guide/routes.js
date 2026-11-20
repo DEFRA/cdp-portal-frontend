@@ -10,6 +10,7 @@ import { stylesLayoutRoute } from './routes/styles-layout.js'
 import { stylesColoursRoute } from './routes/styles-colours.js'
 import { stylesTypographyRoute } from './routes/styles-typography.js'
 import { provideSubNavigation } from './helpers/provide-sub-navigation.js'
+import { typeaheadSuggestionsRoute } from './routes/typeahead-suggestions.js'
 
 const styleGuide = {
   plugin: {
@@ -75,6 +76,11 @@ const styleGuide = {
           method: 'GET',
           path: '/style-guide/svgs',
           ...svgsRoute
+        },
+        {
+          method: 'GET',
+          path: '/style-guide/typeahead/suggestions',
+          ...typeaheadSuggestionsRoute
         },
         {
           method: 'GET',

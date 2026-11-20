@@ -16,7 +16,7 @@
 {% set attributes = params.attributes if params.attributes else {} %}
 
 <div
-  id="app-autocomplete-{{ params.id }}"
+  id="app-combobox-{{ params.id }}"
   class="govuk-form-group app-form-group{% if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}{% if params.errorMessage.text %}govuk-form-group--error{% endif %}"
   data-js="app-form-group" data-testid="app-autocomplete-group"
 >
