@@ -57,9 +57,17 @@
     <div id="filtersAndResults">
       {% call appFilterGroup({
         action: pageUrl,
-        target: '#results',
         clear: {
           url: pageUrl
+        },
+        attributes: {
+          'data-hx-action': pageUrl,
+          'data-hx-method': 'get',
+          'data-hx-trigger': 'change, submit halt',
+          'data-hx-target': '#results',
+          'data-hx-select': '#results',
+          'data-hx-indicator': "[data-js='rows-loader']",
+          'data-hx-push-url': 'true'
         },
         info: {
           html: appEntityDataList({
@@ -78,8 +86,7 @@
               }
             ]
           })
-        },
-        loader: 'rows-loader'
+        }
       }) %}
 
         <div class="app-filters__item">
@@ -165,6 +172,7 @@
 
       {% endcall %}
 
+      {# TODO: Remove once autocomplete is replaced #}
       <hx-partial data-hx-target="#app-data-list" style="display: none;">
         {{ appEntityDataList({
           items:  [
