@@ -1,5 +1,6 @@
 {% extends "layouts/page.njk" %}
 {% from "filter-group/macro.njk" import appFilterGroup %}
+{% from "combobox/macro.njk" import appCombobox %}
 {% from "./components/dependency-row/macro.njk" import dependencyRow %}
 
 {% block content %}
@@ -21,10 +22,11 @@
     {% call govukFieldset() %}
 
     <div style="display: flex; align-items: end;">
-      {{ appAutocomplete({
+
+      {{ appCombobox({
         id: "versionInput",
         name: "version",
-        classes: "app-autocomplete--search-medium app-autocomplete--inline",
+        classes: "app-combobox--medium app-combobox--inline",
         label: {
           text: "Version",
           classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -34,8 +36,7 @@
           classes: "app-form-group--inline"
         },
         value: version,
-        suggestionClasses: "app-autocomplete__suggestion--leading-hint",
-        suggestions: versionOptions,
+        options: versionOptions,
         placeholder: "Search by version"
       }) }}
       {{ appLoader({ name: 'results-loader', classes: 'govuk-!-margin-bottom-2 govuk-!-margin-left-2' }) }}
@@ -56,9 +57,17 @@
     <div id="filtersAndResults">
       {% call appFilterGroup({
         action: pageUrl,
-        target: '#results',
         clear: {
           url: pageUrl
+        },
+        attributes: {
+          'data-hx-action': pageUrl,
+          'data-hx-method': 'get',
+          'data-hx-trigger': 'change, submit halt',
+          'data-hx-target': '#results',
+          'data-hx-select': '#results',
+          'data-hx-indicator': "[data-js='rows-loader']",
+          'data-hx-push-url': 'true'
         },
         info: {
           html: appEntityDataList({
@@ -77,15 +86,14 @@
               }
             ]
           })
-        },
-        loader: 'rows-loader'
+        }
       }) %}
 
         <div class="app-filters__item">
-          {{ appAutocomplete({
+          {{ appCombobox({
           id: "dependencyType",
           name: "dependencyType",
-          classes: "app-autocomplete--tiny app-autocomplete--inline",
+          classes: "app-combobox--tiny app-combobox--inline",
           label: {
             text: "Dependency type",
             classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -94,7 +102,7 @@
             classes: "app-form-group--inline"
           },
           value: query.dependencyType,
-          suggestions: dependencyTypeOptions
+          options: dependencyTypeOptions
           }) }}
         </div>
 
@@ -146,10 +154,10 @@
         </div>
 
         <div class="app-filters__item">
-          {{ appAutocomplete({
+          {{ appCombobox({
           id: "entityStage",
           name: "entityStage",
-          classes: "app-autocomplete--tiny app-autocomplete--inline",
+          classes: "app-combobox--tiny app-combobox--inline",
           label: {
             text: "Stage",
             classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -158,12 +166,13 @@
             classes: "app-form-group--inline"
           },
           value: query.entityStage,
-          suggestions: entityStageOptions
+          options: entityStageOptions
           }) }}
         </div>
 
       {% endcall %}
 
+      {# TODO: Remove once autocomplete is replaced #}
       <hx-partial data-hx-target="#app-data-list" style="display: none;">
         {{ appEntityDataList({
           items:  [
