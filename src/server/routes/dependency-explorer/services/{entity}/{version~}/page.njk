@@ -22,10 +22,11 @@
     {% call govukFieldset() %}
 
     <div style="display: flex; align-items: end;">
-      {{ appAutocomplete({
+
+      {{ appCombobox({
         id: "versionInput",
         name: "version",
-        classes: "app-autocomplete--search-medium app-autocomplete--inline",
+        classes: "app-combobox--medium app-combobox--inline",
         label: {
           text: "Version",
           classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -35,8 +36,7 @@
           classes: "app-form-group--inline"
         },
         value: version,
-        suggestionClasses: "app-autocomplete__suggestion--leading-hint",
-        suggestions: versionOptions,
+        options: versionOptions,
         placeholder: "Search by version"
       }) }}
       {{ appLoader({ name: 'results-loader', classes: 'govuk-!-margin-bottom-2 govuk-!-margin-left-2' }) }}

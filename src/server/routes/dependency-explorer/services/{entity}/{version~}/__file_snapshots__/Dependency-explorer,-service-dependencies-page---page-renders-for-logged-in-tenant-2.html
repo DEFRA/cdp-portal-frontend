@@ -272,36 +272,54 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 <fieldset class="govuk-fieldset">
 
     <div style="display: flex; align-items: end;">
-      
+
+        <app-combobox
+    data-id="versionInput"
+    data-name="version"
+    data-value="1.0.0"
+    data-classes="app-combobox--medium app-combobox--inline"
+    data-label-text="Version"
+    data-label-classes="govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+    data-hint-text=""
+    data-hint-html=""
+    data-formgroup-classes="app-form-group--inline"
+    data-icon="<svg xmlns=&quot;http://www.w3.org/2000/svg&quot;
+     class=&quot;app-icon app-search-icon&quot;
+     width=&quot;40&quot; height=&quot;40&quot;
+     viewBox=&quot;0 -960 960 960&quot;
+     role=&quot;img&quot;     data-testid=&quot;app-icon&quot;
+>
+  <path
+    d=&quot;M793.974-120.001 535.872-378.104q-30.566 25.533-72.907 39.228-42.341 13.695-84.647 13.695-109.724 0-184.777-75.014-75.052-75.014-75.052-183.512t75.014-183.574q75.014-75.077 183.325-75.077 108.311 0 183.703 75.033 75.391 75.032 75.391 183.563 0 43.3-13.552 83.839-13.551 40.538-39.705 73.025l259.513 258.436-48.204 48.461ZM377.282-392.769q80.74 0 135.896-55.156 55.156-55.156 55.156-135.844 0-80.688-55.097-135.845-55.098-55.156-135.896-55.156-81.14 0-136.202 55.156-55.062 55.157-55.062 135.845t55.062 135.844q55.062 55.156 136.143 55.156Z&quot; />
+</svg>
+"
+  >
 
 
-<script data-testid="app-autocomplete-suggestions">
-  window.cdp = window.cdp || {};
-  window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["version"] = [{"value":"","text":" - - select - - ","disabled":true,"attributes":{"selected":true}},{"value":"1.0.0","text":"1.0.0"}]
-</script>
+
 
 
 <div
+  id="app-autocomplete-versionInput"
   class="govuk-form-group app-form-group app-form-group--inline"
-  data-js="app-form-group" data-testid="app-autocomplete-group">
-
-  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-         id="versionInput-label"
-         for="versionInput"
-         data-testid="app-autocomplete-label">
+  data-js="app-form-group" data-testid="app-autocomplete-group"
+>
+  <label
+    class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+    id="versionInput-label"
+    for="versionInput"
+    data-testid="app-autocomplete-label"
+  >
     Version
   </label>
 
 
 
 
-
-  <div id="app-autocomplete-versionInput" class="app-autocomplete app-autocomplete--search-medium app-autocomplete--inline  app-autocomplete--with-icon"
-       data-js="app-autocomplete"
+  <div class="app-combobox app-combobox--medium app-combobox--inline app-combobox--with-icon"
        data-testid="app-autocomplete"
   >
-    <div class="app-autocomplete__control">
+    <div class="app-combobox__control">
         <svg xmlns="http://www.w3.org/2000/svg"
      class="app-icon app-search-icon"
      width="40" height="40"
@@ -313,24 +331,53 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </svg>
 
 
-        <select name="version" id="versionInput" class="govuk-select app-select" data-js="app-progressive-input" data-remove-password-widgets="true" data-placeholder="Search by version" data-testid="app-progressive-input" data-suggestion-classes="app-autocomplete__suggestion--leading-hint" >
-          <option value=""
->
+
+      <select
+          name="version"
+        id="versionInput"
+        class="govuk-select app-select js-hidden"
+        data-testid="app-progressive-input"
+      >
+        <option value="" >- - select - -</option>
+          <option
+            value=""
+          >
              - - select - - 
           </option>
-          <option value="1.0.0"
-selected="selected">
+          <option
+            value="1.0.0"
+selected="selected"          >
             1.0.0
           </option>
-        </select>
+      </select>
 
-      <button class="app-autocomplete__chevron-button js-visible"
-              type="button"
-              tabindex="-1"
-              aria-owns="app-autocomplete-versionInput-suggestions"
-              aria-label="Show"
-              data-js="app-chevron-button"
-              data-testid="app-chevron-button"
+
+      <input
+        id="versionInput-input"
+        type="text"
+        value="1.0.0"
+        class="govuk-input app-combobox__input js-visible"
+        placeholder="Search by version"
+        autocapitalize="none"
+        combobox="off"
+        role="combobox"
+        aria-controls="app-combobox-versionInput-suggestions"
+        aria-combobox="list"
+        aria-expanded="false"
+        data-1p-ignore
+        data-lpignore="true"
+        autocomplete="off"
+      />
+
+
+      <button
+        id="app-combobox-versionInput-chevron-button"
+        class="app-combobox__chevron-button js-visible"
+        type="button"
+        tabindex="-1"
+        aria-owns="app-combobox-versionInput-suggestions"
+        aria-label="Show"
+        data-testid="app-chevron-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
      viewBox="0 -960 960 960"
@@ -340,12 +387,12 @@ selected="selected">
 
       </button>
 
-      <button class="app-autocomplete__clear-button"
-              type="button"
-              aria-hidden="true"
-              tabindex="-1"
-              data-js="app-autocomplete-clear-button"
-              data-testid="app-autocomplete-clear-button"
+      <button
+        id="app-combobox-versionInput-clear-button"
+        class="app-combobox__clear-button app-combobox__clear-button--show"
+        type="button"
+        tabindex="-1"
+        data-testid="app-autocomplete-clear-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
      width="48"
@@ -361,16 +408,17 @@ selected="selected">
     </div>
 
     <ul
-      class="app-autocomplete__suggestions"
-      id="app-autocomplete-versionInput-suggestions"
+      class="app-combobox__suggestions"
+      id="app-combobox-versionInput-suggestions"
       aria-labelledby="versionInput-label"
       aria-expanded="false"
       role="listbox"
-      data-js="app-autocomplete-suggestions"
-      data-testid="app-autocomplete-suggestions"></ul>
+      data-testid="app-autocomplete-suggestions"
+    >
+</ul>
   </div>
-  
 </div>
+</app-combobox>
 
       <span class="app-loader govuk-!-margin-bottom-2 govuk-!-margin-left-2"
       data-testid="app-loader"
@@ -397,8 +445,8 @@ data-js="results-loader">
   data-hx-action="/dependency-explorer/services/test-service/1.0.0"
   data-hx-method="get"
   data-hx-trigger="change, submit halt"
-  data-hx-target="#filtersAndResults"
-  data-hx-select="#filtersAndResults"
+  data-hx-target="#results"
+  data-hx-select="#results"
  data-hx-indicator="[data-js='rows-loader']"   data-hx-push-url="true"
   data-testid="app-filters-form"
 >
@@ -423,14 +471,17 @@ data-js="results-loader">
 
 
 
-<div id="app-autocomplete-dependencyType"
+<div
+  id="app-autocomplete-dependencyType"
   class="govuk-form-group app-form-group app-form-group--inline"
-  data-js="app-form-group" data-testid="app-autocomplete-group">
-
-  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-         id="dependencyType-label"
-         for="dependencyType"
-         data-testid="app-autocomplete-label">
+  data-js="app-form-group" data-testid="app-autocomplete-group"
+>
+  <label
+    class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+    id="dependencyType-label"
+    for="dependencyType"
+    data-testid="app-autocomplete-label"
+  >
     Dependency type
   </label>
 
@@ -666,14 +717,17 @@ data-js="search-dependency-loader">
 
 
 
-<div id="app-autocomplete-entityStage"
+<div
+  id="app-autocomplete-entityStage"
   class="govuk-form-group app-form-group app-form-group--inline"
-  data-js="app-form-group" data-testid="app-autocomplete-group">
-
-  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-         id="entityStage-label"
-         for="entityStage"
-         data-testid="app-autocomplete-label">
+  data-js="app-form-group" data-testid="app-autocomplete-group"
+>
+  <label
+    class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+    id="entityStage-label"
+    for="entityStage"
+    data-testid="app-autocomplete-label"
+  >
     Stage
   </label>
 
@@ -828,6 +882,35 @@ data-js="search-dependency-loader">
     </noscript>
   </fieldset>
 </form>
+
+      <hx-partial data-hx-target="#app-data-list" style="display: none;">
+        
+
+
+<dl id="app-data-list" class="app-data-list" data-testid="app-data-list">
+    <dt class="app-data-list-heading"
+        data-testid="app-data-list-heading-1">
+      Count
+    </dt>
+    <dd class="app-data-list-item"
+        data-testid="app-data-list-item-1">
+      
+
+<div class="app-entity app-loader app-loader--visiable" data-testid="app-entity" data-js="rows-loader" >
+
+
+
+      <span data-testid="app-entity-text"
+      >0</span>
+
+
+</div>
+
+    </dd>
+
+</dl>
+
+      </hx-partial>
 
 
       <div id="results">
