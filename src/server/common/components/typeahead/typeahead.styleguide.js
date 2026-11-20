@@ -9,10 +9,10 @@ export const typeaheadStyleguide = {
   },
   params: [
     {
-      name: 'options',
-      type: 'array',
+      name: 'url',
+      type: 'string',
       required: true,
-      description: 'Options for the picker'
+      description: 'Url to render suggestions'
     },
     {
       name: 'classes',
@@ -33,20 +33,7 @@ export const typeaheadStyleguide = {
         },
         id: 'user',
         name: 'user',
-        options: [
-          {
-            text: 'RoboCop',
-            value: 'RoboCop'
-          },
-          {
-            text: 'Roger Rabbit',
-            value: 'Roger Rabbit'
-          },
-          {
-            text: 'Barbie',
-            value: 'Barbie'
-          }
-        ]
+        url: './typeahead/suggestions'
       }
     }
   ]

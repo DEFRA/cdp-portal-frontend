@@ -6,23 +6,22 @@
 {% from "icons/cancel-icon/macro.njk" import appCancelIcon %}
 {% from "loader/macro.njk" import appLoader %}
 
-{% set options = params.options if params.options else [] %}
-{% set suggestions = params.suggestions if params.suggestions else [] %}
+{% from "typeahead/suggestions/macro.njk" import appTypeaheadSuggestions %}
 
-{% set currentOption = options | find({ value: params.value }) %}
-{% set currentOptionText = currentOption.text if currentOption and currentOption.value != '' else '' %}
-{% set suggestionText = params.suggestionText if params.suggestionText else currentOptionText %}
+
+{% set suggestions = params.suggestions if params.suggestions else [] %}
+{% set suggestionText = params.suggestionText if params.suggestionText else '' %}
 
 {% set attributes = params.attributes if params.attributes else {} %}
 
 <div
-  id="app-autocomplete-{{ params.id }}"
+  id="app-typeahead-{{ params.id }}"
   class="govuk-form-group app-form-group{% if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}{% if params.errorMessage.text %}govuk-form-group--error{% endif %}"
   data-js="app-form-group" data-testid="app-autocomplete-group"
 >
   <label
     class="govuk-label{% if params.label.classes %} {{ params.label.classes }}{% endif %}"
-    id="{{ params.id }}-label"
+    id="{{ params.name }}-label"
     for="{{ params.id }}"
     data-testid="app-autocomplete-label"
   >
@@ -63,31 +62,10 @@
         {{ params.icon | safe }}
       {% endif %}
 
-
-      <select
-        {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
-        {% if params.value != '' and params.value != undefined %}
-          name="{{ params.name }}"
-        {% endif %}
-        id="{{ params.id }}"
-        class="govuk-select app-select js-hidden{{ ' govuk-select--error' if params.errorMessage.text }}"
-        data-testid="app-progressive-input"
-      >
-        <option value="" {% if params.value == '' or params.value == undefined %}selected="selected"{% endif %}>- - select - -</option>
-        {% for option in options %}
-          <option
-            value="{{ option.value }}"
-            {% if params.value == option.value %}selected="selected"{% endif %}
-          >
-            {{ option.text }}{{ " - " + option.hint if option.hint }}
-          </option>
-        {% endfor %}
-      </select>
-
-
       <input
         {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
-        id="{{ params.id }}-input"
+        id="{{ params.id }}"
+        name="{{ params.name }}"
         type="text"
         value="{{ suggestionText }}"
         class="govuk-input app-typeahead__input js-visible{% if suggestions.length != 0 %} app-typeahead__focused{% endif %}"
@@ -101,6 +79,10 @@
         data-1p-ignore
         data-lpignore="true"
         autocomplete="off"
+        data-hx-get="{{ params.url }}"
+        data-hx-trigger="input changed delay:100ms, focus"
+        data-hx-target="#app-typeahead-{{ params.name }}-suggestions"
+        data-hx-swap="outerHTML"
       />
 
 
@@ -131,15 +113,12 @@
       {% endif %}
     </div>
 
-    <ul
-      class="app-typeahead__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}{{ ' app-typeahead__suggestions--show' if suggestions.length != 0 }}"
-      id="app-typeahead-{{ params.id }}-suggestions"
-      aria-labelledby="{{ params.id }}-label"
-      aria-expanded="{{'false' if suggestions.length == 0 else 'true'}}"
-      role="listbox"
-      data-testid="app-autocomplete-suggestions"
-    >
-      {%- include "./suggestions.njk" -%}
-    </ul>
+    {{ appTypeaheadSuggestions({
+      inputName: params.name,
+      suggestions: suggestions,
+      suggestionText: suggestionText,
+      suggestionsContainer: params.suggestionsContainer
+    }) }}
+
   </div>
 </div>
