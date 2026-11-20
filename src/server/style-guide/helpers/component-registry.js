@@ -41,6 +41,7 @@ import { namingAdviceStyleguide } from '../../common/components/naming-advice/na
 import { searchStyleguide } from '../../common/components/search/search.styleguide.js'
 import { stepNavigationStyleguide } from '../../common/components/step-navigation/step-navigation.styleguide.js'
 import { comboboxStyleguide } from '../../common/components/combobox/combobox.styleguide.js'
+import { typeaheadStyleguide } from '../../common/components/typeahead/typeahead.styleguide.js'
 
 // Data
 import { databaseDetailStyleguide } from '../../common/components/database-detail/database-detail.styleguide.js'
@@ -94,6 +95,7 @@ const componentRegistry = [
   searchStyleguide,
   stepNavigationStyleguide,
   comboboxStyleguide,
+  typeaheadStyleguide,
 
   // Data
   databaseDetailStyleguide,
