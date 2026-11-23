@@ -12,7 +12,7 @@ export default class Typeahead extends NunjucksComponent {
   get managedListeners() {
     return [
       [this.#inputElement, 'keydown', this.#onKeyDown],
-      [this.#inputElement, 'input', this.#onInput],
+      [this.#inputElement, 'focus', this.#onFocus],
       [this.#suggestionsContainer, 'keydown', this.#onSuggestionsKeyDown],
       [this.#suggestionsContainer, 'click', this.#onSuggestionsClick],
       [this.#suggestionsContainer, 'change', this.#onSuggestionsChange],
@@ -58,7 +58,10 @@ export default class Typeahead extends NunjucksComponent {
 
   async #onKeyDown(event) {}
 
-  #onInput() {}
+  #onFocus() {
+    this.#chevronButton.setAttribute('aria-lable', 'Hide')
+    this.#chevronButton.classList.add('app-typeahead__chevron-button--open')
+  }
 
   async #onSuggestionsKeyDown(event) {}
 
@@ -72,13 +75,9 @@ export default class Typeahead extends NunjucksComponent {
 
   #onChevronButtonClick() {
     if (this.#chevronButton.getAttribute('aria-lable') === 'Hide') {
-      this.#chevronButton.setAttribute('aria-lable', 'Show')
-      this.#chevronButton.classList.remove(
-        'app-typeahead__chevron-button--open'
-      )
+      this.clearSuggestions()
     } else {
-      this.#chevronButton.setAttribute('aria-lable', 'Hide')
-      this.#chevronButton.classList.add('app-typeahead__chevron-button--open')
+      this.#inputElement.focus()
     }
   }
 
