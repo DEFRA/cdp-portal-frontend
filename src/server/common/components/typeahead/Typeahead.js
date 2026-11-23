@@ -1,10 +1,6 @@
-import template from './template.njk'
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 
 export default class Typeahead extends NunjucksComponent {
-  #options = []
-  #suggestions = []
-
   #selectedValue
   #suggestionText
 
@@ -13,13 +9,8 @@ export default class Typeahead extends NunjucksComponent {
   #clearButton
   #chevronButton
 
-  constructor() {
-    super(template)
-  }
-
   get managedListeners() {
     return [
-      [this.#inputElement, 'focus', this.#onFocus],
       [this.#inputElement, 'keydown', this.#onKeyDown],
       [this.#inputElement, 'input', this.#onInput],
       [this.#suggestionsContainer, 'keydown', this.#onSuggestionsKeyDown],
@@ -46,9 +37,24 @@ export default class Typeahead extends NunjucksComponent {
     this.#suggestionText = this.#inputElement.value
   }
 
-  async render() {}
+  clearSuggestions() {
+    this.#suggestionsContainer.innerHTML = ''
 
-  #onFocus() {}
+    this.#suggestionsContainer.classList.remove(
+      'app-typeahead__suggestions--show'
+    )
+
+    this.#suggestionsContainer.setAttribute('aria-expanded', 'false')
+
+    if (this.#suggestionText) {
+      this.#clearButton.classList.add('app-typeahead__clear-button--show')
+    } else {
+      this.#clearButton.classList.remove('app-typeahead__clear-button--show')
+    }
+
+    this.#chevronButton.setAttribute('aria-lable', 'Show')
+    this.#chevronButton.classList.remove('app-typeahead__chevron-button--open')
+  }
 
   async #onKeyDown(event) {}
 
@@ -64,9 +70,23 @@ export default class Typeahead extends NunjucksComponent {
 
   async #onClearButtonClick() {}
 
-  #onChevronButtonClick() {}
+  #onChevronButtonClick() {
+    if (this.#chevronButton.getAttribute('aria-lable') === 'Hide') {
+      this.#chevronButton.setAttribute('aria-lable', 'Show')
+      this.#chevronButton.classList.remove(
+        'app-typeahead__chevron-button--open'
+      )
+    } else {
+      this.#chevronButton.setAttribute('aria-lable', 'Hide')
+      this.#chevronButton.classList.add('app-typeahead__chevron-button--open')
+    }
+  }
 
-  #onDocumentClick(event) {}
+  #onDocumentClick(event) {
+    if (!this.contains(event.target)) {
+      this.clearSuggestions()
+    }
+  }
 }
 
 window.customElements.define('app-typeahead', Typeahead)
