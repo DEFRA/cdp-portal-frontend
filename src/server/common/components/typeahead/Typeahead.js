@@ -76,7 +76,17 @@ export default class Typeahead extends NunjucksComponent {
 
   async #onSuggestionsKeyDown(event) {}
 
-  async #onSuggestionsClick(event) {}
+  async #onSuggestionsClick(event) {
+    const item = event.target.closest('li')
+    const label = item.querySelector('label')
+    if (!label) return
+    const optionValue = label.control.value
+
+    this.#suggestionText = optionValue
+    this.#inputElement.value = this.#suggestionText
+
+    this.clearSuggestions()
+  }
 
   #onSuggestionsChange(event) {
     event.stopPropagation()
@@ -84,7 +94,7 @@ export default class Typeahead extends NunjucksComponent {
 
   async #onClearButtonClick() {
     this.#suggestionText = ''
-    this.#inputElement.value = ''
+    this.#inputElement.value = this.#suggestionText
 
     this.clearSuggestions()
   }
