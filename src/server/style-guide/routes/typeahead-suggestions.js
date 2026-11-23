@@ -11,26 +11,42 @@ export const typeaheadSuggestionsRoute = {
     }
   },
   handler: (request, h) => {
-    const { user } = request.query
+    const { user, 'user-hint': userHint, hint } = request.query
 
     const suggestions = [
       {
         text: 'RoboCop',
-        value: 'RoboCop'
+        value: 'RoboCop',
+        hint: 'User Id: 12454878'
       },
       {
         text: 'Roger Rabbit',
-        value: 'Roger Rabbit'
+        value: 'Roger Rabbit',
+        hint: 'User Id: 556456465'
       },
       {
         text: 'Barbie',
-        value: 'Barbie'
+        value: 'Barbie',
+        hint: 'User Id: 67567576'
       }
-    ].filter(({ text }) => text.toLowerCase().includes(user.toLowerCase()))
+    ]
+      .filter(({ text }) =>
+        text
+          .toLowerCase()
+          .includes(hint ? userHint.toLowerCase() : user.toLowerCase())
+      )
+      .map((user) =>
+        hint
+          ? user
+          : {
+              text: user.text,
+              value: user.value
+            }
+      )
 
     return h.view('style-guide/views/typeahead-suggestions', {
-      inputName: 'user',
-      suggestionText: user,
+      inputName: hint ? 'user-hint' : 'user',
+      suggestionText: hint ? userHint : user,
       suggestions
     })
   }

@@ -23,7 +23,7 @@ export const typeaheadStyleguide = {
   ],
   examples: [
     {
-      title: 'Typeahead',
+      title: 'Basic',
       params: {
         label: {
           text: 'By'
@@ -34,6 +34,20 @@ export const typeaheadStyleguide = {
         id: 'user',
         name: 'user',
         url: './typeahead/suggestions'
+      }
+    },
+    {
+      title: 'With Hint',
+      params: {
+        label: {
+          text: 'By'
+        },
+        hint: {
+          text: 'Choose a user'
+        },
+        id: 'user-hint',
+        name: 'user-hint',
+        url: './typeahead/suggestions?hint=true'
       }
     }
   ]
