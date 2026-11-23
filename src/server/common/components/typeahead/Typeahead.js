@@ -82,7 +82,12 @@ export default class Typeahead extends NunjucksComponent {
     event.stopPropagation()
   }
 
-  async #onClearButtonClick() {}
+  async #onClearButtonClick() {
+    this.#suggestionText = ''
+    this.#inputElement.value = ''
+
+    this.clearSuggestions()
+  }
 
   #onChevronButtonClick() {
     if (this.#chevronButton.getAttribute('aria-lable') === 'Hide') {
