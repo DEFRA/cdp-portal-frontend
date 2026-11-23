@@ -52,7 +52,8 @@ export default class Combobox extends NunjucksComponent {
       if ($option.value) {
         this.#options.push({
           value: $option.value,
-          text: $option.textContent?.trim()
+          text: $option.textContent?.trim(),
+          hint: $option.dataset.hint?.trim()
         })
 
         if ($option.selected) {
@@ -198,8 +199,10 @@ export default class Combobox extends NunjucksComponent {
   }
 
   async #onSuggestionsClick(event) {
-    if (!(event.target instanceof HTMLLabelElement)) return
-    const optionValue = event.target.control.value
+    const item = event.target.closest('li')
+    const label = item.querySelector('label')
+    if (!label) return
+    const optionValue = label.control.value
 
     this.#selectedValue = optionValue
     this.#suggestionText =

@@ -78,8 +78,9 @@
           <option
             value="{{ option.value }}"
             {% if params.value == option.value %}selected="selected"{% endif %}
+            {% if option.hint %}data-hint="{{ option.hint }}"{% endif %}
           >
-            {{ option.text }}{{ " - " + option.hint if option.hint }}
+            {{ option.text }}
           </option>
         {% endfor %}
       </select>
