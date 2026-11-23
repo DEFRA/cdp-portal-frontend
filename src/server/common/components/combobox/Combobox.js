@@ -118,6 +118,19 @@ export default class Combobox extends NunjucksComponent {
     } else {
       this.#clearButton.classList.remove('app-combobox__clear-button--show')
     }
+
+    this.#chevronButton.setAttribute(
+      'aria-lable',
+      this.#suggestions.length === 0 ? 'Show' : 'Hide'
+    )
+
+    if (this.#suggestions.length === 0) {
+      this.#chevronButton.classList.remove(
+        'app-typeahead__chevron-button--open'
+      )
+    } else {
+      this.#chevronButton.classList.add('app-typeahead__chevron-button--open')
+    }
   }
 
   #onFocus() {
