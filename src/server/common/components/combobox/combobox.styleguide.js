@@ -36,15 +36,15 @@ export const comboboxStyleguide = {
         options: [
           {
             text: 'RoboCop',
-            value: 'RoboCop'
+            value: 'robo_cop'
           },
           {
             text: 'Roger Rabbit',
-            value: 'Roger Rabbit'
+            value: 'roger_rabbit'
           },
           {
             text: 'Barbie',
-            value: 'Barbie'
+            value: 'barbie'
           }
         ]
       }
@@ -63,17 +63,17 @@ export const comboboxStyleguide = {
         options: [
           {
             text: 'RoboCop',
-            value: 'RoboCop',
+            value: 'robo_cop',
             hint: 'User Id: 12454878'
           },
           {
             text: 'Roger Rabbit',
-            value: 'Roger Rabbit',
+            value: 'roger_rabbit',
             hint: 'User Id: 556456465'
           },
           {
             text: 'Barbie',
-            value: 'Barbie',
+            value: 'barbie',
             hint: 'User Id: 67567576'
           }
         ]
