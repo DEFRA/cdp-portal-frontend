@@ -125,6 +125,7 @@ export default class Typeahead extends NunjucksComponent {
       this.#selectedValue = optionValue
       this.#suggestionText = optionValue
       this.#inputElement.value = this.#suggestionText
+      this.#inputElement.dispatchEvent(new Event('change', { bubbles: true }))
 
       this.clearSuggestions()
     }
@@ -151,6 +152,7 @@ export default class Typeahead extends NunjucksComponent {
   async #onClearButtonClick() {
     this.#suggestionText = ''
     this.#inputElement.value = this.#suggestionText
+    this.#inputElement.dispatchEvent(new Event('change', { bubbles: true }))
 
     this.clearSuggestions()
   }
