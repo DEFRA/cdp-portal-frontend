@@ -57,7 +57,31 @@ export default class Typeahead extends NunjucksComponent {
     this.#chevronButton.classList.remove('app-typeahead__chevron-button--open')
   }
 
-  async #onKeyDown(event) {}
+  async #onKeyDown(event) {
+    const code = event.code.toLowerCase()
+    const textValue = event.target.value
+
+    if ((code === 'backspace' && !textValue) || code === 'escape') {
+      this.clearSuggestions()
+    } else if (code === 'tab') {
+      this.clearSuggestions()
+      this.#inputElement.dispatchEvent(new Event('blur', { bubbles: true }))
+    } else if (code === 'arrowdown' || code === 'home') {
+      event.preventDefault()
+
+      const firstOption = [
+        ...this.querySelectorAll('input:not([type="text"])')
+      ].at(0)
+      firstOption?.focus()
+    } else if (code === 'end') {
+      event.preventDefault()
+
+      const lastOption = [
+        ...this.querySelectorAll('input:not([type="text"])')
+      ].at(-1)
+      lastOption?.focus()
+    }
+  }
 
   #onFocus() {
     this.#chevronButton.setAttribute('aria-lable', 'Hide')
@@ -74,14 +98,46 @@ export default class Typeahead extends NunjucksComponent {
     }
   }
 
-  async #onSuggestionsKeyDown(event) {}
+  async #onSuggestionsKeyDown(event) {
+    if (!(event.target instanceof HTMLInputElement)) return
+
+    const code = event.code.toLowerCase()
+    const optionValue = event.target.value
+
+    if (code === 'escape') {
+      this.#inputElement.focus()
+      this.clearSuggestions()
+    } else if (code === 'home') {
+      event.preventDefault()
+
+      const firstOption = [
+        ...this.querySelectorAll('input:not([type="text"])')
+      ].at(0)
+      firstOption?.focus()
+    } else if (code === 'end') {
+      event.preventDefault()
+
+      const lastOption = [
+        ...this.querySelectorAll('input:not([type="text"])')
+      ].at(-1)
+      lastOption?.focus()
+    } else if (code === 'enter') {
+      this.#selectedValue = optionValue
+      this.#suggestionText = optionValue
+      this.#inputElement.value = this.#suggestionText
+
+      this.clearSuggestions()
+    }
+  }
 
   async #onSuggestionsClick(event) {
+    if (event.target instanceof HTMLInputElement) return // Keyboard selection
+
     const item = event.target.closest('li')
     const label = item.querySelector('label')
     if (!label) return
-    const optionValue = label.control.value
 
+    const optionValue = label.control.value
     this.#suggestionText = optionValue
     this.#inputElement.value = this.#suggestionText
 

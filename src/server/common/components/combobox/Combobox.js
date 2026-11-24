@@ -212,11 +212,13 @@ export default class Combobox extends NunjucksComponent {
   }
 
   async #onSuggestionsClick(event) {
+    if (event.target instanceof HTMLInputElement) return // Keyboard selection
+
     const item = event.target.closest('li')
     const label = item.querySelector('label')
     if (!label) return
-    const optionValue = label.control.value
 
+    const optionValue = label.control.value
     this.#selectedValue = optionValue
     this.#suggestionText =
       this.#options.find((option) => option.value === optionValue)?.text ?? ''
