@@ -1,7 +1,7 @@
 import NunjucksComponent from '#client/common/web-components/NunjucksComponent.js'
 
 export default class Typeahead extends NunjucksComponent {
-  #selectedValue
+  #valueInputElement
   #suggestionText
 
   #inputElement
@@ -24,7 +24,10 @@ export default class Typeahead extends NunjucksComponent {
   }
 
   mounted() {
-    this.#inputElement = this.querySelector('input')
+    this.#inputElement = this.querySelector(
+      `#app-typeahead-${this.dataset.id}-input`
+    )
+    this.#valueInputElement = this.querySelector(`#${this.dataset.id}`)
     this.#suggestionsContainer = this.querySelector(
       `#app-typeahead-${this.dataset.id}-suggestions`
     )
@@ -38,7 +41,7 @@ export default class Typeahead extends NunjucksComponent {
     this.#suggestionText = this.#inputElement.value
   }
 
-  clearSuggestions() {
+  #clearSuggestions() {
     this.#suggestionsContainer.innerHTML = ''
 
     this.#suggestionsContainer.classList.remove(
@@ -57,14 +60,27 @@ export default class Typeahead extends NunjucksComponent {
     this.#chevronButton.classList.remove('app-typeahead__chevron-button--open')
   }
 
+  #updateValue(value) {
+    if (value) {
+      this.#valueInputElement.setAttribute('name', this.dataset.name)
+    } else {
+      this.#valueInputElement.removeAttribute('name')
+    }
+
+    this.#valueInputElement.value = value
+    this.#valueInputElement.dispatchEvent(
+      new Event('change', { bubbles: true })
+    )
+  }
+
   async #onKeyDown(event) {
     const code = event.code.toLowerCase()
     const textValue = event.target.value
 
     if ((code === 'backspace' && !textValue) || code === 'escape') {
-      this.clearSuggestions()
+      this.#clearSuggestions()
     } else if (code === 'tab') {
-      this.clearSuggestions()
+      this.#clearSuggestions()
       this.#inputElement.dispatchEvent(new Event('blur', { bubbles: true }))
     } else if (code === 'arrowdown' || code === 'home') {
       event.preventDefault()
@@ -90,6 +106,7 @@ export default class Typeahead extends NunjucksComponent {
 
   #onInput() {
     this.#suggestionText = this.#inputElement.value
+    this.#updateValue(this.#suggestionText)
 
     if (this.#suggestionText) {
       this.#clearButton.classList.add('app-typeahead__clear-button--show')
@@ -102,11 +119,11 @@ export default class Typeahead extends NunjucksComponent {
     if (!(event.target instanceof HTMLInputElement)) return
 
     const code = event.code.toLowerCase()
-    const optionValue = event.target.value
+    const option = event.target
 
     if (code === 'escape') {
       this.#inputElement.focus()
-      this.clearSuggestions()
+      this.#clearSuggestions()
     } else if (code === 'home') {
       event.preventDefault()
 
@@ -122,12 +139,11 @@ export default class Typeahead extends NunjucksComponent {
       ].at(-1)
       lastOption?.focus()
     } else if (code === 'enter') {
-      this.#selectedValue = optionValue
-      this.#suggestionText = optionValue
+      this.#suggestionText = option.labels[0]?.textContent?.trim() ?? ''
       this.#inputElement.value = this.#suggestionText
-      this.#inputElement.dispatchEvent(new Event('change', { bubbles: true }))
+      this.#updateValue(option.value)
 
-      this.clearSuggestions()
+      this.#clearSuggestions()
     }
   }
 
@@ -138,11 +154,12 @@ export default class Typeahead extends NunjucksComponent {
     const label = item.querySelector('label')
     if (!label) return
 
-    const optionValue = label.control.value
-    this.#suggestionText = optionValue
+    const option = label.control
+    this.#suggestionText = option.labels[0]?.textContent?.trim() ?? ''
     this.#inputElement.value = this.#suggestionText
+    this.#updateValue(option.value)
 
-    this.clearSuggestions()
+    this.#clearSuggestions()
   }
 
   #onSuggestionsChange(event) {
@@ -152,14 +169,14 @@ export default class Typeahead extends NunjucksComponent {
   async #onClearButtonClick() {
     this.#suggestionText = ''
     this.#inputElement.value = this.#suggestionText
-    this.#inputElement.dispatchEvent(new Event('change', { bubbles: true }))
+    this.#updateValue(this.#suggestionText)
 
-    this.clearSuggestions()
+    this.#clearSuggestions()
   }
 
   #onChevronButtonClick() {
     if (this.#chevronButton.getAttribute('aria-lable') === 'Hide') {
-      this.clearSuggestions()
+      this.#clearSuggestions()
     } else {
       this.#inputElement.focus()
     }
@@ -167,7 +184,7 @@ export default class Typeahead extends NunjucksComponent {
 
   #onDocumentClick(event) {
     if (!this.contains(event.target)) {
-      this.clearSuggestions()
+      this.#clearSuggestions()
     }
   }
 }

@@ -11,7 +11,7 @@ export const typeaheadSuggestionsRoute = {
     }
   },
   handler: (request, h) => {
-    const { user, 'user-hint': userHint, hint } = request.query
+    const { user_text: user, 'user-hint_text': userHint, hint } = request.query
 
     const suggestions = [
       {

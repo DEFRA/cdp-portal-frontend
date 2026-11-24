@@ -10,7 +10,7 @@
 
 
 {% set suggestions = params.suggestions if params.suggestions else [] %}
-{% set suggestionText = params.suggestionText if params.suggestionText else '' %}
+{% set suggestionText = params.suggestionText if params.suggestionText else params.value %}
 
 {% set attributes = params.attributes if params.attributes else {} %}
 
@@ -63,9 +63,25 @@
       {% endif %}
 
       <input
-        {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
         id="{{ params.id }}"
-        name="{{ params.name }}"
+        {% if params.value != '' and params.value != undefined %}
+          name="{{ params.name }}"
+        {% endif %}
+        type="text"
+        value="{{ params.value }}"
+        class="govuk-input app-typeahead__input js-hidden"
+        placeholder="{{ params.placeholder if params.placeholder else ' - - select - - ' }}"
+        autocapitalize="none"
+        combobox="off"
+        data-1p-ignore
+        data-lpignore="true"
+        autocomplete="off"
+      />
+
+      <input
+        {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
+        id="app-typeahead-{{ params.id }}-input"
+        name="{{ params.name }}_text"
         type="text"
         value="{{ suggestionText }}"
         class="govuk-input app-typeahead__input js-visible{% if suggestions.length != 0 %} app-typeahead__focused{% endif %}"
@@ -83,6 +99,7 @@
         data-hx-trigger="input changed delay:100ms, focus"
         data-hx-target="#app-typeahead-{{ params.name }}-suggestions"
         data-hx-swap="outerSync"
+        data-hx-include="#{{ params.id }}"
       />
 
 

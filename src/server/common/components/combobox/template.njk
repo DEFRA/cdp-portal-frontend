@@ -88,7 +88,7 @@
 
       <input
         {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
-        id="{{ params.id }}-input"
+        id="app-combobox-{{ params.id }}-input"
         type="text"
         value="{{ suggestionText }}"
         class="govuk-input app-combobox__input js-visible{% if suggestions.length != 0 %} app-combobox__focused{% endif %}"
