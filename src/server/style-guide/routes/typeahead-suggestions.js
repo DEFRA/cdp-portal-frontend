@@ -46,6 +46,7 @@ export const typeaheadSuggestionsRoute = {
 
     return h.view('style-guide/views/typeahead-suggestions', {
       inputName: hint ? 'user-hint' : 'user',
+      value: hint ? userHint : user,
       suggestionText: hint ? userHint : user,
       suggestions
     })
