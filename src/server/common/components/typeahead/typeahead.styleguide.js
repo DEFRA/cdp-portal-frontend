@@ -49,6 +49,20 @@ export const typeaheadStyleguide = {
         name: 'user-hint',
         url: './typeahead/suggestions?hint=true'
       }
+    },
+    {
+      title: 'With custom options',
+      params: {
+        label: {
+          text: 'By'
+        },
+        hint: {
+          text: 'Choose a user'
+        },
+        id: 'user-custom',
+        name: 'user-custom',
+        url: './typeahead/suggestions?custom=true'
+      }
     }
   ]
 }

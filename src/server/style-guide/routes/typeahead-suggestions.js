@@ -11,7 +11,13 @@ export const typeaheadSuggestionsRoute = {
     }
   },
   handler: (request, h) => {
-    const { user_text: user, 'user-hint_text': userHint, hint } = request.query
+    const {
+      user_text: user,
+      'user-hint_text': userHint,
+      'user-custom_text': userCustom,
+      hint,
+      custom
+    } = request.query
 
     const suggestions = [
       {
@@ -33,7 +39,13 @@ export const typeaheadSuggestionsRoute = {
       .filter(({ text }) =>
         text
           .toLowerCase()
-          .includes(hint ? userHint.toLowerCase() : user.toLowerCase())
+          .includes(
+            hint
+              ? userHint.toLowerCase()
+              : custom
+                ? userCustom.toLowerCase()
+                : user.toLowerCase()
+          )
       )
       .map((user) =>
         hint
@@ -45,10 +57,13 @@ export const typeaheadSuggestionsRoute = {
       )
 
     return h.view('style-guide/views/typeahead-suggestions', {
-      inputName: hint ? 'user-hint' : 'user',
-      value: hint ? userHint : user,
-      suggestionText: hint ? userHint : user,
-      suggestions
+      inputName: hint ? 'user-hint' : custom ? 'user-custom' : 'user',
+      value: hint ? userHint : custom ? userCustom : user,
+      suggestionText: hint ? userHint : custom ? userCustom : user,
+      suggestions,
+      partial: custom
+        ? 'style-guide/views/typeahead-suggestions-option.njk'
+        : ''
     })
   }
 }
