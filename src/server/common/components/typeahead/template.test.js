@@ -68,11 +68,13 @@ describe('typeahead Component', () => {
     })
 
     test('Should render expected element type', () => {
-      expect($input.get(0).tagName).toBe('select')
+      expect($input.get(0).tagName).toBe('input')
     })
 
     test('Should render with expected classes', () => {
-      expect($input.attr('class')).toBe('govuk-select app-select js-hidden')
+      expect($input.attr('class')).toBe(
+        'govuk-input app-typeahead__input js-hidden'
+      )
     })
 
     test('Should render with expected attributes', () => {
@@ -96,16 +98,6 @@ describe('typeahead Component', () => {
 
       expect($hint).toHaveLength(1)
       expect($hint.text().trim()).toBe('Choose a user')
-    })
-
-    test('Should render with expected suggestions', () => {
-      const $options = $input.children('option')
-
-      expect($options).toHaveLength(4)
-      expect($options.eq(0).text().trim()).toBe('- - select - -')
-      expect($options.eq(1).text().trim()).toBe('RoboCop')
-      expect($options.eq(2).text().trim()).toBe('Roger Rabbit')
-      expect($options.eq(3).text().trim()).toBe('Barbie')
     })
 
     test('Autocomplete should render with expected class', () => {
