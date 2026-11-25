@@ -96,7 +96,7 @@
         data-lpignore="true"
         autocomplete="off"
         {% if params.url %}data-hx-get="{{ params.url }}"{% endif %}
-        data-hx-trigger="input changed delay:100ms, focus"
+        data-hx-trigger="input changed delay:200ms, focus"
         data-hx-target="#app-typeahead-{{ params.name }}-suggestions"
         data-hx-swap="outerSync"
         data-hx-include="#{{ params.id }}"

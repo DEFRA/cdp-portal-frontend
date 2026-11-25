@@ -32,17 +32,21 @@
         {% endif %}
       </label>
 
-      {% if suggestion.hint %}
-        <span class="app-suggestion__hint">{{ suggestion.hint }}</span>
-      {% endif %}
-
-      <span class="app-suggestion__action">
-        {% if suggestion.value and suggestion.value == params.value %}
-          {{ appTickIcon({
-            classes: 'app-icon--tiny'
-          }) }}
+      {% if params.partial %}
+        {% include params.partial %}
+      {% else %}
+        {% if suggestion.hint %}
+          <span class="app-suggestion__hint">{{ suggestion.hint }}</span>
         {% endif %}
-      </span>
+
+        <span class="app-suggestion__action">
+          {% if suggestion.value and suggestion.value == params.value %}
+            {{ appTickIcon({
+              classes: 'app-icon--tiny'
+            }) }}
+          {% endif %}
+        </span>
+      {% endif %}
     </li>
   {% endfor %}
 </ul>
