@@ -3,10 +3,10 @@
 {% set suggestions = params.suggestions if params.suggestions and params.suggestions.length != 0 else [{ text: ' - - no results - -', value: '' }] %}
 
 <ul
-  class="app-typeahead__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}{{ ' app-typeahead__suggestions--show' if suggestions.length != 0 }}"
+  class="app-typeahead__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}{{ ' app-typeahead__suggestions--show' if params.suggestions.length != 0 }}"
   id="app-typeahead-{{ params.inputName }}-suggestions"
   aria-labelledby="{{ params.inputName }}-label"
-  aria-expanded="{{'false' if suggestions.length == 0 else 'true'}}"
+  aria-expanded="{{'false' if params.suggestions.length == 0 else 'true'}}"
   role="listbox"
   data-testid="app-autocomplete-suggestions"
 >
