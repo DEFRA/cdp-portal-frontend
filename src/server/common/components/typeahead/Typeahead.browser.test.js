@@ -201,7 +201,7 @@ const component = `
                       aria-owns="app-typeahead-user-suggestions"
                       aria-label="Show"
                       data-testid="app-chevron-button"
-                      aria-lable="Show"
+                      aria-label="Show"
                   >
                       <svg
                           xmlns="http://www.w3.org/2000/svg"

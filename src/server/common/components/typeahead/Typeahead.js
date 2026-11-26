@@ -57,7 +57,7 @@ export default class Typeahead extends NunjucksComponent {
       this.#clearButton.classList.remove('app-typeahead__clear-button--show')
     }
 
-    this.#chevronButton.setAttribute('aria-lable', 'Show')
+    this.#chevronButton.setAttribute('aria-label', 'Show')
     this.#chevronButton.classList.remove('app-typeahead__chevron-button--open')
   }
 
@@ -104,7 +104,7 @@ export default class Typeahead extends NunjucksComponent {
   }
 
   #onFocus() {
-    this.#chevronButton.setAttribute('aria-lable', 'Hide')
+    this.#chevronButton.setAttribute('aria-label', 'Hide')
     this.#chevronButton.classList.add('app-typeahead__chevron-button--open')
   }
 
@@ -187,7 +187,7 @@ export default class Typeahead extends NunjucksComponent {
   }
 
   #onChevronButtonClick() {
-    if (this.#chevronButton.getAttribute('aria-lable') === 'Hide') {
+    if (this.#chevronButton.getAttribute('aria-label') === 'Hide') {
       this.#clearSuggestions()
     } else {
       this.#inputElement.focus()
