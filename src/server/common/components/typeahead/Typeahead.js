@@ -14,6 +14,7 @@ export default class Typeahead extends NunjucksComponent {
       [this.#inputElement, 'keydown', this.#onKeyDown],
       [this.#inputElement, 'focus', this.#onFocus],
       [this.#inputElement, 'input', this.#onInput],
+      [this.#inputElement, 'change', this.#onChange],
       [this.#suggestionsContainer, 'keydown', this.#onSuggestionsKeyDown],
       [this.#suggestionsContainer, 'click', this.#onSuggestionsClick],
       [this.#suggestionsContainer, 'change', this.#onSuggestionsChange],
@@ -60,7 +61,7 @@ export default class Typeahead extends NunjucksComponent {
     this.#chevronButton.classList.remove('app-typeahead__chevron-button--open')
   }
 
-  #updateValue(value) {
+  #updateValue(value, dispatchChangeEvent = true) {
     if (value) {
       this.#valueInputElement.setAttribute('name', this.dataset.name)
     } else {
@@ -68,9 +69,12 @@ export default class Typeahead extends NunjucksComponent {
     }
 
     this.#valueInputElement.value = value
-    this.#valueInputElement.dispatchEvent(
-      new Event('change', { bubbles: true })
-    )
+
+    if (dispatchChangeEvent) {
+      this.#valueInputElement.dispatchEvent(
+        new Event('change', { bubbles: true })
+      )
+    }
   }
 
   async #onKeyDown(event) {
@@ -106,13 +110,17 @@ export default class Typeahead extends NunjucksComponent {
 
   #onInput() {
     this.#suggestionText = this.#inputElement.value
-    this.#updateValue(this.#suggestionText)
+    this.#updateValue(this.#suggestionText, false)
 
     if (this.#suggestionText) {
       this.#clearButton.classList.add('app-typeahead__clear-button--show')
     } else {
       this.#clearButton.classList.remove('app-typeahead__clear-button--show')
     }
+  }
+
+  #onChange(event) {
+    event.stopPropagation()
   }
 
   async #onSuggestionsKeyDown(event) {

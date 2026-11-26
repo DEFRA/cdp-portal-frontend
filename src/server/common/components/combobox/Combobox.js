@@ -25,6 +25,7 @@ export default class Combobox extends NunjucksComponent {
       [this.#inputElement, 'focus', this.#onFocus],
       [this.#inputElement, 'keydown', this.#onKeyDown],
       [this.#inputElement, 'input', this.#onInput],
+      [this.#inputElement, 'change', this.#onChange],
       [this.#suggestionsContainer, 'keydown', this.#onSuggestionsKeyDown],
       [this.#suggestionsContainer, 'click', this.#onSuggestionsClick],
       [this.#suggestionsContainer, 'change', this.#onSuggestionsChange],
@@ -174,6 +175,10 @@ export default class Combobox extends NunjucksComponent {
     this.renderSuggestions()
   }
 
+  #onChange(event) {
+    event.stopPropagation()
+  }
+
   async #onSuggestionsKeyDown(event) {
     if (!(event.target instanceof HTMLInputElement)) return
 
@@ -185,6 +190,11 @@ export default class Combobox extends NunjucksComponent {
 
       this.#suggestions = []
       this.renderSuggestions()
+    } else if (code === 'tab') {
+      this.#suggestions = []
+      this.renderSuggestions()
+
+      this.#inputElement.dispatchEvent(new Event('blur', { bubbles: true }))
     } else if (code === 'home') {
       event.preventDefault()
 
@@ -254,7 +264,7 @@ export default class Combobox extends NunjucksComponent {
   }
 
   #onDocumentClick(event) {
-    if (!this.contains(event.target)) {
+    if (this.#suggestions.length && !this.contains(event.target)) {
       this.#suggestions = []
       this.renderSuggestions()
     }
