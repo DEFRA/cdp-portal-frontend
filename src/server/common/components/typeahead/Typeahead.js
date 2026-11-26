@@ -191,7 +191,10 @@ export default class Typeahead extends NunjucksComponent {
   }
 
   #onDocumentClick(event) {
-    if (!this.contains(event.target)) {
+    if (
+      this.#inputElement !== event.target &&
+      !this.#suggestionsContainer.contains(event.target)
+    ) {
       this.#clearSuggestions()
     }
   }

@@ -264,7 +264,11 @@ export default class Combobox extends NunjucksComponent {
   }
 
   #onDocumentClick(event) {
-    if (this.#suggestions.length && !this.contains(event.target)) {
+    if (
+      this.#suggestions.length &&
+      this.#inputElement !== event.target &&
+      !this.#suggestionsContainer.contains(event.target)
+    ) {
       this.#suggestions = []
       this.renderSuggestions()
     }
