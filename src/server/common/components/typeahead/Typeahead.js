@@ -132,6 +132,10 @@ export default class Typeahead extends NunjucksComponent {
     if (code === 'escape') {
       this.#inputElement.focus()
       this.#clearSuggestions()
+    } else if (code === 'tab') {
+      this.#clearSuggestions()
+
+      this.#inputElement.dispatchEvent(new Event('blur', { bubbles: true }))
     } else if (code === 'home') {
       event.preventDefault()
 
