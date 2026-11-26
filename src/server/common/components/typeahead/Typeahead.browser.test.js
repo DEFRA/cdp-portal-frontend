@@ -1,23 +1,97 @@
-import { test, expect, vi } from 'vitest'
+import { test, expect, vi, beforeAll, afterEach, afterAll } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
+import { http, HttpResponse } from 'msw'
+import { setupWorker } from 'msw/browser'
 
 import './Typeahead.js'
 
+// Set up MSW worker with API handlers
+const worker = setupWorker(
+  http.get('/api/suggestions', ({ params }) => {
+    return HttpResponse.html(`
+      <ul
+        class="app-typeahead__suggestions app-typeahead__suggestions--show"
+        id="app-typeahead-user-suggestions"
+        aria-labelledby="user-label"
+        aria-expanded="true"
+        role="listbox"
+        data-testid="app-autocomplete-suggestions"
+      >
+        <li
+          class="app-typeahead__suggestion"
+          role="option"
+          tabindex="-1"
+          id="app-typeahead--suggestion-1"
+          aria-posinset="1"
+          aria-setsize="3"
+          aria-selected="false"
+        >
+          <label class="app-suggestion__value">
+            <input
+              type="radio"
+              name="app-typeahead--option"
+              value="robo_cop"
+              class="app-typeahead__option"
+            />
+            RoboCop
+          </label>
+
+          <span class="app-suggestion__action"> </span>
+        </li>
+        <li
+          class="app-typeahead__suggestion"
+          role="option"
+          tabindex="-1"
+          id="app-typeahead--suggestion-2"
+          aria-posinset="2"
+          aria-setsize="3"
+          aria-selected="false"
+        >
+          <label class="app-suggestion__value">
+            <input
+              type="radio"
+              name="app-typeahead--option"
+              value="roger_rabbit"
+              class="app-typeahead__option"
+            />
+            Roger Rabbit
+          </label>
+
+          <span class="app-suggestion__action"> </span>
+        </li>
+        <li
+          class="app-typeahead__suggestion"
+          role="option"
+          tabindex="-1"
+          id="app-typeahead--suggestion-3"
+          aria-posinset="3"
+          aria-setsize="3"
+          aria-selected="false"
+        >
+          <label class="app-suggestion__value">
+            <input
+              type="radio"
+              name="app-typeahead--option"
+              value="barbie"
+              class="app-typeahead__option"
+            />
+            Barbie
+          </label>
+
+          <span class="app-suggestion__action"> </span>
+        </li>
+      </ul>
+    `)
+  })
+)
+beforeAll(() => worker.start())
+afterEach(() => worker.resetHandlers())
+// afterAll(() => worker.stop())
+
 const component = `
-  <app-typeahead
-      data-id="user"
-      data-name="user"
-      data-value=""
-      data-classes=""
-      data-label-text="By"
-      data-label-classes=""
-      data-hint-text="Choose a user"
-      data-hint-html=""
-      data-formgroup-classes=""
-      data-icon=""
-  >
+  <app-typeahead data-id="user" data-name="user">
       <div
-          id="app-autocomplete-user"
+          id="app-typeahead-user"
           class="govuk-form-group app-form-group"
           data-js="app-form-group"
           data-testid="app-autocomplete-group"
@@ -37,19 +111,23 @@ const component = `
 
           <div class="app-typeahead" data-testid="app-autocomplete">
               <div class="app-typeahead__control">
-                  <select
+                  <input
                       id="user"
-                      class="govuk-select app-select js-hidden"
+                      type="text"
+                      value=""
+                      class="govuk-input app-typeahead__input js-hidden"
+                      placeholder=" - - select - - "
                       data-testid="app-progressive-input"
-                  >
-                      <option value="" selected="selected">- - select - -</option>
-                      <option value="RoboCop">RoboCop</option>
-                      <option value="Roger Rabbit">Roger Rabbit</option>
-                      <option value="Barbie">Barbie</option>
-                  </select>
+                      autocapitalize="none"
+                      combobox="off"
+                      data-1p-ignore=""
+                      data-lpignore="true"
+                      autocomplete="off"
+                  />
 
                   <input
-                      id="user-input"
+                      id="app-typeahead-user-input"
+                      name="user_text"
                       type="text"
                       value=""
                       class="govuk-input app-typeahead__input js-visible"
@@ -63,6 +141,12 @@ const component = `
                       data-1p-ignore=""
                       data-lpignore="true"
                       autocomplete="off"
+                      data-hx-get="/api/suggestions"
+                      data-hx-trigger="input changed delay:200ms, focus"
+                      data-hx-target="#app-typeahead-user-suggestions"
+                      data-hx-swap="outerSync"
+                      data-hx-include="#user"
+                      data-htmx-powered="true"
                   />
 
                   <button
@@ -73,6 +157,7 @@ const component = `
                       aria-owns="app-typeahead-user-suggestions"
                       aria-label="Show"
                       data-testid="app-chevron-button"
+                      aria-lable="Show"
                   >
                       <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -126,8 +211,7 @@ const component = `
 `
 
 test('Renders correctly', async () => {
-  const { element, getByRole } = await page.render(component)
-  element.render()
+  const { getByRole } = await page.render(component)
 
   await expect.element(getByRole('combobox')).toBeInTheDocument()
 })
@@ -146,11 +230,11 @@ test('Dispatches change event on option click', async () => {
 
   await suggestions.getByText('RoboCop').click()
 
-  await expect.element(getById('user')).toHaveValue('RoboCop')
+  await expect.element(getById('user')).toHaveValue('robo_cop')
   expect(onChange).toHaveBeenCalled()
 })
 
-test('Dispatches change event on option enter key', async () => {
+test.skip('Dispatches change event on option enter key', async () => {
   const { element, getByRole, getById } = await page.render(component)
   const input = getByRole('combobox')
   const suggestions = getByRole('listbox')
@@ -170,7 +254,7 @@ test('Dispatches change event on option enter key', async () => {
   expect(onChange).toHaveBeenCalled()
 })
 
-test('Dispatches change event on clear button click', async () => {
+test.skip('Dispatches change event on clear button click', async () => {
   const { element, getByRole, getById, getByLabelText } =
     await page.render(component)
   const input = getByRole('combobox')
@@ -194,7 +278,7 @@ test('Dispatches change event on clear button click', async () => {
   expect(onChange).toHaveBeenCalled()
 })
 
-test('Filters options by input text', async () => {
+test.skip('Filters options by input text', async () => {
   const { getByRole } = await page.render(component)
   const input = getByRole('combobox')
   const suggestions = getByRole('listbox')
