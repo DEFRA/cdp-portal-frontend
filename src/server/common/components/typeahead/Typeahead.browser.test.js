@@ -95,6 +95,35 @@ const worker = setupWorker(
         </li>`
             : ''
         }
+        ${
+          !(
+            'robocop'.includes(userText) ||
+            'roger rabbit'.includes(userText) ||
+            'barbie'.includes(userText)
+          )
+            ? `<li
+          class="app-typeahead__suggestion"
+          role="option"
+          tabindex="-1"
+          id="app-typeahead--suggestion-1"
+          aria-posinset="1"
+          aria-setsize="1"
+          aria-selected="false"
+        >
+          <label class="app-suggestion__value">
+            <input
+              type="radio"
+              name="app-typeahead--option"
+              value=""
+              class="app-typeahead__option"
+            />
+            - - no results - -
+          </label>
+
+          <span class="app-suggestion__action"> </span>
+        </li>`
+            : ''
+        }
       </ul>
     `)
   })
@@ -300,16 +329,16 @@ test('Filters options by input text', async () => {
 
   await input.click()
   await expect.element(suggestions).toHaveAttribute('aria-expanded', 'true')
-  expect(suggestions.getByRole('option')).toHaveLength(3)
+  await expect(suggestions.getByRole('option')).toHaveLength(3)
 
   await input.fill('Ro')
-  expect.element(suggestions.getByRole('option')).toHaveLength(2)
+  await expect.element(suggestions.getByRole('option')).toHaveLength(2)
 
   await input.fill('Rob')
-  expect.element(suggestions.getByRole('option')).toHaveLength(1)
+  await expect.element(suggestions.getByRole('option')).toHaveLength(1)
 
   await input.fill('Robx')
-  expect.element(suggestions.getByRole('option')).toHaveLength(1)
+  await expect.element(suggestions.getByRole('option')).toHaveLength(1)
   await expect
     .element(suggestions.getByText('- - no results - -'))
     .toBeInTheDocument()
