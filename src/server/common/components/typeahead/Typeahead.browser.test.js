@@ -7,7 +7,10 @@ import './Typeahead.js'
 
 // Set up MSW worker with API handlers
 const worker = setupWorker(
-  http.get('/api/suggestions', ({ params }) => {
+  http.get('/api/suggestions', ({ request }) => {
+    const url = new URL(request.url)
+    const userText = url.searchParams.get('user_text').toLowerCase()
+
     return HttpResponse.html(`
       <ul
         class="app-typeahead__suggestions app-typeahead__suggestions--show"
@@ -17,7 +20,9 @@ const worker = setupWorker(
         role="listbox"
         data-testid="app-autocomplete-suggestions"
       >
-        <li
+        ${
+          'robocop'.includes(userText)
+            ? `<li
           class="app-typeahead__suggestion"
           role="option"
           tabindex="-1"
@@ -37,8 +42,12 @@ const worker = setupWorker(
           </label>
 
           <span class="app-suggestion__action"> </span>
-        </li>
-        <li
+        </li>`
+            : ''
+        }
+        ${
+          'roger rabbit'.includes(userText)
+            ? `<li
           class="app-typeahead__suggestion"
           role="option"
           tabindex="-1"
@@ -58,8 +67,12 @@ const worker = setupWorker(
           </label>
 
           <span class="app-suggestion__action"> </span>
-        </li>
-        <li
+        </li>`
+            : ''
+        }
+        ${
+          'barbie'.includes(userText)
+            ? `<li
           class="app-typeahead__suggestion"
           role="option"
           tabindex="-1"
@@ -79,14 +92,16 @@ const worker = setupWorker(
           </label>
 
           <span class="app-suggestion__action"> </span>
-        </li>
+        </li>`
+            : ''
+        }
       </ul>
     `)
   })
 )
 beforeAll(() => worker.start())
 afterEach(() => worker.resetHandlers())
-afterAll(() => worker.stop())
+// afterAll(() => worker.stop())
 
 const component = `
   <app-typeahead data-id="user" data-name="user">
@@ -234,7 +249,7 @@ test('Dispatches change event on option click', async () => {
   expect(onChange).toHaveBeenCalled()
 })
 
-test.skip('Dispatches change event on option enter key', async () => {
+test('Dispatches change event on option enter key', async () => {
   const { element, getByRole, getById } = await page.render(component)
   const input = getByRole('combobox')
   const suggestions = getByRole('listbox')
@@ -250,11 +265,11 @@ test.skip('Dispatches change event on option enter key', async () => {
   await userEvent.keyboard('{ArrowDown}') // second option
   await userEvent.keyboard('{Enter}')
 
-  await expect.element(getById('user')).toHaveValue('Roger Rabbit')
+  await expect.element(getById('user')).toHaveValue('roger_rabbit')
   expect(onChange).toHaveBeenCalled()
 })
 
-test.skip('Dispatches change event on clear button click', async () => {
+test('Dispatches change event on clear button click', async () => {
   const { element, getByRole, getById, getByLabelText } =
     await page.render(component)
   const input = getByRole('combobox')
@@ -267,7 +282,7 @@ test.skip('Dispatches change event on clear button click', async () => {
   await userEvent.keyboard('{ArrowDown}')
   await userEvent.keyboard('{Enter}')
 
-  await expect.element(getById('user')).toHaveValue('RoboCop')
+  await expect.element(getById('user')).toHaveValue('robo_cop')
 
   const onChange = vi.fn()
   element.addEventListener('change', onChange)
@@ -278,7 +293,7 @@ test.skip('Dispatches change event on clear button click', async () => {
   expect(onChange).toHaveBeenCalled()
 })
 
-test.skip('Filters options by input text', async () => {
+test('Filters options by input text', async () => {
   const { getByRole } = await page.render(component)
   const input = getByRole('combobox')
   const suggestions = getByRole('listbox')
@@ -288,13 +303,13 @@ test.skip('Filters options by input text', async () => {
   expect(suggestions.getByRole('option')).toHaveLength(3)
 
   await input.fill('Ro')
-  expect(suggestions.getByRole('option')).toHaveLength(2)
+  expect.element(suggestions.getByRole('option')).toHaveLength(2)
 
   await input.fill('Rob')
-  expect(suggestions.getByRole('option')).toHaveLength(1)
+  expect.element(suggestions.getByRole('option')).toHaveLength(1)
 
   await input.fill('Robx')
-  expect(suggestions.getByRole('option')).toHaveLength(1)
+  expect.element(suggestions.getByRole('option')).toHaveLength(1)
   await expect
     .element(suggestions.getByText('- - no results - -'))
     .toBeInTheDocument()
