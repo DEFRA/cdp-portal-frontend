@@ -86,7 +86,7 @@ const worker = setupWorker(
 )
 beforeAll(() => worker.start())
 afterEach(() => worker.resetHandlers())
-// afterAll(() => worker.stop())
+afterAll(() => worker.stop())
 
 const component = `
   <app-typeahead data-id="user" data-name="user">

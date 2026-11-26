@@ -72,6 +72,9 @@ export default class NunjucksComponent extends HTMLElement {
 
   async render() {
     // Default render from `data-` attributes
-    return this.morph(this.#template, this.dataset)
+    await this.morph(this.#template, this.dataset)
+
+    // Allow htmx to work with rendered DOM
+    window.htmx?.process(this)
   }
 }
