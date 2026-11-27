@@ -46,11 +46,28 @@
     </div>
     <div class="app-service-header__actions">
 
-      <span class="app-service-header__login">
-        <a href="/login"
+
+
+          <a class="app-service-header_profile-link" href="/user-profile">
+                      <svg class="app-icon app-user-icon app-icon--tiny"
+     xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" role="img"
+     aria-label="User">
+  <g fill-rule="evenodd">
+    <circle cx="19" cy="12" r="8" />
+    <path
+      d="M19 25c6.1827536 0 11.6757612 2.1477482 15.1454151 5.4733482C30.6757769 35.0468378 25.1827625 38 19 38c-6.1827625 0-11.6757769-2.9531622-15.14542996-7.5258733C7.32458451 27.147613 12.8174409 25 19 25Z" />
+  </g>
+</svg>
+
+          <span data-testid="app-login-username">B. A. Baracus</span>
+
+          </a>
+
+      <span class="app-service-header__login app-service-header__login--logged-in">
+        <a href="/logout"
            class="app-service-header__link app-service-header__login-link"
            data-testid="app-login-link">
-            Sign in
+            Sign out
         </a>
       </span>
 
@@ -128,7 +145,15 @@ Teams
 
               
               <li class="govuk-service-navigation__item">
-                  <a class="govuk-service-navigation__link" href="/deployments" data-testid="nav-deployments">
+                  <a class="govuk-service-navigation__link" href="/requests" data-testid="nav-requests">
+                                    
+Requests
+                  </a>
+              </li>
+
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="/deployments?team=mock-team-id" data-testid="nav-deployments">
                                     
 Deployments
                   </a>
@@ -136,7 +161,7 @@ Deployments
 
               
               <li class="govuk-service-navigation__item">
-                  <a class="govuk-service-navigation__link" href="/running-services" data-testid="nav-running-services">
+                  <a class="govuk-service-navigation__link" href="/running-services?team=mock-team-id" data-testid="nav-running-services">
                                     
 Running Services
                   </a>
@@ -154,6 +179,30 @@ Running Services
               </div>
   <div class="app-navigation__end">
     <ul class="app-navigation__actions">
+        
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/deploy-service" data-testid="nav-deploy-service">
+      Deploy Service
+    </a>
+</li>
+
+
+        
+
+
+
+<li
+  class="govuk-service-navigation__item">
+    <a class="govuk-service-navigation__link" href="/create" data-testid="nav-create">
+      Create
+    </a>
+</li>
+
+
     </ul>
 
   </div>
@@ -205,36 +254,37 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 <fieldset class="govuk-fieldset">
 
     <div style="display: flex; align-items: end;">
-      
+        <app-typeahead
+    data-id="dependencyName"
+    data-name="dependencyName"
+  >
 
 
-<script data-testid="app-autocomplete-suggestions">
-  window.cdp = window.cdp || {};
-  window.cdp.suggestions = window.cdp.suggestions || {};
-  window.cdp.suggestions["dependency"] = []
-</script>
+
+
 
 
 <div
+  id="app-typeahead-dependencyName"
   class="govuk-form-group app-form-group app-form-group--inline"
-  data-js="app-form-group" data-testid="app-autocomplete-group">
-
-  <label class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
-         id="dependencyInput-label"
-         for="dependencyInput"
-         data-testid="app-autocomplete-label">
+  data-js="app-form-group" data-testid="app-autocomplete-group"
+>
+  <label
+    class="govuk-label govuk-label--s app-label--inline govuk-!-margin-bottom-1"
+    id="dependencyName-label"
+    for="dependencyName"
+    data-testid="app-autocomplete-label"
+  >
     Dependency name
   </label>
 
 
 
 
-
-  <div id="app-autocomplete-dependencyInput" class="app-autocomplete app-autocomplete--search-medium app-autocomplete--inline app-autocomplete--search app-autocomplete--with-icon"
-       data-js="app-autocomplete-search"
+  <div class="app-typeahead app-typeahead--medium app-typeahead--inline app-typeahead--search app-typeahead--with-icon"
        data-testid="app-autocomplete"
  data-loader="search-dependency-loader"  >
-    <div class="app-autocomplete__control">
+    <div class="app-typeahead__control">
         <svg xmlns="http://www.w3.org/2000/svg"
      class="app-icon app-search-icon"
      width="40" height="40"
@@ -246,15 +296,52 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 </svg>
 
 
-        <input type="text" name="dependency" id="dependencyInput" class="govuk-input app-input" data-js="app-progressive-input" data-remove-password-widgets="true" data-placeholder="Search by dependency" data-fetcher-name="searchDependencyName" data-fetcher-loader="search-dependency-loader" data-testid="app-progressive-input" data-suggestion-classes="app-autocomplete__suggestion--leading-hint" data-disable-lunr-special-characters-filter="true" data-disable-auto-submit="true"  value=""/>
+      <input
+        id="dependencyName"
+        type="text"
+        value=""
+        class="govuk-input app-typeahead__input js-hidden"
+        placeholder="Search by dependency"
+        data-testid="app-progressive-input"
+        autocapitalize="none"
+        combobox="off"
+        data-1p-ignore
+        data-lpignore="true"
+        autocomplete="off"
+      />
 
-      <button class="app-autocomplete__chevron-button js-visible"
-              type="button"
-              tabindex="-1"
-              aria-owns="app-autocomplete-dependencyInput-suggestions"
-              aria-label="Show"
-              data-js="app-chevron-button"
-              data-testid="app-chevron-button"
+      <input
+        id="app-typeahead-dependencyName-input"
+        name="dependencyName_text"
+        type="text"
+        value=""
+        class="govuk-input app-typeahead__input js-visible"
+        placeholder="Search by dependency"
+        autocapitalize="none"
+        combobox="off"
+        role="combobox"
+        aria-controls="app-typeahead-dependencyName-suggestions"
+        aria-combobox="list"
+        aria-expanded="false"
+        data-1p-ignore
+        data-lpignore="true"
+        autocomplete="off"
+data-hx-get="/dependency-explorer/api/deps-search"        data-hx-trigger="input changed delay:200ms, focus"
+        data-hx-target="#app-typeahead-dependencyName-suggestions"
+        data-hx-swap="outerSync scroll:top"
+        data-hx-include="#dependencyName"
+        data-hx-status:5xx="swap:none"
+      />
+
+
+      <button
+        id="app-typeahead-dependencyName-chevron-button"
+        class="app-typeahead__chevron-button js-visible"
+        type="button"
+        tabindex="-1"
+        aria-owns="app-typeahead-dependencyName-suggestions"
+        aria-label="Show"
+        data-testid="app-chevron-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-icon app-chevron-icon" width="40" height="40"
      viewBox="0 -960 960 960"
@@ -264,12 +351,12 @@ data-js="app-client-notifications-content"     data-testid="app-banner-content">
 
       </button>
 
-      <button class="app-autocomplete__clear-button"
-              type="button"
-              aria-hidden="true"
-              tabindex="-1"
-              data-js="app-autocomplete-clear-button"
-              data-testid="app-autocomplete-clear-button"
+      <button
+        id="app-typeahead-dependencyName-clear-button"
+        class="app-typeahead__clear-button"
+        type="button"
+        tabindex="-1"
+        data-testid="app-autocomplete-clear-button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="app-cancel-icon"
      width="48"
@@ -289,17 +376,45 @@ data-js="search-dependency-loader">
 
     </div>
 
-    <ul
-      class="app-autocomplete__suggestions"
-      id="app-autocomplete-dependencyInput-suggestions"
-      aria-labelledby="dependencyInput-label"
-      aria-expanded="false"
-      role="listbox"
-      data-js="app-autocomplete-suggestions"
-      data-testid="app-autocomplete-suggestions"></ul>
+    
+
+<ul
+  class="app-typeahead__suggestions"
+  id="app-typeahead-dependencyName-suggestions"
+  aria-labelledby="dependencyName-label"
+  aria-expanded="false"
+  role="listbox"
+  data-testid="app-autocomplete-suggestions"
+>
+    <li
+      class="app-typeahead__suggestion"
+      role="option"
+      tabindex="-1"
+      id="app-typeahead--suggestion-1"
+      aria-posinset="1"
+      aria-setsize="1"
+      aria-selected="false"
+    >
+      <label class="app-suggestion__value">
+        <input
+          type="radio"
+          name="app-typeahead--option"
+          value=""
+          class="app-typeahead__option"
+        />
+           - - no results - -
+      </label>
+
+
+        <span class="app-suggestion__action">
+        </span>
+    </li>
+</ul>
+
+
   </div>
-  
 </div>
+</app-typeahead>
 
       <span class="app-loader govuk-!-margin-bottom-2 govuk-!-margin-left-2"
       data-testid="app-loader"
@@ -322,8 +437,8 @@ data-js="results-loader">
     <div id="filtersAndResults">
 
 
-<form action="/dependency-explorer/undefined%3Aundefined" method="get" class="app-filter-group-form"
-data-hx-action="/dependency-explorer/undefined%3Aundefined" data-hx-method="get" data-hx-trigger="change, submit halt" data-hx-target="#filtersAndResults" data-hx-select="#filtersAndResults" data-hx-indicator="[data-js=&#39;rows-loader&#39;]" data-hx-push-url="true"   data-testid="app-filters-form"
+<form action="/dependency-explorer/undefined" method="get" class="app-filter-group-form"
+data-hx-action="/dependency-explorer/undefined" data-hx-method="get" data-hx-trigger="change, submit halt" data-hx-target="#filtersAndResults" data-hx-select="#filtersAndResults" data-hx-indicator="[data-js=&#39;rows-loader&#39;]" data-hx-push-url="true"   data-testid="app-filters-form"
 >
   <fieldset class="govuk-fieldset">
     <div id="app-filter-group-filters" class="app-filter-group">
@@ -891,7 +1006,7 @@ data-hx-action="/dependency-explorer/undefined%3Aundefined" data-hx-method="get"
 
 
       <p class="govuk-body-m govuk-!-margin-bottom-0 app-filter-group__clear-all">
-        <a href="/dependency-explorer/undefined%3Aundefined"
+        <a href="/dependency-explorer/undefined"
            class="govuk-link govuk-link--text-colour"
            data-testid="app-filters-clear-all">
           Clear all
@@ -1039,6 +1154,9 @@ width="4%"        >
 
 
       <ul class="app-footer__list">
+          <li class="app-footer__list-item">
+            <a href="/style-guide" class="app-footer__link">Style Guide</a>
+          </li>
         <li class="app-footer__list-item">
           <a href="https://github.com/DEFRA/cdp-portal-frontend" target="_blank"
              rel="noopener noreferrer" class="app-footer__link">

@@ -16,6 +16,7 @@
         name="app-combobox-{{ params.id }}-option"
         value="{{ suggestion.value }}"
         class="app-combobox__option"
+        {% if suggestion.disabled %}disabled{% endif %}
       />
       {% if suggestionText %}
         {{ suggestion.text | replaceIgnoreCase(suggestionText, '<strong>$&</strong>') | safe }}

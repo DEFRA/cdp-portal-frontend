@@ -1,24 +1,22 @@
-import Boom from '@hapi/boom'
 import { searchDependencies } from '../../FilterService.js'
 
-export async function GET(request) {
-  if (!request.isXhr()) {
-    return Boom.methodNotAllowed('This route is only available via XHR')
-  }
+export async function GET(request, h) {
+  const { dependencyName, dependencyName_text: dependencyNameText } =
+    request.query
 
-  const query = request.query
+  const results =
+    dependencyNameText?.length >= 2
+      ? await searchDependencies({
+          partialName: dependencyNameText
+        })
+      : []
 
-  // Handle autocomplete type:name split
-  if (query.partialName.includes(':')) {
-    query.partialName = query.partialName.split(':').at(1)
-  }
-
-  const results = await searchDependencies(query)
-
-  return {
+  return h.view('routes/dependency-explorer/api/deps-search/page.njk', {
     suggestions: results.map(({ name, type }) => ({
       value: `${type}:${name}`,
       text: name
-    }))
-  }
+    })),
+    suggestionText: dependencyNameText,
+    value: dependencyName
+  })
 }

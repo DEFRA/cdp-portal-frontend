@@ -30,7 +30,7 @@ export default class Typeahead extends NunjucksComponent {
     )
     this.#valueInputElement = this.querySelector(`#${this.dataset.id}`)
     this.#suggestionsContainer = this.querySelector(
-      `#app-typeahead-${this.dataset.id}-suggestions`
+      `#app-typeahead-${this.dataset.name}-suggestions`
     )
     this.#clearButton = this.querySelector(
       `#app-typeahead-${this.dataset.id}-clear-button`
@@ -151,6 +151,8 @@ export default class Typeahead extends NunjucksComponent {
       ].at(-1)
       lastOption?.focus()
     } else if (code === 'enter') {
+      if (option.disabled) return
+
       this.#suggestionText = option.labels[0]?.textContent?.trim() ?? ''
       this.#inputElement.value = this.#suggestionText
       this.#updateValue(option.value)
@@ -163,10 +165,12 @@ export default class Typeahead extends NunjucksComponent {
     if (event.target instanceof HTMLInputElement) return // Keyboard selection
 
     const item = event.target.closest('li')
-    const label = item.querySelector('label')
+    const label = item?.querySelector('label')
     if (!label) return
 
     const option = label.control
+    if (option.disabled) return
+
     this.#suggestionText = option.labels[0]?.textContent?.trim() ?? ''
     this.#inputElement.value = this.#suggestionText
     this.#updateValue(option.value)

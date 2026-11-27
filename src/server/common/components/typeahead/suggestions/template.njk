@@ -1,12 +1,13 @@
 {% from "icons/tick-icon/macro.njk" import appTickIcon %}
 
-{% set suggestions = params.suggestions if params.suggestions and params.suggestions.length != 0 else [{ text: ' - - no results - -', value: '' }] %}
+{% set suggestions = params.suggestions if params.suggestions and params.suggestions.length != 0 else [{ text: ' - - no results - -', value: '', disabled: true }] %}
+{% set isOpen = params.suggestions.length != 0 or params.suggestionText %}
 
 <ul
-  class="app-typeahead__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}{{ ' app-typeahead__suggestions--show' if params.suggestions.length != 0 }}"
+  class="app-typeahead__suggestions{% if params.suggestionsContainer.classes %} {{ params.suggestionsContainer.classes }}{% endif %}{{ ' app-typeahead__suggestions--show' if isOpen }}"
   id="app-typeahead-{{ params.inputName }}-suggestions"
   aria-labelledby="{{ params.inputName }}-label"
-  aria-expanded="{{'false' if params.suggestions.length == 0 else 'true'}}"
+  aria-expanded="{{'false' if isOpen else 'true'}}"
   role="listbox"
   data-testid="app-autocomplete-suggestions"
 >
@@ -26,6 +27,7 @@
           name="app-typeahead-{{ params.id }}-option"
           value="{{ suggestion.value }}"
           class="app-typeahead__option"
+          {% if suggestion.disabled %}disabled{% endif %}
         />
         {% if params.suggestionText %}
           {{ suggestion.text | replaceIgnoreCase(params.suggestionText, '<strong>$&</strong>') | safe }}

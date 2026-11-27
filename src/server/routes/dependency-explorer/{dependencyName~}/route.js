@@ -20,8 +20,7 @@ export const options = {
 }
 
 export default async function (request) {
-  const [dependencyType, dependencyName] =
-    request.params?.dependency?.split(':') ?? []
+  const { dependencyName, dependencyName_text } = request.params
   const userSession = request.auth.credentials
   const environments = getEnvironments(userSession?.scope)
   const page = request.query?.page ?? pagination.page
@@ -58,10 +57,11 @@ export default async function (request) {
   let totalItems = 0
   let totalPages = 1
 
-  if (dependencyName && dependencyType) {
+  const [depType = '', depName = ''] = dependencyName?.split(':') ?? []
+  if (dependencyName) {
     const { results: dependents, meta } = await getDependencyDependents(
-      dependencyType,
-      dependencyName,
+      depType,
+      depName,
       request.query
     )
 
@@ -91,12 +91,12 @@ export default async function (request) {
     pageTitle: 'Dependencies Explorer',
     pageUrl: request.routeLookup('dependency-explorer', {
       params: {
-        dependency: encodeURIComponent(`${dependencyType}:${dependencyName}`)
+        dependencyName
       }
     }),
     query: request.query,
-    dependencyType,
-    dependencyName,
+    dependencyType: depType,
+    dependencyName: depName,
     environmentOptions,
     tagOptions,
     teamOptions,
@@ -129,12 +129,12 @@ export default async function (request) {
 }
 
 export async function POST(request, h) {
-  const dependency = request.payload.dependency
+  const { dependencyName = '' } = request.payload
 
   return h.redirect(
     request.routeLookup('dependency-explorer', {
       params: {
-        dependency: dependency ? encodeURIComponent(dependency) : ''
+        dependencyName: encodeURIComponent(dependencyName)
       },
       query: request.query
     })

@@ -1,6 +1,7 @@
 {% extends "layouts/page.njk" %}
 {% from "filter-group/macro.njk" import appFilterGroup %}
 {% from "combobox/macro.njk" import appCombobox %}
+{% from "typeahead/macro.njk" import appTypeahead %}
 {% from "./components/entity-row/macro.njk" import entityRow %}
 
 {% block content %}
@@ -21,10 +22,10 @@
     {% call govukFieldset() %}
 
     <div style="display: flex; align-items: end;">
-      {{ appAutocomplete({
-        id: "dependencyInput",
-        name: "dependency",
-        classes: "app-autocomplete--search-medium app-autocomplete--inline",
+      {{ appTypeahead({
+        id: "dependencyName",
+        name: "dependencyName",
+        classes: "app-typeahead--medium app-typeahead--inline app-typeahead--search",
         label: {
           text: "Dependency name",
           classes: "govuk-label--s app-label--inline govuk-!-margin-bottom-1"
@@ -33,15 +34,8 @@
         formGroup: {
           classes: "app-form-group--inline"
         },
-        value: dependencyType + ':' + dependencyName if dependencyType or dependencyName,
-        template: "search",
-        disableLunrSpecialCharactersFilter: true,
-        disableAutoSubmit: true,
-        suggestionClasses: "app-autocomplete__suggestion--leading-hint",
-        dataFetcher: {
-          name: "searchDependencyName",
-          loader: "search-dependency-loader"
-        },
+        value: dependencyName,
+        url: '/dependency-explorer/api/deps-search',
         loader: {
           name: "search-dependency-loader"
         },
@@ -70,12 +64,9 @@
         },
         attributes: {
           'data-hx-action': pageUrl,
-          'data-hx-method': 'get',
-          'data-hx-trigger': 'change, submit halt',
           'data-hx-target': '#filtersAndResults',
           'data-hx-select': '#filtersAndResults',
-          'data-hx-indicator': "[data-js='rows-loader']",
-          'data-hx-push-url': 'true'
+          'data-hx-indicator': "[data-js='rows-loader']"
         },
         info: {
           html: appEntityDataList({
