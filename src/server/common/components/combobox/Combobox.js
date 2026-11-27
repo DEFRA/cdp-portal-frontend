@@ -185,7 +185,7 @@ export default class Combobox extends NunjucksComponent {
     if (!(event.target instanceof HTMLInputElement)) return
 
     const code = event.code.toLowerCase()
-    const optionValue = event.target.value
+    const option = event.target
 
     if (code === 'escape') {
       this.#inputElement.focus()
@@ -212,9 +212,12 @@ export default class Combobox extends NunjucksComponent {
       ].at(-1)
       lastOption?.focus()
     } else if (code === 'enter') {
-      this.#selectedValue = optionValue
+      if (option.disabled) return
+
+      this.#selectedValue = option.value
       this.#suggestionText =
-        this.#options.find((option) => option.value === optionValue)?.text ?? ''
+        this.#options.find((option) => option.value === this.#selectedValue)
+          ?.text ?? ''
 
       this.#suggestions = []
       await this.render()
@@ -227,13 +230,15 @@ export default class Combobox extends NunjucksComponent {
     if (event.target instanceof HTMLInputElement) return // Keyboard selection
 
     const item = event.target.closest('li')
-    const label = item.querySelector('label')
+    const label = item?.querySelector('label')
     if (!label) return
 
-    const optionValue = label.control.value
-    this.#selectedValue = optionValue
+    const option = label.control
+    if (option.disabled) return
+
+    this.#selectedValue = option.value
     this.#suggestionText =
-      this.#options.find((option) => option.value === optionValue)?.text ?? ''
+      this.#options.find((option) => option.value === this.#selectedValue)?.text ?? ''
 
     this.#suggestions = []
     await this.render()
