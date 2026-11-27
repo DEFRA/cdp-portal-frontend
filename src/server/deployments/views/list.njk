@@ -193,12 +193,13 @@
           <tbody>
             {{ appDeploymentRows(tableData.rows) }}
           </tbody>
-          {% if params.pagination.items.length > 1 %}
-            <footer>
-              {{ govukPagination(tableData.pagination | assign({}, { classes: "app-pagination" }, tableData.pagination)) }}
-            </footer>
-          {% endif %}
         </table>
+        {% if tableData.pagination.items.length > 1 %}
+          <footer>
+            {{ govukPagination(tableData.pagination | assign({}, { classes: "app-pagination" }, tableData.pagination)) }}
+          </footer>
+        {% endif %}
+
       </article>
     </div>
   {% endblock %}
