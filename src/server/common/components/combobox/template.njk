@@ -16,7 +16,7 @@
 {% set attributes = params.attributes if params.attributes else {} %}
 
 <div
-  id="app-autocomplete-{{ params.id }}"
+  id="app-combobox-{{ params.id }}"
   class="govuk-form-group app-form-group{% if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}{% if params.errorMessage.text %}govuk-form-group--error{% endif %}"
   data-js="app-form-group" data-testid="app-autocomplete-group"
 >
@@ -78,8 +78,9 @@
           <option
             value="{{ option.value }}"
             {% if params.value == option.value %}selected="selected"{% endif %}
+            {% if option.hint %}data-hint="{{ option.hint }}"{% endif %}
           >
-            {{ option.text }}{{ " - " + option.hint if option.hint }}
+            {{ option.text }}
           </option>
         {% endfor %}
       </select>
@@ -87,7 +88,7 @@
 
       <input
         {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
-        id="{{ params.id }}-input"
+        id="app-combobox-{{ params.id }}-input"
         type="text"
         value="{{ suggestionText }}"
         class="govuk-input app-combobox__input js-visible{% if suggestions.length != 0 %} app-combobox__focused{% endif %}"

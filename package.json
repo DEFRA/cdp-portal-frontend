@@ -135,6 +135,7 @@
     "husky": "9.1.7",
     "jest-environment-jsdom": "30.4.1",
     "jest-file-snapshot": "0.7.0",
+    "msw": "2.15.0",
     "neostandard": "0.12.2",
     "nock": "14.0.16",
     "nodemon": "3.1.14",
@@ -150,5 +151,10 @@
   },
   "engines": {
     "node": ">=24"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

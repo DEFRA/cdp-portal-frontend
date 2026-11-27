@@ -16,6 +16,8 @@ export function render(
 
   container.innerHTML = html?.trim()
 
+  window.htmx?.process(container)
+
   return Promise.resolve({
     get element() {
       return container.firstChild

@@ -1,0 +1,8 @@
+{% macro appTypeahead(params) %}
+  <app-typeahead
+    data-id="{{ params.id }}"
+    data-name="{{ params.name }}"
+  >
+  {%- include "./template.njk" -%}
+  </app-typeahead>
+{% endmacro %}

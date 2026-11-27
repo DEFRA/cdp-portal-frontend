@@ -43,9 +43,9 @@ const component = `
                       data-testid="app-progressive-input"
                   >
                       <option value="" selected="selected">- - select - -</option>
-                      <option value="RoboCop">RoboCop</option>
-                      <option value="Roger Rabbit">Roger Rabbit</option>
-                      <option value="Barbie">Barbie</option>
+                      <option value="robo_cop">RoboCop</option>
+                      <option value="roger_rabbit">Roger Rabbit</option>
+                      <option value="barbie">Barbie</option>
                   </select>
 
                   <input
@@ -146,7 +146,7 @@ test('Dispatches change event on option click', async () => {
 
   await suggestions.getByText('RoboCop').click()
 
-  await expect.element(getById('user')).toHaveValue('RoboCop')
+  await expect.element(getById('user')).toHaveValue('robo_cop')
   expect(onChange).toHaveBeenCalled()
 })
 
@@ -166,7 +166,7 @@ test('Dispatches change event on option enter key', async () => {
   await userEvent.keyboard('{ArrowDown}') // second option
   await userEvent.keyboard('{Enter}')
 
-  await expect.element(getById('user')).toHaveValue('Roger Rabbit')
+  await expect.element(getById('user')).toHaveValue('roger_rabbit')
   expect(onChange).toHaveBeenCalled()
 })
 
@@ -183,7 +183,7 @@ test('Dispatches change event on clear button click', async () => {
   await userEvent.keyboard('{ArrowDown}')
   await userEvent.keyboard('{Enter}')
 
-  await expect.element(getById('user')).toHaveValue('RoboCop')
+  await expect.element(getById('user')).toHaveValue('robo_cop')
 
   const onChange = vi.fn()
   element.addEventListener('change', onChange)

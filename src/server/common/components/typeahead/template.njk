@@ -1,0 +1,142 @@
+
+{% from "govuk/components/hint/macro.njk" import govukHint %}
+{% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
+
+{% from "icons/chevron-icon/macro.njk" import appChevronIcon %}
+{% from "icons/cancel-icon/macro.njk" import appCancelIcon %}
+{% from "loader/macro.njk" import appLoader %}
+
+{% from "typeahead/suggestions/macro.njk" import appTypeaheadSuggestions %}
+
+
+{% set suggestions = params.suggestions if params.suggestions else [] %}
+{% set suggestionText = params.suggestionText if params.suggestionText else params.value %}
+
+{% set attributes = params.attributes if params.attributes else {} %}
+
+<div
+  id="app-typeahead-{{ params.id }}"
+  class="govuk-form-group app-form-group{% if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}{% if params.errorMessage.text %}govuk-form-group--error{% endif %}"
+  data-js="app-form-group" data-testid="app-autocomplete-group"
+>
+  <label
+    class="govuk-label{% if params.label.classes %} {{ params.label.classes }}{% endif %}"
+    id="{{ params.name }}-label"
+    for="{{ params.id }}"
+    data-testid="app-autocomplete-label"
+  >
+    {{ params.label.text }}
+  </label>
+
+  {% if params.hint.text or params.hint.html %}
+    {{ govukHint({
+      text: params.hint.text if params.hint.text,
+      html: params.hint.html if params.hint.html,
+      classes: "app-hint",
+      attributes: {
+        "data-testid": "app-autocomplete-hint"
+      }
+    }) }}
+  {% endif %}
+
+  {% if params.errorMessage.text %}
+    {{ govukErrorMessage({
+      id: params.id + "-error",
+      classes: "govuk-!-margin-bottom-1 app-error-message",
+      attributes: {
+        "data-js": "app-error",
+        "tabindex": "-1"
+      },
+      text: params.errorMessage.text
+    }) }}
+  {% endif %}
+
+  {% set classes = ["app-typeahead", params.classes if params.classes, "app-typeahead--with-icon" if params.icon] | join(" ") | trim %}
+
+  <div class="{{ classes }}"
+       data-testid="app-autocomplete"
+    {% if params.loader.name %} data-loader="{{ params.loader.name }}"{% endif %}
+  >
+    <div class="app-typeahead__control">
+      {% if params.icon %}
+        {{ params.icon | safe }}
+      {% endif %}
+
+      <input
+        id="{{ params.id }}"
+        {% if params.value != '' and params.value != undefined %}
+          name="{{ params.name }}"
+        {% endif %}
+        type="text"
+        value="{{ params.value }}"
+        class="govuk-input app-typeahead__input js-hidden"
+        placeholder="{{ params.placeholder if params.placeholder else ' - - select - - ' }}"
+        data-testid="app-progressive-input"
+        autocapitalize="none"
+        combobox="off"
+        data-1p-ignore
+        data-lpignore="true"
+        autocomplete="off"
+      />
+
+      <input
+        {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
+        id="app-typeahead-{{ params.id }}-input"
+        name="{{ params.name }}_text"
+        type="text"
+        value="{{ suggestionText }}"
+        class="govuk-input app-typeahead__input js-visible{% if suggestions.length != 0 %} app-typeahead__focused{% endif %}"
+        placeholder="{{ params.placeholder if params.placeholder else ' - - select - - ' }}"
+        autocapitalize="none"
+        combobox="off"
+        role="combobox"
+        aria-controls="app-typeahead-{{ params.id }}-suggestions"
+        aria-combobox="list"
+        aria-expanded="false"
+        data-1p-ignore
+        data-lpignore="true"
+        autocomplete="off"
+        {% if params.url %}data-hx-get="{{ params.url }}"{% endif %}
+        data-hx-trigger="input changed delay:200ms, focus"
+        data-hx-target="#app-typeahead-{{ params.name }}-suggestions"
+        data-hx-swap="outerSync"
+        data-hx-include="#{{ params.id }}"
+      />
+
+
+      <button
+        id="app-typeahead-{{ params.id }}-chevron-button"
+        class="app-typeahead__chevron-button js-visible{{ ' app-typeahead__chevron-button--open' if suggestions.length != 0 }}"
+        type="button"
+        tabindex="-1"
+        aria-owns="app-typeahead-{{ params.id }}-suggestions"
+        aria-label="{{'Hide' if suggestions.length != 0 else 'Show'}}"
+        data-testid="app-chevron-button"
+      >
+        {{ appChevronIcon() }}
+      </button>
+
+      <button
+        id="app-typeahead-{{ params.id }}-clear-button"
+        class="app-typeahead__clear-button{{ ' app-typeahead__clear-button--show' if suggestionText != '' and suggestionText != undefined }}"
+        type="button"
+        tabindex="-1"
+        data-testid="app-autocomplete-clear-button"
+      >
+        {{ appCancelIcon({ description: "Clear" }) }}
+      </button>
+
+      {% if params.loader.name %}
+        {{ appLoader({ name: params.loader.name }) }}
+      {% endif %}
+    </div>
+
+    {{ appTypeaheadSuggestions({
+      inputName: params.name,
+      suggestions: suggestions,
+      suggestionText: suggestionText,
+      suggestionsContainer: params.suggestionsContainer
+    }) }}
+
+  </div>
+</div>

@@ -1,0 +1,9 @@
+{% from "typeahead/suggestions/macro.njk" import appTypeaheadSuggestions %}
+
+{{ appTypeaheadSuggestions({
+  inputName: inputName,
+  value: value,
+  suggestions: suggestions,
+  suggestionText: suggestionText,
+  partial: partial
+}) }}

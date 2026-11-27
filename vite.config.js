@@ -30,6 +30,7 @@ export default defineConfig({
   build: {
     outDir: '.public',
     manifest: true,
+    copyPublicDir: false,
     rolldownOptions: {
       input: {
         htmlAssets: 'src/client/assets.html',
