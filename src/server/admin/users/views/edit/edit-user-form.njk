@@ -1,9 +1,13 @@
+
 {% extends "layouts/page.njk" %}
 
 {% set searchHintHtml %}
-  Search using the users GitHub username. <a href="https://github.com/orgs/{{ githubOrg }}/people"
-                                             class="app-link app-link--underline"
-                                             target="_blank">DEFRA GitHub members</a>
+  Search using the user's GitHub username.
+  <a href="https://github.com/orgs/{{ githubOrg }}/people"
+     class="app-link app-link--underline"
+     target="_blank">
+    DEFRA GitHub members
+  </a>
 {% endset %}
 
 {% block content %}
@@ -18,45 +22,53 @@
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half-from-desktop">
-          <form action="/admin/users/{{user.userId}}/edit"
+
+          <form action="/admin/users/{{ user.userId }}/edit"
                 method="post"
-                data-js="auto-submit app-form-errors">
+                data-js="auto-submit app-form-errors"
+                data-auto-submit-submit="false">
+
             <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-
-            {% call govukFieldset() %}
-
-              {{ appSearch({
-                iconDescription: "Search for DEFRA GitHub user",
-                label: {
-                  text: "GitHub username"
-                },
-                id: "githubSearch",
-                name: "githubSearch",
-                hint: {
-                  html: searchHintHtml
-                },
-                value: formValues.githubSearch,
-                errorMessage: errorMessageHelper(formErrors.githubSearch.message),
-                hasSearchResultError: formErrors.github.message and true or false
-              }) }}
-
-            {% endcall %}
-
-            {{ govukButton({
-              classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
-              text: "Search",
-              name: "button",
-              value: "search",
-              attributes: {
-                "data-js": "app-no-js-submit-button"
-              }
-            }) }}
 
             {% block xhrContent %}
 
+              {% call govukFieldset() %}
+
+                <div data-xhr-target="github-users">
+                  {{ appSearch({
+                    iconDescription: "Search for DEFRA GitHub user",
+                    label: {
+                      text: "GitHub username"
+                    },
+                    id: "githubSearch",
+                    name: "githubSearch",
+                    hint: {
+                      html: searchHintHtml
+                    },
+                    value: formValues.githubSearch,
+                    errorMessage: errorMessageHelper(formErrors.githubSearch.message),
+                    hasSearchResultError: formErrors.github.message and true or false
+                  }) }}
+                </div>
+
+              {% endcall %}
+
+              {{ govukButton({
+                classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+                text: "Search",
+                name: "button",
+                value: "search",
+                attributes: {
+                  "data-js": "app-no-js-submit-button"
+                }
+              }) }}
+
               <article class="app-scrollable-window" data-xhr="github-users">
+
                 {% if githubUsers | length %}
-                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Search results</h2>
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+                    Search results
+                  </h2>
                 {% endif %}
 
                 {% if githubUsers | length or formErrors.github.message %}
@@ -65,7 +77,7 @@
                     classes: "govuk-radios--small app-radios",
                     fieldset: {
                       legend: {
-                        text: "Choose a GitHub user (optional)"
+                        text: "Choose a GitHub user"
                       }
                     } if githubUsers | length,
                     items: githubUsers,
@@ -86,9 +98,10 @@
             {% endblock %}
 
             <div class="govuk-button-group">
+
               {{ govukButton({
                 classes: "app-button",
-                text: 'Save',
+                text: "Save",
                 name: "actionType",
                 value: "save"
               }) }}
@@ -99,8 +112,11 @@
                 name: "actionType",
                 value: "cancel"
               }) }}
+
             </div>
+
           </form>
+
         </div>
       </div>
     </div>

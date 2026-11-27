@@ -30,7 +30,7 @@ const startEditUserController = {
 
     const query = request?.query
     const githubSearch = query?.githubSearch ?? user?.github
-    const github = query?.github
+    const github = query?.github ?? user?.github
 
     const searchGithubUsersResponse = githubSearch
       ? await searchGithubUsers(githubSearch)

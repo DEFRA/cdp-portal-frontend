@@ -9,17 +9,19 @@ import { disableUserController } from './controllers/disable/disable-user.js'
 import { enableUserController } from './controllers/enable/enable-user.js'
 import { editUserController } from './controllers/edit/edit-user.js'
 import { startCreateUserController } from './controllers/save/start-create-user.js'
-import { findAadUserFormController } from './controllers/save/find-aad-user-form.js'
-import { findAadUserController } from './controllers/save/find-aad-user.js'
-import { findGithubUserFormController } from './controllers/save/find-github-user-form.js'
-import { findGithubUserController } from './controllers/save/find-github-user.js'
-import { userSummaryController } from './controllers/save/user-summary.js'
-import { createUserController } from './controllers/save/create-user.js'
+import { createUsersController } from './controllers/save/create-users.js'
 import { startEditUserController } from './controllers/edit/edit-user-form.js'
 import { scopes } from '@defra/cdp-validation-kit'
 import { multistepForm } from '#server/plugins/multistep-form/multistep-form.js'
 import { formSteps, urlTemplates } from './helpers/form/steps.js'
 import { sessionNames } from '#server/common/constants/session-names.js'
+import { addUserFormController } from '#server/admin/users/controllers/save/add-user-form.js'
+import { addUserController } from '#server/admin/users/controllers/save/add-user.js'
+import { usersSummaryController } from '#server/admin/users/controllers/save/users-summary.js'
+import { removeUserController } from '#server/admin/users/controllers/save/remove-user.js'
+import { addTeamsController } from '#server/admin/users/controllers/save/add-teams.js'
+import { addTeamsFormController } from '#server/admin/users/controllers/save/add-teams-form.js'
+import { removeTeamController } from '#server/admin/users/controllers/save/remove-teams.js'
 
 const adminScope = authScope([`+${scopes.admin}`])
 
@@ -49,28 +51,39 @@ const adminUsers = {
           routes: [
             {
               method: 'GET',
-              path: '/admin/users/find-aad-user',
-              ...findAadUserFormController
+              path: '/admin/users/add',
+              ...addUserFormController
             },
             {
               method: 'POST',
-              path: '/admin/users/find-aad-user',
-              ...findAadUserController
+              path: '/admin/users/add',
+              ...addUserController
             },
-            {
-              method: 'GET',
-              path: '/admin/users/find-github-user',
-              ...findGithubUserFormController
-            },
-            {
-              method: 'POST',
-              path: '/admin/users/find-github-user',
-              ...findGithubUserController
-            },
+
             {
               method: 'GET',
               path: '/admin/users/summary',
-              ...userSummaryController
+              ...usersSummaryController
+            },
+            {
+              method: 'POST',
+              path: '/admin/users/remove',
+              ...removeUserController
+            },
+            {
+              method: 'GET',
+              path: '/admin/users/teams',
+              ...addTeamsFormController
+            },
+            {
+              method: 'POST',
+              path: '/admin/users/teams',
+              ...addTeamsController
+            },
+            {
+              method: 'POST',
+              path: '/admin/users/remove-team',
+              ...removeTeamController
             },
             {
               method: 'GET',
@@ -80,7 +93,7 @@ const adminUsers = {
             {
               method: 'POST',
               path: '/admin/users/create',
-              ...createUserController
+              ...createUsersController
             }
           ].map(adminScope)
         }

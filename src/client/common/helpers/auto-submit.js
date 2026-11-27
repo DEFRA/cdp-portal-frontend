@@ -5,31 +5,42 @@ import pickBy from 'lodash/pickBy.js'
 
 import { xhrRequest } from './xhr.js'
 
+const pendingRequests = new WeakMap()
+
 function handleFormSubmit(event) {
   const form = event.target.closest('form')
-  const xhrElement = form.querySelector('[data-xhr]')
 
-  // TODO revisit this when the Search component UX is improved
+  if (!form) {
+    return
+  }
+
+  // Allow native form submissions when explicitly configured
+  if (event.type === 'submit' && form.dataset.autoSubmitSubmit === 'false') {
+    return
+  }
+
+  const xhrElement = [...form.querySelectorAll('[data-xhr]')].find((element) =>
+    element.contains(event.target)
+  )
+
   const xhrElementChildrenCanSubmit =
-    xhrElement.dataset.childrenCanSubmit ?? false
+    xhrElement?.dataset.childrenCanSubmit === 'true'
 
-  // TODO revisit this when there is time, its feeling too complex
-  // By default, we do not wish input interactions inside a forms xhr html element to submit the form.
-  // This can be bypassed by applying the data-children-can-submit="true" attribute to the xhr element
-  if (xhrElement.contains(event.target) && !xhrElementChildrenCanSubmit) {
+  // By default, interactions inside XHR results do not submit the form
+  if (xhrElement && !xhrElementChildrenCanSubmit) {
     return
   }
 
   if (event?.submitter?.tagName?.toLowerCase() === 'button') {
-    // Form button pressed or enter pressed inside form input which triggers forms button
     form.requestSubmit()
   } else {
-    // xhr form auto submit from listener in forms input
     event.preventDefault()
 
-    submitForm(form)
+    const xhrTarget =
+      event.target.closest('[data-xhr-target]')?.dataset.xhrTarget
+
+    submitForm(form, xhrTarget)
       .finally(() => {
-        // Re-focus the initial input
         const submittingInput = document.getElementById(event?.target?.id)
 
         if (submittingInput) {
@@ -42,18 +53,36 @@ function handleFormSubmit(event) {
   }
 }
 
-async function submitForm($form) {
+async function submitForm($form, xhrTarget) {
+  const query = omit(pickBy(getFormData($form)), ['csrfToken'])
+
+  const nextRequest = { query, xhrTarget }
+
   if ($form.dataset.isSubmitting === 'true') {
+    pendingRequests.set($form, nextRequest)
     return
   }
 
   $form.dataset.isSubmitting = 'true'
 
-  const query = omit(pickBy(getFormData($form)), ['csrfToken'])
+  try {
+    let request = nextRequest
 
-  await xhrRequest($form.action, query)
+    while (request) {
+      pendingRequests.delete($form)
 
-  $form.dataset.isSubmitting = 'false'
+      if (request.xhrTarget) {
+        await xhrRequest($form.action, request.query, request.xhrTarget)
+      } else {
+        await xhrRequest($form.action, request.query)
+      }
+
+      request = pendingRequests.get($form)
+    }
+  } finally {
+    $form.dataset.isSubmitting = 'false'
+    pendingRequests.delete($form)
+  }
 }
 
 function autoSubmit($form) {
@@ -61,7 +90,7 @@ function autoSubmit($form) {
     return
   }
 
-  $form.addEventListener('input', debounce(handleFormSubmit, 300)) // minimal debounce whilst user is typing
+  $form.addEventListener('input', debounce(handleFormSubmit, 300))
   $form.addEventListener('submit', handleFormSubmit)
 }
 

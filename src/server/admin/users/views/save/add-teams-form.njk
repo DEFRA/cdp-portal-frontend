@@ -1,0 +1,121 @@
+
+{% extends "layouts/page.njk" %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appPageHeading(pageHeading) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half-from-desktop-wide">
+
+          <form action="/admin/users/teams"
+                method="post"
+                data-js="auto-submit app-form-errors"
+                data-auto-submit-submit="false">
+
+            <input type="hidden"
+                   name="csrfToken"
+                   value="{{ csrfToken }}"/>
+
+            <input type="hidden"
+                   name="teamSearchSubmitted"
+                   value="true"/>
+
+            <div data-xhr-target="teams">
+              {{ appSearch({
+                iconDescription: "Search for a team",
+                label: {
+                  text: "Search teams"
+                },
+                id: "teamQuery",
+                name: "teamQuery",
+                hint: {
+                  text: "Enter a team name"
+                },
+                value: formValues.teamQuery
+              }) }}
+            </div>
+
+            {{ govukButton({
+              classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+              text: "Search",
+              name: "button",
+              value: "search",
+              attributes: {
+                "data-js": "app-no-js-submit-button"
+              }
+            }) }}
+
+            {% block xhrContent %}
+
+              <article data-xhr="teams">
+
+                <p class="govuk-body">
+                  You have selected {{ teamsSelectedCount }}
+                  {{ "team" if teamsSelectedCount == 1 else "teams" }}.
+                </p>
+
+                {% for teamId in hiddenSelectedTeamIds %}
+                  <input type="hidden"
+                         name="teamIds"
+                         value="{{ teamId }}"/>
+                {% endfor %}
+
+                {% if teams | length %}
+
+                  {{ govukCheckboxes({
+                    name: "teamIds",
+                    fieldset: {
+                      legend: {
+                        text: "Which teams should these users be added to?",
+                        classes: "govuk-fieldset__legend--m"
+                      }
+                    },
+                    hint: {
+                      text: "Selected teams will be added to all users."
+                    },
+                    items: teams,
+                    classes: "govuk-checkboxes--small"
+                  }) }}
+
+                {% elif formValues.teamQuery %}
+
+                  <p class="govuk-hint">No teams found</p>
+
+                {% else %}
+
+                  <p class="govuk-hint">No teams available</p>
+
+                {% endif %}
+
+              </article>
+
+            {% endblock %}
+
+            <div class="govuk-button-group govuk-!-margin-top-6">
+
+              {{ govukButton({
+                text: "Save teams",
+                classes: "app-button",
+                name: "button",
+                value: "next"
+              }) }}
+
+              <a href="/admin/users/summary" class="govuk-link">
+                Cancel
+              </a>
+
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+
+  {% endcall %}
+{% endblock %}

@@ -3,55 +3,58 @@ import { Action } from 'history'
 import pRetry from 'p-retry'
 
 import { history } from './history.js'
-
 import { publish } from './event-emitter.js'
 import { eventName } from '../constants/event-name.js'
 
 /**
- * Update data-xhr elements in the DOM inside xhrContent or xhrHeadContent nunjucks blocks with the contents of
- * data-xhr elements received via a Xhr request
+ * Update data-xhr elements in the DOM inside xhrContent or xhrHeadContent nunjucks blocks
  * @param {string} xhrDocument
+ * @param {string} xhrTarget
  */
-function updateWithXhrContent(xhrDocument) {
-  const $elements = Array.from(document.querySelectorAll('[data-xhr]'))
+function updateWithXhrContent(xhrDocument, xhrTarget) {
+  const elements = Array.from(document.querySelectorAll('[data-xhr]'))
 
-  $elements.forEach((xhrContainer) => {
+  const elementsToUpdate = xhrTarget
+    ? elements.filter((element) => element.dataset?.xhr === xhrTarget)
+    : elements
+
+  elementsToUpdate.forEach((xhrContainer) => {
     const xhrContainerId = xhrContainer.dataset?.xhr
 
-    const $xhrContent = xhrDocument.querySelector(
-      `[data-xhr="${xhrContainerId}"]`
-    )
+    const xhrContent = Array.from(
+      xhrDocument.querySelectorAll('[data-xhr]')
+    ).find((element) => element.dataset?.xhr === xhrContainerId)
 
-    if ($xhrContent) {
-      xhrContainer.replaceWith($xhrContent)
+    if (xhrContent) {
+      xhrContainer.replaceWith(xhrContent)
     }
   })
 }
 
 function updatePageTitle(xhrDocument) {
-  const $pageTitle = document.querySelector('title')
-  const $xhrPageTitle = xhrDocument.querySelector(`[data-xhr-page-title]`)
+  const pageTitle = document.querySelector('title')
+  const xhrPageTitle = xhrDocument.querySelector('[data-xhr-page-title]')
 
-  if ($xhrPageTitle) {
-    $pageTitle.textContent = $xhrPageTitle.textContent
+  if (xhrPageTitle) {
+    pageTitle.textContent = xhrPageTitle.textContent
   }
 }
 
 /**
- * Update data-xhr elements inside {% block xhrContent %}{% endblock %} with the contents of data-xhr elements
- * of the same name returned from the Xhr request
- * @param {string} text - text/html returned from the Xhr request
+ * Update data-xhr elements inside xhrContent with the contents received from the XHR request.
+ * @param {string} text
+ * @param {string} xhrTarget
  */
-function injectHtmlResponseIntoPage(text) {
+function injectHtmlResponseIntoPage(text, xhrTarget) {
   const domParser = new DOMParser()
   const xhrDataDocument = domParser.parseFromString(text, 'text/html')
 
-  updateWithXhrContent(xhrDataDocument)
+  updateWithXhrContent(xhrDataDocument, xhrTarget)
   updatePageTitle(xhrDataDocument)
 }
 
-function updatePage(text, params = {}, newUrl = '') {
-  injectHtmlResponseIntoPage(text)
+export function updatePage(text, params = {}, newUrl = '', xhrTarget) {
+  injectHtmlResponseIntoPage(text, xhrTarget)
 
   publish(eventName.xhrUpdate, { params })
 
@@ -64,20 +67,24 @@ function updatePage(text, params = {}, newUrl = '') {
       })
 
     try {
-      history.replace(url, { xhrData: text }) // Data saved to state for forward/back button replay
+      history.replace(url, {
+        xhrData: text,
+        xhrTarget
+      })
     } catch (error) {
-      window.location.assign(url) // State is too large for the browser to handle, reload page
+      window.location.assign(url)
     }
   }
 }
 
 /**
- * Xhr request used to populate {% block xhrContent %}{% endblock %}
+ * XHR request used to populate xhrContent.
  * @param {string} url
  * @param {Record<string, string>} params
+ * @param {string} xhrTarget
  * @returns {Promise<{text: string, ok: boolean}|{ok: boolean, error}>}
  */
-async function xhrRequest(url, params = {}) {
+export async function xhrRequest(url, params = {}, xhrTarget) {
   try {
     const queryParams = qs.stringify(params, {
       arrayFormat: 'repeat',
@@ -98,16 +105,22 @@ async function xhrRequest(url, params = {}) {
           }
         })
 
-        if (!tryResponse.ok) throw new Error(tryResponse.statusText)
+        if (!tryResponse.ok) {
+          throw new Error(tryResponse.statusText)
+        }
+
         return tryResponse
       },
       { retries: 2, minTimeout: 500 }
     )
 
-    if (!response.ok) return { ok: false, error: response.status }
+    if (!response.ok) {
+      return { ok: false, error: response.status }
+    }
 
     const text = await response.text()
-    updatePage(text, params)
+
+    updatePage(text, params, '', xhrTarget)
 
     return { ok: true, text }
   } catch (error) {
@@ -116,12 +129,12 @@ async function xhrRequest(url, params = {}) {
 }
 
 /**
- * Xhr POST request used to populate {% block xhrContent %}{% endblock %}
+ * XHR POST request used to populate xhrContent.
  * @param {string} url
- * @param {Record<string, string>} params
+ * @param {Record<string, string>} payload
  * @returns {Promise<{text: string, ok: boolean}|{ok: boolean, error}>}
  */
-async function xhrPostRequest(url, payload = {}) {
+export async function xhrPostRequest(url, payload = {}) {
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -142,7 +155,9 @@ async function xhrPostRequest(url, payload = {}) {
       redirect: 'follow'
     })
 
-    if (!response.ok) return { ok: false, error: response.status }
+    if (!response.ok) {
+      return { ok: false, error: response.status }
+    }
 
     const text = await response.text()
 
@@ -155,36 +170,23 @@ async function xhrPostRequest(url, payload = {}) {
 }
 
 /**
- * Provide forward/back history when using xhr
+ * Provide forward/back history when using xhr.
  */
-function addHistoryListener() {
-  /**
-   * @typedef {object} Options
-   * @property {Location} location
-   * @property {Action} action
-   */
-  /**
-   * Listen for history changes and inject the xhr data into the page
-   * @param {Options} options
-   */
+export function addHistoryListener() {
   return history.listen(({ action, location }) => {
     if (action === Action.Pop) {
       if (location?.state) {
-        injectHtmlResponseIntoPage(location.state.xhrData)
+        injectHtmlResponseIntoPage(
+          location.state.xhrData,
+          location.state.xhrTarget
+        )
       } else if (
         window.location.pathname !== location?.pathname &&
         window.location.search !== location?.search
       ) {
         window.location.href = location?.pathname + location?.search
-      } else {
-        // do nothing
       }
+      // otherwise do nothing
     }
   })
 }
-
-/**
- * import {Location} from 'history'
- */
-
-export { xhrRequest, xhrPostRequest, addHistoryListener }
