@@ -135,7 +135,8 @@ async function createServer() {
         expiresIn: config.get('slackChannels.cache.expiresIn'),
         generateTimeout: 6000,
         staleIn: config.get('slackChannels.cache.staleIn'),
-        staleTimeout: 6000
+        staleTimeout: 6000,
+        dropOnError: false
       }
     }
   })

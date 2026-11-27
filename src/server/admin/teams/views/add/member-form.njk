@@ -26,7 +26,8 @@
 
         <form action="/admin/teams/{{ team.teamId }}/add-member"
               method="post"
-              data-js="auto-submit app-form-errors">
+              data-js="auto-submit app-form-errors"
+              data-auto-submit-submit="false">
           <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 
           {% call govukFieldset() %}

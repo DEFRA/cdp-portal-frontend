@@ -1,0 +1,213 @@
+
+{% extends "layouts/page.njk" %}
+
+{% set githubHintHtml %}
+  Search using the user's GitHub username.
+  <a href="https://github.com/orgs/{{ githubOrg }}/people"
+     class="app-link app-link--underline"
+     target="_blank">
+    DEFRA GitHub members
+  </a>
+{% endset %}
+
+{% block content %}
+  {% call appSplitPane({ isWide: true }) %}
+
+    <div class="govuk-main-wrapper app-main-wrapper">
+
+      {{ appPageHeading({
+        text: "Add a user"
+      }) }}
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half-from-desktop">
+
+          <form action="/admin/users/add"
+                method="post"
+                data-js="auto-submit app-form-errors"
+                data-auto-submit-submit="false">
+
+            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+
+            {% block xhrContent %}
+
+              {# Azure AD user search #}
+
+              {% call govukFieldset() %}
+
+                <div data-xhr-target="aad-users">
+                  {{ appSearch({
+                    iconDescription: "Search for DEFRA AAD user",
+                    label: {
+                      text: "AAD user's name or email"
+                    },
+                    id: "aadQuery",
+                    name: "aadQuery",
+                    hint: {
+                      text: "Enter the user's name or DEFRA-provided email"
+                    },
+                    value: formValues.aadQuery,
+                    errorMessage: errorMessageHelper(formErrors.aadQuery.message),
+                    hasSearchResultError: formErrors.email.message and true or false
+                  }) }}
+                </div>
+
+              {% endcall %}
+
+              {{ govukButton({
+                classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+                text: "Search",
+                name: "button",
+                value: "search",
+                attributes: {
+                  "data-js": "app-no-js-submit-button"
+                }
+              }) }}
+
+              <article class="app-scrollable-window"
+                       data-xhr="aad-users">
+
+                {% if aadUsers | length %}
+
+                  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+                    Search results
+                  </h2>
+
+                  {{ govukRadios({
+                    name: "email",
+                    classes: "govuk-radios--small app-radios",
+                    items: aadUsers,
+                    value: formValues.email,
+                    formGroup: {
+                      classes: "app-form-group app-form-group-js"
+                    },
+                    errorMessage: errorMessageHelper(formErrors.email.message)
+                  }) }}
+
+                {% elif formErrors.email.message %}
+
+                  <div class="govuk-form-group govuk-form-group--error app-form-group app-form-group-js">
+                    <p id="email-error"
+                       class="govuk-error-message"
+                       data-js="app-error"
+                       tabindex="-1">
+                      <span class="govuk-visually-hidden">Error:</span>
+                      {{ formErrors.email.message }}
+                    </p>
+                  </div>
+
+                {% endif %}
+
+                {% if formValues.aadQuery and not aadUsers | length %}
+                  <p class="govuk-hint">No users found</p>
+                {% endif %}
+
+              </article>
+
+              {# GitHub user search #}
+
+              <div class="govuk-!-margin-top-6">
+
+                {% call govukFieldset() %}
+
+                  <div data-xhr-target="github-users">
+                    {{ appSearch({
+                      iconDescription: "Search for DEFRA GitHub user",
+                      label: {
+                        text: "GitHub username (optional)"
+                      },
+                      id: "githubQuery",
+                      name: "githubQuery",
+                      hint: {
+                        html: githubHintHtml
+                      },
+                      value: formValues.githubQuery,
+                      errorMessage: errorMessageHelper(formErrors.githubQuery.message),
+                      hasSearchResultError: formErrors.github.message and true or false
+                    }) }}
+                  </div>
+
+                {% endcall %}
+
+                {{ govukButton({
+                  classes: "app-button app-button--secondary govuk-!-margin-bottom-4 js-hidden",
+                  text: "Search",
+                  name: "button",
+                  value: "search",
+                  attributes: {
+                    "data-js": "app-no-js-submit-button"
+                  }
+                }) }}
+
+                <article class="app-scrollable-window"
+                         data-xhr="github-users">
+
+                  {% if githubUsers | length %}
+
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">
+                      Search results
+                    </h2>
+
+                    {{ govukRadios({
+                      name: "github",
+                      classes: "govuk-radios--small app-radios",
+                      fieldset: {
+                        legend: {
+                          text: "Choose a GitHub user (optional)"
+                        }
+                      },
+                      items: githubUsers,
+                      value: formValues.github,
+                      formGroup: {
+                        classes: "app-form-group app-form-group-js"
+                      },
+                      errorMessage: errorMessageHelper(formErrors.github.message)
+                    }) }}
+
+                  {% elif formErrors.github.message %}
+
+                    <div class="govuk-form-group govuk-form-group--error app-form-group app-form-group-js">
+                      <p id="github-error"
+                         class="govuk-error-message"
+                         data-js="app-error"
+                         tabindex="-1">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        {{ formErrors.github.message }}
+                      </p>
+                    </div>
+
+                  {% endif %}
+
+                  {% if formValues.githubQuery and not githubUsers | length %}
+                    <p class="govuk-hint">No users found</p>
+                  {% endif %}
+
+                </article>
+
+              </div>
+
+            {% endblock %}
+
+            <div class="govuk-button-group govuk-!-margin-top-6">
+
+              {{ govukButton({
+                classes: "app-button",
+                text: "Add user",
+                name: "button",
+                value: "next"
+              }) }}
+
+              <a href="/admin/users/summary" class="govuk-link">
+                Cancel
+              </a>
+
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  {% endcall %}
+{% endblock %}
