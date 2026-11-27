@@ -2,7 +2,13 @@
 
 {% set classes = [ "app-filter-group-form", params.classes if params.classes ] | join(" ") | trim %}
 {% set method = params.method | default("get") %}
-{% set attributes = params.attributes if params.attributes else {} %}
+
+{% set attributes = {
+  'data-hx-action': '',
+  'data-hx-method': 'get',
+  'data-hx-trigger': 'change, submit halt',
+  'data-hx-push-url': 'true'
+} | assign(params.attributes if params.attributes else {}) %}
 
 <form action="{{ params.action }}" method="{{ method }}" class="{{ classes }}"
   {% for key, value in attributes %}{{ key }}="{{ value }}" {% endfor %}
