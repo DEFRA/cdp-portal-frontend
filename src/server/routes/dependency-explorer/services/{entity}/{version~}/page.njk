@@ -122,6 +122,7 @@
             },
             value: dependencyName,
             url: '/dependency-explorer/api/deps-search',
+            suggestionClasses: "app-typeahead--leading-hint",
             placeholder: "Search by dependency"
           }) }}
         </div>
@@ -164,19 +165,19 @@
         </div>
 
       {% endcall %}
-    </div>
 
-    <div id="results">
-      {% call(params) appEntityTable(tableData) %}
-        {{  dependencyRow({
-          rowClasses: params.rowClasses,
-          loopIndex: params.loopIndex,
-          entityStage: params.row.entityStage,
-          dependencyName: params.row.dependencyName,
-          dependencyVersion: params.row.dependencyVersion,
-          dependencyType: params.row.dependencyType
-        }) }}
-      {% endcall %}
+      <div id="results">
+        {% call(params) appEntityTable(tableData) %}
+          {{  dependencyRow({
+            rowClasses: params.rowClasses,
+            loopIndex: params.loopIndex,
+            entityStage: params.row.entityStage,
+            dependencyName: params.row.dependencyName,
+            dependencyVersion: params.row.dependencyVersion,
+            dependencyType: params.row.dependencyType
+          }) }}
+        {% endcall %}
+      </div>
     </div>
   {% endblock %}
 

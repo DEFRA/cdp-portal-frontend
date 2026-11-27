@@ -130,7 +130,7 @@ export default async function (request) {
 
 export async function POST(request, h) {
   const { dependencyName = '' } = request.payload
-console.log(dependencyName)
+
   return h.redirect(
     request.routeLookup('dependency-explorer', {
       params: {
