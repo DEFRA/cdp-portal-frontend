@@ -8,7 +8,7 @@ workflows:
         - 'actions/setup-node@v7.1.0'
         - 'actions/upload-artifact@v7'
         - 'defra/cdp-portal-journey-tests@main'
-        - 'sonarsource/sonarqube-scan-action@v8.2.0'
+        - 'sonarsource/sonarqube-scan-action@v8.5.0'
     '.github/workflows/journey-tests.yml': []
     '.github/workflows/publish-hotfix.yml':
         - 'actions/checkout@v7.0.1'
@@ -18,7 +18,7 @@ workflows:
         - 'actions/checkout@v7.0.1'
         - 'actions/setup-node@v7.1.0'
         - 'defra/cdp-build-action@main'
-        - 'sonarsource/sonarqube-scan-action@v8.2.0'
+        - 'sonarsource/sonarqube-scan-action@v8.5.0'
 dependencies:
     'actions/checkout@v6':
         ref: 'v6'
@@ -96,8 +96,8 @@ dependencies:
         commit: 'sha1-8aa5831fb8d48d8f76594c7ddde61ae58019f550'
         owner_id: 5429470
         repo_id: 287743349
-    'sonarsource/sonarqube-scan-action@v8.2.0':
-        ref: 'v8.2.0'
-        commit: 'sha1-713881670b6b3676cda39549040e2d88c70d582e'
+    'sonarsource/sonarqube-scan-action@v8.5.0':
+        ref: 'v8.5.0'
+        commit: 'sha1-59202af334b4ba7b5db01b701b8e79f8b3bef0f4'
         owner_id: 545988
         repo_id: 366408409
