@@ -99,6 +99,8 @@ export default class Combobox extends NunjucksComponent {
 
     this.#suggestionsContainer.innerHTML = html
 
+    this.#suggestionsContainer.scrollTo(0, 0)
+
     if (this.#suggestions.length) {
       this.#suggestionsContainer.classList.add(
         'app-combobox__suggestions--show'
