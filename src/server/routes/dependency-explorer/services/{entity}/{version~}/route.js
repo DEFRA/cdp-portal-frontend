@@ -17,8 +17,7 @@ export const options = {
 }
 
 export default async function (request) {
-  const entity = request.params.entity
-  const version = request.params.version
+  const { entity, version } = request.params
   const page = request.query?.page ?? pagination.page
   const size = request.query?.size ?? pagination.size
 

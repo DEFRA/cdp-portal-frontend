@@ -120,7 +120,8 @@
             formGroup: {
               classes: "app-form-group--inline"
             },
-            value: dependencyName,
+            value: query.dependencyName,
+            suggestionText: query.dependencyName_text,
             url: '/dependency-explorer/api/deps-search',
             suggestionClasses: "app-typeahead--leading-hint",
             placeholder: "Search by dependency"
