@@ -30,7 +30,7 @@ export default class Typeahead extends NunjucksComponent {
     )
     this.#valueInputElement = this.querySelector(`#${this.dataset.id}`)
     this.#suggestionsContainer = this.querySelector(
-      `#app-typeahead-${this.dataset.id}-suggestions`
+      `#app-typeahead-${this.dataset.name}-suggestions`
     )
     this.#clearButton = this.querySelector(
       `#app-typeahead-${this.dataset.id}-clear-button`
